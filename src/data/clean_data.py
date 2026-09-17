@@ -41,6 +41,15 @@ def main():
         errors="coerce"
     )
 
+    # Fallback: if most dates failed, retry with automatic format detection
+    if df[DATE_COLUMN].isna().sum() > len(df) * 0.5:
+        print("   [INFO] Explicit date format failed for >50% rows, trying auto-detection...")
+        df[DATE_COLUMN] = pd.to_datetime(
+            pd.read_csv(RAW_DATA_PATH)[DATE_COLUMN],
+            infer_datetime_format=True,
+            errors="coerce"
+        )
+
     invalid_dates = df[DATE_COLUMN].isna().sum()
 
     print("\n" + "=" * 60)

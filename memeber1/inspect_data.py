@@ -1,6 +1,12 @@
-import pandas as pd
+import sys
+import os
 
-df = pd.read_csv('data/raw/tea_cleaned.csv')
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+import pandas as pd
+from src.config import RAW_DATA_FILE
+
+df = pd.read_csv(RAW_DATA_FILE)
 print('Shape:', df.shape)
 print('\nColumns:', list(df.columns))
 print('\nFirst 5 rows:')

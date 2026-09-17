@@ -145,24 +145,34 @@ def evaluate_model(results):
     X_test = results["_X_test"]
     y_test = results["_y_test"]
     feature_names = results["_feature_names"]
+    use_log_target = results.get("_use_log_target", False)
 
     # Predictions
     y_pred = best_model.predict(X_test)
 
-    # Metrics
-    metrics = calculate_metrics(y_test, y_pred)
+    # Inverse log transform for metrics in original scale
+    if use_log_target:
+        y_test_orig = np.expm1(y_test)
+        y_pred_orig = np.expm1(y_pred)
+        print("   [INFO] Inverse log-transforming predictions for evaluation")
+    else:
+        y_test_orig = y_test
+        y_pred_orig = y_pred
+
+    # Metrics (in original scale)
+    metrics = calculate_metrics(y_test_orig, y_pred_orig)
     print_evaluation_report(metrics, best_name)
 
-    # Plots
+    # Plots (in original scale)
     print("\n[PLOT] Generating evaluation plots...")
 
     plot_actual_vs_predicted(
-        y_test, y_pred, best_name,
+        y_test_orig, y_pred_orig, best_name,
         save_path=os.path.join(OUTPUTS_DIR, "actual_vs_predicted.png"),
     )
 
     plot_residuals(
-        y_test, y_pred, best_name,
+        y_test_orig, y_pred_orig, best_name,
         save_path=os.path.join(OUTPUTS_DIR, "residual_analysis.png"),
     )
 
@@ -178,11 +188,15 @@ def evaluate_model(results):
 
     # All models comparison
     comparison = []
-    for name in ["Linear Regression", "Random Forest", "XGBoost"]:
+    for name in ["Linear Regression", "Random Forest", "Gradient Boosting", "XGBoost"]:
         if name in results:
             model = results[name]["model"]
             preds = model.predict(X_test)
-            m = calculate_metrics(y_test, preds)
+            if use_log_target:
+                preds_orig = np.expm1(preds)
+            else:
+                preds_orig = preds
+            m = calculate_metrics(y_test_orig, preds_orig)
             m["Model"] = name
             comparison.append(m)
 

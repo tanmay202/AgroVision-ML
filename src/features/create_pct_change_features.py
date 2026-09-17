@@ -76,12 +76,12 @@ def main():
     # --------------------------------------------------
     df["price_pct_change"] = (
         df["price_pct_change"]
-        .replace([float("inf"), -float("inf")], pd.NA)
+        .replace([float("inf"), -float("inf")], 0.0)
     )
 
     df["arrival_pct_change"] = (
         df["arrival_pct_change"]
-        .replace([float("inf"), -float("inf")], pd.NA)
+        .replace([float("inf"), -float("inf")], 0.0)
     )
 
     # --------------------------------------------------

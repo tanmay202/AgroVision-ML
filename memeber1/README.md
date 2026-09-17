@@ -1,7 +1,8 @@
 # AgroVision — Member 1: Yield ML
 
 ## Overview
-Crop-yield forecasting pipeline for Indian agriculture using multi-source data (yield, weather, NDVI, soil) and XGBoost regression.
+Tea Mandi arrival forecasting pipeline using Agmarknet mandi price/arrival data and XGBoost regression.
+Predicts future tea arrivals (tonnes) based on historical price and arrival patterns.
 
 ## Quick Start
 
@@ -11,41 +12,50 @@ pip install -r requirements.txt
 ```
 
 ### 2. Add your data
-Place your downloaded CSV files in `data/raw/`:
-- `crop_production.csv` — Crop yield data
-- `weather_data.csv` — Weather data
-- `ndvi_data.csv` — NDVI satellite data
-- `soil_data.csv` — Soil data (optional)
+Place your tea mandi CSV file in `data/raw/` as `tea_cleaned.csv`.
+
+**Expected columns** (from Agmarknet):
+- `State Name`, `District Name`, `Market Name`, `Variety`, `Group`
+- `Arrivals (Tonnes)`
+- `Min Price (Rs./Quintal)`, `Max Price (Rs./Quintal)`, `Modal Price (Rs./Quintal)`
+- `Reported Date` (format: `dd Mon YYYY`, e.g., `15 Jan 2024`)
+
+> **Using different data?** Edit `src/config.py` → `COLUMNS` dict and `RAW_DATA_FILE` path.
 
 ### 3. Run the pipeline
 ```bash
-python main.py
+python main.py                  # Full pipeline with XGBoost tuning
+python main.py --no-tune        # Skip hyperparameter tuning (faster)
+python main.py --predict-only   # Load saved model and predict
 ```
 
 ## Project Structure
 ```
-AgroVision/
-├── data/raw/           ← Your downloaded CSVs
-├── data/processed/     ← Cleaned & merged data (auto-generated)
+memeber1/
+├── data/raw/           ← Your downloaded CSV (tea_cleaned.csv)
+├── data/processed/     ← Cleaned dataset (auto-generated)
 ├── data/features/      ← Feature matrix (auto-generated)
 ├── src/
-│   ├── config.py           ← Paths & settings
-│   ├── data_loader.py      ← Load & validate CSVs
-│   ├── data_cleaner.py     ← Clean & merge data
-│   ├── feature_engineer.py ← Create ML features
-│   ├── model_trainer.py    ← Train XGBoost model
-│   ├── model_evaluator.py  ← Evaluate & visualize
-│   └── predict.py          ← Predict on new data
-├── models/             ← Saved trained models
-├── outputs/            ← Plots & reports
-├── main.py             ← End-to-end pipeline
+│   ├── config.py           ← Paths, column names & settings
+│   ├── data_loader.py      ← Load & validate CSV
+│   ├── data_cleaner.py     ← Clean data, remove outliers
+│   ├── feature_engineer.py ← Create ML features (lags, rolling, encoding)
+│   ├── model_trainer.py    ← Train LR, RF, GB, XGBoost models
+│   ├── model_evaluator.py  ← Evaluate & visualize results
+│   └── predict.py          ← Predict on new data (for FastAPI)
+├── models/             ← Saved trained models (.pkl)
+├── outputs/            ← Plots & evaluation reports
+├── main.py             ← End-to-end pipeline runner
 └── requirements.txt
 ```
 
-## Connecting Your Data
-If your CSV column names differ from the defaults, edit `src/data_loader.py` column mappings.
+## Connecting to Different Data
+If your CSV column names differ from the defaults:
+1. Edit `src/config.py` → `COLUMNS` dictionary to match your column names
+2. Edit `src/config.py` → `TARGET_COLUMN` to your prediction target
+3. Edit `src/config.py` → `RAW_DATA_FILE` to your filename
 
 ## Team
-- **Member 1 (You)**: Yield ML — This pipeline
-- **Member 2**: Price ML — Mandi price forecasting
+- **Member 1 (You)**: Yield ML — Tea arrival forecasting pipeline
+- **Member 2**: Price ML — Mandi price forecasting & volatility classification
 - **Member 3**: Engineering — Risk engine, API, dashboard
