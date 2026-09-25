@@ -54,6 +54,7 @@
             "arrival_rolling_mean_7",
             "arrival_rolling_mean_14",
             "arrival_pct_change"
-        ]
+        ],
+        "class_balanced": true
     }
 }

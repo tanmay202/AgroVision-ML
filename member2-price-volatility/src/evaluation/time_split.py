@@ -88,6 +88,42 @@ def split(df=None, test_ratio=0.2):
         print(f"\n   Train period: {train_df[DATE_COLUMN].min()} to {train_end}")
         print(f"   Test period : {test_start} to {test_df[DATE_COLUMN].max()}")
 
+
+    # --------------------------------------------------
+    # Leakage validation: each group must be chronological
+    # --------------------------------------------------
+    if group_cols and len(test_df) > 0:
+        train_max = (
+            train_df.groupby(group_cols)[DATE_COLUMN]
+            .max()
+            .rename("train_max_date")
+        )
+
+        test_min = (
+            test_df.groupby(group_cols)[DATE_COLUMN]
+            .min()
+            .rename("test_min_date")
+        )
+
+        overlap_check = pd.concat(
+            [train_max, test_min],
+            axis=1,
+            join="inner"
+        )
+
+        overlapping_groups = overlap_check[
+            overlap_check["train_max_date"] >= overlap_check["test_min_date"]
+        ]
+
+        if len(overlapping_groups) == 0:
+            print("   PASS: No temporal overlap within any group.")
+        else:
+            print(
+                f"   WARNING: {len(overlapping_groups)} groups "
+                "have temporal overlap."
+            )
+            print(overlapping_groups.head())
+
     # Save
     t_path = train_path()
     te_path = test_path()

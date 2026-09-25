@@ -1,6 +1,6 @@
 import sys
 from pathlib import Path
-
+from sklearn.utils.class_weight import compute_sample_weight
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 import pandas as pd
@@ -62,21 +62,43 @@ def main():
     print("=" * 60)
 
     model = XGBClassifier(
-        n_estimators=300,
-        max_depth=5,
-        learning_rate=0.05,
-        subsample=0.8,
-        colsample_bytree=0.8,
-        objective="multi:softmax",
-        num_class=3,
-        eval_metric="mlogloss",
-        random_state=42,
-        n_jobs=-1,
+    n_estimators=500,
+    max_depth=3,
+    learning_rate=0.03,
+    min_child_weight=3,
+    subsample=0.85,
+    colsample_bytree=0.85,
+    objective="multi:softmax",
+    num_class=3,
+    eval_metric="mlogloss",
+    random_state=42,
+    n_jobs=-1,
     )
 
+    # --------------------------------------------------
+    # Class-balanced sample weights
+    # --------------------------------------------------
+
+    sample_weights = compute_sample_weight(
+    class_weight="balanced",
+    y=y_train_encoded
+    )
+
+    print("\nCLASS WEIGHTS")
+    print(
+    pd.DataFrame({
+        "class": y_train_encoded,
+        "weight": sample_weights
+    }).groupby("class")["weight"].first()
+    )
+
+    # --------------------------------------------------
+    # Train XGBoost
+    # --------------------------------------------------
     model.fit(
-        X_train,
-        y_train_encoded
+    X_train,
+    y_train_encoded,
+    sample_weight=sample_weights
     )
 
     print("Training complete.")
