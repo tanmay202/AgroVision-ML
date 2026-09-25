@@ -1,107 +1,109 @@
 # AgroVision-ML
 
-Multi-commodity agricultural mandi price forecasting and volatility classification pipeline.
+> **Agricultural commodity intelligence platform** — ML pipelines for tea mandi arrival forecasting, price prediction, and volatility classification.
 
-## Features
+Built as a 3-member team project using Indian Agmarknet data.
 
-- **Price Forecasting**: XGBoost regressor predicts next-observation market price
-- **Volatility Classification**: XGBoost classifier labels market volatility (LOW/MEDIUM/HIGH)
-- **Multi-Commodity**: Run for any commodity — `python run.py --commodity tea`
-- **Single Command**: Complete pipeline in one step (replaces 13 manual scripts)
-- **No Data Leakage**: All features use only past observations
+---
+
+## Team Responsibilities
+
+| Member | Role | Module | Output |
+|--------|------|--------|--------|
+| **Member 1** | Yield/Arrival ML | `member1-yield-model/` | `yield_model.pkl` |
+| **Member 2** | Price & Volatility ML | `member2-price-volatility/` | `{commodity}_price_model.pkl`, `{commodity}_volatility_model.pkl` |
+| **Member 3** | Engineering & API | FastAPI service (separate repo) | REST API, Dashboard |
+
+---
 
 ## Quick Start
 
-### 1. Install dependencies
+### 1. Install Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. Add your data
-Place your CSV file in `data/raw/` named `{commodity}.csv` (e.g., `tea.csv`).
-
-**Expected columns** (from data.gov.in / Agmarknet):
-- `State Name`, `District Name`, `Market Name`, `Variety`, `Group`
-- `Arrivals (Tonnes)`
-- `Min Price (Rs./Quintal)`, `Max Price (Rs./Quintal)`, `Modal Price (Rs./Quintal)`
-- `Reported Date` (format: `dd Mon YYYY`, e.g., `15 Jan 2024`)
-
-### 3. Run the pipeline
+### 2. Download Data
 ```bash
-python run.py --commodity tea          # Single commodity
-python run.py --commodity onion        # Different commodity
-python run.py --commodity all          # All CSVs in data/raw/
-python run.py --commodity tea --skip-volatility  # Price model only
+python scripts/download_data.py --commodity tea
+```
+This saves to both member data directories automatically.
+
+### 3. Run Both Pipelines
+```bash
+# Full run (both members, tea data)
+python run_all.py
+
+# Fast mode (skip XGBoost tuning)
+python run_all.py --no-tune
+
+# Individual members
+python run_all.py --member 1
+python run_all.py --member 2
 ```
 
-### 4. Use predictions (for Member 3 / FastAPI)
-```python
-from src.models.predict import predict
-import pandas as pd
+### 4. Run Members Individually
+```bash
+# Member 1
+cd member1-yield-model
+python main.py --no-tune
 
-# Load a sample row with required features
-result = predict(sample_df, commodity="tea")
-# {"predicted_price": 8500.0, "volatility": "LOW", "commodity": "tea"}
+# Member 2
+cd member2-price-volatility
+python run.py --commodity tea
 ```
+
+---
 
 ## Project Structure
+
 ```
 AgroVision-ML/
-├── run.py                         ← CLI entry point
-├── setup.py                       ← Package setup
-├── requirements.txt
-├── data/
-│   ├── raw/                       ← Your downloaded CSVs
-│   └── processed/                 ← Auto-generated per commodity
-├── artifacts/                     ← Saved models & configs per commodity
-├── src/
-│   ├── config.py                  ← Central config (features, paths, columns)
-│   ├── pipeline.py                ← Unified pipeline runner
-│   ├── data/
-│   │   ├── clean_data.py          ← Step 1: Data cleaning
-│   │   └── prepare_timeseries.py  ← Step 2: Target creation
-│   ├── features/
-│   │   ├── create_lag_features.py         ← Step 3a: Price lags
-│   │   ├── create_rolling_features.py     ← Step 3b: Rolling stats
-│   │   ├── create_date_features.py        ← Step 3c: Calendar features
-│   │   ├── create_arrival_features.py     ← Step 3d: Arrival features
-│   │   ├── create_pct_change_features.py  ← Step 3e: % changes
-│   │   ├── create_volatility_target.py    ← Step 5: Volatility labels
-│   │   ├── create_volatility_dataset.py   ← Step 6: Vol train data
-│   │   └── create_volatility_test.py      ← Step 7: Vol test data
-│   ├── evaluation/
-│   │   └── time_split.py          ← Step 4: Per-group time split
-│   ├── models/
-│   │   ├── xgboost_price.py       ← XGBoost price model
-│   │   ├── random_forest_price.py ← RF price model
-│   │   ├── baseline.py            ← Naive baseline
-│   │   ├── save_final_models.py   ← Model serialization
-│   │   └── predict.py             ← Prediction API
-│   └── utils/
-│       └── __init__.py            ← Shared metrics & utilities
-├── tests/
-│   ├── test_leakage.py            ← Leakage validation tests
-│   └── test_pipeline.py           ← End-to-end pipeline tests
-└── memeber1/                      ← Member 1: Yield/Arrival forecasting
+├── run_all.py                       ← Unified orchestrator (run both pipelines)
+├── requirements.txt                 ← All dependencies (merged from both members)
+├── complete_guide.md                ← Full technical guide
+├── README.md                        ← This file
+│
+├── scripts/
+│   └── download_data.py             ← Data.gov.in API download script
+│
+├── shared/
+│   └── predict_bridge.py            ← Member 3 integration API
+│
+├── member1-yield-model/             ← MEMBER 1: Arrival forecasting
+│   ├── main.py                      ← Entry point
+│   ├── data/raw/                    ← Place tea_cleaned.csv here
+│   ├── models/yield_model.pkl       ← Trained model (auto-generated)
+│   ├── outputs/                     ← Plots & reports (auto-generated)
+│   └── src/                         ← Pipeline source code
+│
+└── member2-price-volatility/        ← MEMBER 2: Price + volatility
+    ├── run.py                        ← Entry point
+    ├── data/raw/                    ← Place tea.csv here
+    ├── artifacts/                   ← Trained models (auto-generated)
+    └── src/                         ← Pipeline source code
 ```
 
-## Pipeline Steps
+---
 
-| Step | Script | Description |
-|------|--------|-------------|
-| 1 | `clean_data.py` | Parse dates, validate prices, remove impossible values |
-| 2 | `prepare_timeseries.py` | Create `future_modal_price` target, filter by forecast horizon |
-| 3a | `create_lag_features.py` | Price lags (1, 7, 14, 30 observations back) |
-| 3b | `create_rolling_features.py` | Rolling mean/std (7, 14, 30 day windows) |
-| 3c | `create_date_features.py` | Year, month, day, day_of_week, week_of_year |
-| 3d | `create_arrival_features.py` | Arrival lags and rolling means |
-| 3e | `create_pct_change_features.py` | Price and arrival % changes |
-| 4 | `time_split.py` | Per-group chronological 80/20 split |
-| 5 | `create_volatility_target.py` | Data-driven volatility labels |
-| 6-7 | `create_volatility_dataset.py/test.py` | Volatility model datasets |
-| 8 | `save_final_models.py` | Train final models on all training data |
+## For Member 3 (FastAPI Integration)
 
-## Team
-- **Member 1**: Yield ML — Tea arrival forecasting (in `memeber1/`)
-- **Member 2**: Price ML — Mandi price forecasting & volatility classification (in `src/`)
-- **Member 3**: Engineering — Risk engine, API, dashboard
+```python
+from shared.predict_bridge import AgroVisionPredictor
+import pandas as pd
+
+predictor = AgroVisionPredictor()
+
+# Full prediction (both models)
+data = pd.DataFrame([{ "lag_1": 240, "lag_7": 235, "rolling_mean_7": 242, ... }])
+result = predictor.predict_all(data, commodity="tea")
+print(result)
+# {
+#   "yield_arrivals_tonnes": 52.3,
+#   "predicted_price_rs_quintal": 248.50,
+#   "volatility": "LOW",
+#   "commodity": "tea"
+# }
+```
+
+See [`complete_guide.md`](complete_guide.md) for the full technical reference.

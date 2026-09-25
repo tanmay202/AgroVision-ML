@@ -216,3 +216,32 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# ============================================================
+# AgroVision-ML Project Specific
+# ============================================================
+
+# Trained ML models (can be large: 1-3 MB each)
+*.pkl
+*.joblib
+
+# Raw & processed data (large CSVs — not source code)
+**/data/raw/*.csv
+**/data/processed/*.csv
+**/data/features/*.csv
+
+# Generated evaluation outputs (reproducible from pipeline)
+**/outputs/
+
+# Member 2 artifacts (model .pkl files saved here)
+**/artifacts/*.pkl
+# NOTE: Keeping JSON configs in version control (small & descriptive)
+
+# Never commit API keys
+*.env
+secrets.py
+
+# OS / editor noise
+Thumbs.db
+.DS_Store
+desktop.ini
