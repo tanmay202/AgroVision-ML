@@ -1,3 +1,10 @@
+"""
+AgroVision — Volatility Dataset Builder (Test)
+
+Creates the volatility test dataset using thresholds
+computed from the training set (saved in volatility_config.json).
+"""
+
 import sys
 from pathlib import Path
 
@@ -7,151 +14,95 @@ import json
 import pandas as pd
 
 from config import (
-    TEST_PATH,
-    VOLATILITY_DATASET_TEST_PATH,
-    VOLATILITY_CONFIG_PATH,
     VOLATILITY_FEATURES,
     VOLATILITY_TARGET,
+    VOLATILITY_CLASSES,
+    test_path,
+    volatility_dataset_test_path,
+    volatility_config_path,
 )
 
 
-def main():
-    if not TEST_PATH.exists():
-        print(f"ERROR: File not found: {TEST_PATH}")
-        return
+def build_volatility_test(df=None):
+    """
+    Build the final volatility test dataset.
 
-    if not VOLATILITY_CONFIG_PATH.exists():
-        print(
-            f"ERROR: Volatility config not found: "
-            f"{VOLATILITY_CONFIG_PATH}\n"
+    Parameters
+    ----------
+    df : pd.DataFrame, optional
+
+    Returns
+    -------
+    pd.DataFrame
+    """
+    config_path = volatility_config_path()
+    if not config_path.exists():
+        raise FileNotFoundError(
+            f"Volatility config not found: {config_path}\n"
             f"Run create_volatility_target.py first."
         )
-        return
 
-    # --------------------------------------------------
-    # Load thresholds from saved config
-    # --------------------------------------------------
-    with open(
-        VOLATILITY_CONFIG_PATH,
-        "r",
-        encoding="utf-8"
-    ) as file:
-        vol_config = json.load(file)
+    # Load thresholds from training config
+    with open(config_path, "r", encoding="utf-8") as f:
+        vol_config = json.load(f)
 
     low_threshold = vol_config["low_medium_threshold_percent"]
     high_threshold = vol_config["medium_high_threshold_percent"]
 
-    print("=" * 60)
-    print("VOLATILITY THRESHOLDS (from config)")
-    print("=" * 60)
-    print(f"Low/Medium : {low_threshold}%")
-    print(f"Medium/High: {high_threshold}%")
+    if df is None:
+        path = test_path()
+        if not path.exists():
+            raise FileNotFoundError(f"File not found: {path}")
+        df = pd.read_csv(path)
 
-    # --------------------------------------------------
-    # Classify function
-    # --------------------------------------------------
-    def classify_volatility(value):
+    print("\n" + "=" * 60)
+    print("STEP 7: VOLATILITY DATASET (TEST)")
+    print("=" * 60)
+
+    print(f"   Thresholds: Low/Med={low_threshold}%, Med/High={high_threshold}%")
+
+    # Classify
+    if "price_pct_change" not in df.columns:
+        raise ValueError(
+            "price_pct_change column not found. "
+            "Ensure feature engineering ran correctly."
+        )
+
+    def classify(value):
         if pd.isna(value):
             return pd.NA
-
-        if value == 0:
-            return "LOW"
-
-        if value <= low_threshold:
-            return "LOW"
-
+        if value == 0 or value <= low_threshold:
+            return VOLATILITY_CLASSES[0]
         if value <= high_threshold:
-            return "MEDIUM"
+            return VOLATILITY_CLASSES[1]
+        return VOLATILITY_CLASSES[2]
 
-        return "HIGH"
+    df["abs_price_pct_change"] = df["price_pct_change"].abs()
+    df[VOLATILITY_TARGET] = df["abs_price_pct_change"].apply(classify)
 
-    # --------------------------------------------------
-    # Load test data
-    # --------------------------------------------------
-    df = pd.read_csv(TEST_PATH)
-
-    # --------------------------------------------------
-    # Calculate the movement that actually occurred.
-    # This is used ONLY to create the evaluation label.
-    # It is NOT included as a model feature.
-    # --------------------------------------------------
-    df["abs_price_pct_change"] = (
-        df["price_pct_change"].abs()
-    )
-
-    df[VOLATILITY_TARGET] = (
-        df["abs_price_pct_change"]
-        .apply(classify_volatility)
-    )
-
-    print("\n" + "=" * 60)
-    print("TEST VOLATILITY DATASET")
-    print("=" * 60)
-
-    print(f"Initial rows: {len(df)}")
-
-    # Remove rows without target
+    # Remove missing
     before = len(df)
+    df = df.dropna(subset=[VOLATILITY_TARGET]).copy()
+    df = df.dropna(subset=VOLATILITY_FEATURES).copy()
+    print(f"   Dropped {before - len(df)} rows with missing values")
 
-    df = df.dropna(
-        subset=[VOLATILITY_TARGET]
-    ).copy()
+    result = df[VOLATILITY_FEATURES + [VOLATILITY_TARGET]].copy()
 
-    print(
-        "Rows removed because target is missing:",
-        before - len(df)
-    )
+    print(f"\n   Final rows: {len(result)}")
+    print(f"   Class distribution:")
+    print(result[VOLATILITY_TARGET].value_counts().to_string())
 
-    # Remove rows with unavailable historical features
-    missing_rows = (
-        df[VOLATILITY_FEATURES]
-        .isna()
-        .any(axis=1)
-        .sum()
-    )
+    # Save
+    out_path = volatility_dataset_test_path()
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    result.to_csv(out_path, index=False)
+    print(f"\n   Saved to: {out_path}")
 
-    print(
-        "Rows with missing features:",
-        missing_rows
-    )
+    return result
 
-    df = df.dropna(
-        subset=VOLATILITY_FEATURES
-    ).copy()
 
-    result = df[
-        VOLATILITY_FEATURES + [VOLATILITY_TARGET]
-    ].copy()
-
-    print("\n" + "=" * 60)
-    print("FINAL TEST VOLATILITY DATASET")
-    print("=" * 60)
-
-    print(f"Rows: {len(result)}")
-    print(f"Features: {len(VOLATILITY_FEATURES)}")
-
-    print("\nClass distribution:")
-    print(result[VOLATILITY_TARGET].value_counts())
-
-    print("\nPercentages:")
-    print(
-        (
-            result[VOLATILITY_TARGET]
-            .value_counts(normalize=True)
-            * 100
-        ).round(2)
-    )
-
-    result.to_csv(
-        VOLATILITY_DATASET_TEST_PATH,
-        index=False
-    )
-
-    print("\n" + "=" * 60)
-    print("OUTPUT")
-    print("=" * 60)
-
-    print(f"Saved to: {VOLATILITY_DATASET_TEST_PATH}")
+def main():
+    build_volatility_test()
 
 
 if __name__ == "__main__":

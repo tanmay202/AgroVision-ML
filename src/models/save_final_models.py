@@ -1,3 +1,15 @@
+"""
+AgroVision — Save Final Models
+
+Trains final XGBoost models on all training data and saves them
+as commodity-specific .pkl files in artifacts/.
+
+Saves:
+    - {commodity}_price_model.pkl
+    - {commodity}_volatility_model.pkl
+    - {commodity}_feature_config.json
+"""
+
 import sys
 from pathlib import Path
 
@@ -13,54 +25,56 @@ from config import (
     TRAIN_PATH,
     VOLATILITY_DATASET_TRAIN_PATH,
     ARTIFACTS_DIR,
-    PRICE_MODEL_PATH,
-    VOLATILITY_MODEL_PATH,
-    FEATURE_CONFIG_PATH,
-    VOLATILITY_CONFIG_PATH,
     PRICE_FEATURES,
     PRICE_TARGET,
     VOLATILITY_FEATURES,
     VOLATILITY_TARGET,
     VOLATILITY_LABEL_MAP,
     VOLATILITY_CLASSES,
+    get_commodity,
+    train_path,
+    volatility_dataset_train_path,
+    price_model_path,
+    volatility_model_path,
+    feature_config_path,
 )
 
 
-def main():
-    # --------------------------------------------------
-    # 1. Create artifacts directory
-    # --------------------------------------------------
-    ARTIFACTS_DIR.mkdir(
-        parents=True,
-        exist_ok=True
-    )
+def save_models(train_df=None, vol_train_df=None):
+    """
+    Train final models on all training data and save to artifacts/.
+
+    Parameters
+    ----------
+    train_df : pd.DataFrame, optional
+        Price training data.
+    vol_train_df : pd.DataFrame, optional
+        Volatility training data.
+    """
+    ARTIFACTS_DIR.mkdir(parents=True, exist_ok=True)
+    commodity = get_commodity()
 
     # ==========================================================
     # PRICE MODEL
     # ==========================================================
+    print("\n" + "=" * 60)
+    print(f"TRAINING FINAL PRICE MODEL [{commodity}]")
+    print("=" * 60)
 
-    # --------------------------------------------------
-    # 2. Load price training data
-    # --------------------------------------------------
-    if not TRAIN_PATH.exists():
-        print(f"ERROR: File not found: {TRAIN_PATH}")
-        return
+    if train_df is None:
+        t_path = train_path()
+        if not t_path.exists():
+            raise FileNotFoundError(f"File not found: {t_path}")
+        train_df = pd.read_csv(t_path)
 
-    price_df = pd.read_csv(TRAIN_PATH)
+    available_features = [f for f in PRICE_FEATURES if f in train_df.columns]
 
-    price_df = price_df[
-        PRICE_FEATURES + [PRICE_TARGET]
-    ].dropna().copy()
+    price_df = train_df[available_features + [PRICE_TARGET]].dropna(
+        subset=[PRICE_TARGET]
+    ).copy()
 
-    X_price = price_df[PRICE_FEATURES]
+    X_price = price_df[available_features]
     y_price = price_df[PRICE_TARGET]
-
-    # --------------------------------------------------
-    # 3. Train final XGBoost price model
-    # --------------------------------------------------
-    print("=" * 60)
-    print("TRAINING FINAL PRICE MODEL")
-    print("=" * 60)
 
     price_model = XGBRegressor(
         n_estimators=300,
@@ -73,56 +87,28 @@ def main():
         n_jobs=-1,
     )
 
-    price_model.fit(
-        X_price,
-        y_price
-    )
+    price_model.fit(X_price, y_price)
+    print(f"   Trained on {len(price_df)} rows")
 
-    print("Final XGBoost price model trained.")
-    print(f"Training rows used: {len(price_df)}")
-
-    # --------------------------------------------------
-    # 4. Save price model
-    # --------------------------------------------------
-    joblib.dump(
-        price_model,
-        PRICE_MODEL_PATH
-    )
-
-    print(f"Saved: {PRICE_MODEL_PATH}")
+    p_model_path = price_model_path()
+    joblib.dump(price_model, p_model_path)
+    print(f"   Saved: {p_model_path}")
 
     # ==========================================================
     # VOLATILITY MODEL
     # ==========================================================
-
-    # --------------------------------------------------
-    # 5. Load volatility training data
-    # --------------------------------------------------
-    if not VOLATILITY_DATASET_TRAIN_PATH.exists():
-        print(
-            f"ERROR: File not found: "
-            f"{VOLATILITY_DATASET_TRAIN_PATH}"
-        )
-        return
-
-    vol_df = pd.read_csv(
-        VOLATILITY_DATASET_TRAIN_PATH
-    )
-
-    X_vol = vol_df[VOLATILITY_FEATURES]
-    y_vol = vol_df[VOLATILITY_TARGET]
-
-    # --------------------------------------------------
-    # 6. Encode volatility classes
-    # --------------------------------------------------
-    y_vol_encoded = y_vol.map(VOLATILITY_LABEL_MAP)
-
-    # --------------------------------------------------
-    # 7. Train final XGBoost volatility model
-    # --------------------------------------------------
     print("\n" + "=" * 60)
-    print("TRAINING FINAL VOLATILITY MODEL")
+    print(f"TRAINING FINAL VOLATILITY MODEL [{commodity}]")
     print("=" * 60)
+
+    if vol_train_df is None:
+        vt_path = volatility_dataset_train_path()
+        if not vt_path.exists():
+            raise FileNotFoundError(f"File not found: {vt_path}")
+        vol_train_df = pd.read_csv(vt_path)
+
+    X_vol = vol_train_df[VOLATILITY_FEATURES]
+    y_vol = vol_train_df[VOLATILITY_TARGET].map(VOLATILITY_LABEL_MAP)
 
     vol_model = XGBClassifier(
         n_estimators=300,
@@ -137,31 +123,22 @@ def main():
         n_jobs=-1,
     )
 
-    vol_model.fit(
-        X_vol,
-        y_vol_encoded
-    )
+    vol_model.fit(X_vol, y_vol)
+    print(f"   Trained on {len(vol_train_df)} rows")
 
-    print("Final XGBoost volatility model trained.")
+    v_model_path = volatility_model_path()
+    joblib.dump(vol_model, v_model_path)
+    print(f"   Saved: {v_model_path}")
 
-    # --------------------------------------------------
-    # 8. Save volatility model
-    # --------------------------------------------------
-    joblib.dump(
-        vol_model,
-        VOLATILITY_MODEL_PATH
-    )
-
-    print(f"Saved: {VOLATILITY_MODEL_PATH}")
-
-    # --------------------------------------------------
-    # 9. Save feature configuration
-    # --------------------------------------------------
+    # ==========================================================
+    # FEATURE CONFIG
+    # ==========================================================
     feature_config = {
+        "commodity": commodity,
         "price_model": {
             "type": "XGBRegressor",
             "target": PRICE_TARGET,
-            "features": PRICE_FEATURES,
+            "features": available_features,
         },
         "volatility_model": {
             "type": "XGBClassifier",
@@ -171,28 +148,23 @@ def main():
         },
     }
 
-    with open(
-        FEATURE_CONFIG_PATH,
-        "w",
-        encoding="utf-8"
-    ) as file:
-        json.dump(
-            feature_config,
-            file,
-            indent=4
-        )
+    fc_path = feature_config_path()
+    with open(fc_path, "w", encoding="utf-8") as f:
+        json.dump(feature_config, f, indent=4)
 
-    print(f"Saved: {FEATURE_CONFIG_PATH}")
+    print(f"\n   Saved: {fc_path}")
 
-    # --------------------------------------------------
-    # 10. Final artifact summary
-    # --------------------------------------------------
+    # Summary
     print("\n" + "=" * 60)
     print("FINAL ARTIFACTS")
     print("=" * 60)
-
     for file_path in ARTIFACTS_DIR.iterdir():
-        print(file_path)
+        if commodity in file_path.name:
+            print(f"   {file_path}")
+
+
+def main():
+    save_models()
 
 
 if __name__ == "__main__":

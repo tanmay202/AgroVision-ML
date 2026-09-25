@@ -1,3 +1,10 @@
+"""
+AgroVision — Rolling Features
+
+Creates rolling mean and std features from past price observations.
+Uses shift(1) to ensure no current-row leakage.
+"""
+
 import sys
 from pathlib import Path
 
@@ -6,182 +13,69 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import pandas as pd
 
 from config import (
-    LAG_FEATURES_PATH,
-    ROLLING_FEATURES_PATH,
     DATE_COLUMN,
     PRICE_COLUMN,
-    PRICE_TARGET,
     GROUP_COLUMNS,
+    lag_features_path,
+    rolling_features_path,
 )
 
 
-def main():
-    # --------------------------------------------------
-    # 1. Load dataset
-    # --------------------------------------------------
-    if not LAG_FEATURES_PATH.exists():
-        print(f"ERROR: File not found: {LAG_FEATURES_PATH}")
-        return
+def create_rolling(df=None):
+    """
+    Create rolling mean and std features.
 
-    df = pd.read_csv(LAG_FEATURES_PATH)
+    All rolling calculations use shift(1) to prevent leakage:
+    only past observations are included.
+    """
+    if df is None:
+        path = lag_features_path()
+        if not path.exists():
+            raise FileNotFoundError(f"File not found: {path}")
+        df = pd.read_csv(path)
 
-    # --------------------------------------------------
-    # 2. Convert date
-    # --------------------------------------------------
-    df[DATE_COLUMN] = pd.to_datetime(
-        df[DATE_COLUMN],
-        errors="coerce"
-    )
+    print("\n" + "=" * 60)
+    print("STEP 3b: ROLLING FEATURES")
+    print("=" * 60)
 
-    # --------------------------------------------------
-    # 3. Sort chronologically
-    # --------------------------------------------------
-    df = df.sort_values(
-        by=GROUP_COLUMNS + [DATE_COLUMN]
-    ).reset_index(drop=True)
+    df[DATE_COLUMN] = pd.to_datetime(df[DATE_COLUMN], errors="coerce")
 
-    # --------------------------------------------------
-    # 4. Create grouped past-price series
-    # --------------------------------------------------
-    grouped_price = df.groupby(
-        GROUP_COLUMNS
-    )[PRICE_COLUMN]
+    group_cols = [c for c in GROUP_COLUMNS if c in df.columns]
+    df = df.sort_values(by=group_cols + [DATE_COLUMN]).reset_index(drop=True)
 
-    # IMPORTANT:
-    # shift(1) means only previous observations
-    # are available to the rolling calculation.
+    # Use shift(1) so only PAST prices are available
+    grouped_price = df.groupby(group_cols)[PRICE_COLUMN]
     past_price = grouped_price.shift(1)
 
-    # --------------------------------------------------
-    # 5. Rolling mean features
-    # --------------------------------------------------
-    df["rolling_mean_7"] = (
-        past_price
-        .groupby(
-            [
-                df["Market Name"],
-                df["Variety"]
-            ]
-        )
-        .transform(
-            lambda x: x.rolling(7).mean()
-        )
-    )
+    # Group the shifted series for rolling calculations
+    group_keys = [df[c] for c in group_cols]
+    grouped_past = past_price.groupby(group_keys)
 
-    df["rolling_mean_14"] = (
-        past_price
-        .groupby(
-            [
-                df["Market Name"],
-                df["Variety"]
-            ]
-        )
-        .transform(
-            lambda x: x.rolling(14).mean()
-        )
-    )
+    # Rolling means
+    df["rolling_mean_7"] = grouped_past.transform(lambda x: x.rolling(7).mean())
+    df["rolling_mean_14"] = grouped_past.transform(lambda x: x.rolling(14).mean())
+    df["rolling_mean_30"] = grouped_past.transform(lambda x: x.rolling(30).mean())
 
-    df["rolling_mean_30"] = (
-        past_price
-        .groupby(
-            [
-                df["Market Name"],
-                df["Variety"]
-            ]
-        )
-        .transform(
-            lambda x: x.rolling(30).mean()
-        )
-    )
+    # Rolling standard deviations
+    df["rolling_std_7"] = grouped_past.transform(lambda x: x.rolling(7).std())
+    df["rolling_std_14"] = grouped_past.transform(lambda x: x.rolling(14).std())
 
-    # --------------------------------------------------
-    # 6. Rolling standard deviation features
-    # --------------------------------------------------
-    df["rolling_std_7"] = (
-        past_price
-        .groupby(
-            [
-                df["Market Name"],
-                df["Variety"]
-            ]
-        )
-        .transform(
-            lambda x: x.rolling(7).std()
-        )
-    )
+    rolling_cols = ["rolling_mean_7", "rolling_mean_14", "rolling_mean_30",
+                    "rolling_std_7", "rolling_std_14"]
+    print(f"   Created: {', '.join(rolling_cols)}")
+    print(f"   Missing values: {df[rolling_cols].isna().sum().to_dict()}")
+    print(f"   Rows: {len(df)}")
 
-    df["rolling_std_14"] = (
-        past_price
-        .groupby(
-            [
-                df["Market Name"],
-                df["Variety"]
-            ]
-        )
-        .transform(
-            lambda x: x.rolling(14).std()
-        )
-    )
+    out_path = rolling_features_path()
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    df.to_csv(out_path, index=False)
+    print(f"   Saved to: {out_path}")
 
-    # --------------------------------------------------
-    # 7. Display examples
-    # --------------------------------------------------
-    print("=" * 60)
-    print("ROLLING FEATURE EXAMPLES")
-    print("=" * 60)
+    return df
 
-    example_columns = [
-        "Market Name",
-        "Variety",
-        DATE_COLUMN,
-        PRICE_COLUMN,
-        "rolling_mean_7",
-        "rolling_mean_14",
-        "rolling_mean_30",
-        "rolling_std_7",
-        "rolling_std_14",
-        PRICE_TARGET,
-    ]
 
-    print(df[example_columns].head(40))
-
-    # --------------------------------------------------
-    # 8. Missing values
-    # --------------------------------------------------
-    rolling_columns = [
-        "rolling_mean_7",
-        "rolling_mean_14",
-        "rolling_mean_30",
-        "rolling_std_7",
-        "rolling_std_14"
-    ]
-
-    print("\n" + "=" * 60)
-    print("ROLLING FEATURE MISSING VALUES")
-    print("=" * 60)
-
-    print(df[rolling_columns].isna().sum())
-
-    # --------------------------------------------------
-    # 9. Save
-    # --------------------------------------------------
-    ROLLING_FEATURES_PATH.parent.mkdir(
-        parents=True,
-        exist_ok=True
-    )
-
-    df.to_csv(
-        ROLLING_FEATURES_PATH,
-        index=False
-    )
-
-    print("\n" + "=" * 60)
-    print("OUTPUT")
-    print("=" * 60)
-
-    print(f"Saved to: {ROLLING_FEATURES_PATH}")
-    print(f"Rows: {len(df)}")
-    print(f"Columns: {len(df.columns)}")
+def main():
+    create_rolling()
 
 
 if __name__ == "__main__":

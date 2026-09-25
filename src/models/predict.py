@@ -1,3 +1,15 @@
+"""
+AgroVision — Prediction API
+
+Loads trained models and generates predictions.
+Supports multi-commodity: specify commodity to load the right model.
+
+Usage (for Member 3 / FastAPI):
+    from src.models.predict import predict
+    result = predict(data_df, commodity="tea")
+    # result = {"predicted_price": 250.50, "volatility": "LOW"}
+"""
+
 import sys
 from pathlib import Path
 
@@ -7,151 +19,101 @@ import joblib
 import pandas as pd
 
 from config import (
-    PRICE_MODEL_PATH,
-    VOLATILITY_MODEL_PATH,
     PRICE_FEATURES,
     VOLATILITY_FEATURES,
     VOLATILITY_REVERSE_LABEL_MAP,
+    set_commodity,
+    get_commodity,
+    price_model_path,
+    volatility_model_path,
 )
 
 
 # ============================================================
-# Model cache — loaded once, reused on every call.
+# Model cache — loaded once per commodity, reused on every call.
 # ============================================================
 
-_price_model = None
-_volatility_model = None
+_model_cache = {}
 
 
-def _get_price_model():
-    """Load the saved XGBoost price model (cached)."""
-    global _price_model
-
-    if _price_model is None:
-        if not PRICE_MODEL_PATH.exists():
-            raise FileNotFoundError(
-                f"Price model not found: {PRICE_MODEL_PATH}"
-            )
-        _price_model = joblib.load(PRICE_MODEL_PATH)
-
-    return _price_model
-
-
-def _get_volatility_model():
-    """Load the saved XGBoost volatility model (cached)."""
-    global _volatility_model
-
-    if _volatility_model is None:
-        if not VOLATILITY_MODEL_PATH.exists():
-            raise FileNotFoundError(
-                f"Volatility model not found: "
-                f"{VOLATILITY_MODEL_PATH}"
-            )
-        _volatility_model = joblib.load(
-            VOLATILITY_MODEL_PATH
-        )
-
-    return _volatility_model
+def _get_price_model(commodity=None):
+    """Load the saved XGBoost price model (cached per commodity)."""
+    commodity = commodity or get_commodity()
+    cache_key = f"{commodity}_price"
+    if cache_key not in _model_cache:
+        set_commodity(commodity)
+        path = price_model_path()
+        if not path.exists():
+            raise FileNotFoundError(f"Price model not found: {path}")
+        _model_cache[cache_key] = joblib.load(path)
+    return _model_cache[cache_key]
 
 
-def predict(data):
+def _get_volatility_model(commodity=None):
+    """Load the saved XGBoost volatility model (cached per commodity)."""
+    commodity = commodity or get_commodity()
+    cache_key = f"{commodity}_volatility"
+    if cache_key not in _model_cache:
+        set_commodity(commodity)
+        path = volatility_model_path()
+        if not path.exists():
+            raise FileNotFoundError(f"Volatility model not found: {path}")
+        _model_cache[cache_key] = joblib.load(path)
+    return _model_cache[cache_key]
+
+
+def predict(data, commodity=None):
     """
     Generate price and volatility predictions.
 
     Parameters
     ----------
     data : pandas.DataFrame
-        One or more rows containing all required
-        features (both price and volatility features).
+        One or more rows containing all required features.
+    commodity : str, optional
+        Commodity name (e.g., "tea"). Defaults to current commodity.
 
     Returns
     -------
     dict
         {
             "predicted_price": float,
-            "volatility": str  ("LOW", "MEDIUM", or "HIGH")
+            "volatility": str  ("LOW", "MEDIUM", or "HIGH"),
+            "commodity": str,
         }
     """
+    commodity = commodity or get_commodity()
 
-    # --------------------------------------------------
-    # 1. Validate price features
-    # --------------------------------------------------
-    missing_price_features = [
-        feature
-        for feature in PRICE_FEATURES
-        if feature not in data.columns
-    ]
-
-    if missing_price_features:
+    # Validate features
+    available_price = [f for f in PRICE_FEATURES if f in data.columns]
+    missing_price = set(PRICE_FEATURES) - set(available_price)
+    if missing_price:
         raise ValueError(
-            "Missing price features: "
-            + ", ".join(missing_price_features)
+            f"Missing price features: {', '.join(missing_price)}"
         )
 
-    # --------------------------------------------------
-    # 2. Validate volatility features
-    # --------------------------------------------------
-    missing_vol_features = [
-        feature
-        for feature in VOLATILITY_FEATURES
-        if feature not in data.columns
-    ]
-
-    if missing_vol_features:
+    available_vol = [f for f in VOLATILITY_FEATURES if f in data.columns]
+    missing_vol = set(VOLATILITY_FEATURES) - set(available_vol)
+    if missing_vol:
         raise ValueError(
-            "Missing volatility features: "
-            + ", ".join(missing_vol_features)
+            f"Missing volatility features: {', '.join(missing_vol)}"
         )
 
-    # --------------------------------------------------
-    # 3. Check for missing values
-    # --------------------------------------------------
-    all_features = list(
-        set(PRICE_FEATURES + VOLATILITY_FEATURES)
-    )
-
-    missing_values = (
-        data[all_features]
-        .isna()
-        .any()
-        .any()
-    )
-
-    if missing_values:
-        raise ValueError(
-            "Input contains missing feature values."
-        )
-
-    # --------------------------------------------------
-    # 4. Price prediction (XGBoost model)
-    # --------------------------------------------------
-    price_model = _get_price_model()
-
+    # Price prediction
+    price_model = _get_price_model(commodity)
     X_price = data[PRICE_FEATURES].copy()
+    predicted_price = float(price_model.predict(X_price)[0])
 
-    predicted_price = float(
-        price_model.predict(X_price)[0]
-    )
-
-    # --------------------------------------------------
-    # 5. Volatility prediction (XGBoost model)
-    # --------------------------------------------------
-    vol_model = _get_volatility_model()
-
+    # Volatility prediction
+    vol_model = _get_volatility_model(commodity)
     X_vol = data[VOLATILITY_FEATURES].copy()
-
     predicted_class = vol_model.predict(X_vol)[0]
+    volatility = VOLATILITY_REVERSE_LABEL_MAP[int(predicted_class)]
 
-    volatility = VOLATILITY_REVERSE_LABEL_MAP[
-        int(predicted_class)
-    ]
-
-    # --------------------------------------------------
-    # 6. Final output
-    # --------------------------------------------------
     return {
         "predicted_price": round(predicted_price, 2),
         "volatility": volatility,
+        "commodity": commodity,
     }
 
 
@@ -159,18 +121,13 @@ def main():
     print("=" * 60)
     print("PREDICTION PIPELINE")
     print("=" * 60)
-
-    print(
-        "Prediction module loaded successfully."
-    )
-
-    print("\nPrice model features:")
-    for feature in PRICE_FEATURES:
-        print(f"  - {feature}")
-
-    print("\nVolatility model features:")
-    for feature in VOLATILITY_FEATURES:
-        print(f"  - {feature}")
+    print(f"Commodity: {get_commodity()}")
+    print(f"\nPrice model features ({len(PRICE_FEATURES)}):")
+    for f in PRICE_FEATURES:
+        print(f"  - {f}")
+    print(f"\nVolatility model features ({len(VOLATILITY_FEATURES)}):")
+    for f in VOLATILITY_FEATURES:
+        print(f"  - {f}")
 
 
 if __name__ == "__main__":

@@ -1,126 +1,71 @@
+"""
+AgroVision — Baseline Price Model
+
+Uses the previous price (lag_1) as the prediction for future price.
+This is the simplest possible baseline: "next price = last known price".
+"""
+
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-import numpy as np
 import pandas as pd
-from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
 from config import (
     FEATURES_FINAL_PATH,
     DATE_COLUMN,
-    PRICE_COLUMN,
     PRICE_TARGET,
     GROUP_COLUMNS,
+    features_final_path,
 )
+from utils import calculate_metrics, print_metrics
 
 
-def calculate_mape(actual, predicted):
+def run_baseline(df=None):
     """
-    Calculate MAPE while ignoring rows where actual price is zero.
+    Evaluate the naive baseline: predicted_price = lag_1 (previous price).
+
+    Returns
+    -------
+    dict with metrics
     """
-    actual = np.asarray(actual)
-    predicted = np.asarray(predicted)
+    if df is None:
+        path = features_final_path()
+        if not path.exists():
+            raise FileNotFoundError(f"File not found: {path}")
+        df = pd.read_csv(path)
 
-    mask = actual != 0
-
-    if mask.sum() == 0:
-        return np.nan
-
-    return np.mean(
-        np.abs(
-            (actual[mask] - predicted[mask])
-            / actual[mask]
-        )
-    ) * 100
-
-
-def main():
-    # --------------------------------------------------
-    # 1. Load dataset
-    # --------------------------------------------------
-    if not FEATURES_FINAL_PATH.exists():
-        print(f"ERROR: File not found: {FEATURES_FINAL_PATH}")
-        return
-
-    df = pd.read_csv(FEATURES_FINAL_PATH)
-
-    df[DATE_COLUMN] = pd.to_datetime(
-        df[DATE_COLUMN],
-        errors="coerce"
-    )
-
-    # --------------------------------------------------
-    # 2. Sort chronologically
-    # --------------------------------------------------
-    df = df.sort_values(
-        by=GROUP_COLUMNS + [DATE_COLUMN]
-    ).reset_index(drop=True)
-
-    # --------------------------------------------------
-    # 3. Baseline prediction
-    # --------------------------------------------------
-    actual = df[PRICE_TARGET]
-
-    predicted = df[PRICE_COLUMN]
-
-    # --------------------------------------------------
-    # 4. Metrics
-    # --------------------------------------------------
-    mae = mean_absolute_error(
-        actual,
-        predicted
-    )
-
-    rmse = np.sqrt(
-        mean_squared_error(
-            actual,
-            predicted
-        )
-    )
-
-    r2 = r2_score(
-        actual,
-        predicted
-    )
-
-    mape = calculate_mape(
-        actual,
-        predicted
-    )
-
-    # --------------------------------------------------
-    # 5. Results
-    # --------------------------------------------------
-    print("=" * 60)
+    print("\n" + "=" * 60)
     print("BASELINE MODEL")
     print("=" * 60)
 
-    print("Strategy:")
-    print("Predicted future price = current Modal Price")
+    df[DATE_COLUMN] = pd.to_datetime(df[DATE_COLUMN], errors="coerce")
 
-    print("\nMetrics:")
-    print(f"MAE  : {mae:.2f}")
-    print(f"RMSE : {rmse:.2f}")
-    print(f"R2   : {r2:.4f}")
-    print(f"MAPE : {mape:.2f}%")
+    group_cols = [c for c in GROUP_COLUMNS if c in df.columns]
+    df = df.sort_values(by=group_cols + [DATE_COLUMN]).reset_index(drop=True)
 
-    # --------------------------------------------------
-    # 6. Example predictions
-    # --------------------------------------------------
-    results = pd.DataFrame({
-        "date": df[DATE_COLUMN],
-        "current_price": df[PRICE_COLUMN],
-        "actual_future_price": actual,
-        "baseline_prediction": predicted
-    })
+    # Baseline: lag_1 = previous price predicts future price
+    if "lag_1" not in df.columns:
+        print("   ERROR: lag_1 feature not found. Run feature engineering first.")
+        return None
 
-    print("\n" + "=" * 60)
-    print("EXAMPLE PREDICTIONS")
-    print("=" * 60)
+    # Only evaluate where we have both actual and baseline
+    mask = df[PRICE_TARGET].notna() & df["lag_1"].notna()
+    actual = df.loc[mask, PRICE_TARGET]
+    predicted = df.loc[mask, "lag_1"]
 
-    print(results.head(10))
+    print(f"   Strategy: predicted_future_price = lag_1 (previous price)")
+    print(f"   Rows evaluated: {len(actual)}")
+
+    metrics = calculate_metrics(actual, predicted)
+    print_metrics(metrics, "Baseline (lag_1)")
+
+    return metrics
+
+
+def main():
+    run_baseline()
 
 
 if __name__ == "__main__":

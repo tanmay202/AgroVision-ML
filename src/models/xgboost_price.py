@@ -1,3 +1,14 @@
+"""
+AgroVision — XGBoost Price Model
+
+Trains an XGBoost regressor for price forecasting.
+Uses shared metrics from utils.
+
+LEAKAGE FIX (v2.0):
+    - Uses corrected PRICE_FEATURES (no current-row prices)
+    - XGBoost handles NaN natively, so we don't drop rows
+"""
+
 import sys
 from pathlib import Path
 
@@ -6,150 +17,72 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import numpy as np
 import pandas as pd
 from xgboost import XGBRegressor
-from sklearn.metrics import (
-    mean_absolute_error,
-    mean_squared_error,
-    r2_score,
-)
 
 from config import (
     TRAIN_PATH,
     TEST_PATH,
     PRICE_TARGET,
-    PRICE_COLUMN,
     PRICE_FEATURES,
+    train_path,
+    test_path,
 )
+from utils import calculate_metrics, print_metrics
 
 
-def calculate_mape(actual, predicted):
-    """Calculate MAPE while ignoring zero actual values."""
-    actual = np.asarray(actual)
-    predicted = np.asarray(predicted)
+def train_xgboost_price(train_df=None, test_df=None):
+    """
+    Train an XGBoost price model and evaluate on test set.
 
-    mask = actual != 0
+    Parameters
+    ----------
+    train_df, test_df : pd.DataFrame, optional
+        If None, reads from CSV files.
 
-    if mask.sum() == 0:
-        return np.nan
+    Returns
+    -------
+    tuple of (model, metrics_dict)
+    """
+    if train_df is None:
+        t_path = train_path()
+        te_path = test_path()
+        if not t_path.exists():
+            raise FileNotFoundError(f"Missing {t_path}")
+        if not te_path.exists():
+            raise FileNotFoundError(f"Missing {te_path}")
+        train_df = pd.read_csv(t_path)
+        test_df = pd.read_csv(te_path)
 
-    return np.mean(
-        np.abs(
-            (actual[mask] - predicted[mask])
-            / actual[mask]
-        )
-    ) * 100
-
-
-def calculate_metrics(actual, predicted):
-    mae = mean_absolute_error(actual, predicted)
-
-    rmse = np.sqrt(
-        mean_squared_error(actual, predicted)
-    )
-
-    r2 = r2_score(actual, predicted)
-
-    mape = calculate_mape(
-        actual,
-        predicted
-    )
-
-    return mae, rmse, r2, mape
-
-
-def main():
-    # --------------------------------------------------
-    # 1. Load data
-    # --------------------------------------------------
-    if not TRAIN_PATH.exists():
-        print(f"ERROR: Missing {TRAIN_PATH}")
-        return
-
-    if not TEST_PATH.exists():
-        print(f"ERROR: Missing {TEST_PATH}")
-        return
-
-    train_df = pd.read_csv(TRAIN_PATH)
-    test_df = pd.read_csv(TEST_PATH)
-
-    print("=" * 60)
-    print("INITIAL DATA")
-    print("=" * 60)
-
-    print(f"Train rows: {len(train_df)}")
-    print(f"Test rows : {len(test_df)}")
-
-    # --------------------------------------------------
-    # 2. Select columns
-    # --------------------------------------------------
-    required_columns = PRICE_FEATURES + [PRICE_TARGET]
-
-    train_df = train_df[required_columns].copy()
-    test_df = test_df[required_columns].copy()
-
-    # --------------------------------------------------
-    # 3. Remove rows with unavailable features
-    # --------------------------------------------------
     print("\n" + "=" * 60)
-    print("MISSING VALUES")
+    print("XGBOOST PRICE MODEL")
     print("=" * 60)
 
-    print(
-        "Training missing rows before removal:",
-        train_df.isna().any(axis=1).sum()
-    )
+    # Select required columns
+    available_features = [f for f in PRICE_FEATURES if f in train_df.columns]
+    missing = set(PRICE_FEATURES) - set(available_features)
+    if missing:
+        print(f"   WARNING: Missing features (will skip): {missing}")
 
-    print(
-        "Testing missing rows before removal:",
-        test_df.isna().any(axis=1).sum()
-    )
+    features = available_features
+    required = features + [PRICE_TARGET]
 
-    train_df = train_df.dropna(
-        subset=PRICE_FEATURES + [PRICE_TARGET]
-    ).copy()
+    train_subset = train_df[[c for c in required if c in train_df.columns]].copy()
+    test_subset = test_df[[c for c in required if c in test_df.columns]].copy()
 
-    test_df = test_df.dropna(
-        subset=PRICE_FEATURES + [PRICE_TARGET]
-    ).copy()
+    # Drop rows where the TARGET is missing (required for evaluation)
+    train_subset = train_subset.dropna(subset=[PRICE_TARGET])
+    test_subset = test_subset.dropna(subset=[PRICE_TARGET])
 
-    print(
-        "\nTraining rows after removal:",
-        len(train_df)
-    )
+    # XGBoost handles NaN in features natively — no need to drop feature NaNs
+    print(f"   Train rows: {len(train_subset)}")
+    print(f"   Test rows : {len(test_subset)}")
+    print(f"   Features  : {len(features)}")
 
-    print(
-        "Testing rows after removal:",
-        len(test_df)
-    )
+    X_train = train_subset[features]
+    y_train = train_subset[PRICE_TARGET]
+    X_test = test_subset[features]
+    y_test = test_subset[PRICE_TARGET]
 
-    # --------------------------------------------------
-    # 4. X / y
-    # --------------------------------------------------
-    X_train = train_df[PRICE_FEATURES].copy()
-    y_train = train_df[PRICE_TARGET].copy()
-
-    X_test = test_df[PRICE_FEATURES].copy()
-    y_test = test_df[PRICE_TARGET].copy()
-
-    # --------------------------------------------------
-    # 5. Feature order check
-    # --------------------------------------------------
-    print("\n" + "=" * 60)
-    print("FEATURE ORDER CHECK")
-    print("=" * 60)
-
-    if list(X_train.columns) == list(X_test.columns):
-        print("PASS: Train/test feature order matches.")
-    else:
-        print("ERROR: Train/test feature order does not match.")
-        return
-
-    # --------------------------------------------------
-    # 6. Train XGBoost
-    # --------------------------------------------------
-    print("\n" + "=" * 60)
-    print("TRAINING XGBOOST")
-    print("=" * 60)
-
+    # Train
     model = XGBRegressor(
         n_estimators=300,
         max_depth=6,
@@ -161,100 +94,40 @@ def main():
         n_jobs=-1,
     )
 
-    model.fit(
-        X_train,
-        y_train
-    )
+    model.fit(X_train, y_train)
+    print("   Training complete.")
 
-    print("Training complete.")
-
-    # --------------------------------------------------
-    # 7. Predict
-    # --------------------------------------------------
+    # Evaluate
     predictions = model.predict(X_test)
+    metrics = calculate_metrics(y_test, predictions)
+    print_metrics(metrics, "XGBoost Price")
 
-    # --------------------------------------------------
-    # 8. XGBoost metrics
-    # --------------------------------------------------
-    xgb_mae, xgb_rmse, xgb_r2, xgb_mape = calculate_metrics(
-        y_test,
-        predictions
-    )
+    # Baseline comparison (use lag_1 as naive baseline)
+    if "lag_1" in test_subset.columns:
+        baseline_mask = test_subset["lag_1"].notna()
+        if baseline_mask.sum() > 0:
+            baseline_metrics = calculate_metrics(
+                y_test[baseline_mask],
+                test_subset.loc[baseline_mask, "lag_1"]
+            )
+            print_metrics(baseline_metrics, "Baseline (lag_1 = previous price)")
 
-    # --------------------------------------------------
-    # 9. Baseline
-    # --------------------------------------------------
-    baseline_predictions = test_df[PRICE_COLUMN]
-
-    base_mae, base_rmse, base_r2, base_mape = calculate_metrics(
-        y_test,
-        baseline_predictions
-    )
-
-    # --------------------------------------------------
-    # 10. Compare
-    # --------------------------------------------------
-    print("\n" + "=" * 60)
-    print("TEST SET COMPARISON")
-    print("=" * 60)
-
-    print("\nBaseline:")
-    print(f"MAE  : {base_mae:.2f}")
-    print(f"RMSE : {base_rmse:.2f}")
-    print(f"R2   : {base_r2:.4f}")
-    print(f"MAPE : {base_mape:.2f}%")
-
-    print("\nXGBoost:")
-    print(f"MAE  : {xgb_mae:.2f}")
-    print(f"RMSE : {xgb_rmse:.2f}")
-    print(f"R2   : {xgb_r2:.4f}")
-    print(f"MAPE : {xgb_mape:.2f}%")
-
-    # --------------------------------------------------
-    # 11. Improvement over baseline
-    # --------------------------------------------------
-    print("\n" + "=" * 60)
-    print("BASELINE IMPROVEMENT")
-    print("=" * 60)
-
-    mae_improvement = (
-        (base_mae - xgb_mae)
-        / base_mae
-    ) * 100 if base_mae != 0 else np.nan
-
-    mape_improvement = (
-        (base_mape - xgb_mape)
-        / base_mape
-    ) * 100 if base_mape != 0 else np.nan
-
-    print(
-        f"MAE improvement : {mae_improvement:.2f}%"
-    )
-
-    print(
-        f"MAPE improvement: {mape_improvement:.2f}%"
-    )
-
-    # --------------------------------------------------
-    # 12. Feature importance
-    # --------------------------------------------------
+    # Feature importance
     importance = pd.DataFrame({
-        "feature": PRICE_FEATURES,
+        "feature": features,
         "importance": model.feature_importances_
-    }).sort_values(
-        by="importance",
-        ascending=False
-    )
+    }).sort_values(by="importance", ascending=False)
 
     print("\n" + "=" * 60)
     print("TOP 10 FEATURE IMPORTANCES")
     print("=" * 60)
+    print(importance.head(10).to_string(index=False))
 
-    print(
-        importance.head(10).to_string(
-            index=False
-        )
-    )
+    return model, metrics
+
+
+def main():
+    train_xgboost_price()
 
 
 if __name__ == "__main__":

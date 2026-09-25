@@ -1,3 +1,14 @@
+"""
+AgroVision — Arrival Features
+
+Creates arrival-based features (lags, rolling means).
+
+LEAKAGE FIX (v2.0):
+    arrival_change now uses only past values:
+    arrival_change = arrival_lag_1 - arrival_lag_2
+    (previously used current arrival, which is unknown at prediction time)
+"""
+
 import sys
 from pathlib import Path
 
@@ -6,151 +17,71 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import pandas as pd
 
 from config import (
-    DATE_FEATURES_PATH,
-    ARRIVAL_FEATURES_PATH,
     DATE_COLUMN,
     ARRIVAL_COLUMN,
-    PRICE_TARGET,
     GROUP_COLUMNS,
+    date_features_path,
+    arrival_features_path,
 )
 
 
-def main():
-    # --------------------------------------------------
-    # 1. Load dataset
-    # --------------------------------------------------
-    if not DATE_FEATURES_PATH.exists():
-        print(f"ERROR: File not found: {DATE_FEATURES_PATH}")
-        return
+def create_arrivals(df=None):
+    """
+    Create arrival lag and rolling features.
+    """
+    if df is None:
+        path = date_features_path()
+        if not path.exists():
+            raise FileNotFoundError(f"File not found: {path}")
+        df = pd.read_csv(path)
 
-    df = pd.read_csv(DATE_FEATURES_PATH)
+    print("\n" + "=" * 60)
+    print("STEP 3d: ARRIVAL FEATURES")
+    print("=" * 60)
 
-    # --------------------------------------------------
-    # 2. Convert date
-    # --------------------------------------------------
-    df[DATE_COLUMN] = pd.to_datetime(
-        df[DATE_COLUMN],
-        errors="coerce"
-    )
+    df[DATE_COLUMN] = pd.to_datetime(df[DATE_COLUMN], errors="coerce")
 
-    # --------------------------------------------------
-    # 3. Sort chronologically
-    # --------------------------------------------------
-    df = df.sort_values(
-        by=GROUP_COLUMNS + [DATE_COLUMN]
-    ).reset_index(drop=True)
+    group_cols = [c for c in GROUP_COLUMNS if c in df.columns]
+    df = df.sort_values(by=group_cols + [DATE_COLUMN]).reset_index(drop=True)
 
-    # --------------------------------------------------
-    # 4. Create grouped arrival series
-    # --------------------------------------------------
-    grouped_arrival = df.groupby(
-        GROUP_COLUMNS
-    )[ARRIVAL_COLUMN]
+    grouped_arrival = df.groupby(group_cols)[ARRIVAL_COLUMN]
 
-    # --------------------------------------------------
-    # 5. Arrival lag features
-    # --------------------------------------------------
+    # Arrival lags
     df["arrival_lag_1"] = grouped_arrival.shift(1)
-
     df["arrival_lag_7"] = grouped_arrival.shift(7)
 
-    # --------------------------------------------------
-    # 6. Arrival change feature
-    # --------------------------------------------------
-    previous_arrival = grouped_arrival.shift(1)
+    # Arrival change: difference between two PAST values (no leakage)
+    arrival_lag_2 = grouped_arrival.shift(2)
+    df["arrival_change"] = df["arrival_lag_1"] - arrival_lag_2
 
-    df["arrival_change"] = (
-        df[ARRIVAL_COLUMN] - previous_arrival
-    )
-
-    # --------------------------------------------------
-    # 7. Past arrival series for rolling features
-    # --------------------------------------------------
+    # Rolling arrival features (using shifted past values)
     past_arrival = grouped_arrival.shift(1)
+    group_keys = [df[c] for c in group_cols]
+    grouped_past = past_arrival.groupby(group_keys)
 
-    grouped_past_arrival = past_arrival.groupby(
-        [
-            df["Market Name"],
-            df["Variety"]
-        ]
+    df["arrival_rolling_mean_7"] = grouped_past.transform(
+        lambda x: x.rolling(7).mean()
+    )
+    df["arrival_rolling_mean_14"] = grouped_past.transform(
+        lambda x: x.rolling(14).mean()
     )
 
-    # --------------------------------------------------
-    # 8. Rolling arrival mean
-    # --------------------------------------------------
-    df["arrival_rolling_mean_7"] = (
-        grouped_past_arrival
-        .transform(
-            lambda x: x.rolling(7).mean()
-        )
-    )
+    arrival_features = ["arrival_lag_1", "arrival_lag_7", "arrival_change",
+                        "arrival_rolling_mean_7", "arrival_rolling_mean_14"]
+    print(f"   Created: {', '.join(arrival_features)}")
+    print(f"   Missing values: {df[arrival_features].isna().sum().to_dict()}")
+    print(f"   Rows: {len(df)}")
 
-    df["arrival_rolling_mean_14"] = (
-        grouped_past_arrival
-        .transform(
-            lambda x: x.rolling(14).mean()
-        )
-    )
+    out_path = arrival_features_path()
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    df.to_csv(out_path, index=False)
+    print(f"   Saved to: {out_path}")
 
-    # --------------------------------------------------
-    # 9. Display examples
-    # --------------------------------------------------
-    print("=" * 60)
-    print("ARRIVAL FEATURE EXAMPLES")
-    print("=" * 60)
+    return df
 
-    example_columns = [
-        "Market Name",
-        "Variety",
-        DATE_COLUMN,
-        ARRIVAL_COLUMN,
-        "arrival_lag_1",
-        "arrival_lag_7",
-        "arrival_change",
-        "arrival_rolling_mean_7",
-        "arrival_rolling_mean_14",
-        PRICE_TARGET,
-    ]
 
-    print(df[example_columns].head(40))
-
-    # --------------------------------------------------
-    # 10. Missing values
-    # --------------------------------------------------
-    arrival_features = [
-        "arrival_lag_1",
-        "arrival_lag_7",
-        "arrival_change",
-        "arrival_rolling_mean_7",
-        "arrival_rolling_mean_14"
-    ]
-
-    print("\n" + "=" * 60)
-    print("ARRIVAL FEATURE MISSING VALUES")
-    print("=" * 60)
-
-    print(df[arrival_features].isna().sum())
-
-    # --------------------------------------------------
-    # 11. Save dataset
-    # --------------------------------------------------
-    ARRIVAL_FEATURES_PATH.parent.mkdir(
-        parents=True,
-        exist_ok=True
-    )
-
-    df.to_csv(
-        ARRIVAL_FEATURES_PATH,
-        index=False
-    )
-
-    print("\n" + "=" * 60)
-    print("OUTPUT")
-    print("=" * 60)
-
-    print(f"Saved to: {ARRIVAL_FEATURES_PATH}")
-    print(f"Rows: {len(df)}")
-    print(f"Columns: {len(df.columns)}")
+def main():
+    create_arrivals()
 
 
 if __name__ == "__main__":

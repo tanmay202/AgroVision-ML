@@ -1,9 +1,5 @@
 State Name,District Name,Market Name,Variety,Group,Arrivals (Tonnes),Min Price (Rs./Quintal),Max Price (Rs./Quintal),Modal Price (Rs./Quintal),Reported Date,future_modal_price,days_to_next
-Nagaland,Dimapur,4th Mile Dimapur,Other,Beverages,1000.0,9000,10000,9500,2011-05-23,10500.0,9.0
 Telangana,Adilabad,Adilabad(Rythu Bazar),All Dust,Beverages,0.01,26000,26000,26000,2015-07-05,26000.0,1.0
-Telangana,Adilabad,Adilabad(Rythu Bazar),All Dust,Beverages,0.01,26000,26000,26000,2015-07-06,26000.0,15.0
-Telangana,Adilabad,Adilabad(Rythu Bazar),All Dust,Beverages,0.01,26000,26000,26000,2015-07-21,26000.0,14.0
-Telangana,Adilabad,Adilabad(Rythu Bazar),Cachar C.T.C. Leaf,Beverages,0.01,26000,26000,26000,2015-06-15,26000.0,47.0
 Telangana,Adilabad,Adilabad(Rythu Bazar),Other,Beverages,0.01,26000,26000,26000,2015-06-10,26000.0,2.0
 Telangana,Adilabad,Adilabad(Rythu Bazar),Other,Beverages,0.01,26000,26000,26000,2015-06-12,26000.0,1.0
 Telangana,Adilabad,Adilabad(Rythu Bazar),Other,Beverages,0.01,26000,26000,26000,2015-06-13,26000.0,1.0
@@ -46,10 +42,8 @@ Telangana,Adilabad,Adilabad(Rythu Bazar),Other,Beverages,0.01,26000,26000,26000,
 Telangana,Adilabad,Adilabad(Rythu Bazar),Other,Beverages,0.01,26000,26000,26000,2015-07-30,26000.0,1.0
 Telangana,Adilabad,Adilabad(Rythu Bazar),Other,Beverages,0.01,26000,26000,26000,2015-07-31,26000.0,2.0
 Telangana,Adilabad,Adilabad(Rythu Bazar),Other,Beverages,0.01,26000,26000,26000,2015-08-02,26000.0,1.0
-Telangana,Adilabad,Adilabad(Rythu Bazar),Other,Beverages,0.01,26000,26000,26000,2015-08-03,26000.0,184.0
 Telangana,Adilabad,Adilabad(Rythu Bazar),Other,Beverages,0.01,26000,26000,26000,2016-02-03,26000.0,3.0
 Tripura,Sepahijala,Bishalgarh,Assam C.T.C. Leaf,Beverages,1.5,7800,12000,10000,2002-02-14,10000.0,1.0
-Tripura,Sepahijala,Bishalgarh,Assam C.T.C. Leaf,Beverages,2.5,7000,12000,10000,2002-02-15,10000.0,10.0
 Tripura,Sepahijala,Bishalgarh,Assam C.T.C. Leaf,Beverages,2.5,7000,12000,10000,2002-02-25,14000.0,1.0
 Tripura,Sepahijala,Bishalgarh,Assam C.T.C. Leaf,Beverages,3.7,12000,16000,14000,2002-02-26,12000.0,1.0
 Tripura,Sepahijala,Bishalgarh,Assam C.T.C. Leaf,Beverages,3.0,10000,14000,12000,2002-02-27,14000.0,1.0
@@ -77,8 +71,6 @@ Tripura,Sepahijala,Bishalgarh,Assam C.T.C. Leaf,Beverages,2.0,11000,16000,14000,
 Tripura,Sepahijala,Bishalgarh,Assam C.T.C. Leaf,Beverages,3.5,10000,14000,12000,2002-04-02,12000.0,1.0
 Tripura,Sepahijala,Bishalgarh,Assam C.T.C. Leaf,Beverages,0.02,10000,14000,12000,2002-04-03,12000.0,1.0
 Tripura,Sepahijala,Bishalgarh,Assam C.T.C. Leaf,Beverages,0.03,11000,14000,12000,2002-04-04,12000.0,1.0
-Tripura,Sepahijala,Bishalgarh,Assam C.T.C. Leaf,Beverages,0.02,11000,14000,12000,2002-04-05,10000.0,43.0
-Tripura,Sepahijala,Bishalgarh,Assam C.T.C. Leaf,Beverages,0.02,8000,12000,10000,2002-05-18,12000.0,9.0
 Tripura,Sepahijala,Bishalgarh,Assam C.T.C. Leaf,Beverages,0.02,10000,14000,12000,2002-05-27,12000.0,1.0
 Tripura,Sepahijala,Bishalgarh,Assam C.T.C. Leaf,Beverages,0.01,10000,14000,12000,2002-05-28,12000.0,1.0
 Tripura,Sepahijala,Bishalgarh,Assam C.T.C. Leaf,Beverages,0.02,10000,14000,12000,2002-05-29,12000.0,2.0
@@ -174,7 +166,6 @@ Tripura,Sepahijala,Bishalgarh,Assam C.T.C. Leaf,Beverages,0.02,8000,12000,10000,
 Tripura,Sepahijala,Bishalgarh,Assam C.T.C. Leaf,Beverages,0.03,8000,12000,10000,2002-10-05,12000.0,2.0
 Tripura,Sepahijala,Bishalgarh,Assam C.T.C. Leaf,Beverages,0.02,8000,14000,12000,2002-10-07,12000.0,3.0
 Tripura,Sepahijala,Bishalgarh,Assam C.T.C. Leaf,Beverages,0.01,7500,14000,12000,2002-10-10,12000.0,1.0
-Tripura,Sepahijala,Bishalgarh,Assam C.T.C. Leaf,Beverages,0.03,8000,14000,12000,2002-10-11,12000.0,10.0
 Tripura,Sepahijala,Bishalgarh,Assam C.T.C. Leaf,Beverages,0.01,7500,14000,12000,2002-10-21,12000.0,1.0
 Tripura,Sepahijala,Bishalgarh,Assam C.T.C. Leaf,Beverages,0.02,8000,14000,12000,2002-10-22,12000.0,1.0
 Tripura,Sepahijala,Bishalgarh,Assam C.T.C. Leaf,Beverages,0.02,8000,14000,12000,2002-10-23,12000.0,1.0
@@ -189,10 +180,7 @@ Tripura,Sepahijala,Bishalgarh,Assam C.T.C. Leaf,Beverages,0.03,8000,14000,12000,
 Tripura,Sepahijala,Bishalgarh,Assam C.T.C. Leaf,Beverages,0.01,7500,14000,12000,2002-11-05,12000.0,1.0
 Tripura,Sepahijala,Bishalgarh,Assam C.T.C. Leaf,Beverages,0.02,8000,14000,12000,2002-11-06,12000.0,1.0
 Tripura,Sepahijala,Bishalgarh,Assam C.T.C. Leaf,Beverages,0.01,8000,14000,12000,2002-11-07,12000.0,4.0
-Tripura,Sepahijala,Bishalgarh,Assam C.T.C. Leaf,Beverages,0.02,8000,14000,12000,2002-11-11,12000.0,12.0
-Tripura,Sepahijala,Bishalgarh,Assam C.T.C. Leaf,Beverages,0.02,8000,14000,12000,2002-11-23,14000.0,9.0
 Tripura,Sepahijala,Bishalgarh,Other,Beverages,1.5,6000,9000,8000,2002-02-14,8000.0,1.0
-Tripura,Sepahijala,Bishalgarh,Other,Beverages,2.5,5000,10000,8000,2002-02-15,8000.0,10.0
 Tripura,Sepahijala,Bishalgarh,Other,Beverages,2.5,5000,10000,8000,2002-02-25,7000.0,1.0
 Tripura,Sepahijala,Bishalgarh,Other,Beverages,3.7,6000,8000,7000,2002-02-26,7000.0,1.0
 Tripura,Sepahijala,Bishalgarh,Other,Beverages,3.0,6000,8000,7000,2002-02-27,7000.0,1.0
@@ -220,8 +208,6 @@ Tripura,Sepahijala,Bishalgarh,Other,Beverages,2.0,5000,8000,6000,2002-04-01,6000
 Tripura,Sepahijala,Bishalgarh,Other,Beverages,3.5,5000,8000,6000,2002-04-02,6000.0,1.0
 Tripura,Sepahijala,Bishalgarh,Other,Beverages,0.02,5000,8000,6000,2002-04-03,6000.0,1.0
 Tripura,Sepahijala,Bishalgarh,Other,Beverages,0.03,5000,8000,6000,2002-04-04,6000.0,1.0
-Tripura,Sepahijala,Bishalgarh,Other,Beverages,0.02,5000,8000,6000,2002-04-05,7000.0,43.0
-Tripura,Sepahijala,Bishalgarh,Other,Beverages,0.02,5500,8000,7000,2002-05-18,10000.0,9.0
 Tripura,Sepahijala,Bishalgarh,Other,Beverages,0.02,8000,11000,10000,2002-05-27,10000.0,1.0
 Tripura,Sepahijala,Bishalgarh,Other,Beverages,0.01,7000,11000,10000,2002-05-28,9000.0,1.0
 Tripura,Sepahijala,Bishalgarh,Other,Beverages,0.02,6000,10000,9000,2002-05-29,10000.0,2.0
@@ -317,7 +303,6 @@ Tripura,Sepahijala,Bishalgarh,Other,Beverages,0.02,6000,10000,9000,2002-10-04,80
 Tripura,Sepahijala,Bishalgarh,Other,Beverages,0.03,6000,9000,8000,2002-10-05,9000.0,2.0
 Tripura,Sepahijala,Bishalgarh,Other,Beverages,0.02,6000,10000,9000,2002-10-07,8000.0,3.0
 Tripura,Sepahijala,Bishalgarh,Other,Beverages,0.01,5000,9000,8000,2002-10-10,9000.0,1.0
-Tripura,Sepahijala,Bishalgarh,Other,Beverages,0.03,5000,10000,9000,2002-10-11,10000.0,10.0
 Tripura,Sepahijala,Bishalgarh,Other,Beverages,0.01,6000,11000,10000,2002-10-21,10000.0,1.0
 Tripura,Sepahijala,Bishalgarh,Other,Beverages,0.02,6000,11000,10000,2002-10-22,10000.0,1.0
 Tripura,Sepahijala,Bishalgarh,Other,Beverages,0.02,6000,11000,10000,2002-10-23,9000.0,1.0
@@ -332,26 +317,16 @@ Tripura,Sepahijala,Bishalgarh,Other,Beverages,0.03,6000,11000,10000,2002-11-02,1
 Tripura,Sepahijala,Bishalgarh,Other,Beverages,0.01,5000,11000,10000,2002-11-05,10000.0,1.0
 Tripura,Sepahijala,Bishalgarh,Other,Beverages,0.02,5000,11000,10000,2002-11-06,10000.0,1.0
 Tripura,Sepahijala,Bishalgarh,Other,Beverages,0.01,6000,11000,10000,2002-11-07,10000.0,4.0
-Tripura,Sepahijala,Bishalgarh,Other,Beverages,0.02,6000,11000,10000,2002-11-11,10000.0,12.0
-Tripura,Sepahijala,Bishalgarh,Other,Beverages,0.02,6000,11000,10000,2002-11-23,12000.0,9.0
-Jharkhand,Dhanbad,Dhanbad,Other,Beverages,1.0,8000,10000,10000,2005-07-27,10000.0,63.0
-Jharkhand,Dhanbad,Dhanbad,Other,Beverages,1.0,7500,10000,10000,2005-09-28,13000.0,1266.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,1.5,12000,14000,13000,2009-03-17,13000.0,1.0
-Jharkhand,Dhanbad,Dhanbad,Other,Beverages,1.0,12000,14000,13000,2009-03-18,13500.0,11.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,1.0,13000,14000,13500,2009-03-29,13500.0,1.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,1.0,12000,15000,13500,2009-03-30,13500.0,1.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,1.0,12000,14500,13500,2009-03-31,13500.0,1.0
-Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.5,12000,14500,13500,2009-04-01,13500.0,11.0
-Jharkhand,Dhanbad,Dhanbad,Other,Beverages,1.0,12000,14000,13500,2009-04-12,14000.0,19.0
-Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.5,13500,14500,14000,2009-05-01,14000.0,9.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,1.0,13000,15000,14000,2009-05-10,14000.0,5.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.1,13000,14500,14000,2009-05-15,14000.0,3.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.5,13500,14500,14000,2009-05-18,14500.0,2.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.5,13000,15000,14500,2009-05-20,14000.0,4.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.5,13500,14500,14000,2009-05-24,14000.0,2.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.5,13500,14500,14000,2009-05-26,14000.0,5.0
-Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.5,13500,15000,14000,2009-05-31,14000.0,20.0
-Jharkhand,Dhanbad,Dhanbad,Other,Beverages,1.5,13000,15000,14000,2009-06-20,14000.0,10.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.5,12000,15000,14000,2009-06-30,14000.0,7.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,1.0,12000,16000,14000,2009-07-07,16000.0,4.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,1.0,14000,18000,16000,2009-07-11,13500.0,3.0
@@ -359,19 +334,16 @@ Jharkhand,Dhanbad,Dhanbad,Other,Beverages,1.0,13000,14000,13500,2009-07-14,13500
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,1.0,13000,14000,13500,2009-07-15,15000.0,6.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,1.0,13000,18000,15000,2009-07-21,15000.0,1.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.5,13000,18000,15000,2009-07-22,15000.0,4.0
-Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.2,13000,18000,15000,2009-07-26,14500.0,10.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,1.0,13000,15000,14500,2009-08-05,15000.0,6.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.3,13000,18000,15000,2009-08-11,15000.0,3.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.1,13000,18000,15000,2009-08-14,15000.0,7.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,1.0,14000,18000,15000,2009-08-21,15000.0,4.0
-Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.5,13000,18000,15000,2009-08-25,15000.0,12.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.5,13500,18000,15000,2009-09-06,16000.0,3.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.5,13000,18000,16000,2009-09-09,16000.0,6.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,1.0,13000,18000,16000,2009-09-15,16000.0,1.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,1.0,13000,18000,16000,2009-09-16,16000.0,2.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,1.0,13000,18000,16000,2009-09-18,16000.0,4.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.5,13000,18000,16000,2009-09-22,15000.0,1.0
-Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.1,13000,18000,15000,2009-09-23,15500.0,9.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.5,13000,18000,15500,2009-10-02,16500.0,1.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.5,13500,18000,16500,2009-10-03,16500.0,1.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.1,13500,18000,16500,2009-10-04,19000.0,5.0
@@ -398,7 +370,6 @@ Jharkhand,Dhanbad,Dhanbad,Other,Beverages,1.0,14100,18000,16100,2009-12-08,16000
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.2,14000,18000,16000,2009-12-11,16000.0,6.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,5.0,14000,18000,16000,2009-12-17,16000.0,1.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,1.2,14500,18000,16000,2009-12-18,16000.0,4.0
-Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.2,14000,18000,16000,2009-12-22,16000.0,8.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,1.0,14000,18000,16000,2009-12-30,16000.0,3.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.5,14000,18000,16000,2010-01-02,16000.0,4.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.5,14000,18000,16000,2010-01-06,16000.0,4.0
@@ -419,7 +390,6 @@ Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.5,14500,18000,16500,2010-02-19,16500
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,1.0,14500,18000,16500,2010-02-21,16500.0,5.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,3.1,14500,18000,16500,2010-02-26,16000.0,1.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.1,14000,18500,16000,2010-02-27,16000.0,1.0
-Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.1,14000,18000,16000,2010-02-28,16500.0,10.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.5,14500,18000,16500,2010-03-10,16500.0,2.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.4,14500,18000,16500,2010-03-12,16000.0,2.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.7,14500,18000,16000,2010-03-14,16000.0,2.0
@@ -455,12 +425,10 @@ Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.3,15000,18000,17000,2010-06-09,16500
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.5,15000,18000,16500,2010-06-15,16500.0,3.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.7,15000,18000,16500,2010-06-18,17500.0,7.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.3,16000,18000,17500,2010-06-25,17000.0,4.0
-Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.5,16000,18000,17000,2010-06-29,17000.0,15.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.7,16000,19000,17000,2010-07-14,17000.0,3.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.7,16000,19000,17000,2010-07-17,17500.0,2.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.8,16000,19000,17500,2010-07-19,17500.0,2.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.3,16000,19000,17500,2010-07-21,17000.0,4.0
-Jharkhand,Dhanbad,Dhanbad,Other,Beverages,1.0,16000,19000,17000,2010-07-25,17000.0,8.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,2.0,16000,19000,17000,2010-08-02,17000.0,1.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.4,16000,19000,17000,2010-08-03,16500.0,7.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.1,16000,19000,16500,2010-08-10,17000.0,1.0
@@ -483,10 +451,8 @@ Jharkhand,Dhanbad,Dhanbad,Other,Beverages,2.0,16000,19000,17000,2010-09-19,17000
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,2.0,16000,19000,17000,2010-09-20,17000.0,4.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.2,16000,19000,17000,2010-09-24,17500.0,2.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.5,16000,19000,17500,2010-09-26,17500.0,2.0
-Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.3,16000,19000,17500,2010-09-28,17000.0,10.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,1.0,16000,18000,17000,2010-10-08,17000.0,2.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.5,16000,18000,17000,2010-10-10,17000.0,4.0
-Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.8,16000,18000,17000,2010-10-14,17000.0,10.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,1.5,16000,18000,17000,2010-10-24,17000.0,3.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.1,16000,18000,17000,2010-10-27,17000.0,2.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.4,16000,18000,17000,2010-10-29,17000.0,1.0
@@ -495,7 +461,6 @@ Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.2,16000,18000,17000,2010-11-01,17000
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.5,16000,18000,17000,2010-11-03,17000.0,1.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,24.4,16000,18000,17000,2010-11-04,17000.0,3.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,1.5,16000,18000,17000,2010-11-07,17000.0,2.0
-Jharkhand,Dhanbad,Dhanbad,Other,Beverages,1.2,16000,18000,17000,2010-11-09,17000.0,8.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.3,16000,18000,17000,2010-11-17,17000.0,4.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,1.3,16000,18000,17000,2010-11-21,17000.0,2.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.8,16000,18000,17000,2010-11-23,17000.0,5.0
@@ -521,7 +486,6 @@ Jharkhand,Dhanbad,Dhanbad,Other,Beverages,3.2,16600,18200,17500,2011-01-08,17500
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.3,16600,18200,17500,2011-01-09,17500.0,1.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,1.0,16600,18200,17500,2011-01-10,17500.0,2.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.6,16600,18200,17500,2011-01-12,17500.0,2.0
-Jharkhand,Dhanbad,Dhanbad,Other,Beverages,2.0,16600,18200,17500,2011-01-14,20000.0,360.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,16.0,18000,21000,20000,2012-01-09,20000.0,1.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,5.0,18000,21000,20000,2012-01-10,20000.0,1.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,2.5,18000,21000,20000,2012-01-11,20000.0,1.0
@@ -532,7 +496,6 @@ Jharkhand,Dhanbad,Dhanbad,Other,Beverages,9.6,18000,21000,20000,2012-01-16,20000
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,1.5,18000,21000,20000,2012-01-20,20000.0,4.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,7.7,18000,21000,20000,2012-01-24,20000.0,3.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,12.8,18000,21000,20000,2012-01-27,20000.0,1.0
-Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.1,18000,21000,20000,2012-01-28,20000.0,13.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,24.85,18000,21000,20000,2012-02-10,20000.0,2.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,40.7,18000,21000,20000,2012-02-12,20000.0,5.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,4.52,18000,21000,20000,2012-02-17,20000.0,1.0
@@ -596,7 +559,6 @@ Jharkhand,Dhanbad,Dhanbad,Other,Beverages,40.8,18000,21000,20000,2012-07-22,2000
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,3.5,18000,21000,20000,2012-07-23,20000.0,4.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,7.4,18000,21000,20000,2012-07-27,20000.0,1.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,7.8,18000,21000,20000,2012-07-28,20000.0,2.0
-Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.7,18000,21000,20000,2012-07-30,20000.0,8.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,1.6,18000,21000,20000,2012-08-07,20000.0,1.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,41.7,18000,21000,20000,2012-08-08,20000.0,4.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,2.9,18000,21000,20000,2012-08-12,20000.0,2.0
@@ -638,7 +600,6 @@ Jharkhand,Dhanbad,Dhanbad,Other,Beverages,8.2,18000,21000,20000,2012-11-18,20000
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,7.7,18000,21000,20000,2012-11-19,20000.0,7.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,6.3,18000,21000,20000,2012-11-26,20000.0,2.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,4.7,18000,21000,20000,2012-11-28,20000.0,2.0
-Jharkhand,Dhanbad,Dhanbad,Other,Beverages,5.8,18000,21000,20000,2012-11-30,20000.0,15.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,76.7,18000,21000,20000,2012-12-15,20000.0,3.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,6.36,18000,21000,20000,2012-12-18,20000.0,4.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,16.0,18000,21000,20000,2012-12-22,20000.0,4.0
@@ -650,7 +611,6 @@ Jharkhand,Dhanbad,Dhanbad,Other,Beverages,80.0,18000,21000,20000,2013-01-12,2000
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,160.0,18000,21000,20000,2013-01-16,20000.0,4.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,67.0,18000,21000,20000,2013-01-20,20000.0,1.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,90.0,18000,21000,20000,2013-01-21,20000.0,1.0
-Jharkhand,Dhanbad,Dhanbad,Other,Beverages,74.0,18000,21000,20000,2013-01-22,20000.0,8.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,67.0,18000,21000,20000,2013-01-30,20000.0,3.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,5.9,18000,21000,20000,2013-02-02,20000.0,2.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.01,18000,21000,20000,2013-02-04,20000.0,7.0
@@ -675,7 +635,6 @@ Jharkhand,Dhanbad,Dhanbad,Other,Beverages,7.8,20000,22000,21000,2013-03-17,21000
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,13.0,20000,22000,21000,2013-03-19,21000.0,3.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,7.6,20000,22000,21000,2013-03-22,21000.0,1.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,7.7,20000,22000,21000,2013-03-23,22000.0,6.0
-Jharkhand,Dhanbad,Dhanbad,Other,Beverages,15.12,20000,25000,22000,2013-03-29,22000.0,8.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,7.6,20000,25000,22000,2013-04-06,22000.0,1.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,4.6,20000,25000,22000,2013-04-07,22000.0,3.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,6.4,20000,25000,22000,2013-04-10,23000.0,5.0
@@ -688,7 +647,6 @@ Jharkhand,Dhanbad,Dhanbad,Other,Beverages,15.0,22000,24000,23000,2013-04-27,2300
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.34,22000,24000,23000,2013-05-01,23000.0,2.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,10.07,22000,24000,23000,2013-05-03,23000.0,2.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.07,22000,24000,23000,2013-05-05,23000.0,5.0
-Jharkhand,Dhanbad,Dhanbad,Other,Beverages,5.01,22000,24000,23000,2013-05-10,23000.0,11.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,16.27,22000,24000,23000,2013-05-21,23000.0,3.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,8.25,22000,24000,23000,2013-05-24,23000.0,1.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,8.34,22000,24000,23000,2013-05-25,23000.0,1.0
@@ -873,8 +831,6 @@ Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.1,21000,23000,22000,2014-03-19,22000
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.09,21000,23000,22000,2014-03-22,22000.0,1.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,7.86,21000,23000,22000,2014-03-23,22000.0,1.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.12,21000,23000,22000,2014-03-24,22000.0,1.0
-Jharkhand,Dhanbad,Dhanbad,Other,Beverages,5.71,21000,23000,22000,2014-03-25,19000.0,48.0
-Jharkhand,Dhanbad,Dhanbad,Other,Beverages,8.44,18000,21000,19000,2014-05-12,19000.0,8.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,0.3,18000,21000,19000,2014-05-20,14000.0,6.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,7.0,12000,18000,14000,2014-05-26,14000.0,1.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,9.0,12000,18000,14000,2014-05-27,17000.0,1.0
@@ -911,7 +867,6 @@ Jharkhand,Dhanbad,Dhanbad,Other,Beverages,7.0,16000,18000,17000,2014-07-25,17500
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,15.0,16000,18000,17500,2014-07-27,17000.0,3.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,16.0,16000,18000,17000,2014-07-30,17500.0,3.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,8.0,16000,18000,17500,2014-08-02,17400.0,1.0
-Jharkhand,Dhanbad,Dhanbad,Other,Beverages,8.0,16000,18000,17400,2014-08-03,17000.0,9.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,9.0,16000,18000,17000,2014-08-12,17500.0,1.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,23.0,16000,18000,17500,2014-08-13,17500.0,3.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,7.0,16000,18000,17500,2014-08-16,17500.0,6.0
@@ -974,7 +929,6 @@ Jharkhand,Dhanbad,Dhanbad,Other,Beverages,14.0,17000,19000,18500,2014-12-17,1850
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,7.0,17000,19000,18500,2014-12-18,18500.0,5.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,32.0,17000,19000,18500,2014-12-23,18500.0,2.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,15.0,17000,19000,18500,2014-12-25,19550.0,5.0
-Jharkhand,Dhanbad,Dhanbad,Other,Beverages,17.0,18000,21000,19550,2014-12-30,18500.0,9.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,13.0,17000,19000,18500,2015-01-08,18500.0,3.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,7.0,17000,19000,18500,2015-01-11,19550.0,2.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,16.0,17000,21000,19550,2015-01-13,19550.0,3.0
@@ -999,140 +953,62 @@ Jharkhand,Dhanbad,Dhanbad,Other,Beverages,8.0,17000,21000,19500,2015-02-28,19500
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,17.0,17000,21000,19500,2015-03-01,20500.0,3.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,8.0,19000,21000,20500,2015-03-04,20500.0,4.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,8.0,19000,21000,20500,2015-03-08,20500.0,1.0
-Jharkhand,Dhanbad,Dhanbad,Other,Beverages,9.0,19000,21000,20500,2015-03-09,19500.0,8.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,11.0,17000,21000,19500,2015-03-17,19550.0,1.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,8.0,18000,21000,19550,2015-03-18,19850.0,2.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,8.0,18000,21000,19850,2015-03-20,20500.0,1.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,8.0,18000,22000,20500,2015-03-21,20500.0,2.0
-Jharkhand,Dhanbad,Dhanbad,Other,Beverages,8.0,18000,22000,20500,2015-03-23,21250.0,13.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,8.0,19000,22000,21250,2015-04-05,20500.0,6.0
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,14.0,19000,21000,20500,2015-04-11,20500.0,6.0
-Kerala,Alappuzha,Harippad,Other,Beverages,0.05,9300,10500,9900,2010-04-22,10500.0,212.0
-Kerala,Alappuzha,Harippad,Other,Beverages,10000.0,10000,11000,10500,2010-11-20,13500.0,747.0
 Kerala,Alappuzha,Harippad,Other,Beverages,0.5,12500,13500,13500,2012-12-06,12500.0,1.0
 Kerala,Alappuzha,Harippad,Other,Beverages,1.0,12500,13500,12500,2012-12-07,13500.0,2.0
 Kerala,Alappuzha,Harippad,Other,Beverages,0.5,12500,14000,13500,2012-12-09,13800.0,1.0
 Kerala,Alappuzha,Harippad,Other,Beverages,0.5,12800,13800,13800,2012-12-10,13800.0,1.0
 Kerala,Alappuzha,Harippad,Other,Beverages,0.5,12800,13800,13800,2012-12-11,13500.0,2.0
 Kerala,Alappuzha,Harippad,Other,Beverages,1.0,12500,13800,13500,2012-12-13,13500.0,1.0
-Meghalaya,West Jaintia Hills,Jowai,Other,Beverages,0.1,14000,16000,15000,2003-05-06,14500.0,24.0
-Meghalaya,West Jaintia Hills,Jowai,Other,Beverages,0.1,14000,15000,14500,2003-05-30,14500.0,8.0
-Meghalaya,West Jaintia Hills,Jowai,Other,Beverages,0.1,14000,15000,14500,2003-06-07,14500.0,32.0
-Meghalaya,West Jaintia Hills,Jowai,Other,Beverages,0.1,14000,15000,14500,2003-07-09,14500.0,16.0
-Meghalaya,West Jaintia Hills,Jowai,Other,Beverages,0.1,14000,15000,14500,2003-07-25,14500.0,8.0
-Meghalaya,West Jaintia Hills,Jowai,Other,Beverages,0.1,14000,15000,14500,2003-08-02,14500.0,9.0
-Kerala,Kollam,Kollam,Other,Beverages,0.25,5500,8000,6500,2003-05-27,8500.0,21.0
 Kerala,Kollam,Kollam,Other,Beverages,5.0,8500,10000,8500,2003-06-17,8500.0,3.0
 Kerala,Kollam,Kollam,Other,Beverages,2.0,8500,10000,8500,2003-06-20,8500.0,4.0
 Kerala,Kollam,Kollam,Other,Beverages,3.0,8500,10000,8500,2003-06-24,8500.0,7.0
 Kerala,Kollam,Kollam,Other,Beverages,2.0,7000,10000,8500,2003-07-01,8500.0,3.0
 Kerala,Kollam,Kollam,Other,Beverages,2.0,8500,10000,8500,2003-07-04,9000.0,4.0
-Kerala,Kollam,Kollam,Other,Beverages,3.0,8500,10000,9000,2003-07-08,8500.0,10.0
 Kerala,Kollam,Kollam,Other,Beverages,9.0,7000,10000,8500,2003-07-18,8500.0,4.0
 Kerala,Kollam,Kollam,Other,Beverages,5.0,7500,9000,8500,2003-07-22,8500.0,3.0
 Kerala,Kollam,Kollam,Other,Beverages,2.0,7500,9000,8500,2003-07-25,8500.0,4.0
 Kerala,Kollam,Kollam,Other,Beverages,2.0,7500,9000,8500,2003-07-29,9000.0,3.0
 Kerala,Kollam,Kollam,Other,Beverages,2.0,8500,11000,9000,2003-08-01,9000.0,4.0
 Kerala,Kollam,Kollam,Other,Beverages,2.0,8500,11500,9000,2003-08-05,9000.0,7.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,8500,10000,9000,2003-08-12,8500.0,8.0
 Kerala,Kollam,Kollam,Other,Beverages,5.0,7500,10000,8500,2003-08-20,8500.0,2.0
-Kerala,Kollam,Kollam,Other,Beverages,3.0,7500,10000,8500,2003-08-22,8000.0,26.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,7000,10000,8000,2003-09-17,8000.0,9.0
 Kerala,Kollam,Kollam,Other,Beverages,5.0,7000,10000,8000,2003-09-26,8000.0,7.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,7000,10000,8000,2003-10-03,8500.0,11.0
 Kerala,Kollam,Kollam,Other,Beverages,5.0,7000,10000,8500,2003-10-14,7500.0,7.0
 Kerala,Kollam,Kollam,Other,Beverages,2.0,6000,10000,7500,2003-10-21,7000.0,4.0
 Kerala,Kollam,Kollam,Other,Beverages,3.0,5000,10000,7000,2003-10-25,6500.0,6.0
 Kerala,Kollam,Kollam,Other,Beverages,3.0,5500,10000,6500,2003-10-31,7500.0,7.0
-Kerala,Kollam,Kollam,Other,Beverages,3.0,7000,10000,7500,2003-11-07,8500.0,21.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,7000,10000,8500,2003-11-28,7500.0,11.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,5500,10500,7500,2003-12-09,9000.0,14.0
 Kerala,Kollam,Kollam,Other,Beverages,3.0,7000,10500,9000,2003-12-23,9000.0,7.0
-Kerala,Kollam,Kollam,Other,Beverages,3.0,7000,10500,9000,2003-12-30,9000.0,8.0
-Kerala,Kollam,Kollam,Other,Beverages,2.0,7000,10500,9000,2004-01-07,9000.0,9.0
 Kerala,Kollam,Kollam,Other,Beverages,3.0,7000,10500,9000,2004-01-16,9000.0,7.0
 Kerala,Kollam,Kollam,Other,Beverages,2.0,7500,10500,9000,2004-01-23,8500.0,7.0
-Kerala,Kollam,Kollam,Other,Beverages,2.0,7000,10500,8500,2004-01-30,9000.0,11.0
 Kerala,Kollam,Kollam,Other,Beverages,3.0,7000,10500,9000,2004-02-10,9000.0,7.0
 Kerala,Kollam,Kollam,Other,Beverages,2.0,7000,10500,9000,2004-02-17,9000.0,3.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,7000,10500,9000,2004-02-20,9000.0,14.0
 Kerala,Kollam,Kollam,Other,Beverages,1.0,7000,10500,9000,2004-03-05,9000.0,4.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,7000,10500,9000,2004-03-09,9000.0,10.0
 Kerala,Kollam,Kollam,Other,Beverages,5.0,7000,10500,9000,2004-03-19,9000.0,4.0
-Kerala,Kollam,Kollam,Other,Beverages,3.0,7000,10500,9000,2004-03-23,9000.0,14.0
-Kerala,Kollam,Kollam,Other,Beverages,3.0,7000,10500,9000,2004-04-06,9000.0,17.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,7000,10500,9000,2004-04-23,9000.0,14.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,7000,10500,9000,2004-05-07,9000.0,11.0
-Kerala,Kollam,Kollam,Other,Beverages,3.0,7000,10500,9000,2004-05-18,8500.0,10.0
 Kerala,Kollam,Kollam,Other,Beverages,5.0,7000,10500,8500,2004-05-28,8500.0,4.0
-Kerala,Kollam,Kollam,Other,Beverages,3.0,7000,10500,8500,2004-06-01,9000.0,10.0
 Kerala,Kollam,Kollam,Other,Beverages,3.0,7000,10500,9000,2004-06-11,9000.0,7.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,7000,10500,9000,2004-06-18,10000.0,42.0
 Kerala,Kollam,Kollam,Other,Beverages,5.0,7400,10600,10000,2004-07-30,9000.0,7.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,7000,10500,9000,2004-08-06,9000.0,11.0
 Kerala,Kollam,Kollam,Other,Beverages,5.0,7000,10500,9000,2004-08-17,9000.0,3.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,7000,10500,9000,2004-08-20,9500.0,18.0
 Kerala,Kollam,Kollam,Other,Beverages,5.0,7000,10500,9500,2004-09-07,9000.0,7.0
-Kerala,Kollam,Kollam,Other,Beverages,2.0,7000,10800,9000,2004-09-14,9000.0,21.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,7500,10500,9000,2004-10-05,9000.0,10.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,7500,10500,9000,2004-10-15,9000.0,14.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,7000,10500,9000,2004-10-29,9000.0,8.0
 Kerala,Kollam,Kollam,Other,Beverages,5.0,7000,10500,9000,2004-11-06,9000.0,3.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,7000,10500,9000,2004-11-09,9000.0,14.0
 Kerala,Kollam,Kollam,Other,Beverages,5.0,7000,10500,9000,2004-11-23,9000.0,7.0
 Kerala,Kollam,Kollam,Other,Beverages,5.0,7000,10500,9000,2004-11-30,9000.0,7.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,7500,10500,9000,2004-12-07,9000.0,31.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,7500,11000,9000,2005-01-07,9000.0,11.0
-Kerala,Kollam,Kollam,Other,Beverages,2.0,7500,10500,9000,2005-01-18,9000.0,17.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,7000,10500,9000,2005-02-04,9000.0,18.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,7000,11000,9000,2005-02-22,9500.0,157.0
 Kerala,Kollam,Kollam,Other,Beverages,5.0,8000,11000,9500,2005-07-29,9000.0,7.0
 Kerala,Kollam,Kollam,Other,Beverages,5.0,8000,11000,9000,2005-08-05,9000.0,7.0
 Kerala,Kollam,Kollam,Other,Beverages,5.0,7500,11000,9000,2005-08-12,9000.0,4.0
 Kerala,Kollam,Kollam,Other,Beverages,5.0,7500,11000,9000,2005-08-16,9000.0,3.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,7500,11000,9000,2005-08-19,9000.0,14.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,7500,11000,9000,2005-09-02,9500.0,11.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,8000,11000,9500,2005-09-13,9000.0,21.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,8000,11000,9000,2005-10-04,9000.0,10.0
 Kerala,Kollam,Kollam,Other,Beverages,3.0,8500,10500,9000,2005-10-14,9200.0,7.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,8000,11000,9200,2005-10-21,9200.0,18.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,8000,11000,9200,2005-11-08,9200.0,17.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,7500,11000,9200,2005-11-25,9000.0,39.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,7000,11000,9000,2006-01-03,9000.0,10.0
 Kerala,Kollam,Kollam,Other,Beverages,5.0,7000,10500,9000,2006-01-13,9000.0,7.0
-Kerala,Kollam,Kollam,Other,Beverages,4.0,7000,10500,9000,2006-01-20,9500.0,60.0
 Kerala,Kollam,Kollam,Other,Beverages,3.0,7500,11000,9500,2006-03-21,9500.0,7.0
 Kerala,Kollam,Kollam,Other,Beverages,3.0,7500,11000,9500,2006-03-28,950.0,7.0
-Kerala,Kollam,Kollam,Other,Beverages,3.0,700,1100,950,2006-04-04,950.0,17.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,850,1100,950,2006-04-21,10250.0,32.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,9500,11000,10250,2006-05-23,950.0,28.0
-Kerala,Kollam,Kollam,Other,Beverages,4.0,700,1100,950,2006-06-20,9500.0,46.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,9000,10500,9500,2006-08-05,9000.0,13.0
 Kerala,Kollam,Kollam,Other,Beverages,5.0,8000,10000,9000,2006-08-18,9000.0,7.0
-Kerala,Kollam,Kollam,Other,Beverages,3.0,8000,10000,9000,2006-08-25,9000.0,21.0
-Kerala,Kollam,Kollam,Other,Beverages,2.0,8000,10000,9000,2006-09-15,8700.0,14.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,8500,9000,8700,2006-09-29,8700.0,14.0
-Kerala,Kollam,Kollam,Other,Beverages,4.0,8500,9000,8700,2006-10-13,9000.0,63.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,8000,9500,9000,2006-12-15,7950.0,60.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,7900,8000,7950,2007-02-13,8800.0,28.0
-Kerala,Kollam,Kollam,Other,Beverages,10.0,8500,9000,8800,2007-03-13,8500.0,17.0
-Kerala,Kollam,Kollam,Other,Beverages,8.0,8000,9000,8500,2007-03-30,8300.0,18.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,8000,8500,8300,2007-04-17,8700.0,24.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,8500,9000,8700,2007-05-11,8300.0,18.0
 Kerala,Kollam,Kollam,Other,Beverages,10.0,8000,8500,8300,2007-05-29,8500.0,7.0
-Kerala,Kollam,Kollam,Other,Beverages,10.0,8000,9000,8500,2007-06-05,7500.0,21.0
-Kerala,Kollam,Kollam,Other,Beverages,18.0,7000,8000,7500,2007-06-26,7750.0,14.0
-Kerala,Kollam,Kollam,Other,Beverages,20.0,7500,8000,7750,2007-07-10,7300.0,59.0
-Kerala,Kollam,Kollam,Other,Beverages,15.0,7000,7500,7300,2007-09-07,7500.0,18.0
-Kerala,Kollam,Kollam,Other,Beverages,10.0,7500,8000,7500,2007-09-25,7300.0,31.0
-Kerala,Kollam,Kollam,Other,Beverages,8.0,7000,7500,7300,2007-10-26,7100.0,32.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,7000,7200,7100,2007-11-27,12900.0,563.0
 Kerala,Kollam,Kollam,Other,Beverages,2.0,12800,13000,12900,2009-06-12,12950.0,4.0
-Kerala,Kollam,Kollam,Other,Beverages,2.0,12900,13000,12950,2009-06-16,12900.0,8.0
 Kerala,Kollam,Kollam,Other,Beverages,2.0,12800,13000,12900,2009-06-24,13800.0,6.0
-Kerala,Kollam,Kollam,Other,Beverages,3.0,13500,14000,13800,2009-06-30,12900.0,10.0
-Kerala,Kollam,Kollam,Other,Beverages,5.0,12800,13000,12900,2009-07-10,13950.0,8.0
-Kerala,Kollam,Kollam,Other,Beverages,6.0,13900,14000,13950,2009-07-18,14450.0,13.0
 Kerala,Kollam,Kollam,Other,Beverages,5.0,14400,14500,14450,2009-07-31,14450.0,4.0
 Kerala,Kollam,Kollam,Other,Beverages,4.0,14400,14500,14450,2009-08-04,13900.0,3.0
 Kerala,Kollam,Kollam,Other,Beverages,5.0,13800,14000,13900,2009-08-07,14450.0,4.0
@@ -1140,11 +1016,9 @@ Kerala,Kollam,Kollam,Other,Beverages,2.0,14400,14500,14450,2009-08-11,14450.0,3.
 Kerala,Kollam,Kollam,Other,Beverages,2.0,14400,14500,14450,2009-08-14,14450.0,7.0
 Kerala,Kollam,Kollam,Other,Beverages,5.0,14400,14500,14450,2009-08-21,12900.0,4.0
 Kerala,Kollam,Kollam,Other,Beverages,2.0,12800,13000,12900,2009-08-25,12900.0,3.0
-Kerala,Kollam,Kollam,Other,Beverages,2.0,12800,13000,12900,2009-08-28,13900.0,18.0
 Kerala,Kollam,Kollam,Other,Beverages,5.0,13800,14000,13900,2009-09-15,13900.0,3.0
 Kerala,Kollam,Kollam,Other,Beverages,2.0,13800,14000,13900,2009-09-18,14300.0,7.0
 Kerala,Kollam,Kollam,Other,Beverages,4.0,14000,14500,14300,2009-09-25,14450.0,4.0
-Kerala,Kollam,Kollam,Other,Beverages,3.0,14400,14500,14450,2009-09-29,14450.0,14.0
 Kerala,Kollam,Kollam,Other,Beverages,1.0,14400,14500,14450,2009-10-13,14400.0,7.0
 Kerala,Kollam,Kollam,Other,Beverages,2.0,14300,14500,14400,2009-10-20,13900.0,3.0
 Kerala,Kollam,Kollam,Other,Beverages,1.0,13800,14000,13900,2009-10-23,13900.0,7.0
@@ -1164,18 +1038,10 @@ Kerala,Kollam,Kollam,Other,Beverages,0.5,11500,12000,11800,2009-12-15,11500.0,7.
 Kerala,Kollam,Kollam,Other,Beverages,0.01,11000,12000,11500,2009-12-22,13900.0,6.0
 Kerala,Kollam,Kollam,Other,Beverages,0.2,13800,14000,13900,2009-12-28,12800.0,7.0
 Kerala,Kollam,Kollam,Other,Beverages,0.2,12500,13000,12800,2010-01-04,13500.0,2.0
-Kerala,Kollam,Kollam,Other,Beverages,0.5,13000,14000,13500,2010-01-06,13000.0,9.0
-Kerala,Kollam,Kollam,Other,Beverages,0.1,12500,14000,13000,2010-01-15,12200.0,12.0
 Kerala,Kollam,Kollam,Other,Beverages,0.8,12000,12500,12200,2010-01-27,13900.0,5.0
 Kerala,Kollam,Kollam,Other,Beverages,0.5,13800,14000,13900,2010-02-01,13000.0,4.0
-Kerala,Kollam,Kollam,Other,Beverages,0.02,12500,14000,13000,2010-02-05,13000.0,12.0
-Kerala,Kollam,Kollam,Other,Beverages,0.02,12500,13500,13000,2010-02-17,12800.0,14.0
 Kerala,Kollam,Kollam,Other,Beverages,0.01,12500,13000,12800,2010-03-03,12500.0,2.0
 Kerala,Kollam,Kollam,Other,Beverages,0.01,12000,13000,12500,2010-03-05,12500.0,5.0
-Kerala,Kollam,Kollam,Other,Beverages,0.01,12000,13000,12500,2010-03-10,13000.0,9.0
-Kerala,Kollam,Kollam,Other,Beverages,0.02,12500,14000,13000,2010-03-19,11500.0,24.0
-Kerala,Kollam,Kollam,Other,Beverages,0.2,11000,12000,11500,2010-04-12,13800.0,21.0
-Kerala,Kollam,Kollam,Other,Beverages,1.0,13500,14000,13800,2010-05-03,13800.0,9.0
 Kerala,Kollam,Kollam,Other,Beverages,0.8,13600,14000,13800,2010-05-12,13500.0,1.0
 Kerala,Kollam,Kollam,Other,Beverages,0.5,13000,14000,13500,2010-05-13,13800.0,1.0
 Kerala,Kollam,Kollam,Other,Beverages,0.5,13600,14000,13800,2010-05-14,13500.0,3.0
@@ -1513,7 +1379,6 @@ Kerala,Kollam,Kollam,Other,Beverages,0.5,12000,13000,12500,2011-09-02,13000.0,1.
 Kerala,Kollam,Kollam,Other,Beverages,0.5,12500,13500,13000,2011-09-03,12500.0,2.0
 Kerala,Kollam,Kollam,Other,Beverages,0.5,12000,13000,12500,2011-09-05,12500.0,1.0
 Kerala,Kollam,Kollam,Other,Beverages,0.5,12000,13000,12500,2011-09-06,12500.0,1.0
-Kerala,Kollam,Kollam,Other,Beverages,0.5,12000,13000,12500,2011-09-07,12500.0,21.0
 Kerala,Kollam,Kollam,Other,Beverages,0.5,12000,13000,12500,2011-09-28,12500.0,1.0
 Kerala,Kollam,Kollam,Other,Beverages,0.5,12000,13000,12500,2011-09-29,12500.0,1.0
 Kerala,Kollam,Kollam,Other,Beverages,0.5,12000,13000,12500,2011-09-30,12500.0,1.0
@@ -1583,26 +1448,10 @@ Kerala,Malappuram,Kondotty,Other,Beverages,0.5,14500,15500,15000,2015-07-20,1400
 Kerala,Malappuram,Kondotty,Other,Beverages,0.5,13500,14500,14000,2015-07-21,14000.0,1.0
 Kerala,Malappuram,Kondotty,Other,Beverages,0.8,13500,15000,14000,2015-07-22,14000.0,2.0
 Kerala,Malappuram,Kondotty,Other,Beverages,0.8,13500,15000,14000,2015-07-24,13500.0,1.0
-Kerala,Malappuram,Kondotty,Other,Beverages,0.35,13000,14000,13500,2015-07-25,14000.0,18.0
 Kerala,Malappuram,Kondotty,Other,Beverages,0.5,13000,15000,14000,2015-08-12,13500.0,6.0
 Kerala,Malappuram,Kondotty,Other,Beverages,0.5,13000,14000,13500,2015-08-18,13100.0,7.0
-Kerala,Malappuram,Kondotty,Other,Beverages,0.25,13000,13200,13100,2015-08-25,12000.0,62.0
-Kerala,Malappuram,Kondotty,Other,Beverages,1.0,11000,14000,12000,2015-10-26,13000.0,103.0
-Kerala,Malappuram,Kondotty,Other,Beverages,0.5,12500,13005,13000,2016-02-06,3600.0,116.0
-Kerala,Malappuram,Kondotty,Other,Beverages,4.0,3500,3700,3600,2016-06-01,14000.0,17.0
-Kerala,Malappuram,Kondotty,Other,Beverages,0.5,13000,15000,14000,2016-06-18,13100.0,9.0
-Kerala,Malappuram,Kondotty,Other,Beverages,2.0,13000,13200,13100,2016-06-27,13500.0,42.0
 Kerala,Malappuram,Kondotty,Other,Beverages,0.5,13000,14000,13500,2016-08-08,13200.0,7.0
-Kerala,Malappuram,Kondotty,Other,Beverages,0.5,13000,13400,13200,2016-08-15,12500.0,154.0
-Kerala,Malappuram,Kondotty,Other,Beverages,1.0,12000,13000,12500,2017-01-16,13500.0,28.0
-Kerala,Malappuram,Kondotty,Other,Beverages,0.1,13000,14000,13500,2017-02-13,3100.0,169.0
-Kerala,Malappuram,Kondotty,Other,Beverages,4.0,3000,3200,3100,2017-08-01,3100.0,16.0
-Kerala,Malappuram,Kondotty,Other,Beverages,3.0,3000,3200,3100,2017-08-17,11000.0,142.0
 Kerala,Malappuram,Kondotty,Other,Beverages,1.0,10000,13000,11000,2018-01-06,11000.0,4.0
-Kerala,Malappuram,Kondotty,Other,Beverages,1.0,10000,12000,11000,2018-01-10,13500.0,166.0
-Kerala,Malappuram,Kondotty,Other,Beverages,5.0,13000,14000,13500,2018-06-25,13000.0,46.0
-Kerala,Malappuram,Kondotty,Other,Beverages,1.0,12000,14000,13000,2018-08-10,15000.0,101.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.1,11500,12000,11500,2007-10-15,12000.0,78.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,11500,12000,12000,2008-01-01,12000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,11500,12000,12000,2008-01-02,12000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,11500,12000,12000,2008-01-03,12000.0,1.0
@@ -1624,7 +1473,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.06,11500,12000,12000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,11500,12000,12000,2008-01-29,12000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,11500,12000,12000,2008-01-30,12000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,11500,12000,12000,2008-01-31,12000.0,1.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,11500,12000,12000,2008-02-01,11890.0,60.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,11500,12000,11890,2008-04-01,12000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,11500,12000,12000,2008-04-02,12000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,11500,12000,12000,2008-04-03,12000.0,1.0
@@ -1645,7 +1493,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,11500,12000,12000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.01,11500,12000,12000,2008-04-26,12000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,11500,12000,12000,2008-04-28,12000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,11500,12000,12000,2008-04-29,12000.0,1.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,11500,12000,12000,2008-04-30,12000.0,33.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,11500,12000,12000,2008-06-02,12000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,11500,12000,12000,2008-06-03,12000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.06,11500,12000,12000,2008-06-04,12000.0,1.0
@@ -1657,7 +1504,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,11500,12000,12000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,11500,12000,12000,2008-06-11,12000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,11500,12000,12000,2008-06-12,12000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,11500,12000,12000,2008-06-13,12000.0,1.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,11500,12000,12000,2008-06-14,12000.0,17.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,11500,12000,12000,2008-07-01,13000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,12500,13000,13000,2008-07-02,13000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,12500,13000,13000,2008-07-03,13000.0,2.0
@@ -1799,7 +1645,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,13500,14000,14000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,13500,14000,14000,2009-01-19,14000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,13500,14000,14000,2009-01-20,14000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,13500,14000,14000,2009-01-21,14000.0,1.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,13500,14000,14000,2009-01-22,14500.0,11.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,13500,14500,14500,2009-02-02,14000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,13500,14000,14000,2009-02-03,14000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,13500,14000,14000,2009-02-04,14000.0,1.0
@@ -1807,7 +1652,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,13500,14000,14000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,13500,14000,14000,2009-02-06,14000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,13500,14000,14000,2009-02-07,14000.0,3.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,13500,14000,14000,2009-02-10,14000.0,1.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,13500,14000,14000,2009-02-11,14000.0,20.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,13500,14000,14000,2009-03-03,14000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,13500,14000,14000,2009-03-04,14000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.06,13500,14000,14000,2009-03-05,14000.0,1.0
@@ -1831,7 +1675,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.06,13500,14000,14000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,13500,14000,14000,2009-04-02,14000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,13500,14000,14000,2009-04-04,14000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,13500,14000,14000,2009-04-06,14000.0,2.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,13500,14000,14000,2009-04-08,14000.0,24.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,13500,14000,14000,2009-05-02,14000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.06,13500,14000,14000,2009-05-04,14000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,13500,14000,14000,2009-05-05,14000.0,1.0
@@ -1845,7 +1688,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.06,13500,14000,14000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,13500,14000,14000,2009-05-15,14000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,13500,14000,14000,2009-05-16,14000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,13500,14000,14000,2009-05-18,17000.0,1.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,16500,17000,17000,2009-05-19,16000.0,18.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,15000,16000,16000,2009-06-06,16000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,15000,16000,16000,2009-06-08,16000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,15000,16000,16000,2009-06-09,16000.0,1.0
@@ -1855,7 +1697,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,15000,16000,16000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,15000,16000,16000,2009-06-13,16000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,15000,16000,16000,2009-06-15,16000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,15000,16000,16000,2009-06-16,16000.0,1.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,15000,16000,16000,2009-06-17,16000.0,14.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,15000,16000,16000,2009-07-01,16000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,15000,16000,16000,2009-07-02,16000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,15000,16000,16000,2009-07-03,16000.0,1.0
@@ -1891,7 +1732,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,15000,16000,16000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,15000,16000,16000,2009-08-10,16000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.04,15000,16000,16000,2009-08-11,16000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,15000,16000,16000,2009-08-12,16000.0,1.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,15000,16000,16000,2009-08-13,16000.0,13.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,15000,16000,16000,2009-08-26,16000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,15000,16000,16000,2009-08-27,16000.0,5.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.5,15000,16000,16000,2009-09-01,16000.0,1.0
@@ -1984,7 +1824,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.5,16000,17000,17000,201
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.4,16000,17000,17000,2010-01-07,17000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.5,16000,17000,17000,2010-01-08,17000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.3,16000,17000,17000,2010-01-09,17000.0,2.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.5,16000,17000,17000,2010-01-11,17000.0,21.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.4,16000,17000,17000,2010-02-01,17000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.4,16000,17000,17000,2010-02-02,17000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.5,16000,17000,17000,2010-02-03,17000.0,1.0
@@ -2046,7 +1885,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.15,16000,17000,17000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.15,16000,17000,17000,2010-04-19,17000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.1,16000,17000,17000,2010-04-20,17000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.3,16000,17000,17000,2010-04-21,17000.0,1.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.45,16000,17000,17000,2010-04-22,17000.0,11.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.5,16000,17000,17000,2010-05-03,17000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.15,16000,17000,17000,2010-05-04,17000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.2,16000,17000,17000,2010-05-05,17000.0,1.0
@@ -2065,7 +1903,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.02,16000,17000,17000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.2,16000,17000,17000,2010-05-20,17000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.3,16000,17000,17000,2010-05-21,17000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.01,16000,17000,17000,2010-05-22,17000.0,2.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.02,16000,17000,17000,2010-05-24,17000.0,8.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,16000,17000,17000,2010-06-01,17000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.25,16000,17000,17000,2010-06-02,17000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.15,16000,17000,17000,2010-06-03,17000.0,1.0
@@ -2141,7 +1978,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.2,16000,17000,17000,201
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.1,16000,17000,17000,2010-09-07,17000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.2,16000,17000,17000,2010-09-08,17000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.1,16000,17000,17000,2010-09-09,17000.0,1.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.2,16000,17000,17000,2010-09-10,17000.0,17.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.3,16000,17000,17000,2010-09-27,17000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.25,16000,17000,17000,2010-09-28,17000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.2,16000,17000,17000,2010-09-29,17000.0,1.0
@@ -2168,7 +2004,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.08,16000,17000,17000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.08,16000,17000,17000,2010-11-02,17000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.15,16000,17000,17000,2010-11-03,17000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.1,16000,17000,17000,2010-11-04,17000.0,2.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,16000,17000,17000,2010-11-06,17000.0,10.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,16000,17000,17000,2010-11-16,17000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.2,16000,17000,17000,2010-11-17,17000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,16000,17000,17000,2010-11-19,17000.0,1.0
@@ -2354,7 +2189,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.02,16000,17000,17000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.02,16000,17000,17000,2011-10-01,17000.0,6.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.02,16000,17000,17000,2011-10-07,17000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.02,16000,17000,17000,2011-10-08,17000.0,2.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.02,16000,17000,17000,2011-10-10,17000.0,24.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.02,16000,17000,17000,2011-11-03,17000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,16000,17000,17000,2011-11-05,17000.0,4.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,16000,17000,17000,2011-11-09,17000.0,2.0
@@ -2391,7 +2225,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.02,16000,17000,17000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.02,16000,17000,17000,2012-01-05,17000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.02,16000,17000,17000,2012-01-06,17000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.02,16000,17000,17000,2012-01-07,17000.0,2.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.1,16000,17000,17000,2012-01-09,17000.0,8.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.02,16000,17000,17000,2012-01-17,17000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.02,16000,17000,17000,2012-01-18,17000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.02,16000,17000,17000,2012-01-19,17000.0,2.0
@@ -2406,7 +2239,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.02,16000,17000,17000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.1,16000,17000,17000,2012-02-09,17000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.02,16000,17000,17000,2012-02-10,17000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.02,16000,17000,17000,2012-02-11,17000.0,2.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.02,16000,17000,17000,2012-02-13,17000.0,19.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,16500,17500,17000,2012-03-03,17000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,16500,17500,17000,2012-03-05,17000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.02,16500,17500,17000,2012-03-07,17000.0,3.0
@@ -2417,7 +2249,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.02,16000,17000,17000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.02,16000,17000,17000,2012-03-24,17000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.02,16000,17000,17000,2012-03-26,17000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.02,16000,17000,17000,2012-03-28,17000.0,2.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.02,16000,17000,17000,2012-03-30,17000.0,8.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.02,16000,17000,17000,2012-04-07,17000.0,5.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,16000,17000,17000,2012-04-12,17000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.02,16000,17000,17000,2012-04-13,17000.0,6.0
@@ -2448,7 +2279,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.02,16000,17000,17000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,16000,17000,17000,2012-06-07,17000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.1,16000,17000,17000,2012-06-09,17000.0,4.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,16000,17000,17000,2012-06-13,17000.0,3.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,16000,17000,17000,2012-06-16,17000.0,9.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,16000,17000,17000,2012-06-25,19000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,18000,19000,19000,2012-06-27,19000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,18000,19000,19000,2012-06-28,19000.0,4.0
@@ -2470,20 +2300,14 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,18000,19000,19000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,18000,19000,19000,2012-08-02,19000.0,5.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.02,18000,19000,19000,2012-08-07,19000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,18000,19000,19000,2012-08-08,19000.0,3.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.02,18000,19000,19000,2012-08-11,19000.0,13.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,18000,19000,19000,2012-08-24,19000.0,3.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.1,18000,19000,19000,2012-08-27,19000.0,3.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,18000,19000,19000,2012-08-30,19000.0,16.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,18000,19000,19000,2012-09-15,19000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.1,18000,19000,19000,2012-09-17,19000.0,7.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.02,18000,19000,19000,2012-09-24,19000.0,14.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,18000,19000,19000,2012-10-08,19000.0,1.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.02,18000,19000,19000,2012-10-09,19000.0,9.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.02,18000,19000,19000,2012-10-18,20000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,19000,20000,20000,2012-10-19,19000.0,7.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.02,18000,19000,19000,2012-10-26,19000.0,6.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.02,18000,19000,19000,2012-11-01,19000.0,11.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,18000,19000,19000,2012-11-12,19000.0,11.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.02,18000,19000,19000,2012-11-23,19000.0,3.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.02,18000,19000,19000,2012-11-26,19000.0,4.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,18000,19000,19000,2012-11-30,19000.0,3.0
@@ -2491,9 +2315,7 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,18000,19000,19000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.1,18000,19000,19000,2012-12-07,19000.0,3.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.1,18000,19000,19000,2012-12-10,19000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,18000,19000,19000,2012-12-11,19000.0,1.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,18000,19000,19000,2012-12-12,19000.0,12.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.1,18000,19000,19000,2012-12-24,19000.0,2.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,18000,19000,19000,2012-12-26,18000.0,13.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,17000,18000,18000,2013-01-08,18000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.1,17000,18000,18000,2013-01-09,18000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,17000,18000,18000,2013-01-10,18000.0,1.0
@@ -2529,7 +2351,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.1,17000,18000,18000,201
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.1,17000,18000,18000,2013-03-05,18000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.1,17000,18000,18000,2013-03-06,18000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,17000,18000,18000,2013-03-08,18000.0,3.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,17000,18000,18000,2013-03-11,17000.0,21.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,16000,17000,17000,2013-04-01,17000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,16000,17000,17000,2013-04-02,17000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,16000,17000,17000,2013-04-03,17000.0,1.0
@@ -2561,10 +2382,7 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.1,16000,17000,17000,201
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.1,16000,17000,17000,2013-05-31,17000.0,3.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.1,16000,17000,17000,2013-06-03,17000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.1,16000,17000,17000,2013-06-05,17000.0,2.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,16000,17000,17000,2013-06-07,17200.0,484.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.3,17000,18000,17200,2014-10-04,16500.0,6.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Dust,Beverages,0.05,16000,17000,16500,2014-10-10,14950.0,173.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,12500,13000,12500,2007-10-15,13000.0,78.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,12500,13000,13000,2008-01-01,13000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,12500,13000,13000,2008-01-02,13000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,12500,13000,13000,2008-01-03,13000.0,1.0
@@ -2586,7 +2404,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.06,12500,13000,13000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,12500,13000,13000,2008-01-29,13000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,12500,13000,13000,2008-01-30,13000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,12500,13000,13000,2008-01-31,13000.0,1.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,12500,13000,13000,2008-02-01,12880.0,60.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,12500,13000,12880,2008-04-01,13000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,12500,13000,13000,2008-04-02,13000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,12500,13000,13000,2008-04-03,13000.0,1.0
@@ -2607,7 +2424,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,12500,13000,13000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.01,12500,13000,13000,2008-04-26,13000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,12500,13000,13000,2008-04-28,13000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,12500,13000,13000,2008-04-29,13000.0,1.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,12500,13000,13000,2008-04-30,13000.0,33.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,12500,13000,13000,2008-06-02,13000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,12500,13000,13000,2008-06-03,13000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.06,12500,13000,13000,2008-06-04,13000.0,1.0
@@ -2619,7 +2435,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,12500,13000,13000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,12500,13000,13000,2008-06-11,13000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,12500,13000,13000,2008-06-12,13000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,12500,13000,13000,2008-06-13,13000.0,1.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,12500,13000,13000,2008-06-14,13000.0,17.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,12500,13000,13000,2008-07-01,14000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,13500,14000,14000,2008-07-02,14000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,13500,14000,14000,2008-07-03,14000.0,4.0
@@ -2761,7 +2576,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,14500,15000,15000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,14500,15000,15000,2009-01-19,15000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,14500,15000,15000,2009-01-20,15000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,14500,15000,15000,2009-01-21,15000.0,1.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,14500,15000,15000,2009-01-22,15000.0,11.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,14500,15000,15000,2009-02-02,15000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,14500,15000,15000,2009-02-03,15000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,14500,15000,15000,2009-02-04,15000.0,1.0
@@ -2769,7 +2583,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,14500,15000,15000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,14500,15000,15000,2009-02-06,15000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,14500,15000,15000,2009-02-07,15000.0,3.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,14500,15000,15000,2009-02-10,15000.0,1.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,14500,15000,15000,2009-02-11,15000.0,20.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,14500,15000,15000,2009-03-03,15000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,14500,15000,15000,2009-03-04,15000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.06,14500,15000,15000,2009-03-05,15000.0,1.0
@@ -2793,7 +2606,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.06,14500,15000,15000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,14500,15000,15000,2009-04-02,15000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,14500,15000,15000,2009-04-04,15000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,14500,15000,15000,2009-04-06,15000.0,2.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,14500,15000,15000,2009-04-08,15000.0,24.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,14500,15000,15000,2009-05-02,15000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.06,14500,15000,15000,2009-05-04,15000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,14500,15000,15000,2009-05-05,15000.0,1.0
@@ -2807,7 +2619,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.06,14500,15000,15000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,14500,15000,15000,2009-05-15,15000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,14500,15000,15000,2009-05-16,15000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,14500,15000,15000,2009-05-18,18000.0,1.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,17500,18000,18000,2009-05-19,19000.0,18.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,18000,19000,19000,2009-06-06,19000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,18000,19000,19000,2009-06-08,19000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,18000,19000,19000,2009-06-09,19000.0,1.0
@@ -2817,7 +2628,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,18000,19000,19000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,18000,19000,19000,2009-06-13,19000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,18000,19000,19000,2009-06-15,19000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,18000,19000,19000,2009-06-16,19000.0,1.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,18000,19000,19000,2009-06-17,19000.0,14.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,18000,19000,19000,2009-07-01,19000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,18000,19000,19000,2009-07-02,19000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,18000,19000,19000,2009-07-03,19000.0,1.0
@@ -2853,7 +2663,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,18000,19000,19000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,18000,19000,19000,2009-08-10,19000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.04,18000,19000,19000,2009-08-11,19000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,18000,19000,19000,2009-08-12,19000.0,1.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,18000,19000,19000,2009-08-13,19000.0,13.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,18000,19000,19000,2009-08-26,19000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,18000,19000,19000,2009-08-27,19000.0,5.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.5,18000,19000,19000,2009-09-01,19000.0,1.0
@@ -2946,7 +2755,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.5,19000,20000,20000,201
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.4,19000,20000,20000,2010-01-07,20000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.5,19000,20000,20000,2010-01-08,20000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.3,19000,20000,20000,2010-01-09,20000.0,2.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.5,19000,20000,20000,2010-01-11,20000.0,21.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.4,19000,20000,20000,2010-02-01,20000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.4,19000,20000,20000,2010-02-02,20000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.5,19000,20000,20000,2010-02-03,20000.0,1.0
@@ -3007,7 +2815,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.15,19000,20000,20000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.15,19000,20000,20000,2010-04-19,20000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,19000,20000,20000,2010-04-20,20000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.3,19000,20000,20000,2010-04-21,20000.0,1.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.45,19000,20000,20000,2010-04-22,20000.0,11.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.5,19000,20000,20000,2010-05-03,20000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.15,19000,20000,20000,2010-05-04,20000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.2,19000,20000,20000,2010-05-05,20000.0,1.0
@@ -3026,7 +2833,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.02,19000,20000,20000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.2,19000,20000,20000,2010-05-20,20000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.3,19000,20000,20000,2010-05-21,20000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.01,19000,20000,20000,2010-05-22,20000.0,2.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.02,19000,20000,20000,2010-05-24,20000.0,8.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,19000,20000,20000,2010-06-01,20000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.25,19000,20000,20000,2010-06-02,20000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.15,19000,20000,20000,2010-06-03,20000.0,1.0
@@ -3102,7 +2908,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.2,19000,20000,20000,201
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,19000,20000,20000,2010-09-07,20000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.2,19000,20000,20000,2010-09-08,20000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,19000,20000,20000,2010-09-09,20000.0,1.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.2,19000,20000,20000,2010-09-10,20000.0,17.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.3,19000,20000,20000,2010-09-27,20000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.25,19000,20000,20000,2010-09-28,20000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.2,19000,20000,20000,2010-09-29,20000.0,1.0
@@ -3127,7 +2932,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.4,19000,20000,20000,201
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.08,19000,20000,20000,2010-11-01,20000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.08,19000,20000,20000,2010-11-02,20000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,19000,20000,20000,2010-11-04,20000.0,2.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,19000,20000,20000,2010-11-06,20000.0,10.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,19000,20000,20000,2010-11-16,20000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.2,19000,20000,20000,2010-11-17,20000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,19000,20000,20000,2010-11-19,20000.0,1.0
@@ -3313,7 +3117,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.02,19000,20000,20000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.02,19000,20000,20000,2011-10-01,20000.0,6.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.02,19000,20000,20000,2011-10-07,20000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.02,19000,20000,20000,2011-10-08,20000.0,2.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.02,19000,20000,20000,2011-10-10,20000.0,24.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.02,19000,20000,20000,2011-11-03,20000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,19000,20000,20000,2011-11-05,20000.0,4.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,19000,20000,20000,2011-11-09,20000.0,2.0
@@ -3350,7 +3153,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.02,19000,20000,20000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.02,19000,20000,20000,2012-01-05,20000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.02,19000,20000,20000,2012-01-06,20000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.02,19000,20000,20000,2012-01-07,20000.0,2.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,19000,20000,20000,2012-01-09,20000.0,8.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.02,19000,20000,20000,2012-01-17,20000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.02,19000,20000,20000,2012-01-18,20000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.02,19000,20000,20000,2012-01-19,20000.0,2.0
@@ -3365,7 +3167,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.02,19000,20000,20000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,19000,20000,20000,2012-02-09,20000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.02,19000,20000,20000,2012-02-10,20000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.02,19000,20000,20000,2012-02-11,20000.0,2.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.02,19000,20000,20000,2012-02-13,22000.0,19.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,21500,22500,22000,2012-03-03,22000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,21500,22500,22000,2012-03-05,22000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.02,21500,22500,22000,2012-03-07,22000.0,3.0
@@ -3376,7 +3177,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.02,21000,22000,22000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.02,21000,22000,22000,2012-03-24,22000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.02,21000,22000,22000,2012-03-26,22000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.02,21000,22000,22000,2012-03-28,22000.0,2.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.02,21000,22000,22000,2012-03-30,22000.0,8.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.02,21000,22000,22000,2012-04-07,22000.0,5.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,21000,22000,22000,2012-04-12,22000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.02,21000,22000,22000,2012-04-13,22000.0,6.0
@@ -3407,7 +3207,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.02,21000,22000,22000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,21000,22000,22000,2012-06-07,22000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,21000,22000,22000,2012-06-09,22000.0,4.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,21000,22000,22000,2012-06-13,22000.0,3.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,21000,22000,22000,2012-06-16,22000.0,9.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,21000,22000,22000,2012-06-25,24000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,23000,24000,24000,2012-06-27,24000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,23000,24000,24000,2012-06-28,24000.0,4.0
@@ -3429,20 +3228,14 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,23000,24000,24000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,23000,24000,24000,2012-08-02,24000.0,5.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.02,23000,24000,24000,2012-08-07,24000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,23000,24000,24000,2012-08-08,24000.0,3.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.02,23000,24000,24000,2012-08-11,24000.0,13.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,23000,24000,24000,2012-08-24,24000.0,3.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,23000,24000,24000,2012-08-27,24000.0,3.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,23000,24000,24000,2012-08-30,24000.0,16.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,23000,24000,24000,2012-09-15,24000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,23000,24000,24000,2012-09-17,24000.0,7.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.02,23000,24000,24000,2012-09-24,24000.0,14.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,23000,24000,24000,2012-10-08,24000.0,1.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.02,23000,24000,24000,2012-10-09,24000.0,9.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.02,23000,24000,24000,2012-10-18,24000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,23000,24000,24000,2012-10-19,24000.0,7.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.02,23000,24000,24000,2012-10-26,24000.0,6.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.02,23000,24000,24000,2012-11-01,24000.0,11.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,23000,24000,24000,2012-11-12,24000.0,11.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.02,23000,24000,24000,2012-11-23,24000.0,3.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.02,23000,24000,24000,2012-11-26,24000.0,4.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,23000,24000,24000,2012-11-30,24000.0,3.0
@@ -3450,9 +3243,7 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,23000,24000,24000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,23000,24000,24000,2012-12-07,24000.0,3.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,23000,24000,24000,2012-12-10,24000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,23000,24000,24000,2012-12-11,24000.0,1.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,23000,24000,24000,2012-12-12,24000.0,12.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,23000,24000,24000,2012-12-24,24000.0,2.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,23000,24000,24000,2012-12-26,24000.0,13.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,23000,24000,24000,2013-01-08,24000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,23000,24000,24000,2013-01-09,24000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,23000,24000,24000,2013-01-10,24000.0,1.0
@@ -3488,7 +3279,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,23000,24000,24000,201
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,23000,24000,24000,2013-03-05,24000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,23000,24000,24000,2013-03-06,24000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,23000,24000,24000,2013-03-08,24000.0,3.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,23000,24000,24000,2013-03-11,24000.0,21.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,23000,24000,24000,2013-04-01,24000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,23000,24000,24000,2013-04-02,24000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,23000,24000,24000,2013-04-03,24000.0,1.0
@@ -3574,7 +3364,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,25000,26000,26000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,25000,26000,26000,2013-10-05,26000.0,3.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,25000,26000,26000,2013-10-08,26000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,25000,26000,26000,2013-10-09,26000.0,1.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,25000,26000,26000,2013-10-10,26000.0,11.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,25000,26000,26000,2013-10-21,26000.0,3.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,25000,26000,26000,2013-10-24,26000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,25000,26000,26000,2013-10-26,26000.0,2.0
@@ -3664,7 +3453,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,26000,27000,27000,201
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,25000,26000,26000,2014-04-12,26000.0,3.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,25000,26000,26000,2014-04-15,26000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,25000,26000,26000,2014-04-16,26000.0,5.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,25000,26000,26000,2014-04-21,27000.0,11.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,26000,27000,27000,2014-05-02,26000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,25000,26000,26000,2014-05-03,26000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,25000,26000,26000,2014-05-05,26000.0,2.0
@@ -3677,10 +3465,8 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,25000,26000,26000,201
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,25000,26000,26000,2014-05-17,26000.0,4.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,25000,26000,26000,2014-05-21,26000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,25000,26000,26000,2014-05-23,26000.0,3.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,25000,26000,26000,2014-05-26,27000.0,8.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,26000,27000,27000,2014-06-03,27000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,26000,27000,27000,2014-06-04,27000.0,2.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,26000,27000,27000,2014-06-06,26000.0,13.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,25000,26000,26000,2014-06-19,27000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,26000,27000,27000,2014-06-21,26000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,25000,26000,26000,2014-06-23,27000.0,7.0
@@ -3690,7 +3476,6 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,25000,26000,26000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,25000,26000,26000,2014-07-05,26000.0,7.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,25000,26000,26000,2014-07-12,26000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,1.0,24000,26000,26000,2014-07-14,26000.0,1.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,24000,26000,26000,2014-07-15,30000.0,9.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,29000,30000,30000,2014-07-24,30000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,29000,30000,30000,2014-07-25,30000.0,5.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,29000,30000,30000,2014-07-30,29000.0,1.0
@@ -3701,19 +3486,14 @@ Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,30000,31000,31000,20
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,30000,31000,30500,2014-08-09,31000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,30000,31000,31000,2014-08-11,31000.0,1.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,30000,31000,31000,2014-08-12,31000.0,1.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,31000,32000,31000,2014-08-13,32000.0,9.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,31000,32000,32000,2014-08-22,31500.0,8.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,31000,32000,31500,2014-08-30,32000.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,31000,32000,32000,2014-09-01,31500.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,31000,32000,31500,2014-09-03,32000.0,1.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.1,31000,32000,32000,2014-09-04,31000.0,9.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.15,29500,32000,31000,2014-09-13,31200.0,2.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,30000,32000,31200,2014-09-15,31500.0,5.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,31000,32000,31500,2014-09-20,32100.0,3.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.2,30800,32500,32100,2014-09-23,31000.0,1.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.15,30000,32000,31000,2014-09-24,28500.0,10.0
 Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.3,27000,29500,28500,2014-10-04,29000.0,6.0
-Jharkhand,Deogarh,Madhupur,Assam C.T.C. Leaf,Beverages,0.05,28500,29500,29000,2014-10-10,24050.0,173.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.05,16000,17000,17000,2013-06-10,17000.0,1.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.05,16000,17000,17000,2013-06-11,17000.0,2.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.05,16000,17000,17000,2013-06-13,17000.0,1.0
@@ -3766,7 +3546,6 @@ Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.05,16000,17000,17000,2013-10-
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.05,16000,17000,17000,2013-10-05,17000.0,3.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.05,16000,17000,17000,2013-10-08,17000.0,1.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.05,16000,17000,17000,2013-10-09,17000.0,1.0
-Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.05,16000,17000,17000,2013-10-10,17000.0,11.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.05,16000,17000,17000,2013-10-21,17000.0,3.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.05,16000,17000,17000,2013-10-24,17000.0,2.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.1,16000,17000,17000,2013-10-26,17000.0,2.0
@@ -3781,7 +3560,6 @@ Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.1,16000,17000,17000,2013-11-1
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.02,16000,17000,17000,2013-11-16,17000.0,5.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.1,16000,17000,17000,2013-11-21,17000.0,5.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.5,16000,17000,17000,2013-11-26,17000.0,1.0
-Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.15,16000,17000,17000,2013-11-27,17000.0,12.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.5,16000,17000,17000,2013-12-09,17000.0,1.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.1,16000,17000,17000,2013-12-10,17000.0,1.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.1,16000,17000,17000,2013-12-11,17000.0,1.0
@@ -3827,7 +3605,6 @@ Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.2,16000,17000,17000,2014-02-2
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.1,16000,17000,17000,2014-02-21,17000.0,3.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.1,16000,17000,17000,2014-02-24,17000.0,2.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.1,16000,17000,17000,2014-02-26,17000.0,2.0
-Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.1,16000,17000,17000,2014-02-28,17000.0,11.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.1,16000,17000,17000,2014-03-11,17000.0,2.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.1,16000,17000,17000,2014-03-13,17000.0,6.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.1,16000,17000,17000,2014-03-19,17000.0,2.0
@@ -3846,7 +3623,6 @@ Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.1,16000,17000,17000,2014-04-1
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.1,16000,17000,17000,2014-04-12,17000.0,3.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.1,16000,17000,17000,2014-04-15,17000.0,1.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.1,16000,17000,17000,2014-04-16,17000.0,5.0
-Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.1,16000,17000,17000,2014-04-21,17000.0,14.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.05,16000,17000,17000,2014-05-05,17000.0,2.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.1,16000,17000,17000,2014-05-07,17000.0,2.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.1,16000,17000,17000,2014-05-09,17000.0,1.0
@@ -3857,10 +3633,8 @@ Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.1,16000,17000,17000,2014-05-1
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.05,16000,17000,17000,2014-05-17,17000.0,4.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.1,16000,17000,17000,2014-05-21,17000.0,2.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.1,16000,17000,17000,2014-05-23,17000.0,3.0
-Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.1,16000,17000,17000,2014-05-26,17000.0,8.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.05,16000,17000,17000,2014-06-03,17000.0,1.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.1,16000,17000,17000,2014-06-04,17000.0,2.0
-Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.1,16000,17000,17000,2014-06-06,17000.0,13.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.1,16000,17000,17000,2014-06-19,17000.0,2.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.05,16000,17000,17000,2014-06-21,17000.0,2.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.1,16000,17000,17000,2014-06-23,18000.0,7.0
@@ -3870,7 +3644,6 @@ Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.05,17000,18000,18000,2014-07-
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.05,16000,17500,17500,2014-07-05,18000.0,7.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.05,16000,18000,18000,2014-07-12,17000.0,2.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,1.0,16000,17500,17000,2014-07-14,18000.0,1.0
-Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.05,16000,18000,18000,2014-07-15,25000.0,9.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.05,24000,26000,25000,2014-07-24,25500.0,1.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.1,24000,26000,25500,2014-07-25,25000.0,5.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.05,24000,25000,25000,2014-07-30,25500.0,1.0
@@ -3881,26 +3654,20 @@ Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.05,25000,26000,26000,2014-08-
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.1,24000,26000,25500,2014-08-09,25000.0,2.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.1,24000,26000,25000,2014-08-11,25000.0,1.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.05,24000,26000,25000,2014-08-12,26000.0,1.0
-Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.1,24000,26000,26000,2014-08-13,25500.0,9.0
-Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.1,24000,26000,25500,2014-08-22,25500.0,8.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.1,24000,26000,25500,2014-08-30,26000.0,2.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.1,25000,26000,26000,2014-09-01,26000.0,2.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.1,25000,26000,26000,2014-09-03,26000.0,1.0
-Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.1,25000,26000,26000,2014-09-04,25200.0,9.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.15,24500,26500,25200,2014-09-13,25300.0,2.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.05,24000,26000,25300,2014-09-15,25200.0,5.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.05,24000,26000,25200,2014-09-20,25500.0,3.0
 Jharkhand,Deogarh,Madhupur,C.T.C. Dust,Beverages,0.2,24500,26500,25500,2014-09-23,16500.0,1.0
-Jharkhand,Deogarh,Madhupur,Other,Beverages,0.15,24000,26000,25200,2014-09-24,29650.0,189.0
 Kerala,Malappuram,Manjeri,All Dust,Beverages,2.0,18000,52000,22000,2010-10-13,22000.0,5.0
 Kerala,Malappuram,Manjeri,All Dust,Beverages,2.0,12000,52000,22000,2010-10-18,22000.0,3.0
-Kerala,Malappuram,Manjeri,All Dust,Beverages,2.0,13000,52000,22000,2010-10-21,18000.0,198.0
 Kerala,Malappuram,Manjeri,Other,Beverages,3.0,40000,85000,62500,2003-02-05,62500.0,2.0
 Kerala,Malappuram,Manjeri,Other,Beverages,4.0,40000,85000,62500,2003-02-07,70000.0,4.0
 Kerala,Malappuram,Manjeri,Other,Beverages,20.0,45000,95000,70000,2003-02-11,70000.0,4.0
 Kerala,Malappuram,Manjeri,Other,Beverages,10.0,45000,95000,70000,2003-02-15,75000.0,7.0
 Kerala,Malappuram,Manjeri,Other,Beverages,8.0,45000,90000,75000,2003-02-22,62500.0,4.0
-Kerala,Malappuram,Manjeri,Other,Beverages,5.0,45000,80000,62500,2003-02-26,62500.0,10.0
 Kerala,Malappuram,Manjeri,Other,Beverages,5.0,45000,80000,62500,2003-03-08,8000.0,4.0
 Kerala,Malappuram,Manjeri,Other,Beverages,2.0,4500,8000,8000,2003-03-12,6250.0,7.0
 Kerala,Malappuram,Manjeri,Other,Beverages,1.0,4500,8000,6250,2003-03-19,6250.0,3.0
@@ -3937,8 +3704,6 @@ Kerala,Malappuram,Manjeri,Other,Beverages,3.0,4800,6500,5000,2003-07-16,5000.0,7
 Kerala,Malappuram,Manjeri,Other,Beverages,6.0,4800,6500,5000,2003-07-23,5300.0,3.0
 Kerala,Malappuram,Manjeri,Other,Beverages,8.0,5200,5500,5300,2003-07-26,5500.0,4.0
 Kerala,Malappuram,Manjeri,Other,Beverages,6.0,5000,7500,5500,2003-07-30,5500.0,3.0
-Kerala,Malappuram,Manjeri,Other,Beverages,6.0,5000,7500,5500,2003-08-02,5000.0,18.0
-Kerala,Malappuram,Manjeri,Other,Beverages,6.0,3900,7300,5000,2003-08-20,5000.0,10.0
 Kerala,Malappuram,Manjeri,Other,Beverages,4.0,3900,7300,5000,2003-08-30,5200.0,7.0
 Kerala,Malappuram,Manjeri,Other,Beverages,4.0,4000,7500,5200,2003-09-06,5000.0,7.0
 Kerala,Malappuram,Manjeri,Other,Beverages,4.0,3900,7300,5000,2003-09-13,5000.0,4.0
@@ -3946,7 +3711,6 @@ Kerala,Malappuram,Manjeri,Other,Beverages,6.0,3800,7200,5000,2003-09-17,4900.0,3
 Kerala,Malappuram,Manjeri,Other,Beverages,4.0,3800,7100,4900,2003-09-20,4900.0,4.0
 Kerala,Malappuram,Manjeri,Other,Beverages,6.0,3800,7100,4900,2003-09-24,4900.0,3.0
 Kerala,Malappuram,Manjeri,Other,Beverages,5.0,3800,7100,4900,2003-09-27,5100.0,4.0
-Kerala,Malappuram,Manjeri,Other,Beverages,6.0,4000,7300,5100,2003-10-01,5100.0,17.0
 Kerala,Malappuram,Manjeri,Other,Beverages,5.0,4000,7200,5100,2003-10-18,5200.0,4.0
 Kerala,Malappuram,Manjeri,Other,Beverages,6.0,4100,7300,5200,2003-10-22,5200.0,3.0
 Kerala,Malappuram,Manjeri,Other,Beverages,5.0,4100,7300,5200,2003-10-25,5300.0,4.0
@@ -3974,7 +3738,6 @@ Kerala,Malappuram,Manjeri,Other,Beverages,3.0,4500,7500,5200,2004-01-10,5000.0,7
 Kerala,Malappuram,Manjeri,Other,Beverages,3.0,4300,7200,5000,2004-01-17,5600.0,4.0
 Kerala,Malappuram,Manjeri,Other,Beverages,4.0,4800,8400,5600,2004-01-21,5600.0,3.0
 Kerala,Malappuram,Manjeri,Other,Beverages,3.0,4700,8300,5600,2004-01-24,5700.0,4.0
-Kerala,Malappuram,Manjeri,Other,Beverages,4.0,4800,8400,5700,2004-01-28,5600.0,14.0
 Kerala,Malappuram,Manjeri,Other,Beverages,4.0,4700,8200,5600,2004-02-11,5600.0,3.0
 Kerala,Malappuram,Manjeri,Other,Beverages,3.0,4700,8200,5600,2004-02-14,5600.0,4.0
 Kerala,Malappuram,Manjeri,Other,Beverages,5.0,4700,8200,5600,2004-02-18,5600.0,3.0
@@ -3989,32 +3752,18 @@ Kerala,Malappuram,Manjeri,Other,Beverages,3.0,5400,9000,6300,2004-03-27,6250.0,4
 Kerala,Malappuram,Manjeri,Other,Beverages,5.0,5200,9000,6250,2004-03-31,6250.0,3.0
 Kerala,Malappuram,Manjeri,Other,Beverages,4.0,5200,9000,6250,2004-04-03,6400.0,4.0
 Kerala,Malappuram,Manjeri,Other,Beverages,5.0,5200,9000,6400,2004-04-07,6400.0,3.0
-Kerala,Malappuram,Manjeri,Other,Beverages,4.0,5200,9000,6400,2004-04-10,6200.0,11.0
 Kerala,Malappuram,Manjeri,Other,Beverages,5.0,5000,8700,6200,2004-04-21,6300.0,7.0
-Kerala,Malappuram,Manjeri,Other,Beverages,5.0,5200,9000,6300,2004-04-28,5800.0,17.0
 Kerala,Malappuram,Manjeri,Other,Beverages,4.0,4800,8400,5800,2004-05-15,5600.0,4.0
 Kerala,Malappuram,Manjeri,Other,Beverages,6.0,4600,8100,5600,2004-05-19,5600.0,7.0
 Kerala,Malappuram,Manjeri,Other,Beverages,7.0,4600,8100,5600,2004-05-26,5600.0,3.0
-Kerala,Malappuram,Manjeri,Other,Beverages,5.0,4600,8100,5600,2004-05-29,5600.0,14.0
 Kerala,Malappuram,Manjeri,Other,Beverages,4.0,4600,8100,5600,2004-06-12,5700.0,4.0
-Kerala,Malappuram,Manjeri,Other,Beverages,6.0,4600,8300,5700,2004-06-16,5800.0,14.0
 Kerala,Malappuram,Manjeri,Other,Beverages,6.0,4500,8400,5800,2004-06-30,5800.0,7.0
 Kerala,Malappuram,Manjeri,Other,Beverages,6.0,4600,8500,5800,2004-07-07,6000.0,7.0
-Kerala,Malappuram,Manjeri,Other,Beverages,6.0,4800,8800,6000,2004-07-14,6000.0,10.0
-Kerala,Malappuram,Manjeri,Other,Beverages,4.0,4800,8800,6000,2004-07-24,6000.0,21.0
-Kerala,Malappuram,Manjeri,Other,Beverages,4.0,5000,8500,6000,2004-08-14,6700.0,25.0
-Kerala,Malappuram,Manjeri,Other,Beverages,5.0,5800,9000,6700,2004-09-08,6800.0,10.0
-Kerala,Malappuram,Manjeri,Other,Beverages,4.0,6000,9000,6800,2004-09-18,6400.0,18.0
 Kerala,Malappuram,Manjeri,Other,Beverages,6.0,5100,8600,6400,2004-10-06,6400.0,3.0
 Kerala,Malappuram,Manjeri,Other,Beverages,5.0,5100,8600,6400,2004-10-09,6400.0,4.0
-Kerala,Malappuram,Manjeri,Other,Beverages,7.0,5100,8600,6400,2004-10-13,6300.0,10.0
-Kerala,Malappuram,Manjeri,Other,Beverages,5.0,5000,8500,6300,2004-10-23,6300.0,14.0
 Kerala,Malappuram,Manjeri,Other,Beverages,7.0,5000,8500,6300,2004-11-06,6200.0,4.0
 Kerala,Malappuram,Manjeri,Other,Beverages,7.0,4900,8300,6200,2004-11-10,6200.0,3.0
-Kerala,Malappuram,Manjeri,Other,Beverages,5.0,4900,8300,6200,2004-11-13,6200.0,18.0
 Kerala,Malappuram,Manjeri,Other,Beverages,6.0,4900,8300,6200,2004-12-01,6200.0,3.0
-Kerala,Malappuram,Manjeri,Other,Beverages,4.0,4900,8300,6200,2004-12-04,6200.0,14.0
-Kerala,Malappuram,Manjeri,Other,Beverages,6.0,4900,8300,6200,2004-12-18,6200.0,11.0
 Kerala,Malappuram,Manjeri,Other,Beverages,6.0,4900,8300,6200,2004-12-29,6300.0,7.0
 Kerala,Malappuram,Manjeri,Other,Beverages,7.0,5000,8500,6300,2005-01-05,6300.0,3.0
 Kerala,Malappuram,Manjeri,Other,Beverages,5.0,5000,8500,6300,2005-01-08,6400.0,4.0
@@ -4045,7 +3794,6 @@ Kerala,Malappuram,Manjeri,Other,Beverages,7.0,4700,8300,6100,2005-04-13,6100.0,3
 Kerala,Malappuram,Manjeri,Other,Beverages,5.0,4700,8300,6100,2005-04-16,6100.0,4.0
 Kerala,Malappuram,Manjeri,Other,Beverages,8.0,4700,8300,6100,2005-04-20,6100.0,3.0
 Kerala,Malappuram,Manjeri,Other,Beverages,5.0,4700,8300,6100,2005-04-23,5900.0,4.0
-Kerala,Malappuram,Manjeri,Other,Beverages,8.0,4600,8100,5900,2005-04-27,5900.0,10.0
 Kerala,Malappuram,Manjeri,Other,Beverages,5.0,4500,8000,5900,2005-05-07,5900.0,4.0
 Kerala,Malappuram,Manjeri,Other,Beverages,8.0,4500,7900,5900,2005-05-11,5900.0,3.0
 Kerala,Malappuram,Manjeri,Other,Beverages,5.0,4500,7900,5900,2005-05-14,5800.0,4.0
@@ -4144,7 +3892,6 @@ Kerala,Malappuram,Manjeri,Other,Beverages,7.0,5000,8600,6500,2006-04-26,6500.0,1
 Kerala,Malappuram,Manjeri,Other,Beverages,0.5,5000,9000,6500,2006-04-27,6500.0,2.0
 Kerala,Malappuram,Manjeri,Other,Beverages,3.0,5000,8600,6500,2006-04-29,6500.0,7.0
 Kerala,Malappuram,Manjeri,Other,Beverages,4.0,5000,8600,6500,2006-05-06,6600.0,4.0
-Kerala,Malappuram,Manjeri,Other,Beverages,6.0,5400,8500,6600,2006-05-10,6500.0,10.0
 Kerala,Malappuram,Manjeri,Other,Beverages,4.0,5500,8300,6500,2006-05-20,6400.0,4.0
 Kerala,Malappuram,Manjeri,Other,Beverages,7.0,5400,8200,6400,2006-05-24,6400.0,3.0
 Kerala,Malappuram,Manjeri,Other,Beverages,4.0,5400,8200,6400,2006-05-27,6500.0,4.0
@@ -4155,7 +3902,6 @@ Kerala,Malappuram,Manjeri,Other,Beverages,4.0,5200,8500,6500,2006-06-10,6500.0,7
 Kerala,Malappuram,Manjeri,Other,Beverages,5.0,5200,8500,6500,2006-06-17,6700.0,4.0
 Kerala,Malappuram,Manjeri,Other,Beverages,7.0,5300,8700,6700,2006-06-21,6700.0,3.0
 Kerala,Malappuram,Manjeri,Other,Beverages,4.0,5300,8700,6700,2006-06-24,6700.0,4.0
-Kerala,Malappuram,Manjeri,Other,Beverages,7.0,5300,8700,6700,2006-06-28,7000.0,14.0
 Kerala,Malappuram,Manjeri,Other,Beverages,7.0,5600,8800,7000,2006-07-12,7000.0,3.0
 Kerala,Malappuram,Manjeri,Other,Beverages,5.0,5600,8500,7000,2006-07-15,6500.0,4.0
 Kerala,Malappuram,Manjeri,Other,Beverages,7.0,6450,6550,6500,2006-07-19,7000.0,7.0
@@ -4242,7 +3988,6 @@ Kerala,Malappuram,Manjeri,Other,Beverages,7.0,6100,9200,7300,2007-05-23,7300.0,3
 Kerala,Malappuram,Manjeri,Other,Beverages,4.0,6100,9200,7300,2007-05-26,7100.0,4.0
 Kerala,Malappuram,Manjeri,Other,Beverages,8.0,6000,9000,7100,2007-05-30,7100.0,3.0
 Kerala,Malappuram,Manjeri,Other,Beverages,5.0,6000,9000,7100,2007-06-02,7000.0,4.0
-Kerala,Malappuram,Manjeri,Other,Beverages,7.0,5900,8800,7000,2007-06-06,6400.0,126.0
 Kerala,Malappuram,Manjeri,Other,Beverages,8.0,5300,9400,6400,2007-10-10,6700.0,7.0
 Kerala,Malappuram,Manjeri,Other,Beverages,8.0,5500,9700,6700,2007-10-17,6700.0,3.0
 Kerala,Malappuram,Manjeri,Other,Beverages,4.0,5500,9700,6700,2007-10-20,6700.0,4.0
@@ -4340,10 +4085,8 @@ Kerala,Malappuram,Manjeri,Other,Beverages,1.0,9000,11200,9500,2008-09-17,9500.0,
 Kerala,Malappuram,Manjeri,Other,Beverages,1.0,9000,11200,9500,2008-09-20,9500.0,4.0
 Kerala,Malappuram,Manjeri,Other,Beverages,1.0,9000,11200,9500,2008-09-24,9500.0,3.0
 Kerala,Malappuram,Manjeri,Other,Beverages,1.0,9000,11200,9500,2008-09-27,9500.0,6.0
-Kerala,Malappuram,Manjeri,Other,Beverages,1.0,9000,11200,9500,2008-10-03,9000.0,61.0
 Kerala,Malappuram,Manjeri,Other,Beverages,1.0,7200,11000,9000,2008-12-03,9000.0,3.0
 Kerala,Malappuram,Manjeri,Other,Beverages,1.0,7200,11000,9000,2008-12-06,10000.0,4.0
-Kerala,Malappuram,Manjeri,Other,Beverages,0.5,7200,11000,10000,2008-12-10,19000.0,890.0
 Kerala,Malappuram,Manjeri,Other,Beverages,1.0,12000,19000,19000,2011-05-19,19000.0,2.0
 Kerala,Malappuram,Manjeri,Other,Beverages,1.0,12500,19000,19000,2011-05-21,19000.0,4.0
 Kerala,Malappuram,Manjeri,Other,Beverages,1.0,12500,19000,19000,2011-05-25,19000.0,3.0
@@ -4351,8 +4094,6 @@ Kerala,Malappuram,Manjeri,Other,Beverages,1.0,12500,19000,19000,2011-05-28,14500
 Kerala,Malappuram,Manjeri,Other,Beverages,1.0,10500,14500,14500,2011-06-01,14500.0,3.0
 Kerala,Malappuram,Manjeri,Other,Beverages,1.0,10500,14500,14500,2011-06-04,12500.0,4.0
 Kerala,Malappuram,Manjeri,Other,Beverages,1.5,8500,12500,12500,2011-06-08,12500.0,7.0
-Kerala,Malappuram,Manjeri,Other,Beverages,1.0,8400,12500,12500,2011-06-15,12000.0,14.0
-Kerala,Malappuram,Manjeri,Other,Beverages,1.0,8300,12000,12000,2011-06-29,12000.0,8.0
 Kerala,Malappuram,Manjeri,Other,Beverages,1.0,8200,12000,12000,2011-07-07,12500.0,7.0
 Kerala,Malappuram,Manjeri,Other,Beverages,1.0,6000,12500,12500,2011-07-14,12500.0,2.0
 Kerala,Malappuram,Manjeri,Other,Beverages,1.0,6000,12500,12500,2011-07-16,12000.0,4.0
@@ -4371,7 +4112,6 @@ Kerala,Malappuram,Manjeri,Other,Beverages,1.0,6800,12300,12300,2011-09-07,12300.
 Kerala,Malappuram,Manjeri,Other,Beverages,1.0,6500,12300,12300,2011-09-14,12300.0,3.0
 Kerala,Malappuram,Manjeri,Other,Beverages,1.0,6500,12300,12300,2011-09-17,12000.0,7.0
 Kerala,Malappuram,Manjeri,Other,Beverages,1.0,6000,12000,12000,2011-09-24,12000.0,4.0
-Kerala,Malappuram,Manjeri,Other,Beverages,1.0,6000,12000,12000,2011-09-28,12500.0,14.0
 Kerala,Malappuram,Manjeri,Other,Beverages,1.0,7800,12500,12500,2011-10-12,12500.0,3.0
 Kerala,Malappuram,Manjeri,Other,Beverages,1.0,7800,12500,12500,2011-10-15,13000.0,4.0
 Kerala,Malappuram,Manjeri,Other,Beverages,1.0,7000,13000,13000,2011-10-19,11500.0,3.0
@@ -4401,7 +4141,6 @@ Kerala,Malappuram,Manjeri,Other,Beverages,1.0,7000,12000,12000,2011-12-13,12000.
 Kerala,Malappuram,Manjeri,Other,Beverages,1.0,7000,12000,12000,2011-12-14,12000.0,1.0
 Kerala,Malappuram,Manjeri,Other,Beverages,1.0,7000,12000,12000,2011-12-15,12000.0,1.0
 Kerala,Malappuram,Manjeri,Other,Beverages,1.0,7000,12000,12000,2011-12-16,12000.0,3.0
-Kerala,Malappuram,Manjeri,Other,Beverages,1.0,7000,12000,12000,2011-12-19,12000.0,10.0
 Kerala,Malappuram,Manjeri,Other,Beverages,1.0,7000,12000,12000,2011-12-29,12000.0,1.0
 Kerala,Malappuram,Manjeri,Other,Beverages,1.0,7000,12000,12000,2011-12-30,12000.0,1.0
 Kerala,Malappuram,Manjeri,Other,Beverages,1.0,7000,12000,12000,2011-12-31,12000.0,2.0
@@ -5141,23 +4880,15 @@ Kerala,Malappuram,Manjeri,Other,Beverages,2.0,15000,16000,15500,2014-07-05,15500
 Kerala,Malappuram,Manjeri,Other,Beverages,2.0,15000,16000,15500,2014-07-07,15500.0,1.0
 Kerala,Malappuram,Manjeri,Other,Beverages,2.0,15000,16000,15500,2014-07-08,15500.0,1.0
 Kerala,Malappuram,Manjeri,Other,Beverages,2.0,15000,16000,15500,2014-07-09,15500.0,1.0
-Arunachal Pradesh,Papum Pore,Naharlagun,Other,Beverages,1.0,6500,7500,7000,2004-07-30,7000.0,284.0
-Kerala,Malappuram,Parappanangadi,Other,Beverages,1.0,8000,10000,9000,2010-11-29,7500.0,10.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.7,6500,9000,7500,2010-12-09,8000.0,1.0
-Kerala,Malappuram,Parappanangadi,Other,Beverages,0.75,6000,10000,8000,2010-12-10,8500.0,41.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.7,8000,10000,8500,2011-01-20,8000.0,2.0
-Kerala,Malappuram,Parappanangadi,Other,Beverages,0.5,7500,8500,8000,2011-01-22,14000.0,12.0
-Kerala,Malappuram,Parappanangadi,Other,Beverages,0.5,13500,16000,14000,2011-02-03,13500.0,14.0
-Kerala,Malappuram,Parappanangadi,Other,Beverages,0.4,13200,14000,13500,2011-02-17,13000.0,11.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.45,12500,13800,13000,2011-02-28,14000.0,6.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.87,13500,14000,14000,2011-03-06,13500.0,2.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.44,13200,13800,13500,2011-03-08,13500.0,1.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.48,13000,14000,13500,2011-03-09,13500.0,1.0
-Kerala,Malappuram,Parappanangadi,Other,Beverages,0.65,10000,15000,13500,2011-03-10,10000.0,314.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.5,10000,14000,10000,2012-01-18,8500.0,7.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,1.0,8000,8700,8500,2012-01-25,9700.0,2.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.5,8500,10000,9700,2012-01-27,7400.0,5.0
-Kerala,Malappuram,Parappanangadi,Other,Beverages,0.5,7000,7500,7400,2012-02-01,7650.0,13.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.3,7500,7800,7650,2012-02-14,9000.0,7.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.5,8500,9000,9000,2012-02-21,7800.0,4.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.4,7500,8000,7800,2012-02-25,7600.0,2.0
@@ -5195,12 +4926,10 @@ Kerala,Malappuram,Parappanangadi,Other,Beverages,0.2,9800,9900,9900,2012-04-16,9
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.2,9800,10000,9900,2012-04-17,9900.0,3.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.1,9900,10000,9900,2012-04-20,9900.0,1.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.2,9000,10000,9900,2012-04-21,9900.0,2.0
-Kerala,Malappuram,Parappanangadi,Other,Beverages,0.1,9800,10000,9900,2012-04-23,9900.0,10.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.2,9800,10000,9900,2012-05-03,9900.0,7.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.1,9800,10000,9900,2012-05-10,9900.0,1.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.2,9800,9900,9900,2012-05-11,10200.0,1.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.2,9900,10500,10200,2012-05-12,9800.0,2.0
-Kerala,Malappuram,Parappanangadi,Other,Beverages,0.3,9600,9900,9800,2012-05-14,9800.0,12.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.3,9600,9900,9800,2012-05-26,9800.0,2.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.3,9600,9900,9800,2012-05-28,10000.0,1.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.2,10000,10000,10000,2012-05-29,10000.0,1.0
@@ -5213,7 +4942,6 @@ Kerala,Malappuram,Parappanangadi,Other,Beverages,0.1,10000,10000,10000,2012-06-0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.1,10000,10000,10000,2012-06-07,10100.0,1.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.2,10000,10100,10100,2012-06-08,10000.0,1.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,1.0,10000,10000,10000,2012-06-09,10000.0,2.0
-Kerala,Malappuram,Parappanangadi,Other,Beverages,1.0,10000,10000,10000,2012-06-11,1320.0,59.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.3,1200,1400,1320,2012-08-09,1300.0,2.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.4,1200,1400,1300,2012-08-11,1250.0,2.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.3,1100,1400,1250,2012-08-13,1300.0,1.0
@@ -5229,7 +4957,6 @@ Kerala,Malappuram,Parappanangadi,Other,Beverages,0.2,12000,12000,12000,2012-08-2
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.2,1200,1500,1400,2012-08-25,1750.0,3.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.2,1600,1800,1750,2012-08-28,1800.0,3.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.5,1700,1900,1800,2012-08-31,22000.0,4.0
-Kerala,Malappuram,Parappanangadi,Other,Beverages,0.1,21000,23000,22000,2012-09-04,11000.0,8.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.2,11000,11000,11000,2012-09-12,10500.0,7.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.3,10000,11000,10500,2012-09-19,10600.0,1.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.3,10500,11000,10600,2012-09-20,10000.0,1.0
@@ -5328,7 +5055,6 @@ Kerala,Malappuram,Parappanangadi,Other,Beverages,0.3,10000,10000,10000,2013-01-2
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.3,10000,10000,10000,2013-01-23,10000.0,1.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.1,10000,10000,10000,2013-01-24,11500.0,1.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.2,11000,11500,11500,2013-01-25,11500.0,5.0
-Kerala,Malappuram,Parappanangadi,Other,Beverages,0.2,11000,11500,11500,2013-01-30,11000.0,26.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.5,11000,11000,11000,2013-02-25,11000.0,1.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.3,11000,11500,11000,2013-02-26,12000.0,1.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.2,12000,12000,12000,2013-02-27,13000.0,2.0
@@ -5520,7 +5246,6 @@ Kerala,Malappuram,Parappanangadi,Other,Beverages,0.3,13000,13000,13000,2013-10-1
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.2,12000,12000,12000,2013-10-18,12000.0,1.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.2,12000,12000,12000,2013-10-19,12000.0,2.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.2,12000,12000,12000,2013-10-21,13000.0,1.0
-Kerala,Malappuram,Parappanangadi,Other,Beverages,0.1,13000,13000,13000,2013-10-22,16000.0,71.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.3,16000,16000,16000,2014-01-01,11000.0,7.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.2,11000,11000,11000,2014-01-08,15000.0,2.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.3,15000,15000,15000,2014-01-10,15000.0,1.0
@@ -5564,7 +5289,6 @@ Kerala,Malappuram,Parappanangadi,Other,Beverages,0.3,13000,13000,13000,2014-02-2
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.3,12000,12000,12000,2014-03-03,12000.0,7.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.3,12000,12000,12000,2014-03-10,12000.0,5.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.3,12000,12000,12000,2014-03-15,12000.0,3.0
-Kerala,Malappuram,Parappanangadi,Other,Beverages,0.3,12000,12000,12000,2014-03-18,12000.0,11.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.3,12000,12000,12000,2014-03-29,12000.0,2.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.3,12000,12000,12000,2014-03-31,13000.0,3.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.3,13000,13000,13000,2014-04-03,12000.0,4.0
@@ -5572,7 +5296,6 @@ Kerala,Malappuram,Parappanangadi,Other,Beverages,0.3,12000,12000,12000,2014-04-0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.3,12000,12000,12000,2014-04-08,12000.0,1.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.3,12000,12000,12000,2014-04-09,13000.0,1.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.3,13000,13000,13000,2014-04-10,12000.0,1.0
-Kerala,Malappuram,Parappanangadi,Other,Beverages,0.2,12000,12000,12000,2014-04-11,7500.0,17.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.2,7000,8000,7500,2014-04-28,14000.0,2.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.3,14000,14000,14000,2014-04-30,14000.0,1.0
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.2,14000,14000,14000,2014-05-01,14500.0,1.0
@@ -5727,12 +5450,10 @@ Odisha,Puri,Sakhigopal,All Dust,Beverages,0.2,8000,16000,15000,2004-07-24,15000.
 Odisha,Puri,Sakhigopal,All Dust,Beverages,0.2,8000,16000,15000,2004-07-25,15000.0,1.0
 Odisha,Puri,Sakhigopal,All Dust,Beverages,0.2,8000,16000,15000,2004-07-26,15000.0,2.0
 Odisha,Puri,Sakhigopal,All Dust,Beverages,0.2,8000,16000,15000,2004-07-28,15000.0,3.0
-Odisha,Puri,Sakhigopal,All Dust,Beverages,0.3,9000,16000,15000,2004-07-31,12000.0,74.0
 Odisha,Puri,Sakhigopal,All Dust,Beverages,0.4,9000,13000,12000,2004-10-13,12000.0,1.0
 Odisha,Puri,Sakhigopal,All Dust,Beverages,0.2,9000,13000,12000,2004-10-14,12000.0,3.0
 Odisha,Puri,Sakhigopal,All Dust,Beverages,0.1,9000,13000,12000,2004-10-17,12000.0,6.0
 Odisha,Puri,Sakhigopal,All Dust,Beverages,0.1,8000,13000,12000,2004-10-23,12000.0,1.0
-Odisha,Puri,Sakhigopal,All Dust,Beverages,0.1,8000,13000,12000,2004-10-24,12000.0,8.0
 Odisha,Puri,Sakhigopal,All Dust,Beverages,0.1,9000,13000,12000,2004-11-01,12000.0,2.0
 Odisha,Puri,Sakhigopal,All Dust,Beverages,0.1,8000,13000,12000,2004-11-03,12000.0,1.0
 Odisha,Puri,Sakhigopal,All Dust,Beverages,0.2,9000,13000,12000,2004-11-04,12000.0,1.0
@@ -5756,41 +5477,17 @@ Odisha,Puri,Sakhigopal,All Dust,Beverages,0.2,9000,13000,13000,2004-12-11,13000.
 Odisha,Puri,Sakhigopal,All Dust,Beverages,0.2,9000,13000,13000,2004-12-12,12000.0,1.0
 Odisha,Puri,Sakhigopal,All Dust,Beverages,0.2,9000,13000,12000,2004-12-13,12000.0,4.0
 Odisha,Puri,Sakhigopal,All Dust,Beverages,0.2,9000,13000,12000,2004-12-17,12000.0,4.0
-Odisha,Puri,Sakhigopal,All Dust,Beverages,0.3,9000,13000,12000,2004-12-21,12000.0,11.0
-Odisha,Puri,Sakhigopal,All Dust,Beverages,0.1,9000,13000,12000,2005-01-01,13000.0,45.0
-Odisha,Puri,Sakhigopal,All Dust,Beverages,0.4,8000,15000,13000,2005-02-15,13000.0,14.0
-Odisha,Puri,Sakhigopal,All Dust,Beverages,0.5,9000,15000,13000,2005-03-01,12000.0,205.0
 Odisha,Puri,Sakhigopal,All Dust,Beverages,0.2,9000,15000,12000,2005-09-22,13000.0,4.0
-Odisha,Puri,Sakhigopal,All Dust,Beverages,0.1,9000,15000,13000,2005-09-26,13000.0,17.0
-Odisha,Puri,Sakhigopal,All Dust,Beverages,0.2,9000,17500,13000,2005-10-13,13000.0,8.0
-Odisha,Puri,Sakhigopal,All Dust,Beverages,0.2,9000,17500,13000,2005-10-21,13000.0,12.0
 Odisha,Puri,Sakhigopal,All Dust,Beverages,0.3,7500,14000,13000,2005-11-02,13000.0,7.0
-Odisha,Puri,Sakhigopal,All Dust,Beverages,0.4,9000,17000,13000,2005-11-09,13000.0,10.0
 Odisha,Puri,Sakhigopal,All Dust,Beverages,0.3,7500,15000,13000,2005-11-19,15000.0,4.0
 Odisha,Puri,Sakhigopal,All Dust,Beverages,0.2,9000,17000,15000,2005-11-23,13000.0,2.0
-Odisha,Puri,Sakhigopal,All Dust,Beverages,0.3,7500,15000,13000,2005-11-25,1200.0,13.0
 Odisha,Puri,Sakhigopal,All Dust,Beverages,0.2,900,1800,1200,2005-12-08,13000.0,4.0
-Odisha,Puri,Sakhigopal,All Dust,Beverages,0.5,9000,15000,13000,2005-12-12,15000.0,15.0
 Odisha,Puri,Sakhigopal,All Dust,Beverages,0.8,9000,17000,15000,2005-12-27,13000.0,3.0
 Odisha,Puri,Sakhigopal,All Dust,Beverages,0.4,9000,15000,13000,2005-12-30,12000.0,7.0
 Odisha,Puri,Sakhigopal,All Dust,Beverages,0.4,9000,15000,12000,2006-01-06,10000.0,4.0
-Odisha,Puri,Sakhigopal,All Dust,Beverages,0.7,9000,12200,10000,2006-01-10,13000.0,11.0
-Odisha,Puri,Sakhigopal,All Dust,Beverages,0.5,9000,15000,13000,2006-01-21,9000.0,15.0
-Odisha,Puri,Sakhigopal,All Dust,Beverages,0.3,5000,15000,9000,2006-02-05,13000.0,16.0
-Odisha,Puri,Sakhigopal,All Dust,Beverages,1.0,9000,15000,13000,2006-02-21,13000.0,35.0
 Odisha,Puri,Sakhigopal,All Dust,Beverages,0.5,9000,15000,13000,2006-03-28,14000.0,6.0
-Odisha,Puri,Sakhigopal,All Dust,Beverages,0.2,9000,15000,14000,2006-04-03,1400.0,30.0
 Odisha,Puri,Sakhigopal,All Dust,Beverages,0.5,1000,1600,1400,2006-05-03,10000.0,7.0
-Odisha,Puri,Sakhigopal,All Dust,Beverages,0.5,9000,15000,10000,2006-05-10,12000.0,11.0
-Odisha,Puri,Sakhigopal,All Dust,Beverages,0.5,9000,14000,12000,2006-05-21,11000.0,17.0
-Odisha,Puri,Sakhigopal,All Dust,Beverages,0.8,9000,14000,11000,2006-06-07,10000.0,9.0
-Odisha,Puri,Sakhigopal,All Dust,Beverages,0.5,9000,13000,10000,2006-06-16,15000.0,19.0
-Odisha,Puri,Sakhigopal,All Dust,Beverages,0.2,10000,18000,15000,2006-07-05,13000.0,31.0
 Odisha,Puri,Sakhigopal,All Dust,Beverages,0.5,9000,15000,13000,2006-08-05,12000.0,5.0
-Odisha,Puri,Sakhigopal,All Dust,Beverages,0.7,10000,14000,12000,2006-08-10,13000.0,13.0
-Odisha,Puri,Sakhigopal,All Dust,Beverages,0.8,10000,15000,13000,2006-08-23,13000.0,10.0
-Odisha,Puri,Sakhigopal,All Dust,Beverages,0.3,9000,15000,13000,2006-09-02,12000.0,70.0
-Odisha,Puri,Sakhigopal,All Dust,Beverages,1.0,10000,15000,12000,2006-11-11,13000.0,91.0
 Odisha,Puri,Sakhigopal,Assam C.T.C. Dust,Beverages,0.5,10000,18000,15000,2003-04-25,15000.0,1.0
 Odisha,Puri,Sakhigopal,Assam C.T.C. Dust,Beverages,0.5,10000,18000,15000,2003-04-26,15000.0,1.0
 Odisha,Puri,Sakhigopal,Assam C.T.C. Dust,Beverages,0.5,9000,18000,15000,2003-04-27,15000.0,1.0
@@ -5837,8 +5534,6 @@ Odisha,Puri,Sakhigopal,Assam C.T.C. Dust,Beverages,0.4,10000,18000,15000,2003-06
 Odisha,Puri,Sakhigopal,Assam C.T.C. Dust,Beverages,0.5,10000,18000,15000,2003-06-21,15000.0,1.0
 Odisha,Puri,Sakhigopal,Assam C.T.C. Dust,Beverages,0.5,10000,18000,15000,2003-06-22,15000.0,1.0
 Odisha,Puri,Sakhigopal,Assam C.T.C. Dust,Beverages,0.5,10000,18000,15000,2003-06-23,15000.0,1.0
-Odisha,Puri,Sakhigopal,Assam C.T.C. Dust,Beverages,0.4,10000,18000,15000,2003-06-24,15000.0,10.0
-Odisha,Puri,Sakhigopal,Assam C.T.C. Dust,Beverages,0.5,10000,18000,15000,2003-07-04,15000.0,12.0
 Odisha,Puri,Sakhigopal,Assam C.T.C. Dust,Beverages,0.5,10000,18000,15000,2003-07-16,15000.0,2.0
 Odisha,Puri,Sakhigopal,Assam C.T.C. Dust,Beverages,0.5,10000,18000,15000,2003-07-18,15000.0,3.0
 Odisha,Puri,Sakhigopal,Assam C.T.C. Dust,Beverages,0.5,10000,18000,15000,2003-07-21,15000.0,1.0
@@ -5903,7 +5598,6 @@ Odisha,Puri,Sakhigopal,Assam C.T.C. Dust,Beverages,0.5,9000,18000,15000,2003-10-
 Odisha,Puri,Sakhigopal,Assam C.T.C. Dust,Beverages,0.6,9000,18000,15000,2003-10-09,15000.0,1.0
 Odisha,Puri,Sakhigopal,Assam C.T.C. Dust,Beverages,0.5,9000,18000,15000,2003-10-10,15000.0,1.0
 Odisha,Puri,Sakhigopal,Assam C.T.C. Dust,Beverages,0.6,9000,18000,15000,2003-10-11,15000.0,2.0
-Odisha,Puri,Sakhigopal,Assam C.T.C. Dust,Beverages,0.6,9000,18000,15000,2003-10-13,15000.0,10.0
 Odisha,Puri,Sakhigopal,Assam C.T.C. Dust,Beverages,0.5,9000,18000,15000,2003-10-23,15000.0,1.0
 Odisha,Puri,Sakhigopal,Assam C.T.C. Dust,Beverages,0.5,9000,18000,15000,2003-10-24,15000.0,2.0
 Odisha,Puri,Sakhigopal,Assam C.T.C. Dust,Beverages,0.5,9000,18000,15000,2003-10-26,15000.0,1.0
@@ -5977,25 +5671,18 @@ Odisha,Puri,Sakhigopal,Assam C.T.C. Dust,Beverages,0.4,9000,16000,15000,2004-02-
 Odisha,Puri,Sakhigopal,Assam C.T.C. Dust,Beverages,0.5,9000,16000,15000,2004-02-14,15000.0,2.0
 Odisha,Puri,Sakhigopal,Assam C.T.C. Dust,Beverages,0.4,9000,16000,15000,2004-02-16,15000.0,1.0
 Odisha,Puri,Sakhigopal,Assam C.T.C. Dust,Beverages,0.4,9000,16000,15000,2004-02-17,15000.0,2.0
-Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.75,7000,11000,8000,2010-11-29,7500.0,10.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.5,7000,9000,7500,2010-12-09,10000.0,7.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.5,7000,13000,10000,2010-12-16,8500.0,2.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.75,7500,9000,8500,2010-12-18,9000.0,1.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.4,8000,10000,9000,2010-12-19,9500.0,1.0
-Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.7,8000,10000,9500,2010-12-20,8500.0,31.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.5,8000,9000,8500,2011-01-20,7650.0,2.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.75,7300,8000,7650,2011-01-22,14000.0,3.0
-Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.4,13500,15000,14000,2011-01-25,14000.0,12.0
-Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.45,13000,15500,14000,2011-02-06,13500.0,24.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.5,13000,14000,13500,2011-03-02,14000.0,2.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.8,13500,14000,14000,2011-03-04,13000.0,5.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.75,13000,13500,13000,2011-03-09,13000.0,1.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.45,12900,13500,13000,2011-03-10,13000.0,1.0
-Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.4,13000,13000,13000,2011-03-11,12000.0,126.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.4,11000,13500,12000,2011-07-15,14000.0,1.0
-Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.5,13000,15000,14000,2011-07-16,11000.0,91.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.8,7500,12500,11000,2011-10-15,11000.0,2.0
-Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.8,7400,12500,11000,2011-10-17,9000.0,23.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.3,9000,10000,9000,2011-11-09,10000.0,7.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.1,9000,10000,10000,2011-11-16,10000.0,1.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,9000,11000,10000,2011-11-17,10000.0,1.0
@@ -6017,14 +5704,10 @@ Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.3,7800,12000,10000,2011-12-14,
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,8500,11500,11000,2011-12-15,9500.0,1.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.4,8000,10000,9500,2011-12-16,8500.0,1.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.4,7700,9000,8500,2011-12-17,8500.0,3.0
-Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.3,7000,9000,8500,2011-12-20,7000.0,9.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,6500,7000,7000,2011-12-29,7000.0,2.0
-Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.3,7000,7500,7000,2011-12-31,8000.0,11.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.1,7000,9000,8000,2012-01-11,10000.0,7.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.1,8000,11000,10000,2012-01-18,9000.0,7.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.4,8500,10000,9000,2012-01-25,8000.0,5.0
-Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.4,7000,8500,8000,2012-01-30,8200.0,9.0
-Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.3,8000,8400,8200,2012-02-08,7250.0,8.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.6,7000,7350,7250,2012-02-16,7000.0,1.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.5,6500,7000,7000,2012-02-17,11000.0,1.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.7,10000,11500,11000,2012-02-18,8300.0,3.0
@@ -6062,7 +5745,6 @@ Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,9900,10000,10000,2012-04-12,
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,9800,9900,9900,2012-04-13,9900.0,6.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,9800,9900,9900,2012-04-19,10000.0,2.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,10000,10000,10000,2012-04-21,9800.0,2.0
-Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.1,9800,9800,9800,2012-04-23,10000.0,10.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.1,10000,10100,10000,2012-05-03,9900.0,7.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.1,9800,10000,9900,2012-05-10,9900.0,1.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,9900,9900,9900,2012-05-11,9900.0,1.0
@@ -6082,7 +5764,6 @@ Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,10000,10000,10000,2012-06-05
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,10000,11000,10000,2012-06-06,10000.0,1.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.1,10000,10000,10000,2012-06-07,11000.0,1.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,11000,11000,11000,2012-06-08,10000.0,1.0
-Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.1,10000,10000,10000,2012-06-09,1100.0,63.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,1000,1200,1100,2012-08-11,1000.0,2.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,950,1100,1000,2012-08-13,1100.0,1.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,1000,1200,1100,2012-08-14,950.0,2.0
@@ -6097,7 +5778,6 @@ Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,9500,9500,9500,2012-08-24,12
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,1100,1300,1200,2012-08-25,1250.0,2.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.3,1200,1400,1250,2012-08-27,1450.0,1.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.3,1400,1500,1450,2012-08-28,1600.0,3.0
-Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,1500,1700,1600,2012-08-31,10000.0,18.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,10000,10000,10000,2012-09-18,10000.0,1.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,10000,11000,10000,2012-09-19,11000.0,1.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,11000,11000,11000,2012-09-20,10000.0,1.0
@@ -6187,14 +5867,11 @@ Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.5,11000,11000,11000,2013-01-11
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.5,11000,12000,11500,2013-01-12,11000.0,2.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.5,11000,11000,11000,2013-01-14,11000.0,1.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.6,11000,11500,11000,2013-01-15,11500.0,1.0
-Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.5,11000,12000,11500,2013-01-16,11000.0,9.0
-Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,11000,11000,11000,2013-01-25,11000.0,21.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.4,11000,11500,11000,2013-02-15,12000.0,7.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,12000,12000,12000,2013-02-22,11500.0,1.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.4,11000,11500,11500,2013-02-23,11200.0,2.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,11000,11500,11200,2013-02-25,11000.0,1.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,11000,11000,11000,2013-02-26,11500.0,4.0
-Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.1,11000,12000,11500,2013-03-02,11000.0,21.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.6,11000,11000,11000,2013-03-23,12000.0,3.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,12000,12000,12000,2013-03-26,12000.0,1.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.6,12000,12000,12000,2013-03-27,12000.0,1.0
@@ -6359,7 +6036,6 @@ Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.3,13000,13000,13000,2013-10-17
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.6,13000,13000,13000,2013-10-18,12000.0,3.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.1,12000,12000,12000,2013-10-21,12000.0,1.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,12000,12000,12000,2013-10-22,12000.0,1.0
-Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,12000,12000,12000,2013-10-23,14000.0,75.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,13000,15000,14000,2014-01-06,14000.0,1.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.3,14000,14000,14000,2014-01-07,14000.0,1.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,14000,15000,14000,2014-01-08,15000.0,1.0
@@ -6399,7 +6075,6 @@ Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.1,11000,11000,11000,2014-02-21
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.1,11000,11000,11000,2014-02-22,13000.0,2.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.3,13000,14000,13000,2014-02-24,12000.0,1.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.1,12000,12000,12000,2014-02-25,12700.0,2.0
-Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,12500,13000,12700,2014-02-27,12500.0,102.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.3,12000,13000,12500,2014-06-09,14000.0,1.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,14000,14000,14000,2014-06-10,13000.0,1.0
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,13000,13000,13000,2014-06-11,13000.0,1.0
@@ -6424,7 +6099,6 @@ Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.3,16000,17000,16500,2014-07-02
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.3,15000,17000,16000,2014-07-03,15000.0,2.0
 Kerala,Idukki,Vandiperiyar,Other,Beverages,4.0,17900,18000,17900,2014-01-16,18450.0,4.0
 Kerala,Idukki,Vandiperiyar,Other,Beverages,1.0,18450,18500,18450,2014-01-20,20000.0,3.0
-Kerala,Idukki,Vandiperiyar,Other,Beverages,3.0,19900,20000,20000,2014-01-23,19000.0,18.0
 Kerala,Idukki,Vandiperiyar,Other,Beverages,2.0,18950,19000,19000,2014-02-10,20000.0,2.0
 Kerala,Idukki,Vandiperiyar,Other,Beverages,5.0,19950,20000,20000,2014-02-12,21000.0,5.0
 Kerala,Idukki,Vandiperiyar,Other,Beverages,2.5,20950,21000,21000,2014-02-17,20900.0,2.0
@@ -6439,16 +6113,10 @@ Kerala,Idukki,Vandiperiyar,Other,Beverages,10.0,19800,20000,20000,2014-03-17,199
 Kerala,Idukki,Vandiperiyar,Other,Beverages,2.0,19900,20000,19950,2014-03-19,19950.0,5.0
 Kerala,Idukki,Vandiperiyar,Other,Beverages,2.0,19950,20000,19950,2014-03-24,20300.0,2.0
 Kerala,Idukki,Vandiperiyar,Other,Beverages,1.0,20000,20500,20300,2014-03-26,21000.0,5.0
-Kerala,Idukki,Vandiperiyar,Other,Beverages,2.0,20000,21000,21000,2014-03-31,21100.0,9.0
-Kerala,Idukki,Vandiperiyar,Other,Beverages,2.0,21000,21200,21100,2014-04-09,21300.0,14.0
-Kerala,Idukki,Vandiperiyar,Other,Beverages,0.5,21200,21500,21300,2014-04-23,21100.0,14.0
 Kerala,Idukki,Vandiperiyar,Other,Beverages,3.0,21000,21200,21100,2014-05-07,20900.0,7.0
 Kerala,Idukki,Vandiperiyar,Other,Beverages,2.0,20800,21000,20900,2014-05-14,20900.0,5.0
 Kerala,Idukki,Vandiperiyar,Other,Beverages,2.0,20800,21000,20900,2014-05-19,20000.0,2.0
-Kerala,Idukki,Vandiperiyar,Other,Beverages,10.0,19500,21000,20000,2014-05-21,20000.0,14.0
 Kerala,Idukki,Vandiperiyar,Other,Beverages,2.0,19000,21000,20000,2014-06-04,17000.0,7.0
 Kerala,Idukki,Vandiperiyar,Other,Beverages,2.0,17000,18000,17000,2014-06-11,21000.0,7.0
-Kerala,Idukki,Vandiperiyar,Other,Beverages,5.0,20000,21500,21000,2014-06-18,21000.0,21.0
 Kerala,Idukki,Vandiperiyar,Other,Beverages,2.0,21000,21000,21000,2014-07-09,20000.0,5.0
-Kerala,Idukki,Vandiperiyar,Other,Beverages,3.0,20000,21000,20000,2014-07-14,20000.0,9.0
 Kerala,Idukki,Vandiperiyar,Other,Beverages,1.0,16000,20000,20000,2014-07-23,20000.0,7.0

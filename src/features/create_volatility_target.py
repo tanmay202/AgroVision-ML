@@ -1,3 +1,13 @@
+"""
+AgroVision — Volatility Target Creation
+
+Computes volatility labels (LOW/MEDIUM/HIGH) from
+absolute price percentage changes.
+
+Thresholds are data-driven (tertile quantiles of
+non-zero movements in the training set).
+"""
+
 import sys
 from pathlib import Path
 
@@ -7,210 +17,107 @@ import json
 import pandas as pd
 
 from config import (
-    TRAIN_PATH,
-    VOLATILITY_TRAIN_PATH,
-    VOLATILITY_CONFIG_PATH,
     VOLATILITY_TARGET,
+    VOLATILITY_CLASSES,
     ARTIFACTS_DIR,
+    train_path,
+    volatility_train_path,
+    volatility_config_path,
 )
 
 
 PRICE_CHANGE_COLUMN = "price_pct_change"
 
 
-def main():
-    if not TRAIN_PATH.exists():
-        print(f"ERROR: File not found: {TRAIN_PATH}")
-        return
+def create_volatility(df=None):
+    """
+    Create volatility labels for the training set.
 
-    df = pd.read_csv(TRAIN_PATH)
+    Parameters
+    ----------
+    df : pd.DataFrame, optional
+        Training data. If None, reads from train CSV.
 
-    # --------------------------------------------------
-    # 1. Absolute price movement
-    # --------------------------------------------------
-    df["abs_price_pct_change"] = (
-        df[PRICE_CHANGE_COLUMN].abs()
-    )
+    Returns
+    -------
+    tuple of (pd.DataFrame, float, float)
+        (training data with volatility column, low_threshold, high_threshold)
+    """
+    if df is None:
+        path = train_path()
+        if not path.exists():
+            raise FileNotFoundError(f"File not found: {path}")
+        df = pd.read_csv(path)
 
-    # --------------------------------------------------
-    # 2. Separate zero and non-zero movements
-    # --------------------------------------------------
-    non_zero_changes = df.loc[
-        df["abs_price_pct_change"] > 0,
-        "abs_price_pct_change"
+    print("\n" + "=" * 60)
+    print("STEP 5: VOLATILITY TARGET")
+    print("=" * 60)
+
+    if PRICE_CHANGE_COLUMN not in df.columns:
+        raise ValueError(
+            f"Column '{PRICE_CHANGE_COLUMN}' not found. "
+            f"Run pct_change features first."
+        )
+
+    # Absolute price movement
+    df["abs_price_pct_change"] = df[PRICE_CHANGE_COLUMN].abs()
+
+    # Data-driven thresholds from non-zero movements
+    non_zero = df.loc[
+        df["abs_price_pct_change"] > 0, "abs_price_pct_change"
     ].dropna()
 
-    print("=" * 60)
-    print("VOLATILITY DATA")
-    print("=" * 60)
+    low_threshold = float(non_zero.quantile(1 / 3))
+    high_threshold = float(non_zero.quantile(2 / 3))
 
-    print(
-        f"Total rows: {len(df)}"
-    )
+    print(f"   Low/Medium threshold : {low_threshold:.4f}%")
+    print(f"   Medium/High threshold: {high_threshold:.4f}%")
+    print(f"   Zero-change rows: {(df['abs_price_pct_change'] == 0).sum()}")
+    print(f"   Non-zero rows: {len(non_zero)}")
 
-    print(
-        f"Zero price-change rows: "
-        f"{(df['abs_price_pct_change'] == 0).sum()}"
-    )
-
-    print(
-        f"Non-zero price-change rows: "
-        f"{len(non_zero_changes)}"
-    )
-
-    # --------------------------------------------------
-    # 3. Data-driven thresholds
-    #
-    # Calculate thresholds ONLY from non-zero
-    # historical price movements.
-    # --------------------------------------------------
-    low_threshold = non_zero_changes.quantile(1 / 3)
-
-    high_threshold = non_zero_changes.quantile(2 / 3)
-
-    print("\n" + "=" * 60)
-    print("VOLATILITY THRESHOLDS")
-    print("=" * 60)
-
-    print(
-        f"Low/Medium threshold : "
-        f"{low_threshold:.4f}%"
-    )
-
-    print(
-        f"Medium/High threshold: "
-        f"{high_threshold:.4f}%"
-    )
-
-    # --------------------------------------------------
-    # 4. Save thresholds to config
-    # --------------------------------------------------
-    ARTIFACTS_DIR.mkdir(
-        parents=True,
-        exist_ok=True
-    )
-
-    volatility_config = {
+    # Save thresholds
+    ARTIFACTS_DIR.mkdir(parents=True, exist_ok=True)
+    vol_config = {
         "threshold_method": (
-            "training-data quantiles "
-            "of non-zero absolute "
-            "price percentage changes"
+            "training-data quantiles of non-zero "
+            "absolute price percentage changes"
         ),
-        "low_medium_threshold_percent": round(
-            float(low_threshold), 4
-        ),
-        "medium_high_threshold_percent": round(
-            float(high_threshold), 4
-        ),
-        "classes": {
-            "LOW": f"0% to {low_threshold:.4f}%",
-            "MEDIUM": f">{low_threshold:.4f}% to {high_threshold:.4f}%",
-            "HIGH": f">{high_threshold:.4f}%",
-        },
+        "low_medium_threshold_percent": round(low_threshold, 4),
+        "medium_high_threshold_percent": round(high_threshold, 4),
+        "classes": VOLATILITY_CLASSES,
     }
+    config_path = volatility_config_path()
+    with open(config_path, "w", encoding="utf-8") as f:
+        json.dump(vol_config, f, indent=4)
+    print(f"   Thresholds saved to: {config_path}")
 
-    with open(
-        VOLATILITY_CONFIG_PATH,
-        "w",
-        encoding="utf-8"
-    ) as file:
-        json.dump(
-            volatility_config,
-            file,
-            indent=4
-        )
-
-    print(f"\nThresholds saved to: {VOLATILITY_CONFIG_PATH}")
-
-    # --------------------------------------------------
-    # 5. Create volatility classes
-    # --------------------------------------------------
-    def classify_volatility(value):
+    # Classify
+    def classify(value):
         if pd.isna(value):
             return pd.NA
-
-        # No price movement = LOW
-        if value == 0:
-            return "LOW"
-
-        if value <= low_threshold:
-            return "LOW"
-
+        if value == 0 or value <= low_threshold:
+            return VOLATILITY_CLASSES[0]  # LOW
         if value <= high_threshold:
-            return "MEDIUM"
+            return VOLATILITY_CLASSES[1]  # MEDIUM
+        return VOLATILITY_CLASSES[2]  # HIGH
 
-        return "HIGH"
+    df[VOLATILITY_TARGET] = df["abs_price_pct_change"].apply(classify)
 
-    df[VOLATILITY_TARGET] = (
-        df["abs_price_pct_change"]
-        .apply(classify_volatility)
-    )
+    # Distribution
+    print(f"\n   Class distribution:")
+    print(df[VOLATILITY_TARGET].value_counts().to_string())
 
-    # --------------------------------------------------
-    # 6. Class distribution
-    # --------------------------------------------------
-    print("\n" + "=" * 60)
-    print("VOLATILITY CLASS DISTRIBUTION")
-    print("=" * 60)
+    # Save
+    out_path = volatility_train_path()
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    df.to_csv(out_path, index=False)
+    print(f"\n   Saved to: {out_path}")
 
-    print(
-        df[VOLATILITY_TARGET]
-        .value_counts(dropna=False)
-    )
+    return df, low_threshold, high_threshold
 
-    print("\nPercentages:")
-    print(
-        (
-            df[VOLATILITY_TARGET]
-            .value_counts(normalize=True)
-            * 100
-        ).round(2)
-    )
 
-    # --------------------------------------------------
-    # 7. Examples from each class
-    # --------------------------------------------------
-    print("\n" + "=" * 60)
-    print("EXAMPLES BY CLASS")
-    print("=" * 60)
-
-    example_columns = [
-        "Market Name",
-        "Variety",
-        "Reported Date",
-        "Modal Price (Rs./Quintal)",
-        PRICE_CHANGE_COLUMN,
-        "abs_price_pct_change",
-        VOLATILITY_TARGET,
-    ]
-
-    for class_name in ["LOW", "MEDIUM", "HIGH"]:
-        print(f"\n--- {class_name} ---")
-
-        class_rows = (
-            df[df[VOLATILITY_TARGET] == class_name]
-            [example_columns]
-            .head(5)
-        )
-
-        print(
-            class_rows.to_string(index=False)
-        )
-
-    # --------------------------------------------------
-    # 8. Save
-    # --------------------------------------------------
-    df.to_csv(
-        VOLATILITY_TRAIN_PATH,
-        index=False
-    )
-
-    print("\n" + "=" * 60)
-    print("OUTPUT")
-    print("=" * 60)
-
-    print(f"Saved to: {VOLATILITY_TRAIN_PATH}")
-    print(f"Rows: {len(df)}")
+def main():
+    create_volatility()
 
 
 if __name__ == "__main__":
