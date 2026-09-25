@@ -4,6 +4,7 @@
         "type": "XGBRegressor",
         "target": "future_modal_price",
         "features": [
+            "Modal Price (Rs./Quintal)",
             "lag_1",
             "lag_7",
             "lag_14",

@@ -8,6 +8,7 @@ Creates the forecasting target:
 """
 
 import sys
+import numpy as np
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -58,8 +59,25 @@ def prepare(df=None):
 
     print(f"   Initial rows: {len(df)}")
 
-    # Create future-price target: next observation in same group
-    df[PRICE_TARGET] = df.groupby(group_cols)[PRICE_COLUMN].shift(-1)
+    # Create future-price target: 
+    df[PRICE_TARGET] = (
+    df.groupby(group_cols)[PRICE_COLUMN]
+    .shift(-1)
+    )
+
+    # Create percentage-change target
+    df["future_price_pct_change"] = (
+    (df[PRICE_TARGET] - df[PRICE_COLUMN])
+    / df[PRICE_COLUMN]
+    )
+    
+    
+    # Log-return target
+    df["future_log_return"] = np.log(
+    df[PRICE_TARGET] / df[PRICE_COLUMN]
+    )
+
+
 
     # Record how many days ahead each target is
     next_date = df.groupby(group_cols)[DATE_COLUMN].shift(-1)

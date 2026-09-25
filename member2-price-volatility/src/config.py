@@ -197,6 +197,8 @@ MAX_PRICE_COLUMN = "Max Price (Rs./Quintal)"
 ARRIVAL_COLUMN = "Arrivals (Tonnes)"
 
 PRICE_TARGET = "future_modal_price"
+PRICE_CHANGE_TARGET = "future_price_pct_change"
+PRICE_LOG_RETURN_TARGET = "future_log_return"
 VOLATILITY_TARGET = "volatility"
 
 
@@ -241,20 +243,18 @@ PRICE_COLUMNS = [
 FORECAST_HORIZON_MAX_DAYS = 7
 
 
-# ============================================================
-# PRICE MODEL FEATURES
+# IMPORTANT:
+# Current modal price IS included because it is known at prediction time.
+# It is not future information.
 #
-# IMPORTANT — LEAKAGE FIX (v2.0):
-#   Removed "Modal Price (Rs./Quintal)", "Min Price (Rs./Quintal)",
-#   "Max Price (Rs./Quintal)" — these are CURRENT-ROW values.
-#   Using them to predict future_modal_price is near-direct leakage.
-#   The lag features (lag_1, lag_7, ...) already provide historical
-#   price information correctly.
+# The model target is future_modal_price / future_price_pct_change /
+# future_log_return depending on the experiment.
 #
-#   Also removed "arrival_change" which used current-row arrivals.
-# ============================================================
+# Min Price and Max Price current-row values remain excluded.
+# arrival_change is also excluded because it uses the current-row arrival.
 
 PRICE_FEATURES = [
+    PRICE_COLUMN, 
     # Historical price lags (safe — from past observations)
     "lag_1",
     "lag_7",
