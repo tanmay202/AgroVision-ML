@@ -1,12 +1,19 @@
 """
-AgroVision — Time-Based Train/Test Split
+AgroVision — Time-Based Train/Test Split (fixed)
 
-Performs a per-group chronological 80/20 split:
-  For each (Market, Variety) group, the first 80% of
-  observations (by date) go to train, the last 20% to test.
+Uses ONE global cutoff date for every (Market, Variety) group:
+    train = rows dated before the cutoff
+    test  = rows dated on/after the cutoff
 
-This prevents temporal leakage across groups with
-different date ranges.
+Why this replaces the per-group 80/20 split:
+  - A per-group split puts some groups' test rows in 2003 while the model is
+    trained on other groups' 2010-2015 data (cross-group future leakage), and
+    the test metrics mix very different market periods.
+  - Rows near the cutoff have a target (next price) that lies in the future.
+    A train row whose target date falls on/after the cutoff is purged so the
+    train labels never peek into the test period.
+
+Also provides walk_forward_splits() for time-ordered CV / tuning.
 """
 
 import sys
@@ -24,16 +31,36 @@ from config import (
     test_path,
 )
 
+HORIZON_COLUMN = "days_to_next"  # gap (days) between a row and its target row
 
-def split(df=None, test_ratio=0.2):
+
+def _target_dates(df, group_cols):
+    """Date on which each row's target (next price) is observed."""
+    if HORIZON_COLUMN in df.columns:
+        return df[DATE_COLUMN] + pd.to_timedelta(df[HORIZON_COLUMN], unit="D")
+    if group_cols:
+        return df.groupby(group_cols)[DATE_COLUMN].shift(-1)
+    return df[DATE_COLUMN].shift(-1)
+
+
+def _group_keys(frame, group_cols):
+    return set(map(tuple, frame[group_cols].drop_duplicates().to_numpy()))
+
+
+def split(df=None, test_ratio=0.2, cutoff_date=None, drop_unseen_groups=False):
     """
-    Perform per-group chronological train/test split.
+    Global chronological train/test split with target-leak purge.
 
     Parameters
     ----------
     df : pd.DataFrame, optional
     test_ratio : float
-        Fraction of each group to use for testing.
+        Used only when cutoff_date is None: the cutoff is the date quantile
+        that leaves ~test_ratio of all rows after it.
+    cutoff_date : str | pd.Timestamp, optional
+        Explicit cutoff, e.g. "2016-01-01". Overrides test_ratio.
+    drop_unseen_groups : bool
+        If True, remove test rows of groups that have no training rows.
 
     Returns
     -------
@@ -46,95 +73,103 @@ def split(df=None, test_ratio=0.2):
         df = pd.read_csv(path)
 
     print("\n" + "=" * 60)
-    print("STEP 4: TRAIN/TEST SPLIT")
+    print("STEP 4: TRAIN/TEST SPLIT (global cutoff)")
     print("=" * 60)
 
+    df = df.copy()
     df[DATE_COLUMN] = pd.to_datetime(df[DATE_COLUMN], errors="coerce")
+
+    n_bad = int(df[DATE_COLUMN].isna().sum())
+    if n_bad:
+        print(f"   Dropped {n_bad} rows with invalid dates")
+        df = df.dropna(subset=[DATE_COLUMN])
 
     group_cols = [c for c in GROUP_COLUMNS if c in df.columns]
     df = df.sort_values(by=group_cols + [DATE_COLUMN]).reset_index(drop=True)
 
-    # Per-group chronological split
-    train_parts = []
-    test_parts = []
-
-    if group_cols:
-        for name, group in df.groupby(group_cols):
-            group = group.sort_values(DATE_COLUMN).reset_index(drop=True)
-            split_idx = int(len(group) * (1 - test_ratio))
-            if split_idx < 1:
-                # Group too small — put all in train
-                train_parts.append(group)
-                continue
-            train_parts.append(group.iloc[:split_idx])
-            test_parts.append(group.iloc[split_idx:])
+    # ---- choose cutoff ----
+    if cutoff_date is None:
+        cutoff = df[DATE_COLUMN].quantile(1 - test_ratio).normalize()
     else:
-        # No group columns — global split
-        df = df.sort_values(DATE_COLUMN).reset_index(drop=True)
-        split_idx = int(len(df) * (1 - test_ratio))
-        train_parts.append(df.iloc[:split_idx])
-        test_parts.append(df.iloc[split_idx:])
+        cutoff = pd.Timestamp(cutoff_date)
+    print(f"   Cutoff date : {cutoff.date()}")
 
-    train_df = pd.concat(train_parts, ignore_index=True)
-    test_df = pd.concat(test_parts, ignore_index=True) if test_parts else pd.DataFrame()
+    # ---- rows per year (shows where data actually exists) ----
+    per_year = df[DATE_COLUMN].dt.year.value_counts().sort_index()
+    print("   Rows per year: " + ", ".join(f"{y}:{n}" for y, n in per_year.items()))
 
-    print(f"   Total rows : {len(df)}")
-    print(f"   Train rows : {len(train_df)}")
-    print(f"   Test rows  : {len(test_df)}")
+    # ---- split + purge ----
+    is_train = df[DATE_COLUMN] < cutoff
+    target_dt = _target_dates(df, group_cols)
+    purge = is_train & (target_dt >= cutoff)  # NaT compares False -> kept
+    print(f"   Purged {int(purge.sum())} train rows whose target falls in test period")
 
-    if len(train_df) > 0 and len(test_df) > 0:
-        train_end = train_df[DATE_COLUMN].max()
-        test_start = test_df[DATE_COLUMN].min()
-        print(f"\n   Train period: {train_df[DATE_COLUMN].min()} to {train_end}")
-        print(f"   Test period : {test_start} to {test_df[DATE_COLUMN].max()}")
+    train_df = df[is_train & ~purge].reset_index(drop=True)
+    test_df = df[~is_train].reset_index(drop=True)
 
-
-    # --------------------------------------------------
-    # Leakage validation: each group must be chronological
-    # --------------------------------------------------
-    if group_cols and len(test_df) > 0:
-        train_max = (
-            train_df.groupby(group_cols)[DATE_COLUMN]
-            .max()
-            .rename("train_max_date")
-        )
-
-        test_min = (
-            test_df.groupby(group_cols)[DATE_COLUMN]
-            .min()
-            .rename("test_min_date")
-        )
-
-        overlap_check = pd.concat(
-            [train_max, test_min],
-            axis=1,
-            join="inner"
-        )
-
-        overlapping_groups = overlap_check[
-            overlap_check["train_max_date"] >= overlap_check["test_min_date"]
-        ]
-
-        if len(overlapping_groups) == 0:
-            print("   PASS: No temporal overlap within any group.")
-        else:
-            print(
-                f"   WARNING: {len(overlapping_groups)} groups "
-                "have temporal overlap."
+    # ---- groups without training history ----
+    if group_cols and len(test_df):
+        unseen = _group_keys(test_df, group_cols) - _group_keys(train_df, group_cols)
+        if unseen:
+            n_rows = int(
+                test_df[group_cols].apply(tuple, axis=1).isin(unseen).sum()
             )
-            print(overlapping_groups.head())
+            print(f"   NOTE: {len(unseen)} groups appear only in test ({n_rows} rows)")
+            if drop_unseen_groups:
+                keep = ~test_df[group_cols].apply(tuple, axis=1).isin(unseen)
+                test_df = test_df[keep].reset_index(drop=True)
+                print("         -> dropped from test (drop_unseen_groups=True)")
 
-    # Save
-    t_path = train_path()
-    te_path = test_path()
+    total = len(train_df) + len(test_df)
+    print(f"\n   Total rows : {total}")
+    print(f"   Train rows : {len(train_df)} ({len(train_df) / max(total, 1):.1%})")
+    print(f"   Test rows  : {len(test_df)} ({len(test_df) / max(total, 1):.1%})")
+
+    if len(train_df) == 0 or len(test_df) == 0:
+        raise ValueError("Empty train or test set - adjust cutoff_date / test_ratio.")
+
+    print(f"\n   Train period: {train_df[DATE_COLUMN].min()} to {train_df[DATE_COLUMN].max()}")
+    print(f"   Test period : {test_df[DATE_COLUMN].min()} to {test_df[DATE_COLUMN].max()}")
+
+    # ---- leakage validation (global, not just within group) ----
+    if train_df[DATE_COLUMN].max() < test_df[DATE_COLUMN].min():
+        print("   PASS: all train dates precede all test dates (global).")
+    else:
+        raise AssertionError("Temporal overlap between train and test!")
+
+    train_target_max = _target_dates(train_df, group_cols).max()
+    if pd.notna(train_target_max) and train_target_max >= test_df[DATE_COLUMN].min():
+        print("   WARNING: some train targets extend into the test period.")
+    else:
+        print("   PASS: no train target reaches into the test period.")
+
+    # ---- save ----
+    t_path, te_path = train_path(), test_path()
     t_path.parent.mkdir(parents=True, exist_ok=True)
-
     train_df.to_csv(t_path, index=False)
     test_df.to_csv(te_path, index=False)
     print(f"\n   Saved: {t_path}")
     print(f"   Saved: {te_path}")
 
     return train_df, test_df
+
+
+def walk_forward_splits(df, n_splits=4, min_train_frac=0.5, gap_days=7):
+    """
+    Expanding-window time-ordered folds for tuning / early stopping.
+
+    Yields (train_idx, val_idx) index arrays. `df` needs a unique index and
+    a datetime DATE_COLUMN. `gap_days` should be >= max forecast horizon (7)
+    so train targets never reach into the validation window.
+    """
+    dates = pd.to_datetime(df[DATE_COLUMN])
+    edges = pd.date_range(dates.quantile(min_train_frac), dates.max(), periods=n_splits + 1)
+    gap = pd.Timedelta(days=gap_days)
+
+    for i in range(n_splits):
+        lo, hi = edges[i], edges[i + 1]
+        in_val = (dates >= lo) & ((dates < hi) if i < n_splits - 1 else (dates <= hi))
+        yield df.index[dates < lo - gap].to_numpy(), df.index[in_val].to_numpy()
 
 
 def main():
