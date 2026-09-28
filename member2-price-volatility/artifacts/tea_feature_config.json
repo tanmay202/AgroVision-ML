@@ -2,7 +2,8 @@
     "commodity": "tea",
     "price_model": {
         "type": "XGBRegressor",
-        "target": "future_modal_price",
+        "target": "future_price_change",
+        "note": "predicts (future_modal_price - current_price); add to current price to reconstruct",
         "features": [
             "Modal Price (Rs./Quintal)",
             "lag_1",

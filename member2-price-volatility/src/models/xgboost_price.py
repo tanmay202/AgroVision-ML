@@ -552,7 +552,7 @@ def train_xgboost_price(
 
     print_metrics(
         model_metrics,
-        "XGBoost Price-Difference → Price"
+        "XGBoost Price-Difference -> Price"
     )
 
     # ========================================================
@@ -675,27 +675,27 @@ def train_xgboost_price(
 
     print(
         f"   Mean change   : "
-        f"₹{y_train.mean():.2f}"
+        f"Rs.{y_train.mean():.2f}"
     )
 
     print(
         f"   Median change : "
-        f"₹{y_train.median():.2f}"
+        f"Rs.{y_train.median():.2f}"
     )
 
     print(
         f"   Std change    : "
-        f"₹{y_train.std():.2f}"
+        f"Rs.{y_train.std():.2f}"
     )
 
     print(
         f"   Min change    : "
-        f"₹{y_train.min():.2f}"
+        f"Rs.{y_train.min():.2f}"
     )
 
     print(
         f"   Max change    : "
-        f"₹{y_train.max():.2f}"
+        f"Rs.{y_train.max():.2f}"
     )
 
     # ========================================================

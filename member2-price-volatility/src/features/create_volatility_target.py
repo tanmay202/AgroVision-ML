@@ -96,7 +96,7 @@ def create_volatility(df=None):
     vol_config = {
         "threshold_method": method,
         "volatility_definition": (
-            f"std of next {VOLATILITY_WINDOW} price percentage changes"
+            f"price range (max - min) of next {VOLATILITY_WINDOW} observations"
         ),
         "volatility_window": VOLATILITY_WINDOW,
         "low_medium_threshold": low_threshold,

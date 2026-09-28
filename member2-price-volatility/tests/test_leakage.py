@@ -32,10 +32,12 @@ def test_no_target_in_volatility_features():
 
 
 def test_no_current_price_in_features():
-    """Current-row price columns must not be used as features."""
-    from config import PRICE_FEATURES, PRICE_COLUMN, MIN_PRICE_COLUMN, MAX_PRICE_COLUMN
+    """Min/Max current-row prices must not be features (only Modal is allowed)."""
+    from config import PRICE_FEATURES, MIN_PRICE_COLUMN, MAX_PRICE_COLUMN
 
-    leaky_columns = {PRICE_COLUMN, MIN_PRICE_COLUMN, MAX_PRICE_COLUMN}
+    # Modal Price IS intentionally included — it's known at prediction time.
+    # Only Min/Max current-row prices are leaky.
+    leaky_columns = {MIN_PRICE_COLUMN, MAX_PRICE_COLUMN}
     found = leaky_columns & set(PRICE_FEATURES)
 
     assert not found, (

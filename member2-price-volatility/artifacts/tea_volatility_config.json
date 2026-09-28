@@ -1,6 +1,6 @@
 {
     "threshold_method": "zero-aware split (67% zeros \u2192 LOW, non-zeros split at median \u2192 MEDIUM/HIGH)",
-    "volatility_definition": "std of next 5 price percentage changes",
+    "volatility_definition": "price range (max - min) of next 5 observations",
     "volatility_window": 5,
     "low_medium_threshold": 25.0,
     "medium_high_threshold": 1000.0,
