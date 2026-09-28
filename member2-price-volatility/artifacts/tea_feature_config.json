@@ -24,7 +24,9 @@
             "arrival_rolling_mean_7",
             "arrival_rolling_mean_14",
             "price_pct_change",
-            "arrival_pct_change"
+            "arrival_pct_change",
+            "price_spread",
+            "price_position_in_range"
         ]
     },
     "volatility_model": {
@@ -54,7 +56,8 @@
             "arrival_lag_7",
             "arrival_rolling_mean_7",
             "arrival_rolling_mean_14",
-            "arrival_pct_change"
+            "arrival_pct_change",
+            "price_spread"
         ],
         "class_balanced": true
     }

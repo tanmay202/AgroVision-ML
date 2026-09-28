@@ -243,6 +243,17 @@ PRICE_COLUMNS = [
 FORECAST_HORIZON_MAX_DAYS = 7
 
 
+# ============================================================
+# OUTLIER CLIPPING
+#
+# Extreme price jumps (e.g. ₹62,500 → ₹8,000) dominate RMSE
+# and are likely data-quality issues.  Clip the price-change
+# target at these percentiles during training.
+# ============================================================
+
+OUTLIER_CLIP_PERCENTILES = (1, 99)
+
+
 # IMPORTANT:
 # Current modal price IS included because it is known at prediction time.
 # It is not future information.
@@ -280,6 +291,9 @@ PRICE_FEATURES = [
     # Percentage changes (safe — computed from previous row)
     "price_pct_change",
     "arrival_pct_change",
+    # Price dispersion features (safe — known at prediction time)
+    "price_spread",
+    "price_position_in_range",
 ]
 
 
@@ -318,6 +332,8 @@ VOLATILITY_FEATURES = [
     "arrival_rolling_mean_14",
     # Arrival percentage change
     "arrival_pct_change",
+    # Price dispersion (useful volatility predictor)
+    "price_spread",
 ]
 
 

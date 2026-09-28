@@ -902,7 +902,6 @@ Jharkhand,Dhanbad,Dhanbad,Other,Beverages,8.0,16000,18000,17000,2014-06-25
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,7.0,16000,18000,17000,2014-06-26
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,7.0,16000,18000,17000,2014-07-01
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,8.0,1600,1800,1700,2014-07-04
-Jharkhand,Dhanbad,Dhanbad,Other,Beverages,29.0,16000,18000,17000,2014-07-08
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,9.0,16000,18000,17000,2014-07-10
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,18.0,16000,18000,17000,2014-07-11
 Jharkhand,Dhanbad,Dhanbad,Other,Beverages,8.0,16000,18000,17000,2014-07-12
@@ -1116,9 +1115,7 @@ Kerala,Kollam,Kollam,Other,Beverages,3.0,7500,11000,9500,2006-03-21
 Kerala,Kollam,Kollam,Other,Beverages,3.0,7500,11000,9500,2006-03-28
 Kerala,Kollam,Kollam,Other,Beverages,3.0,700,1100,950,2006-04-04
 Kerala,Kollam,Kollam,Other,Beverages,5.0,850,1100,950,2006-04-21
-Kerala,Kollam,Kollam,Other,Beverages,5.0,9500,11000,10250,2006-05-23
 Kerala,Kollam,Kollam,Other,Beverages,4.0,700,1100,950,2006-06-20
-Kerala,Kollam,Kollam,Other,Beverages,5.0,9000,10500,9500,2006-08-05
 Kerala,Kollam,Kollam,Other,Beverages,5.0,8000,10000,9000,2006-08-18
 Kerala,Kollam,Kollam,Other,Beverages,3.0,8000,10000,9000,2006-08-25
 Kerala,Kollam,Kollam,Other,Beverages,2.0,8000,10000,9000,2006-09-15
@@ -5244,13 +5241,11 @@ Kerala,Malappuram,Parappanangadi,Other,Beverages,0.3,1200,1300,1200,2012-08-17
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.2,1000,1500,1400,2012-08-18
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.3,1100,1300,1200,2012-08-20
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.2,1000,1000,1000,2012-08-21
-Kerala,Malappuram,Parappanangadi,Other,Beverages,0.2,10000,11000,10000,2012-08-22
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.3,11000,11000,11000,2012-08-23
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.2,12000,12000,12000,2012-08-24
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.2,1200,1500,1400,2012-08-25
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.2,1600,1800,1750,2012-08-28
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.5,1700,1900,1800,2012-08-31
-Kerala,Malappuram,Parappanangadi,Other,Beverages,0.1,21000,23000,22000,2012-09-04
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.2,11000,11000,11000,2012-09-12
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.3,10000,11000,10500,2012-09-19
 Kerala,Malappuram,Parappanangadi,Other,Beverages,0.3,10500,11000,10600,2012-09-20
@@ -5792,7 +5787,6 @@ Odisha,Puri,Sakhigopal,All Dust,Beverages,0.3,7500,15000,13000,2005-11-19
 Odisha,Puri,Sakhigopal,All Dust,Beverages,0.2,9000,17000,15000,2005-11-23
 Odisha,Puri,Sakhigopal,All Dust,Beverages,0.3,7500,15000,13000,2005-11-25
 Odisha,Puri,Sakhigopal,All Dust,Beverages,0.2,900,1800,1200,2005-12-08
-Odisha,Puri,Sakhigopal,All Dust,Beverages,0.5,9000,15000,13000,2005-12-12
 Odisha,Puri,Sakhigopal,All Dust,Beverages,0.8,9000,17000,15000,2005-12-27
 Odisha,Puri,Sakhigopal,All Dust,Beverages,0.4,9000,15000,13000,2005-12-30
 Odisha,Puri,Sakhigopal,All Dust,Beverages,0.4,9000,15000,12000,2006-01-06
@@ -5803,7 +5797,6 @@ Odisha,Puri,Sakhigopal,All Dust,Beverages,1.0,9000,15000,13000,2006-02-21
 Odisha,Puri,Sakhigopal,All Dust,Beverages,0.5,9000,15000,13000,2006-03-28
 Odisha,Puri,Sakhigopal,All Dust,Beverages,0.2,9000,15000,14000,2006-04-03
 Odisha,Puri,Sakhigopal,All Dust,Beverages,0.5,1000,1600,1400,2006-05-03
-Odisha,Puri,Sakhigopal,All Dust,Beverages,0.5,9000,15000,10000,2006-05-10
 Odisha,Puri,Sakhigopal,All Dust,Beverages,0.5,9000,14000,12000,2006-05-21
 Odisha,Puri,Sakhigopal,All Dust,Beverages,0.8,9000,14000,11000,2006-06-07
 Odisha,Puri,Sakhigopal,All Dust,Beverages,0.5,9000,13000,10000,2006-06-16
@@ -6117,12 +6110,10 @@ Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,900,1200,1000,2012-08-20
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,900,950,950,2012-08-21
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,900,1100,950,2012-08-22
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.3,1000,1050,1000,2012-08-23
-Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,9500,9500,9500,2012-08-24
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,1100,1300,1200,2012-08-25
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.3,1200,1400,1250,2012-08-27
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.3,1400,1500,1450,2012-08-28
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,1500,1700,1600,2012-08-31
-Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,10000,10000,10000,2012-09-18
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,10000,11000,10000,2012-09-19
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,11000,11000,11000,2012-09-20
 Kerala,Malappuram,Thirurrangadi,Other,Beverages,0.2,10000,10000,10000,2012-09-21

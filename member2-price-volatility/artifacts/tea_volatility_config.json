@@ -1,7 +1,9 @@
 {
-    "threshold_method": "training-data quantiles of non-zero absolute price percentage changes",
-    "low_medium_threshold_percent": 4.0,
-    "medium_high_threshold_percent": 9.0909,
+    "threshold_method": "zero-aware split (67% zeros \u2192 LOW, non-zeros split at median \u2192 MEDIUM/HIGH)",
+    "volatility_definition": "std of next 5 price percentage changes",
+    "volatility_window": 5,
+    "low_medium_threshold": 25.0,
+    "medium_high_threshold": 1000.0,
     "classes": [
         "LOW",
         "MEDIUM",

@@ -42,6 +42,7 @@ from config import (
     PRICE_COLUMN,
     PRICE_TARGET,
     PRICE_FEATURES,
+    OUTLIER_CLIP_PERCENTILES,
     train_path,
     test_path,
 )
@@ -423,6 +424,34 @@ def train_xgboost_price(
     test_subset["future_price_change"] = (
         test_subset[PRICE_TARGET]
         - test_subset[PRICE_COLUMN]
+    )
+
+    # ========================================================
+    # CLIP EXTREME OUTLIERS (training only)
+    #
+    # Extreme price jumps (e.g. ₹62,500 → ₹8,000) are likely
+    # data-quality issues and dominate RMSE.  Clip at
+    # percentiles so the model learns the typical distribution.
+    # Test set is NOT clipped — evaluation stays honest.
+    # ========================================================
+
+    lo_pct, hi_pct = OUTLIER_CLIP_PERCENTILES
+    lo_val = train_subset["future_price_change"].quantile(lo_pct / 100)
+    hi_val = train_subset["future_price_change"].quantile(hi_pct / 100)
+
+    n_clipped = int(
+        (train_subset["future_price_change"] < lo_val).sum()
+        + (train_subset["future_price_change"] > hi_val).sum()
+    )
+
+    train_subset["future_price_change"] = (
+        train_subset["future_price_change"].clip(lo_val, hi_val)
+    )
+
+    print(
+        f"   Outlier clipping: [{lo_val:.0f}, {hi_val:.0f}] "
+        f"(p{lo_pct}/p{hi_pct}), "
+        f"clipped {n_clipped} rows"
     )
 
     # ========================================================

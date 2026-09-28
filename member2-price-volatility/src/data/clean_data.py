@@ -141,7 +141,24 @@ def clean(df=None, commodity=None):
     df = df.sort_values(by=sort_cols).reset_index(drop=True)
 
     # --------------------------------------------------
-    # 8. Report & save
+    # 8. Flag and remove extreme price jumps
+    # --------------------------------------------------
+    group_cols = [c for c in GROUP_COLUMNS if c in df.columns]
+    if group_cols:
+        prev_price = df.groupby(group_cols)[PRICE_COLUMN].shift(1)
+        pct_change = ((df[PRICE_COLUMN] - prev_price) / prev_price).abs()
+        # Flag rows where price changed by > 300% from previous observation
+        extreme_mask = pct_change > 3.0
+        # Don't flag the first row of each group (NaN from shift)
+        extreme_mask = extreme_mask & prev_price.notna()
+        n_extreme = int(extreme_mask.sum())
+        if n_extreme > 0:
+            print(f"   Flagged {n_extreme} rows with extreme price jumps (>300% change)")
+            df = df[~extreme_mask].reset_index(drop=True)
+            print(f"   Dropped {n_extreme} extreme price jump rows")
+
+    # --------------------------------------------------
+    # 9. Report & save
     # --------------------------------------------------
     print(f"\n   Final rows: {len(df)}")
     print(f"   Date range: {df[DATE_COLUMN].min()} to {df[DATE_COLUMN].max()}")

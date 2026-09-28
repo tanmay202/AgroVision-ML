@@ -24,6 +24,8 @@ import pandas as pd
 from config import (
     DATE_COLUMN,
     PRICE_COLUMN,
+    MIN_PRICE_COLUMN,
+    MAX_PRICE_COLUMN,
     ARRIVAL_COLUMN,
     GROUP_COLUMNS,
     arrival_features_path,
@@ -80,7 +82,26 @@ def create_pct_changes(df=None):
         [float("inf"), -float("inf")], 0.0
     )
 
-    pct_cols = ["price_pct_change", "arrival_pct_change"]
+    # ---- Price dispersion features (known at prediction time) ----
+    # How wide is the min-max spread relative to the modal price?
+    price_range = df[MAX_PRICE_COLUMN] - df[MIN_PRICE_COLUMN]
+    df["price_spread"] = (price_range / df[PRICE_COLUMN]) * 100
+
+    # Where does the modal price sit within the min-max range?
+    # 0 = at min, 1 = at max
+    df["price_position_in_range"] = (
+        (df[PRICE_COLUMN] - df[MIN_PRICE_COLUMN]) / price_range
+    )
+    # Handle cases where min == max (range == 0) → position = 0.5
+    df["price_position_in_range"] = df["price_position_in_range"].replace(
+        [float("inf"), -float("inf"), float("nan")], 0.5
+    )
+    df["price_position_in_range"] = df["price_position_in_range"].fillna(0.5)
+
+    pct_cols = [
+        "price_pct_change", "arrival_pct_change",
+        "price_spread", "price_position_in_range",
+    ]
     print(f"   Created: {', '.join(pct_cols)}")
     print(f"   Missing values: {df[pct_cols].isna().sum().to_dict()}")
     print(f"   Rows: {len(df)}")

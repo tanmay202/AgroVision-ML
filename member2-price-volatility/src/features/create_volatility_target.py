@@ -1,11 +1,12 @@
 """
-AgroVision — Volatility Target Creation
+AgroVision — Forward Volatility Target Creation
 
-Computes volatility labels (LOW/MEDIUM/HIGH) from
-absolute price percentage changes.
+Creates a FUTURE volatility target (LOW/MEDIUM/HIGH).
+Target = price range (max - min) of the NEXT 5 prices within each
+Market + Variety group. Thresholds come ONLY from the training data.
 
-Thresholds are data-driven (tertile quantiles of
-non-zero movements in the training set).
+This replaces the old "std of next 3 pct_changes" which collapsed
+to only 2 classes because 83% of consecutive prices are identical.
 """
 
 import sys
@@ -14,9 +15,13 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 import json
+
 import pandas as pd
 
 from config import (
+    DATE_COLUMN,
+    PRICE_COLUMN,
+    GROUP_COLUMNS,
     VOLATILITY_TARGET,
     VOLATILITY_CLASSES,
     ARTIFACTS_DIR,
@@ -24,24 +29,20 @@ from config import (
     volatility_train_path,
     volatility_config_path,
 )
-
-
-PRICE_CHANGE_COLUMN = "price_pct_change"
+from volatility_utils import (
+    VOLATILITY_WINDOW,
+    add_future_volatility,
+    compute_thresholds,
+    classify_volatility,
+    print_vol_diagnostics,
+)
 
 
 def create_volatility(df=None):
     """
-    Create volatility labels for the training set.
-
-    Parameters
-    ----------
-    df : pd.DataFrame, optional
-        Training data. If None, reads from train CSV.
-
     Returns
     -------
-    tuple of (pd.DataFrame, float, float)
-        (training data with volatility column, low_threshold, high_threshold)
+    tuple (training dataframe, low_threshold, high_threshold)
     """
     if df is None:
         path = train_path()
@@ -50,68 +51,67 @@ def create_volatility(df=None):
         df = pd.read_csv(path)
 
     print("\n" + "=" * 60)
-    print("STEP 5: VOLATILITY TARGET")
+    print("STEP 5: FORWARD VOLATILITY TARGET")
     print("=" * 60)
 
-    if PRICE_CHANGE_COLUMN not in df.columns:
-        raise ValueError(
-            f"Column '{PRICE_CHANGE_COLUMN}' not found. "
-            f"Run pct_change features first."
-        )
+    required = [DATE_COLUMN, PRICE_COLUMN] + GROUP_COLUMNS
+    missing = [c for c in required if c not in df.columns]
+    if missing:
+        raise ValueError(f"Missing required columns: {missing}")
 
-    # Absolute price movement
-    df["abs_price_pct_change"] = df[PRICE_CHANGE_COLUMN].abs()
+    # Future volatility (shared with the test builder)
+    df = add_future_volatility(df, GROUP_COLUMNS, DATE_COLUMN)
 
-    # Data-driven thresholds from non-zero movements
-    non_zero = df.loc[
-        df["abs_price_pct_change"] > 0, "abs_price_pct_change"
-    ].dropna()
+    print("\n   Diagnostics:")
+    print_vol_diagnostics(df)
 
-    low_threshold = float(non_zero.quantile(1 / 3))
-    high_threshold = float(non_zero.quantile(2 / 3))
+    # Thresholds from TRAINING data only
+    low_threshold, high_threshold, method = compute_thresholds(
+        df["future_volatility"]
+    )
+    n_valid = int(df["future_volatility"].notna().sum())
 
-    print(f"   Low/Medium threshold : {low_threshold:.4f}%")
-    print(f"   Medium/High threshold: {high_threshold:.4f}%")
-    print(f"   Zero-change rows: {(df['abs_price_pct_change'] == 0).sum()}")
-    print(f"   Non-zero rows: {len(non_zero)}")
+    print(f"\n   Future volatility window: next {VOLATILITY_WINDOW} observations")
+    print(f"   Threshold method      : {method}")
+    print(f"   Low/Medium threshold  : {low_threshold:.8f}")
+    print(f"   Medium/High threshold : {high_threshold:.8f}")
+    print(f"   Valid future-vol rows : {n_valid}")
 
-    # Save thresholds
+    # Classify
+    df[VOLATILITY_TARGET] = classify_volatility(
+        df["future_volatility"], low_threshold, high_threshold,
+        VOLATILITY_CLASSES,
+    )
+
+    counts = df[VOLATILITY_TARGET].value_counts().reindex(VOLATILITY_CLASSES)
+    print("\n   Class distribution:")
+    print(counts.fillna(0).astype(int).to_string())
+
+    empty = [c for c in VOLATILITY_CLASSES if not counts.get(c, 0)]
+    if empty:
+        raise ValueError(f"Volatility classes with zero rows: {empty}")
+
+    # Save thresholds (full precision - no rounding to 0)
     ARTIFACTS_DIR.mkdir(parents=True, exist_ok=True)
     vol_config = {
-        "threshold_method": (
-            "training-data quantiles of non-zero "
-            "absolute price percentage changes"
+        "threshold_method": method,
+        "volatility_definition": (
+            f"std of next {VOLATILITY_WINDOW} price percentage changes"
         ),
-        "low_medium_threshold_percent": round(low_threshold, 4),
-        "medium_high_threshold_percent": round(high_threshold, 4),
+        "volatility_window": VOLATILITY_WINDOW,
+        "low_medium_threshold": low_threshold,
+        "medium_high_threshold": high_threshold,
         "classes": VOLATILITY_CLASSES,
     }
     config_path = volatility_config_path()
     with open(config_path, "w", encoding="utf-8") as f:
         json.dump(vol_config, f, indent=4)
-    print(f"   Thresholds saved to: {config_path}")
+    print(f"\n   Thresholds saved to: {config_path}")
 
-    # Classify
-    def classify(value):
-        if pd.isna(value):
-            return pd.NA
-        if value == 0 or value <= low_threshold:
-            return VOLATILITY_CLASSES[0]  # LOW
-        if value <= high_threshold:
-            return VOLATILITY_CLASSES[1]  # MEDIUM
-        return VOLATILITY_CLASSES[2]  # HIGH
-
-    df[VOLATILITY_TARGET] = df["abs_price_pct_change"].apply(classify)
-
-    # Distribution
-    print(f"\n   Class distribution:")
-    print(df[VOLATILITY_TARGET].value_counts().to_string())
-
-    # Save
     out_path = volatility_train_path()
     out_path.parent.mkdir(parents=True, exist_ok=True)
     df.to_csv(out_path, index=False)
-    print(f"\n   Saved to: {out_path}")
+    print(f"   Saved to: {out_path}")
 
     return df, low_threshold, high_threshold
 
