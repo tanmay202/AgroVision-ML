@@ -576,6 +576,56 @@ def train_xgboost_price(
     )
 
     # ========================================================
+    # NON-ZERO PRICE-MOVEMENT EVALUATION
+    #
+    # Persistence is expected to be very strong when prices stay
+    # unchanged.  Report the same model and baseline on only the rows
+    # with a genuine next-observation movement, without changing the
+    # training data or the fixed test split.
+    # ========================================================
+
+    movement_mask = (
+        y_test_actual_price.to_numpy()
+        != current_prices.to_numpy()
+    )
+
+    print("\n" + "=" * 60)
+    print("NON-ZERO PRICE-MOVEMENT TEST ROWS")
+    print("=" * 60)
+    print(
+        f"   Rows: {int(movement_mask.sum())} / {len(movement_mask)}"
+    )
+
+    if movement_mask.any():
+
+        movement_actual = y_test_actual_price.to_numpy()[movement_mask]
+        movement_model = predicted_future_price[movement_mask]
+        movement_persistence = current_prices.to_numpy()[movement_mask]
+
+        movement_model_metrics = calculate_metrics(
+            movement_actual,
+            movement_model,
+        )
+        movement_baseline_metrics = calculate_metrics(
+            movement_actual,
+            movement_persistence,
+        )
+
+        print_metrics(
+            movement_model_metrics,
+            "XGBoost Price-Difference -> Price (movement rows)",
+        )
+        print_metrics(
+            movement_baseline_metrics,
+            "Persistence (movement rows)",
+        )
+        print_comparison(
+            movement_model_metrics,
+            movement_baseline_metrics,
+            "PERSISTENCE (MOVEMENT ROWS)",
+        )
+
+    # ========================================================
     # lag_1 BASELINE
     # ========================================================
 

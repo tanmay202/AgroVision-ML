@@ -54,6 +54,16 @@ def test_no_pct_change_in_volatility():
     )
 
 
+def test_rejected_volatility_features_are_not_configured():
+    """Rejected range and price-dynamics candidates cannot enter the model."""
+    from config import VOLATILITY_FEATURES
+
+    assert "rolling_range_7" not in VOLATILITY_FEATURES
+    assert "rolling_range_14" not in VOLATILITY_FEATURES
+    assert "price_change_count_7" not in VOLATILITY_FEATURES
+    assert "days_since_price_change" not in VOLATILITY_FEATURES
+
+
 def test_no_arrival_column_in_price_features():
     """Raw Arrivals column should not be in price features (current-row value)."""
     from config import PRICE_FEATURES, ARRIVAL_COLUMN
