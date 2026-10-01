@@ -83,7 +83,8 @@ def clean(df=None, commodity=None):
     print("STEP 1: DATA CLEANING")
     print("=" * 60)
 
-    print(f"   Initial rows: {len(df)}")
+    initial_rows = len(df)
+    print(f"   Initial rows: {initial_rows}")
 
     # --------------------------------------------------
     # 2. Validate required columns
@@ -413,7 +414,7 @@ def clean(df=None, commodity=None):
     print("CLEANING COMPLETE")
     print("=" * 60)
 
-    print(f"   Initial rows : {len(df) if False else 'see above'}")
+    print(f"   Initial rows : {initial_rows}")
     print(f"   Final rows   : {len(df)}")
 
     print(

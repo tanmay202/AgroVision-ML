@@ -1,0 +1,46 @@
+{
+  "commodity": "rice",
+  "threshold_method": "zero-aware split (from training data < 2021)",
+  "volatility_definition": "price range (max - min) of next 5 observations",
+  "volatility_window": 5,
+  "low_medium_threshold": 0.5,
+  "medium_high_threshold": 50.0,
+  "classes": [
+    "LOW",
+    "MEDIUM",
+    "HIGH"
+  ],
+  "features": [
+    "lag_1",
+    "lag_7",
+    "lag_14",
+    "lag_30",
+    "rolling_mean_7",
+    "rolling_mean_14",
+    "rolling_mean_30",
+    "rolling_std_7",
+    "rolling_std_14",
+    "year",
+    "day",
+    "month",
+    "day_of_week",
+    "week_of_year",
+    "arrival_lag_1",
+    "arrival_lag_7",
+    "arrival_rolling_mean_7",
+    "arrival_rolling_mean_14",
+    "arrival_pct_change"
+  ],
+  "train_period": [
+    "2002-05-28",
+    "2021-01-26"
+  ],
+  "validation_period": [
+    "2021-01-27",
+    "2023-01-26"
+  ],
+  "final_holdout_period": [
+    "2023-01-27",
+    "2024-01-27"
+  ]
+}

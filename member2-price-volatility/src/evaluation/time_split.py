@@ -139,9 +139,8 @@ def split(df=None, test_ratio=0.2, cutoff_date=None, drop_unseen_groups=False):
 
     train_target_max = _target_dates(train_df, group_cols).max()
     if pd.notna(train_target_max) and train_target_max >= test_df[DATE_COLUMN].min():
-        print("   WARNING: some train targets extend into the test period.")
-    else:
-        print("   PASS: no train target reaches into the test period.")
+        raise AssertionError("A train target reaches into the test period!")
+    print("   PASS: no train target reaches into the test period.")
 
     # ---- save ----
     t_path, te_path = train_path(), test_path()

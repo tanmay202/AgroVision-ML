@@ -26,7 +26,33 @@ from config import (
     get_commodity,
     raw_data_path,
     RAW_DATA_DIR,
+    GROUP_COLUMNS,
 )
+
+
+def _keep_model_ready_rows(df):
+    """Apply the transparent 30-observation history rule for model rows.
+
+    ``lag_30`` and the 30-observation rolling mean need 30 earlier records in
+    the same market/variety series.  Raw and cleaned data retain sparse series;
+    only rows that cannot support the configured historical features are
+    excluded from training and evaluation.
+    """
+    group_cols = [c for c in GROUP_COLUMNS if c in df.columns]
+    if not group_cols:
+        raise ValueError("Cannot apply history rule without Market/Variety columns.")
+    ordered = df.sort_values(group_cols + ["Reported Date"]).copy()
+    total_groups = ordered.groupby(group_cols, dropna=False).ngroups
+    ready = ordered.groupby(group_cols, dropna=False).cumcount().ge(30)
+    remaining = ordered.loc[ready].copy()
+    remaining_groups = remaining.groupby(group_cols, dropna=False).ngroups
+    print("\nSTEP 3f: MODEL HISTORY ELIGIBILITY")
+    print("   Minimum history: 30 earlier observations (lag_30 / rolling_mean_30)")
+    print(f"   Total groups: {total_groups}")
+    print(f"   Groups excluded: {total_groups - remaining_groups}")
+    print(f"   Rows excluded: {len(ordered) - len(remaining)}")
+    print(f"   Groups remaining: {remaining_groups}")
+    return remaining.reset_index(drop=True)
 
 
 def run_pipeline(commodity=None, skip_volatility=False):
@@ -96,6 +122,7 @@ def run_pipeline(commodity=None, skip_volatility=False):
     df = create_dates(df)
     df = create_arrivals(df)
     df = create_pct_changes(df)
+    df = _keep_model_ready_rows(df)
 
     # ============================================================
     # STEP 4: Train/test split
@@ -125,11 +152,13 @@ def run_pipeline(commodity=None, skip_volatility=False):
         }
     else:
         vol_train = None
+        vol_test = None
 
     # ============================================================
     # STEP 9: Save final models
     # ============================================================
-    save_models(train_df, vol_train)
+    saved = save_models(train_df, vol_train, vol_test)
+    results.update(saved)
 
     # ============================================================
     # DONE

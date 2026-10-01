@@ -1,0 +1,185 @@
+{
+  "commodity": "rice",
+  "price_model": {
+    "type": "XGBRegressor",
+    "target": "future_price_change",
+    "target_treatment": "unclipped",
+    "features": [
+      "lag_1",
+      "lag_7",
+      "lag_14",
+      "lag_30",
+      "rolling_mean_7",
+      "rolling_mean_14",
+      "rolling_mean_30",
+      "rolling_std_7",
+      "rolling_std_14",
+      "year",
+      "day",
+      "month",
+      "day_of_week",
+      "week_of_year",
+      "arrival_lag_1",
+      "arrival_lag_7",
+      "arrival_rolling_mean_7",
+      "arrival_rolling_mean_14",
+      "price_pct_change",
+      "arrival_pct_change"
+    ],
+    "reconstruction_column": "Modal Price (Rs./Quintal)",
+    "note": "Add predicted future_price_change to current modal price."
+  },
+  "volatility_model": {
+    "type": "XGBClassifier",
+    "target": "volatility",
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "features": [
+      "lag_1",
+      "lag_7",
+      "lag_14",
+      "lag_30",
+      "rolling_mean_7",
+      "rolling_mean_14",
+      "rolling_mean_30",
+      "rolling_std_7",
+      "rolling_std_14",
+      "year",
+      "day",
+      "month",
+      "day_of_week",
+      "week_of_year",
+      "arrival_lag_1",
+      "arrival_lag_7",
+      "arrival_rolling_mean_7",
+      "arrival_rolling_mean_14",
+      "arrival_pct_change"
+    ],
+    "class_balanced": true
+  },
+  "volatility_test_metrics": {
+    "accuracy": 0.5509546324624118,
+    "balanced_accuracy": 0.5427869543900602,
+    "macro_f1": 0.5176602097807763,
+    "mcc": 0.3171253467862161,
+    "per_class": {
+      "LOW": {
+        "precision": 0.7996020589125827,
+        "recall": 0.5168162375241131,
+        "f1": 0.6278358918625186
+      },
+      "MEDIUM": {
+        "precision": 0.5283946936950366,
+        "recall": 0.3582617483577564,
+        "f1": 0.4270055408335341
+      },
+      "HIGH": {
+        "precision": 0.3721041699952069,
+        "recall": 0.753282877288311,
+        "f1": 0.49813919664627626
+      }
+    },
+    "confusion_matrix": [
+      [
+        18486,
+        2232,
+        15051
+      ],
+      [
+        1751,
+        3545,
+        4599
+      ],
+      [
+        2882,
+        932,
+        11645
+      ]
+    ],
+    "pr_auc_medium": 0.47653793888857743,
+    "pr_auc_high": 0.4708511715972792,
+    "majority_baseline": {
+      "accuracy": 0.5851970616625493,
+      "balanced_accuracy": 0.3333333333333333,
+      "macro_f1": 0.24610906989225115,
+      "mcc": 0.0,
+      "per_class": {
+        "LOW": {
+          "precision": 0.5851970616625493,
+          "recall": 1.0,
+          "f1": 0.7383272096767535
+        },
+        "MEDIUM": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "HIGH": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      },
+      "confusion_matrix": [
+        [
+          35769,
+          0,
+          0
+        ],
+        [
+          9895,
+          0,
+          0
+        ],
+        [
+          15459,
+          0,
+          0
+        ]
+      ]
+    },
+    "stratified_baseline": {
+      "accuracy": 0.4113345221929552,
+      "balanced_accuracy": 0.33186496711990277,
+      "macro_f1": 0.31781444587554514,
+      "mcc": -0.003362124604293879,
+      "per_class": {
+        "LOW": {
+          "precision": 0.5828657372592121,
+          "recall": 0.5633928821046157,
+          "f1": 0.572963905434798
+        },
+        "MEDIUM": {
+          "precision": 0.16218256321777108,
+          "recall": 0.3039919151086407,
+          "f1": 0.21151817734336545
+        },
+        "HIGH": {
+          "precision": 0.24768807798050488,
+          "recall": 0.1282101041464519,
+          "f1": 0.16896125484847194
+        }
+      },
+      "confusion_matrix": [
+        [
+          20152,
+          10853,
+          4764
+        ],
+        [
+          5631,
+          3008,
+          1256
+        ],
+        [
+          8791,
+          4686,
+          1982
+        ]
+      ]
+    }
+  }
+}

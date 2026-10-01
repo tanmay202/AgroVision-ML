@@ -133,8 +133,8 @@ def compute_thresholds(series):
 
     method = (
         f"zero-aware split "
-        f"({zero_frac:.0f}% zeros → LOW, "
-        f"non-zeros split at median → MEDIUM/HIGH)"
+        f"({zero_frac:.0f}% zeros -> LOW, "
+        f"non-zeros split at median -> MEDIUM/HIGH)"
     )
 
     return low_threshold, high_threshold, method

@@ -90,7 +90,10 @@ def prepare(df=None):
 
     # Filter by forecast horizon
     before = len(df)
-    df = df[df["days_to_next"] <= FORECAST_HORIZON_MAX_DAYS].reset_index(drop=True)
+    df = df[
+        df["days_to_next"].gt(0)
+        & df["days_to_next"].le(FORECAST_HORIZON_MAX_DAYS)
+    ].reset_index(drop=True)
     filtered = before - len(df)
     print(f"   Dropped {filtered} rows where days_to_next > {FORECAST_HORIZON_MAX_DAYS}")
 

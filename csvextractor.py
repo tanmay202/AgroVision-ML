@@ -1,12 +1,19 @@
 import pandas as pd
 
-# Load your original CSV
 df = pd.read_csv("Rice.csv")
 
-# Keep only West Bengal
-west_bengal = df[df["State Name"] == "West Bengal"]
+# Clean text columns
+df["State_Name"] = df["State_Name"].astype(str).str.strip()
+df["Crop"] = df["Crop"].astype(str).str.strip()
 
-# Save as a new CSV
-west_bengal.to_csv("West_Bengal_Mandi.csv", index=False)
+# Extract everything related to West Bengal + Rice
+wb_rice = df[
+    df["State_Name"].str.contains("west bengal", case=False, na=False) &
+    df["Crop"].str.contains("rice", case=False, na=False)
+]
 
-print(f"Extracted {len(west_bengal)} rows")
+print(wb_rice)
+print("Total rows:", len(wb_rice))
+
+# Save
+wb_rice.to_csv("west_bengal_rice.csv", index=False)
