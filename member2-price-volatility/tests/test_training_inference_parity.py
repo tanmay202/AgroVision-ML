@@ -152,6 +152,7 @@ def test_feature_parity_multiple_dates(dataset_and_pipeline):
         # 3. Model Prediction Parity
         # Predict using manual extraction from truth_df
         X_train_fmt = row[pipeline.features_list].to_frame().T
+        X_train_fmt = X_train_fmt.apply(pd.to_numeric, errors="coerce")
         train_pred_change = float(pipeline.price_model.predict(X_train_fmt)[0])
         train_pred_price = row[PRICE_COLUMN] + train_pred_change
         

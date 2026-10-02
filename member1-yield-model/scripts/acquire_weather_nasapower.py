@@ -1,6 +1,7 @@
 import os
 import json
 import time
+import sys
 import requests
 import pandas as pd
 from district_normalization import DISTRICT_CENTROIDS
@@ -14,13 +15,14 @@ PARAMS = [
     "RH2M", "ALLSKY_SFC_SW_DWN", "WS2M"
 ]
 
-def fetch_district_weather(district, lat, lon, start_year=2000, end_year=2023):
+def fetch_district_weather(district, lat, lon, start_year, end_year):
     os.makedirs(RAW_DIR, exist_ok=True)
-    raw_path = os.path.join(RAW_DIR, f"{district.lower().replace(' ', '_')}.json")
-    if os.path.exists(raw_path):
-        with open(raw_path, "r") as f:
-            return json.load(f)
-    
+
+    raw_path = os.path.join(
+        RAW_DIR,
+        f"{district.lower().replace(' ', '_')}.json"
+    )
+
     params = {
         "parameters": ",".join(PARAMS),
         "community": "AG",
@@ -30,13 +32,20 @@ def fetch_district_weather(district, lat, lon, start_year=2000, end_year=2023):
         "end": f"{end_year}1231",
         "format": "JSON"
     }
-    response = requests.get(BASE_URL, params=params)
+
+    print(f"Downloading {district}: {start_year}-{end_year}")
+
+    response = requests.get(BASE_URL, params=params, timeout=120)
     response.raise_for_status()
+
     data = response.json()
+
     with open(raw_path, "w") as f:
         json.dump(data, f)
+
     time.sleep(1)
     return data
+
 
 def get_season(month):
     if 6 <= month <= 11:
@@ -46,24 +55,35 @@ def get_season(month):
     else:
         return "Summer"
 
-def process_weather_data():
+
+def process_weather_data(start_year, end_year):
     records = []
+
     for district, (lat, lon) in DISTRICT_CENTROIDS.items():
-        data = fetch_district_weather(district, lat, lon)
+
+        data = fetch_district_weather(
+            district, lat, lon, start_year, end_year
+        )
+
         parameter_data = data["properties"]["parameter"]
-        
+
         df_list = []
+
         for param in PARAMS:
             s = pd.Series(parameter_data[param], name=param)
             df_list.append(s)
-        
+
         df = pd.concat(df_list, axis=1)
+
         df.index = pd.to_datetime(df.index, format="%Y%m%d")
+
         df["District"] = district
         df["Year"] = df.index.year
         df["Season"] = df.index.month.map(get_season)
-        
-        agg_df = df.groupby(["District", "Year", "Season"]).agg({
+
+        agg_df = df.groupby(
+            ["District", "Year", "Season"]
+        ).agg({
             "PRECTOTCORR": "sum",
             "T2M": "mean",
             "T2M_MIN": "min",
@@ -72,13 +92,35 @@ def process_weather_data():
             "ALLSKY_SFC_SW_DWN": "mean",
             "WS2M": "mean"
         }).reset_index()
-        
+
         records.append(agg_df)
-        
+
     final_df = pd.concat(records, ignore_index=True)
-    os.makedirs(os.path.dirname(PROCESSED_FILE), exist_ok=True)
-    final_df.to_csv(PROCESSED_FILE, index=False)
+
+    os.makedirs(
+        os.path.dirname(PROCESSED_FILE),
+        exist_ok=True
+    )
+
+    final_df.to_csv(
+        PROCESSED_FILE,
+        index=False
+    )
+
+    print("\nWeather processing complete.")
+    print("Shape:", final_df.shape)
+    print("Years:", final_df["Year"].min(), "-", final_df["Year"].max())
+
     return final_df
 
+
 if __name__ == "__main__":
-    process_weather_data()
+
+    if len(sys.argv) >= 3:
+        start_year = int(sys.argv[1])
+        end_year = int(sys.argv[2])
+    else:
+        start_year = 1997
+        end_year = 2019
+
+    process_weather_data(start_year, end_year)

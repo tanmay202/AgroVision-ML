@@ -42,8 +42,13 @@ class RiceInferencePipeline:
             self.config = json.load(f)
             
         self.features_list = self.config["features"]
-        self.price_model = joblib.load(self.price_model_path)
         
+        loaded_obj = joblib.load(self.price_model_path)
+        if isinstance(loaded_obj, dict) and "model" in loaded_obj:
+            self.price_model = loaded_obj["model"]
+        else:
+            self.price_model = loaded_obj
+            
     def _validate_and_clean_input(self, df, market, variety, prediction_date):
         if df is None or df.empty:
             raise ValueError("Empty input data.")
@@ -180,16 +185,25 @@ class RiceInferencePipeline:
         
         # 2. Predict Price
         feat_df = self._generate_features(hist_df)
-        last_row = feat_df.iloc[-1]
         
         # Ensure all required features are present and ordered
-        try:
-            X = last_row[self.features_list].to_frame().T
-        except KeyError as e:
-            raise ValueError(f"Missing required features for model: {e}")
+        missing_features = [f for f in self.features_list if f not in feat_df.columns]
+        if missing_features:
+            raise ValueError(f"Missing required features for model: {missing_features}")
+            
+        # Use iloc[[-1]] to return a 1-row DataFrame and preserve dtypes (avoiding mixed-Series object upcast)
+        X = feat_df.iloc[[-1]][self.features_list].copy()
+        
+        # Explicitly coerce to numeric to ensure XGBoost compatibility
+        X = X.apply(pd.to_numeric, errors="coerce")
+        
+        # Validate no NaNs
+        if X.isna().any().any():
+            nan_cols = X.columns[X.isna().any()].tolist()
+            raise ValueError(f"NaN detected in prediction features: {nan_cols}")
             
         predicted_change = float(self.price_model.predict(X)[0])
-        current_price = float(last_row[PRICE_COLUMN])
+        current_price = float(feat_df.iloc[-1][PRICE_COLUMN])
         predicted_price = current_price + predicted_change
         
         # 3. Predict Volatility (Persistence Baseline)
