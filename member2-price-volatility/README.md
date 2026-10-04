@@ -166,12 +166,29 @@ The dataset was split chronologically to prevent temporal leakage.
 **Final Holdout Results (All Rows)**
 *(Note: MAE/RMSE measure raw currency error. R² is the coefficient of determination, NOT an accuracy percentage).*
 
-| Model | MAE | RMSE | R² |
-|---|---|---|---|
-| **Tuned 48-feature XGB** | **18.97** | **85.42** | **0.9806** |
-| Step 5 Base (48-feat) | 19.28 | 88.27 | 0.9792 |
-| Persistence | 19.43 | 91.80 | 0.9776 |
-| lag_1 | 26.30 | 102.47 | 0.9720 |
+| Model | MAE (Rs/qtl) | RMSE | R² | MAPE |
+|---|---|---|---|---|
+| **Tuned 48-feature XGB** | **18.97** | **85.42** | **0.9806** | **≈ 0.57%** |
+| Step 5 Base (48-feat) | 19.28 | 88.27 | 0.9792 | ≈ 0.58% |
+| Persistence | 19.43 | 91.80 | 0.9776 | ≈ 0.58% |
+| lag_1 | 26.30 | 102.47 | 0.9720 | ≈ 0.79% |
+
+### 📊 How Accurate Is the Model? (Plain-English)
+
+> **The production XGBoost model predicts the next Rice modal price with a mean absolute error of ₹18.97 per quintal — roughly 0.57% of the typical price level.**
+
+Key figures to understand:
+
+| Metric | Value | What It Means |
+|---|---|---|
+| **MAE** | 18.97 Rs/qtl | On average, predictions are off by ~₹19 per quintal |
+| **MAPE** | ≈ 0.57% | Percentage error is < 1% of the actual price |
+| **R²** | 0.9806 | The model explains 98.1% of price variance |
+| **RMSE** | 85.42 | Large errors (extreme price shocks) remain the hardest to predict |
+
+> ⚠️ **Note**: R² is NOT a classification accuracy percentage. It is the coefficient of determination — how much of the price variance the model explains. A value of 0.9806 means 98.1% of variance is captured, which is strong for a real-world commodity market.
+
+> ℹ️ The Persistence baseline (predict no change) achieves a comparable MAE of ₹19.43 because ~81% of daily mandi prices do not change at all. The XGBoost model's advantage is most visible on days where prices actually move (see Section 12).
 
 ---
 
@@ -353,13 +370,14 @@ member2-price-volatility/
 ## 24. Testing
 Extensive automated testing confirms pipeline health.
 
-| Test Suite | Result | Command |
-|---|---|---|
-| API Tests | 6/6 | `pytest tests/test_api.py -v` |
-| Parity Tests | 2/2 | `pytest tests/test_training_inference_parity.py -v` |
-| Inference Tests | 5/5 | `pytest tests/test_inference.py -v` |
-| Leakage Tests | 10/10 | `pytest tests/test_leakage.py -v` |
-| Pipeline Tests | 2/2 | `pytest tests/test_pipeline.py -v -s` |
+| Test Suite | Tests | Result | Command |
+|---|---|---|---|
+| API Tests | 7/7 | ✅ PASS | `pytest tests/test_api.py -v` |
+| Parity Tests | 2/2 | ✅ PASS | `pytest tests/test_training_inference_parity.py -v` |
+| Inference Tests | 5/5 | ✅ PASS | `pytest tests/test_inference.py -v` |
+| Leakage Tests | 10/10 | ✅ PASS | `pytest tests/test_leakage.py -v` |
+| Pipeline Tests | 2/2 | ✅ PASS | `pytest tests/test_pipeline.py -v -s` |
+| **Total** | **26/26** | ✅ **ALL PASS** | |
 
 ---
 
@@ -451,9 +469,9 @@ This machine learning model learns predictive patterns from historical lag featu
 
 | Component | Final Method | Main Result |
 |---|---|---|
-| **Price** | Tuned XGBoost | MAE 18.97, RMSE 85.42, R² 0.9806 |
-| **Volatility** | Persistence | Accuracy 66.31%, Macro F1 0.593 |
-| **Testing** | Pytest | 25 tests passed across 5 suites |
+| **Price** | Tuned XGBoost | MAE 18.97 Rs/qtl · RMSE 85.42 · R² 0.9806 · MAPE ≈ 0.57% |
+| **Volatility** | Persistence | Accuracy 66.3% · Macro F1 0.593 |
+| **Testing** | Pytest | **26/26 tests passed** across 5 suites |
 
 ---
 

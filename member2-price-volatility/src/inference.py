@@ -15,14 +15,7 @@ sys.path.insert(0, str(SRC))
 
 from config import (
     DATE_COLUMN, PRICE_COLUMN, ARRIVAL_COLUMN, GROUP_COLUMNS,
-    PRICE_COLUMNS, NUMERIC_COLUMNS
 )
-
-from features.create_lag_features import create_lags
-from features.create_rolling_features import create_rolling
-from features.create_date_features import create_dates
-from features.create_arrival_features import create_arrivals
-from features.create_pct_change_features import create_pct_changes
 
 class InsufficientHistoryError(Exception):
     pass
