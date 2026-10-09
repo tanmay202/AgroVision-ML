@@ -55,7 +55,7 @@ def _keep_model_ready_rows(df):
     return remaining.reset_index(drop=True)
 
 
-def run_pipeline(commodity=None, skip_volatility=False):
+def run_pipeline(commodity=None, skip_volatility=False, artifacts_dir=None):
     """
     Run the complete price forecasting + volatility pipeline.
 
@@ -66,11 +66,17 @@ def run_pipeline(commodity=None, skip_volatility=False):
         If None, uses current default.
     skip_volatility : bool
         If True, skip volatility model steps.
+    artifacts_dir : str or Path, optional
+        Dedicated output directory for saving generated model artifacts.
 
     Returns
     -------
     dict with pipeline results
     """
+    if artifacts_dir:
+        from config import set_artifacts_dir
+        set_artifacts_dir(artifacts_dir)
+
     if commodity:
         set_commodity(commodity)
 
@@ -157,7 +163,7 @@ def run_pipeline(commodity=None, skip_volatility=False):
     # ============================================================
     # STEP 9: Save final models
     # ============================================================
-    saved = save_models(train_df, vol_train, vol_test)
+    saved = save_models(train_df, vol_train, vol_test, artifacts_dir=artifacts_dir)
     results.update(saved)
 
     # ============================================================

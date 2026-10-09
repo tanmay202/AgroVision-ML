@@ -50,7 +50,25 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 RAW_DATA_DIR = PROJECT_ROOT / "data" / "raw"
 PROCESSED_DATA_DIR = PROJECT_ROOT / "data" / "processed"
-ARTIFACTS_DIR = PROJECT_ROOT / "artifacts"
+_DEFAULT_ARTIFACTS_DIR = PROJECT_ROOT / "artifacts"
+_CUSTOM_ARTIFACTS_DIR = Path(os.environ["AGROVISION_ARTIFACTS_DIR"]) if "AGROVISION_ARTIFACTS_DIR" in os.environ else None
+
+
+def get_artifacts_dir():
+    return _CUSTOM_ARTIFACTS_DIR or _DEFAULT_ARTIFACTS_DIR
+
+
+def set_artifacts_dir(path):
+    global _CUSTOM_ARTIFACTS_DIR
+    if path is None:
+        _CUSTOM_ARTIFACTS_DIR = None
+    else:
+        _CUSTOM_ARTIFACTS_DIR = Path(path)
+
+
+def reset_artifacts_dir():
+    global _CUSTOM_ARTIFACTS_DIR
+    _CUSTOM_ARTIFACTS_DIR = None
 
 
 def _commodity():
@@ -117,19 +135,19 @@ def error_analysis_path():
 # --- Artifact paths (commodity-specific models) ---
 
 def price_model_path():
-    return ARTIFACTS_DIR / f"{_commodity()}_price_model.pkl"
+    return get_artifacts_dir() / f"{_commodity()}_price_model.pkl"
 
 
 def volatility_model_path():
-    return ARTIFACTS_DIR / f"{_commodity()}_volatility_model.pkl"
+    return get_artifacts_dir() / f"{_commodity()}_volatility_model.pkl"
 
 
 def feature_config_path():
-    return ARTIFACTS_DIR / f"{_commodity()}_feature_config.json"
+    return get_artifacts_dir() / f"{_commodity()}_feature_config.json"
 
 
 def volatility_config_path():
-    return ARTIFACTS_DIR / f"{_commodity()}_volatility_config.json"
+    return get_artifacts_dir() / f"{_commodity()}_volatility_config.json"
 
 
 # ============================================================
@@ -149,16 +167,17 @@ class _DynamicPath:
     def __str__(self):
         return str(self.func())
     def __repr__(self):
-        return str(self.func())
-    @property
-    def parent(self):
-        return self.func().parent
-    def exists(self):
-        return self.func().exists()
+        return repr(self.func())
+    def __getattr__(self, name):
+        return getattr(self.func(), name)
     def __truediv__(self, other):
         return self.func() / other
+    def __rtruediv__(self, other):
+        return other / self.func()
     def __eq__(self, other):
-        return str(self.func()) == str(other)
+        return self.func() == other or str(self.func()) == str(other)
+    def __hash__(self):
+        return hash(self.func())
 
 
 # For simplicity and backward compat, expose as module-level constants
@@ -184,6 +203,7 @@ PRICE_MODEL_PATH = _DynamicPath(price_model_path)
 VOLATILITY_MODEL_PATH = _DynamicPath(volatility_model_path)
 FEATURE_CONFIG_PATH = _DynamicPath(feature_config_path)
 VOLATILITY_CONFIG_PATH = _DynamicPath(volatility_config_path)
+ARTIFACTS_DIR = _DynamicPath(get_artifacts_dir)
 
 
 # ============================================================

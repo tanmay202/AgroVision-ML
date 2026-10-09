@@ -72,6 +72,7 @@ class AgroVisionPredictor:
         # Lazy-loaded internal modules
         self._m1_predict = None
         self._m2_predict = None
+        self._rice_pipeline = None
 
     # ----------------------------------------------------------
     # Private loaders
@@ -85,15 +86,20 @@ class AgroVisionPredictor:
         if str(self._m1_root) not in sys.path:
             sys.path.insert(0, str(self._m1_root))
 
-        from src.predict import load_model, predict_yield  # noqa: F401
-
-        self._m1_load_model = load_model
-        self._m1_predict_yield = predict_yield
-        self._m1_model_info = load_model(str(self._m1_model_path))
-        self._m1_predict = True  # marker: loaded
+        try:
+            from src.predict import load_model, predict_yield  # noqa: F401
+            self._m1_load_model = load_model
+            self._m1_predict_yield = predict_yield
+            self._m1_model_info = load_model(str(self._m1_model_path))
+            self._m1_predict = True  # marker: loaded
+        except (ImportError, ModuleNotFoundError, FileNotFoundError):
+            self._m1_load_model = None
+            self._m1_predict_yield = None
+            self._m1_model_info = {"feature_names": []}
+            self._m1_predict = False
 
     def _load_m2(self):
-        """Lazy-load Member 2's predict module."""
+        """Lazy-load Member 2's predict module (for Tea and other commodities)."""
         if self._m2_predict is not None:
             return
 
@@ -104,6 +110,21 @@ class AgroVisionPredictor:
 
         self._m2_predict_fn = m2_predict_fn
         self._m2_predict = True  # marker: loaded
+
+    def _load_rice(self):
+        """Lazy-load Member 2's production RiceInferencePipeline."""
+        if self._rice_pipeline is not None:
+            return
+
+        if str(self._m2_src) not in sys.path:
+            sys.path.insert(0, str(self._m2_src))
+
+        from inference import RiceInferencePipeline
+
+        if self._m2_artifacts_dir and (self._m2_artifacts_dir / "rice_price_final_config.json").exists():
+            self._rice_pipeline = RiceInferencePipeline(artifacts_dir=self._m2_artifacts_dir)
+        else:
+            self._rice_pipeline = RiceInferencePipeline()
 
     # ----------------------------------------------------------
     # Public API
@@ -136,20 +157,29 @@ class AgroVisionPredictor:
         print(result["yield_arrivals_tonnes"])   # e.g. 52.3
         """
         self._load_m1()
+        if not self._m1_predict or self._m1_predict_yield is None:
+            raise RuntimeError("Member 1 yield model or predict module is not available.")
         value = self._m1_predict_yield(self._m1_model_info, input_dict)
         return {"yield_arrivals_tonnes": round(float(value), 4)}
 
-    def predict_price(self, data_df, commodity: str = "tea") -> dict:
+    def predict_price(self, data_df, commodity: str = "tea", **kwargs) -> dict:
         """
         Predict price and volatility using Member 2's model.
+
+        For commodity="rice", uses the verified production 48-feature XGBoost
+        model and persistence volatility estimator (RiceInferencePipeline).
+        For commodity="tea", routes to the multi-commodity model.
 
         Parameters
         ----------
         data_df : pandas.DataFrame
-            One or more rows with required features.
-            See member2-price-volatility/src/config.py → PRICE_FEATURES.
+            For rice: historical time-series DataFrame (30+ observations) or
+            48 pre-computed features DataFrame.
+            For tea: feature DataFrame matching tea feature config.
         commodity : str
-            Commodity name (must match a trained model in artifacts/).
+            Commodity name ("rice", "tea", etc.). Defaults to "tea".
+        **kwargs :
+            Optional metadata (market, variety, prediction_date).
 
         Returns
         -------
@@ -159,27 +189,29 @@ class AgroVisionPredictor:
                 "volatility": "LOW" | "MEDIUM" | "HIGH",
                 "commodity": str
             }
-
-        Example
-        -------
-        import pandas as pd
-        data = pd.DataFrame([{
-            "lag_1": 240, "lag_7": 235, "rolling_mean_7": 242,
-            "rolling_std_7": 5.1, "month": 3, "day_of_week": 2,
-            ...
-        }])
-        result = predictor.predict_price(data, commodity="tea")
-        print(result["predicted_price_rs_quintal"])   # e.g. 248.50
-        print(result["volatility"])                   # "LOW"
         """
-        self._load_m2()
-
-        raw = self._m2_predict_fn(data_df, commodity=commodity)
-        return {
-            "predicted_price_rs_quintal": raw["predicted_price"],
-            "volatility": raw["volatility"],
-            "commodity": raw["commodity"],
-        }
+        comm = str(commodity).strip().lower()
+        if comm == "rice":
+            self._load_rice()
+            res = self._rice_pipeline.predict(data_df, **kwargs)
+            out = {
+                "predicted_price_rs_quintal": float(res["predicted_modal_price"]),
+                "volatility": str(res["predicted_volatility_class"]),
+                "commodity": "rice",
+                "predicted_volatility_range": float(res.get("predicted_volatility_range", 0.0)),
+            }
+            for k in ("market", "variety", "prediction_date"):
+                if k in res:
+                    out[k] = res[k]
+            return out
+        else:
+            self._load_m2()
+            raw = self._m2_predict_fn(data_df, commodity=comm)
+            return {
+                "predicted_price_rs_quintal": raw["predicted_price"],
+                "volatility": raw["volatility"],
+                "commodity": raw["commodity"],
+            }
 
     def predict_all(self, data_df, commodity: str = "tea", yield_input: Optional[dict] = None) -> dict:
         """
@@ -248,14 +280,17 @@ class AgroVisionPredictor:
         """
         self._load_m1()
         self._load_m2()
+        self._load_rice()
 
         # Import Member 2 config for feature lists
         if str(self._m2_src) not in sys.path:
             sys.path.insert(0, str(self._m2_src))
-        from config import PRICE_FEATURES, VOLATILITY_FEATURES  # noqa: F401
+        from config import PRICE_FEATURES, VOLATILITY_FEATURES, DATE_COLUMN, PRICE_COLUMN, ARRIVAL_COLUMN, GROUP_COLUMNS  # noqa: F401
 
         return {
             "yield_features": self._m1_model_info.get("feature_names", []),
             "price_features": PRICE_FEATURES,
             "volatility_features": VOLATILITY_FEATURES,
+            "rice_price_features": self._rice_pipeline.features_list,
+            "rice_history_columns": [DATE_COLUMN, PRICE_COLUMN, ARRIVAL_COLUMN] + GROUP_COLUMNS,
         }

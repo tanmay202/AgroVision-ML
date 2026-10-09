@@ -19,7 +19,7 @@ from xgboost import XGBClassifier
 from config import (ARTIFACTS_DIR, PRICE_COLUMN, PRICE_FEATURES, PRICE_TARGET,
                     VOLATILITY_CLASSES, VOLATILITY_FEATURES,
                     VOLATILITY_LABEL_MAP, VOLATILITY_TARGET, feature_config_path,
-                    get_commodity, price_model_path, train_path,
+                    get_commodity, get_artifacts_dir, price_model_path, train_path,
                     volatility_dataset_train_path, volatility_model_path)
 from models.xgboost_price import make_price_model
 
@@ -72,10 +72,33 @@ def _print_volatility_metrics(name, metrics):
           columns=[f"Predicted {c}" for c in VOLATILITY_CLASSES]).to_string())
 
 
-def save_models(train_df=None, vol_train_df=None, vol_test_df=None):
+def save_models(train_df=None, vol_train_df=None, vol_test_df=None, artifacts_dir=None):
     """Fit final models and return test-set volatility metrics when supplied."""
     commodity = get_commodity()
-    ARTIFACTS_DIR.mkdir(parents=True, exist_ok=True)
+    if artifacts_dir:
+        target_dir = Path(artifacts_dir)
+    else:
+        target_dir = Path(get_artifacts_dir())
+    target_dir.mkdir(parents=True, exist_ok=True)
+
+    target_price_path = target_dir / f"{commodity}_price_model.pkl"
+    target_vol_path = target_dir / f"{commodity}_volatility_model.pkl"
+    target_cfg_path = target_dir / f"{commodity}_feature_config.json"
+
+    # Safeguard: Never overwrite frozen 48-feature production model
+    if commodity == "rice" and target_price_path.exists():
+        try:
+            existing_obj = joblib.load(target_price_path)
+            m = existing_obj["model"] if isinstance(existing_obj, dict) and "model" in existing_obj else existing_obj
+            if getattr(m, "n_features_in_", None) == 48:
+                target_price_path = target_dir / f"{commodity}_price_model_pipeline_run.pkl"
+                target_vol_path = target_dir / f"{commodity}_volatility_model_pipeline_run.pkl"
+                target_cfg_path = target_dir / f"{commodity}_feature_config_pipeline_run.json"
+                print(f"\n[PROTECTION ACTIVE] Frozen 48-feature production model detected at {target_dir / f'{commodity}_price_model.pkl'}.")
+                print(f"[PROTECTION ACTIVE] Preserving production artifact! Saving pipeline run model to: {target_price_path}")
+        except Exception:
+            pass
+
     if train_df is None:
         train_df = pd.read_csv(train_path())
     if vol_train_df is None:
@@ -89,8 +112,8 @@ def save_models(train_df=None, vol_train_df=None, vol_test_df=None):
     y_price = price_df[PRICE_TARGET] - price_df[PRICE_COLUMN]
     price_model = make_price_model()
     price_model.fit(price_df[PRICE_FEATURES], y_price)
-    joblib.dump(price_model, price_model_path())
-    print(f"Saved Rice price-change model: {price_model_path()} ({len(price_df)} rows; no target clipping)")
+    joblib.dump(price_model, target_price_path)
+    print(f"Saved Rice price-change model: {target_price_path} ({len(price_df)} rows; no target clipping)")
 
     required_vol = VOLATILITY_FEATURES + [VOLATILITY_TARGET]
     missing = [c for c in required_vol if c not in vol_train_df.columns]
@@ -101,8 +124,8 @@ def save_models(train_df=None, vol_train_df=None, vol_test_df=None):
     vol_model = _volatility_model()
     vol_model.fit(vol_train_df[VOLATILITY_FEATURES], y_vol,
                   sample_weight=compute_sample_weight("balanced", y_vol))
-    joblib.dump(vol_model, volatility_model_path())
-    print(f"Saved Rice volatility model: {volatility_model_path()} ({len(vol_train_df)} rows; balanced classes)")
+    joblib.dump(vol_model, target_vol_path)
+    print(f"Saved Rice volatility model: {target_vol_path} ({len(vol_train_df)} rows; balanced classes)")
 
     volatility_metrics = None
     if vol_test_df is not None:
@@ -137,9 +160,9 @@ def save_models(train_df=None, vol_train_df=None, vol_test_df=None):
         },
         "volatility_test_metrics": volatility_metrics,
     }
-    with open(feature_config_path(), "w", encoding="utf-8") as handle:
+    with open(target_cfg_path, "w", encoding="utf-8") as handle:
         json.dump(feature_config, handle, indent=2)
-    print(f"Saved feature configuration: {feature_config_path()}")
+    print(f"Saved feature configuration: {target_cfg_path}")
     return {"volatility_metrics": volatility_metrics}
 
 

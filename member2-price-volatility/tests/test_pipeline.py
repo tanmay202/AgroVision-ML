@@ -4,6 +4,7 @@ AgroVision — Pipeline Integration Test
 Tests the end-to-end Member 2 pipeline with Rice data.
 """
 
+import pytest
 import sys
 from pathlib import Path
 
@@ -12,8 +13,21 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
 
-def test_full_pipeline_rice():
-    """Run the complete pipeline for rice and verify outputs."""
+@pytest.fixture(scope="module")
+def pipeline_test_artifacts_dir(tmp_path_factory):
+    """
+    Dedicated temporary directory for pipeline test artifacts.
+    Prevents pipeline tests from modifying frozen production artifacts.
+    """
+    test_dir = tmp_path_factory.mktemp("rice_pipeline_test_artifacts")
+    from config import set_artifacts_dir, reset_artifacts_dir
+    set_artifacts_dir(test_dir)
+    yield test_dir
+    reset_artifacts_dir()
+
+
+def test_full_pipeline_rice(pipeline_test_artifacts_dir):
+    """Run the complete pipeline for rice and verify outputs in dedicated test directory."""
 
     from config import (
         set_commodity,
@@ -37,17 +51,16 @@ def test_full_pipeline_rice():
     raw = raw_data_path()
 
     if not raw.exists():
-        import pytest
         pytest.skip(
             f"Rice raw data not found: {raw}"
         )
 
     # --------------------------------------------------
-    # Run complete Rice pipeline
+    # Run complete Rice pipeline using dedicated test directory
     # --------------------------------------------------
     from pipeline import run_pipeline
 
-    results = run_pipeline("rice")
+    results = run_pipeline("rice", artifacts_dir=pipeline_test_artifacts_dir)
 
     # --------------------------------------------------
     # Verify returned results
@@ -121,7 +134,7 @@ def test_full_pipeline_rice():
     )
 
 
-def test_prediction_after_pipeline():
+def test_prediction_after_pipeline(pipeline_test_artifacts_dir):
     """
     Test that Rice predictions work after the pipeline runs.
     """
@@ -189,13 +202,14 @@ def test_prediction_after_pipeline():
     sample = clean_rows.iloc[[0]].copy()
 
     # --------------------------------------------------
-    # Run Rice prediction
+    # Run Rice prediction using test artifacts
     # --------------------------------------------------
     from models.predict import predict
 
     result = predict(
         sample,
-        commodity="rice"
+        commodity="rice",
+        artifacts_dir=pipeline_test_artifacts_dir,
     )
 
     # --------------------------------------------------
