@@ -1,0 +1,1658 @@
+{
+  "Experiment A (Nominal) | Fold 1 (2017-2018) | Persistence Baseline": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        20982,
+        4218,
+        2533
+      ],
+      [
+        4152,
+        5899,
+        1237
+      ],
+      [
+        2567,
+        1173,
+        1807
+      ]
+    ]
+  },
+  "Experiment A (Nominal) | Fold 1 (2017-2018) | Always-Majority Baseline": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        27733,
+        0,
+        0
+      ],
+      [
+        11288,
+        0,
+        0
+      ],
+      [
+        5547,
+        0,
+        0
+      ]
+    ]
+  },
+  "Experiment A (Nominal) | Fold 1 (2017-2018) | Stratified Baseline": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        14878,
+        9458,
+        3397
+      ],
+      [
+        5958,
+        3919,
+        1411
+      ],
+      [
+        2963,
+        1905,
+        679
+      ]
+    ]
+  },
+  "Experiment A (Nominal) | Fold 1 (2017-2018) | XGBoost (Unweighted)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        26325,
+        1144,
+        264
+      ],
+      [
+        6538,
+        4441,
+        309
+      ],
+      [
+        4030,
+        705,
+        812
+      ]
+    ]
+  },
+  "Experiment A (Nominal) | Fold 1 (2017-2018) | XGBoost (Balanced)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        21251,
+        2015,
+        4467
+      ],
+      [
+        4168,
+        4814,
+        2306
+      ],
+      [
+        2346,
+        667,
+        2534
+      ]
+    ]
+  },
+  "Experiment A (Nominal) | Fold 1 (2017-2018) | XGBoost (Mild Sqrt)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        24897,
+        1721,
+        1115
+      ],
+      [
+        5567,
+        4861,
+        860
+      ],
+      [
+        3387,
+        751,
+        1409
+      ]
+    ]
+  },
+  "Experiment A (Nominal) | Fold 1 (2017-2018) | Random Forest (Unweighted)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        26218,
+        1294,
+        221
+      ],
+      [
+        6440,
+        4625,
+        223
+      ],
+      [
+        4018,
+        824,
+        705
+      ]
+    ]
+  },
+  "Experiment A (Nominal) | Fold 1 (2017-2018) | Random Forest (Balanced)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        21535,
+        2729,
+        3469
+      ],
+      [
+        4093,
+        5568,
+        1627
+      ],
+      [
+        2413,
+        897,
+        2237
+      ]
+    ]
+  },
+  "Experiment B (Normalized) | Fold 1 (2017-2018) | Persistence Baseline": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        20982,
+        3242,
+        3509
+      ],
+      [
+        3187,
+        5088,
+        1223
+      ],
+      [
+        3532,
+        1202,
+        2603
+      ]
+    ]
+  },
+  "Experiment B (Normalized) | Fold 1 (2017-2018) | Always-Majority Baseline": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        27733,
+        0,
+        0
+      ],
+      [
+        9498,
+        0,
+        0
+      ],
+      [
+        7337,
+        0,
+        0
+      ]
+    ]
+  },
+  "Experiment B (Normalized) | Fold 1 (2017-2018) | Stratified Baseline": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        14924,
+        6209,
+        6600
+      ],
+      [
+        5078,
+        2156,
+        2264
+      ],
+      [
+        3906,
+        1683,
+        1748
+      ]
+    ]
+  },
+  "Experiment B (Normalized) | Fold 1 (2017-2018) | XGBoost (Unweighted)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        26296,
+        931,
+        506
+      ],
+      [
+        5066,
+        3962,
+        470
+      ],
+      [
+        5412,
+        733,
+        1192
+      ]
+    ]
+  },
+  "Experiment B (Normalized) | Fold 1 (2017-2018) | XGBoost (Balanced)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        21553,
+        3726,
+        2454
+      ],
+      [
+        2701,
+        6026,
+        771
+      ],
+      [
+        3616,
+        1407,
+        2314
+      ]
+    ]
+  },
+  "Experiment B (Normalized) | Fold 1 (2017-2018) | XGBoost (Mild Sqrt)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        24582,
+        2091,
+        1060
+      ],
+      [
+        3937,
+        4954,
+        607
+      ],
+      [
+        4686,
+        1009,
+        1642
+      ]
+    ]
+  },
+  "Experiment B (Normalized) | Fold 1 (2017-2018) | Random Forest (Unweighted)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        26267,
+        868,
+        598
+      ],
+      [
+        5169,
+        3815,
+        514
+      ],
+      [
+        5392,
+        724,
+        1221
+      ]
+    ]
+  },
+  "Experiment B (Normalized) | Fold 1 (2017-2018) | Random Forest (Balanced)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        21278,
+        3834,
+        2621
+      ],
+      [
+        2603,
+        6014,
+        881
+      ],
+      [
+        3450,
+        1506,
+        2381
+      ]
+    ]
+  },
+  "Experiment A (Nominal) | Fold 2 (2019-2020) | Persistence Baseline": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        17898,
+        2831,
+        2331
+      ],
+      [
+        2888,
+        3966,
+        1102
+      ],
+      [
+        2314,
+        1175,
+        3505
+      ]
+    ]
+  },
+  "Experiment A (Nominal) | Fold 2 (2019-2020) | Always-Majority Baseline": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        23060,
+        0,
+        0
+      ],
+      [
+        7956,
+        0,
+        0
+      ],
+      [
+        6994,
+        0,
+        0
+      ]
+    ]
+  },
+  "Experiment A (Nominal) | Fold 2 (2019-2020) | Stratified Baseline": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        12773,
+        7453,
+        2834
+      ],
+      [
+        4365,
+        2608,
+        983
+      ],
+      [
+        3904,
+        2220,
+        870
+      ]
+    ]
+  },
+  "Experiment A (Nominal) | Fold 2 (2019-2020) | XGBoost (Unweighted)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        21675,
+        930,
+        455
+      ],
+      [
+        4114,
+        3512,
+        330
+      ],
+      [
+        3803,
+        948,
+        2243
+      ]
+    ]
+  },
+  "Experiment A (Nominal) | Fold 2 (2019-2020) | XGBoost (Balanced)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        17035,
+        1535,
+        4490
+      ],
+      [
+        2497,
+        3616,
+        1843
+      ],
+      [
+        1686,
+        762,
+        4546
+      ]
+    ]
+  },
+  "Experiment A (Nominal) | Fold 2 (2019-2020) | XGBoost (Mild Sqrt)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        20314,
+        1315,
+        1431
+      ],
+      [
+        3404,
+        3788,
+        764
+      ],
+      [
+        2800,
+        961,
+        3233
+      ]
+    ]
+  },
+  "Experiment A (Nominal) | Fold 2 (2019-2020) | Random Forest (Unweighted)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        21683,
+        938,
+        439
+      ],
+      [
+        4109,
+        3563,
+        284
+      ],
+      [
+        3754,
+        1056,
+        2184
+      ]
+    ]
+  },
+  "Experiment A (Nominal) | Fold 2 (2019-2020) | Random Forest (Balanced)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        17164,
+        1826,
+        4070
+      ],
+      [
+        2431,
+        3950,
+        1575
+      ],
+      [
+        1718,
+        899,
+        4377
+      ]
+    ]
+  },
+  "Experiment B (Normalized) | Fold 2 (2019-2020) | Persistence Baseline": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        17898,
+        2173,
+        2989
+      ],
+      [
+        2214,
+        3521,
+        1055
+      ],
+      [
+        2988,
+        1140,
+        4032
+      ]
+    ]
+  },
+  "Experiment B (Normalized) | Fold 2 (2019-2020) | Always-Majority Baseline": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        23060,
+        0,
+        0
+      ],
+      [
+        6790,
+        0,
+        0
+      ],
+      [
+        8160,
+        0,
+        0
+      ]
+    ]
+  },
+  "Experiment B (Normalized) | Fold 2 (2019-2020) | Stratified Baseline": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        12791,
+        5192,
+        5077
+      ],
+      [
+        3732,
+        1540,
+        1518
+      ],
+      [
+        4593,
+        1738,
+        1829
+      ]
+    ]
+  },
+  "Experiment B (Normalized) | Fold 2 (2019-2020) | XGBoost (Unweighted)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        21631,
+        674,
+        755
+      ],
+      [
+        3198,
+        3162,
+        430
+      ],
+      [
+        4708,
+        870,
+        2582
+      ]
+    ]
+  },
+  "Experiment B (Normalized) | Fold 2 (2019-2020) | XGBoost (Balanced)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        17490,
+        2687,
+        2883
+      ],
+      [
+        1769,
+        4273,
+        748
+      ],
+      [
+        2678,
+        1388,
+        4094
+      ]
+    ]
+  },
+  "Experiment B (Normalized) | Fold 2 (2019-2020) | XGBoost (Mild Sqrt)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        20228,
+        1376,
+        1456
+      ],
+      [
+        2528,
+        3674,
+        588
+      ],
+      [
+        3732,
+        1085,
+        3343
+      ]
+    ]
+  },
+  "Experiment B (Normalized) | Fold 2 (2019-2020) | Random Forest (Unweighted)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        21647,
+        607,
+        806
+      ],
+      [
+        3254,
+        3018,
+        518
+      ],
+      [
+        4607,
+        792,
+        2761
+      ]
+    ]
+  },
+  "Experiment B (Normalized) | Fold 2 (2019-2020) | Random Forest (Balanced)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        17401,
+        2741,
+        2918
+      ],
+      [
+        1725,
+        4204,
+        861
+      ],
+      [
+        2578,
+        1356,
+        4226
+      ]
+    ]
+  },
+  "Experiment A (Nominal) | Fold 3 (2021-2022) | Persistence Baseline": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        17595,
+        2233,
+        3463
+      ],
+      [
+        2169,
+        3197,
+        1281
+      ],
+      [
+        3501,
+        1263,
+        5316
+      ]
+    ]
+  },
+  "Experiment A (Nominal) | Fold 3 (2021-2022) | Always-Majority Baseline": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        23291,
+        0,
+        0
+      ],
+      [
+        6647,
+        0,
+        0
+      ],
+      [
+        10080,
+        0,
+        0
+      ]
+    ]
+  },
+  "Experiment A (Nominal) | Fold 3 (2021-2022) | Stratified Baseline": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        13008,
+        7177,
+        3106
+      ],
+      [
+        3750,
+        2038,
+        859
+      ],
+      [
+        5651,
+        3083,
+        1346
+      ]
+    ]
+  },
+  "Experiment A (Nominal) | Fold 3 (2021-2022) | XGBoost (Unweighted)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        21710,
+        724,
+        857
+      ],
+      [
+        3280,
+        2751,
+        616
+      ],
+      [
+        5067,
+        1091,
+        3922
+      ]
+    ]
+  },
+  "Experiment A (Nominal) | Fold 3 (2021-2022) | XGBoost (Balanced)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        15721,
+        982,
+        6588
+      ],
+      [
+        1906,
+        2491,
+        2250
+      ],
+      [
+        2366,
+        731,
+        6983
+      ]
+    ]
+  },
+  "Experiment A (Nominal) | Fold 3 (2021-2022) | XGBoost (Mild Sqrt)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        19853,
+        949,
+        2489
+      ],
+      [
+        2658,
+        2826,
+        1163
+      ],
+      [
+        3862,
+        1001,
+        5217
+      ]
+    ]
+  },
+  "Experiment A (Nominal) | Fold 3 (2021-2022) | Random Forest (Unweighted)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        21706,
+        747,
+        838
+      ],
+      [
+        3348,
+        2793,
+        506
+      ],
+      [
+        5100,
+        1208,
+        3772
+      ]
+    ]
+  },
+  "Experiment A (Nominal) | Fold 3 (2021-2022) | Random Forest (Balanced)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        16030,
+        1385,
+        5876
+      ],
+      [
+        1925,
+        2998,
+        1724
+      ],
+      [
+        2471,
+        968,
+        6641
+      ]
+    ]
+  },
+  "Experiment B (Normalized) | Fold 3 (2021-2022) | Persistence Baseline": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        17595,
+        1552,
+        4144
+      ],
+      [
+        1528,
+        2777,
+        1071
+      ],
+      [
+        4142,
+        1056,
+        6153
+      ]
+    ]
+  },
+  "Experiment B (Normalized) | Fold 3 (2021-2022) | Always-Majority Baseline": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        23291,
+        0,
+        0
+      ],
+      [
+        5376,
+        0,
+        0
+      ],
+      [
+        11351,
+        0,
+        0
+      ]
+    ]
+  },
+  "Experiment B (Normalized) | Fold 3 (2021-2022) | Stratified Baseline": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        13108,
+        5088,
+        5095
+      ],
+      [
+        3048,
+        1141,
+        1187
+      ],
+      [
+        6392,
+        2419,
+        2540
+      ]
+    ]
+  },
+  "Experiment B (Normalized) | Fold 3 (2021-2022) | XGBoost (Unweighted)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        21547,
+        541,
+        1203
+      ],
+      [
+        2325,
+        2294,
+        757
+      ],
+      [
+        5800,
+        756,
+        4795
+      ]
+    ]
+  },
+  "Experiment B (Normalized) | Fold 3 (2021-2022) | XGBoost (Balanced)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        17060,
+        1812,
+        4419
+      ],
+      [
+        1192,
+        3205,
+        979
+      ],
+      [
+        3627,
+        1061,
+        6663
+      ]
+    ]
+  },
+  "Experiment B (Normalized) | Fold 3 (2021-2022) | XGBoost (Mild Sqrt)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        20081,
+        946,
+        2264
+      ],
+      [
+        1756,
+        2751,
+        869
+      ],
+      [
+        4822,
+        900,
+        5629
+      ]
+    ]
+  },
+  "Experiment B (Normalized) | Fold 3 (2021-2022) | Random Forest (Unweighted)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        21521,
+        525,
+        1245
+      ],
+      [
+        2396,
+        2243,
+        737
+      ],
+      [
+        5838,
+        801,
+        4712
+      ]
+    ]
+  },
+  "Experiment B (Normalized) | Fold 3 (2021-2022) | Random Forest (Balanced)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        16930,
+        1823,
+        4538
+      ],
+      [
+        1151,
+        3224,
+        1001
+      ],
+      [
+        3605,
+        1128,
+        6618
+      ]
+    ]
+  },
+  "Experiment A (Nominal) | Holdout (2023-2024) | Persistence Baseline": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        9422,
+        899,
+        1844
+      ],
+      [
+        923,
+        1495,
+        634
+      ],
+      [
+        1798,
+        629,
+        2692
+      ]
+    ]
+  },
+  "Experiment A (Nominal) | Holdout (2023-2024) | Always-Majority Baseline": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        12165,
+        0,
+        0
+      ],
+      [
+        3052,
+        0,
+        0
+      ],
+      [
+        5119,
+        0,
+        0
+      ]
+    ]
+  },
+  "Experiment A (Nominal) | Holdout (2023-2024) | Stratified Baseline": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        6896,
+        3493,
+        1776
+      ],
+      [
+        1719,
+        880,
+        453
+      ],
+      [
+        2869,
+        1474,
+        776
+      ]
+    ]
+  },
+  "Experiment A (Nominal) | Holdout (2023-2024) | XGBoost (Unweighted)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        11204,
+        331,
+        630
+      ],
+      [
+        1335,
+        1096,
+        621
+      ],
+      [
+        2572,
+        316,
+        2231
+      ]
+    ]
+  },
+  "Experiment A (Nominal) | Holdout (2023-2024) | XGBoost (Balanced)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        7697,
+        466,
+        4002
+      ],
+      [
+        715,
+        946,
+        1391
+      ],
+      [
+        1178,
+        210,
+        3731
+      ]
+    ]
+  },
+  "Experiment A (Nominal) | Holdout (2023-2024) | XGBoost (Mild Sqrt)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        10229,
+        424,
+        1512
+      ],
+      [
+        1050,
+        1089,
+        913
+      ],
+      [
+        1935,
+        289,
+        2895
+      ]
+    ]
+  },
+  "Experiment A (Nominal) | Holdout (2023-2024) | Random Forest (Unweighted)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        11258,
+        342,
+        565
+      ],
+      [
+        1316,
+        1283,
+        453
+      ],
+      [
+        2546,
+        434,
+        2139
+      ]
+    ]
+  },
+  "Experiment A (Nominal) | Holdout (2023-2024) | Random Forest (Balanced)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        8422,
+        597,
+        3146
+      ],
+      [
+        787,
+        1295,
+        970
+      ],
+      [
+        1377,
+        346,
+        3396
+      ]
+    ]
+  },
+  "Experiment B (Normalized) | Holdout (2023-2024) | Persistence Baseline": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        9422,
+        896,
+        1847
+      ],
+      [
+        917,
+        1613,
+        619
+      ],
+      [
+        1804,
+        611,
+        2607
+      ]
+    ]
+  },
+  "Experiment B (Normalized) | Holdout (2023-2024) | Always-Majority Baseline": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        12165,
+        0,
+        0
+      ],
+      [
+        3149,
+        0,
+        0
+      ],
+      [
+        5022,
+        0,
+        0
+      ]
+    ]
+  },
+  "Experiment B (Normalized) | Holdout (2023-2024) | Stratified Baseline": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        6896,
+        2503,
+        2766
+      ],
+      [
+        1798,
+        617,
+        734
+      ],
+      [
+        2860,
+        1019,
+        1143
+      ]
+    ]
+  },
+  "Experiment B (Normalized) | Holdout (2023-2024) | XGBoost (Unweighted)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        11158,
+        371,
+        636
+      ],
+      [
+        1323,
+        1242,
+        584
+      ],
+      [
+        2567,
+        321,
+        2134
+      ]
+    ]
+  },
+  "Experiment B (Normalized) | Holdout (2023-2024) | XGBoost (Balanced)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        9266,
+        1039,
+        1860
+      ],
+      [
+        687,
+        1821,
+        641
+      ],
+      [
+        1649,
+        580,
+        2793
+      ]
+    ]
+  },
+  "Experiment B (Normalized) | Holdout (2023-2024) | XGBoost (Mild Sqrt)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        10477,
+        625,
+        1063
+      ],
+      [
+        986,
+        1551,
+        612
+      ],
+      [
+        2131,
+        458,
+        2433
+      ]
+    ]
+  },
+  "Experiment B (Normalized) | Holdout (2023-2024) | Random Forest (Unweighted)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        11249,
+        318,
+        598
+      ],
+      [
+        1320,
+        1307,
+        522
+      ],
+      [
+        2565,
+        323,
+        2134
+      ]
+    ]
+  },
+  "Experiment B (Normalized) | Holdout (2023-2024) | Random Forest (Balanced)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        9285,
+        1071,
+        1809
+      ],
+      [
+        694,
+        1828,
+        627
+      ],
+      [
+        1663,
+        586,
+        2773
+      ]
+    ]
+  },
+  "Experiment A (Nominal) | Holdout (2023-2024) | XGBoost (Tuned Macro-F1)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        10251,
+        611,
+        1319
+      ],
+      [
+        967,
+        1356,
+        729
+      ],
+      [
+        1966,
+        425,
+        2728
+      ]
+    ]
+  },
+  "Experiment A (Nominal) | Holdout (2023-2024) | XGBoost (Tuned Constrained)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        10028,
+        580,
+        1573
+      ],
+      [
+        925,
+        1289,
+        838
+      ],
+      [
+        1849,
+        395,
+        2875
+      ]
+    ]
+  },
+  "Experiment B (Normalized) | Holdout (2023-2024) | XGBoost (Tuned Macro-F1)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        10459,
+        688,
+        1034
+      ],
+      [
+        957,
+        1597,
+        595
+      ],
+      [
+        2119,
+        482,
+        2421
+      ]
+    ]
+  },
+  "Experiment B (Normalized) | Holdout (2023-2024) | XGBoost (Tuned Constrained)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        10173,
+        781,
+        1227
+      ],
+      [
+        879,
+        1639,
+        631
+      ],
+      [
+        1965,
+        494,
+        2563
+      ]
+    ]
+  },
+  "Experiment B (Normalized) | Holdout (2023-2024) | Random Forest (Tuned Macro-F1)": {
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "matrix": [
+      [
+        10495,
+        716,
+        970
+      ],
+      [
+        957,
+        1666,
+        526
+      ],
+      [
+        2127,
+        512,
+        2383
+      ]
+    ]
+  }
+}
