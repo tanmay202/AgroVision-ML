@@ -49,6 +49,7 @@ class PredictRequest(BaseModel):
     variety: str
     prediction_date: str = Field(..., description="Date in YYYY-MM-DD format")
     history: List[HistoricalObservation]
+    volatility_version: Optional[str] = Field("v1", description="Volatility version: 'v1' (persistence baseline) or 'v2_normalized' (normalized ML model)")
 
 class PredictResponse(BaseModel):
     market: str
@@ -57,6 +58,11 @@ class PredictResponse(BaseModel):
     predicted_modal_price: float
     predicted_volatility_range: float
     predicted_volatility_class: str
+    volatility_version: Optional[str] = "v1"
+    normalized_volatility_class: Optional[str] = None
+    normalized_volatility_probabilities: Optional[dict] = None
+    historical_pct_range_5: Optional[float] = None
+    thresholds: Optional[dict] = None
 
 # --- Endpoints ---
 
@@ -96,7 +102,8 @@ async def predict(request: PredictRequest):
             df=df,
             market=request.market,
             variety=request.variety,
-            prediction_date=request.prediction_date
+            prediction_date=request.prediction_date,
+            volatility_version=request.volatility_version,
         )
         return PredictResponse(**result)
         

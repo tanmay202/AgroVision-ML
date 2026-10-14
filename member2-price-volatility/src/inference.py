@@ -76,6 +76,65 @@ class RiceInferencePipeline:
                 "Refusing to load legacy or incompatible model."
             )
 
+        # Versioned price-normalized volatility artifacts (lazy-loaded on request)
+        self.normalized_volatility_model_path = self.artifacts_dir / "rice_volatility_normalized_model.pkl"
+        self.normalized_volatility_config_path = self.artifacts_dir / "rice_volatility_normalized_config.json"
+        self._normalized_vol_model = None
+        self._normalized_vol_config = None
+        self._normalized_vol_features = None
+        self._normalized_vol_classes = None
+        self._normalized_vol_thresholds = None
+
+    def _load_normalized_volatility_model(self):
+        """Lazy-loads and caches the versioned price-normalized volatility model and configuration."""
+        if self._normalized_vol_model is not None:
+            return
+
+        if not self.normalized_volatility_model_path.exists():
+            raise FileNotFoundError(
+                f"Normalized volatility model artifact missing at {self.normalized_volatility_model_path}. "
+                "Train the model or verify the artifact path."
+            )
+        if not self.normalized_volatility_config_path.exists():
+            raise FileNotFoundError(
+                f"Normalized volatility config artifact missing at {self.normalized_volatility_config_path}."
+            )
+
+        with open(self.normalized_volatility_config_path, "r", encoding="utf-8") as f:
+            self._normalized_vol_config = json.load(f)
+
+        loaded_obj = joblib.load(self.normalized_volatility_model_path)
+        if isinstance(loaded_obj, dict) and "model" in loaded_obj:
+            self._normalized_vol_model = loaded_obj["model"]
+            self._normalized_vol_features = loaded_obj.get(
+                "feature_names", self._normalized_vol_config.get("features", [])
+            )
+            self._normalized_vol_classes = loaded_obj.get(
+                "classes", self._normalized_vol_config.get("classes", ["LOW", "MEDIUM", "HIGH"])
+            )
+            self._normalized_vol_thresholds = loaded_obj.get(
+                "thresholds", self._normalized_vol_config.get("thresholds", {})
+            )
+        else:
+            self._normalized_vol_model = loaded_obj
+            self._normalized_vol_features = self._normalized_vol_config.get("features", [])
+            self._normalized_vol_classes = self._normalized_vol_config.get(
+                "classes", ["LOW", "MEDIUM", "HIGH"]
+            )
+            self._normalized_vol_thresholds = self._normalized_vol_config.get("thresholds", {})
+
+        if len(self._normalized_vol_features) != 35:
+            raise ValueError(
+                f"Invalid normalized volatility feature configuration: expected 35 features, "
+                f"found {len(self._normalized_vol_features)}"
+            )
+
+        n_feats = getattr(self._normalized_vol_model, "n_features_in_", None)
+        if n_feats is not None and n_feats != 35:
+            raise ValueError(
+                f"Incompatible normalized volatility model: expected 35 features, model expects {n_feats}"
+            )
+
     def _validate_and_clean_input(self, df, market=None, variety=None, prediction_date=None):
         if df is None or df.empty:
             raise ValueError("Empty input data.")
@@ -245,10 +304,114 @@ class RiceInferencePipeline:
 
         return df
 
+    def _generate_normalized_volatility_features(self, df):
+        """
+        Generates the 35 point-in-time features required by the normalized volatility model.
+        Features strictly use information at or before observation time t.
+        """
+        df = df.copy()
+        group_cols = [c for c in GROUP_COLUMNS if c in df.columns]
+        if not group_cols:
+            group_cols = GROUP_COLUMNS
+        price_col = PRICE_COLUMN if PRICE_COLUMN in df.columns else "modal_price"
+        date_col = DATE_COLUMN if DATE_COLUMN in df.columns else "Reported Date"
+        arrival_col = ARRIVAL_COLUMN if ARRIVAL_COLUMN in df.columns else "Arrivals (Tonnes)"
+
+        df[date_col] = pd.to_datetime(df[date_col])
+
+        grouped_p = df.groupby(group_cols)[price_col]
+
+        lag_1 = grouped_p.shift(1)
+        lag_2 = grouped_p.shift(2)
+        lag_5 = grouped_p.shift(5)
+
+        df["pct_change_1"] = ((df[price_col] - lag_1) / (lag_1 + 1e-4)) * 100.0
+        df["pct_change_2"] = ((lag_1 - lag_2) / (lag_2 + 1e-4)) * 100.0
+        df["pct_change_5"] = ((df[price_col] - lag_5) / (lag_5 + 1e-4)) * 100.0
+        df["abs_pct_change_1"] = df["pct_change_1"].abs()
+        df["abs_pct_change_5"] = df["pct_change_5"].abs()
+
+        p5_max = grouped_p.transform(lambda s: s.rolling(5).max())
+        p5_min = grouped_p.transform(lambda s: s.rolling(5).min())
+        df["past_5_range"] = p5_max - p5_min
+        df["past_5_pct_range"] = (df["past_5_range"] / (df[price_col] + 1e-4)) * 100.0
+
+        p10_max = grouped_p.transform(lambda s: s.rolling(10).max())
+        p10_min = grouped_p.transform(lambda s: s.rolling(10).min())
+        df["past_10_range"] = p10_max - p10_min
+        df["past_10_pct_range"] = (df["past_10_range"] / (df[price_col] + 1e-4)) * 100.0
+
+        p20_max = grouped_p.transform(lambda s: s.rolling(20).max())
+        p20_min = grouped_p.transform(lambda s: s.rolling(20).min())
+        df["past_20_range"] = p20_max - p20_min
+        df["past_20_pct_range"] = (df["past_20_range"] / (df[price_col] + 1e-4)) * 100.0
+
+        df["rolling_std_5"] = grouped_p.transform(lambda s: s.rolling(5).std()).fillna(0.0)
+        df["rolling_std_7"] = grouped_p.transform(lambda s: s.rolling(7).std()).fillna(0.0)
+        df["rolling_std_14"] = grouped_p.transform(lambda s: s.rolling(14).std()).fillna(0.0)
+        df["rolling_std_30"] = grouped_p.transform(lambda s: s.rolling(30).std()).fillna(0.0)
+
+        grouped_pct = df.groupby(group_cols)["pct_change_1"]
+        df["rolling_std_pct_5"] = grouped_pct.transform(lambda s: s.rolling(5).std()).fillna(0.0)
+        df["rolling_std_pct_14"] = grouped_pct.transform(lambda s: s.rolling(14).std()).fillna(0.0)
+
+        diff_abs = grouped_p.diff().abs()
+        df["ewma_abs_diff_5"] = diff_abs.groupby([df[c] for c in group_cols]).transform(lambda s: s.ewm(span=5).mean()).fillna(0.0)
+        df["ewma_abs_diff_14"] = diff_abs.groupby([df[c] for c in group_cols]).transform(lambda s: s.ewm(span=14).mean()).fillna(0.0)
+
+        df["ewma_pct_vol_5"] = df["abs_pct_change_1"].groupby([df[c] for c in group_cols]).transform(lambda s: s.ewm(span=5).mean()).fillna(0.0)
+        df["ewma_pct_vol_14"] = df["abs_pct_change_1"].groupby([df[c] for c in group_cols]).transform(lambda s: s.ewm(span=14).mean()).fillna(0.0)
+
+        df["vol_trend_5_10"] = df["past_5_range"] / (df["past_10_range"] + 1e-4)
+        df["vol_pct_trend_5_10"] = df["past_5_pct_range"] / (df["past_10_pct_range"] + 1e-4)
+        df["vol_std_ratio_5_14"] = df["rolling_std_5"] / (df["rolling_std_14"] + 1e-4)
+
+        is_move = (grouped_p.diff() != 0).astype(int)
+        df["nonzero_moves_5"] = is_move.groupby([df[c] for c in group_cols]).transform(lambda s: s.rolling(5).sum()).fillna(0.0)
+        df["nonzero_moves_10"] = is_move.groupby([df[c] for c in group_cols]).transform(lambda s: s.rolling(10).sum()).fillna(0.0)
+
+        def compute_flat_streak(series):
+            is_flat = (series == 0)
+            blocks = (~is_flat).cumsum()
+            return is_flat.groupby(blocks).cumsum()
+
+        df["streak_zero"] = is_move.groupby([df[c] for c in group_cols]).transform(lambda s: compute_flat_streak(s == 0)).fillna(0.0)
+        df["max_daily_pct_jump_5"] = df["abs_pct_change_1"].groupby([df[c] for c in group_cols]).transform(lambda s: s.rolling(5).max()).fillna(0.0)
+
+        df["price_level"] = df[price_col].astype(float)
+        rolling_mean_7 = grouped_p.transform(lambda s: s.rolling(7).mean())
+        df["price_to_mean_7"] = df[price_col] / (rolling_mean_7 + 1e-4)
+
+        df["month"] = df[date_col].dt.month
+        df["day_of_week"] = df[date_col].dt.dayofweek
+        df["week_of_year"] = df[date_col].dt.isocalendar().week.astype(int)
+
+        if arrival_col in df.columns:
+            grouped_arr = df.groupby(group_cols)[arrival_col]
+            df["arrival_lag_1"] = grouped_arr.shift(1).fillna(0.0)
+            df["arrival_rolling_mean_7"] = grouped_arr.shift(1).transform(lambda s: s.rolling(7).mean()).fillna(0.0)
+        else:
+            df["arrival_lag_1"] = 0.0
+            df["arrival_rolling_mean_7"] = 0.0
+
+        return df
+
     def predict(self, df, market=None, variety=None, prediction_date=None, **kwargs):
         """
         Executes end-to-end inference for Price and Volatility.
         Returns a dict.
+
+        Parameters
+        ----------
+        df : pd.DataFrame
+            Historical time-series observations.
+        market : str, optional
+        variety : str, optional
+        prediction_date : str or datetime, optional
+        **kwargs :
+            volatility_version : str, optional
+                'v1' (default): returns production persistence baseline.
+                'v2_normalized': evaluates the price-normalized XGBoost champion model.
         """
         if market is None:
             market = kwargs.get("Market Name", kwargs.get("market"))
@@ -256,6 +419,8 @@ class RiceInferencePipeline:
             variety = kwargs.get("Variety", kwargs.get("variety"))
         if prediction_date is None:
             prediction_date = kwargs.get("prediction_date")
+
+        volatility_version = str(kwargs.get("volatility_version", "v1")).strip().lower()
 
         # Support direct inference if all 48 features are already pre-computed
         has_all_features = all(f in df.columns for f in self.features_list)
@@ -303,21 +468,16 @@ class RiceInferencePipeline:
         resolved_variety = variety if variety is not None else str(hist_df[GROUP_COLUMNS[1]].iloc[-1])
         resolved_pred_date = str(pd.to_datetime(prediction_date).date()) if prediction_date is not None else str(hist_df[DATE_COLUMN].max().date())
 
-        # 2. Predict Price
+        # 2. Predict Price (Frozen 48-feature XGBoost)
         feat_df = self._generate_features(hist_df)
 
-        # Ensure all required features are present and ordered
         missing_features = [f for f in self.features_list if f not in feat_df.columns]
         if missing_features:
             raise ValueError(f"Missing required features for model: {missing_features}")
 
-        # Use iloc[[-1]] to return a 1-row DataFrame and preserve dtypes (avoiding mixed-Series object upcast)
         X = feat_df.iloc[[-1]][self.features_list].copy()
-
-        # Explicitly coerce to numeric to ensure XGBoost compatibility
         X = X.apply(pd.to_numeric, errors="coerce")
 
-        # Validate no NaNs
         if X.isna().any().any():
             nan_cols = X.columns[X.isna().any()].tolist()
             raise ValueError(f"NaN detected in prediction features: {nan_cols}")
@@ -326,24 +486,67 @@ class RiceInferencePipeline:
         current_price = float(feat_df.iloc[-1][PRICE_COLUMN])
         predicted_price = current_price + predicted_change
 
-        # 3. Predict Volatility (Persistence Baseline)
-        # Use the last 5 observations
+        # 3. Volatility Prediction
+        # Compute baseline nominal 5-observation range
         last_5 = hist_df.iloc[-5:][PRICE_COLUMN]
         volatility_range = float(last_5.max() - last_5.min())
 
         if volatility_range <= 0.5:
-            volatility_class = "LOW"
+            persistence_class = "LOW"
         elif volatility_range <= 50.0:
-            volatility_class = "MEDIUM"
+            persistence_class = "MEDIUM"
         else:
-            volatility_class = "HIGH"
+            persistence_class = "HIGH"
 
-        # 4. Final Output
+        # Explicitly versioned path: v2_normalized ML model
+        if volatility_version in ("v2", "v2_normalized", "normalized"):
+            self._load_normalized_volatility_model()
+            norm_feat_df = self._generate_normalized_volatility_features(hist_df)
+
+            missing_norm = [f for f in self._normalized_vol_features if f not in norm_feat_df.columns]
+            if missing_norm:
+                raise ValueError(f"Missing normalized volatility features: {missing_norm}")
+
+            X_norm = norm_feat_df.iloc[[-1]][self._normalized_vol_features].copy()
+            X_norm = X_norm.apply(pd.to_numeric, errors="coerce")
+            if X_norm.isna().any().any():
+                nan_cols = X_norm.columns[X_norm.isna().any()].tolist()
+                raise ValueError(f"NaN detected in normalized volatility features: {nan_cols}")
+
+            proba = self._normalized_vol_model.predict_proba(X_norm)[0]
+            class_idx = int(np.argmax(proba))
+            v2_class = self._normalized_vol_classes[class_idx]
+            proba_dict = {
+                cls: round(float(proba[i]), 4)
+                for i, cls in enumerate(self._normalized_vol_classes)
+            }
+            hist_pct_range = float((volatility_range / (current_price + 1e-4)) * 100.0)
+
+            return {
+                "market": resolved_market,
+                "variety": resolved_variety,
+                "prediction_date": resolved_pred_date,
+                "predicted_modal_price": round(predicted_price, 2),
+                "predicted_volatility_range": round(volatility_range, 2),
+                "predicted_volatility_class": v2_class,
+                "volatility_version": "v2_normalized",
+                "normalized_volatility_class": v2_class,
+                "normalized_volatility_probabilities": proba_dict,
+                "historical_pct_range_5": round(hist_pct_range, 2),
+                "thresholds": self._normalized_vol_thresholds,
+            }
+
+        # Default v1 persistence baseline path (guarantees strict backward compatibility)
         return {
             "market": resolved_market,
             "variety": resolved_variety,
             "prediction_date": resolved_pred_date,
             "predicted_modal_price": round(predicted_price, 2),
             "predicted_volatility_range": round(volatility_range, 2),
-            "predicted_volatility_class": volatility_class
+            "predicted_volatility_class": persistence_class
         }
+
+    def predict_normalized_volatility(self, df, market=None, variety=None, prediction_date=None, **kwargs):
+        """Dedicated versioned endpoint for price-normalized volatility predictions."""
+        kwargs["volatility_version"] = "v2_normalized"
+        return self.predict(df=df, market=market, variety=variety, prediction_date=prediction_date, **kwargs)

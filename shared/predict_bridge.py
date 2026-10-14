@@ -200,7 +200,11 @@ class AgroVisionPredictor:
                 "commodity": "rice",
                 "predicted_volatility_range": float(res.get("predicted_volatility_range", 0.0)),
             }
-            for k in ("market", "variety", "prediction_date"):
+            for k in (
+                "market", "variety", "prediction_date",
+                "volatility_version", "normalized_volatility_class",
+                "normalized_volatility_probabilities", "historical_pct_range_5",
+            ):
                 if k in res:
                     out[k] = res[k]
             return out
