@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<meta name="theme-color" content="#0E5631"/>
+<meta name="color-scheme" content="light"/>
+<meta name="description" content="AgroVision — mandi prices, price predictions, weather and post-harvest risk in one place, to help farmers decide when to harvest, sell or store."/>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%BE%3C/text%3E%3C/svg%3E"/>
+<title>AgroVision — Farmer App &amp; Market Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@600;700&display=swap" rel="stylesheet">
+<style>
+/* ============ Design tokens ============ */
+:root{
+  --ink:#12281B;--ink-soft:#54685D;--ink-faint:#89998E;
+  --paper:#F3F6F1;--paper-deep:#E7EEE5;--card:#FFFFFF;
+  --line:#DEE7DD;--line-strong:#C9D6C9;
+
+  --green-900:#0A3D22;--green-800:#0E5631;--green-700:#146B3D;--green-600:#1C8449;--green-500:#2FA05C;
+  --green-tint:#E7F4EA;--green-tint-2:#F3FAF4;
+
+  --marigold:#DB9A2C;--marigold-deep:#A96A0C;--marigold-tint:#FCF0D9;
+  --red:#B23B35;--red-bg:#FBEAE8;
+  --blue:#2C5C86;--blue-bg:#E7F1FA;
+  --purple:#6B46C1;--purple-bg:#F3E8FF;
+
+  --shadow-sm:0 1px 2px rgba(18,40,27,.07);
+  --shadow-md:0 10px 24px -8px rgba(18,40,27,.20),0 2px 6px rgba(18,40,27,.06);
+  --shadow-lg:0 24px 48px -14px rgba(18,40,27,.30);
+
+  --r-sm:10px;--r-md:14px;--r-lg:20px;--r-pill:999px;
+
+  --font-display:'Zilla Slab',Georgia,'Times New Roman',serif;
+  --font-body:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.45;-webkit-tap-highlight-color:transparent}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+h1,h2,h3{font-family:var(--font-body)}
+.app{max-width:540px;margin:auto;min-height:100vh;background:var(--paper);position:relative}
+
+/* ============ Header ============ */
+.top{position:sticky;top:0;z-index:50;background:linear-gradient(135deg,#0A3D22,#1C8449 65%,#2FA05C);color:#fff;padding:calc(12px + env(safe-area-inset-top)) 14px 12px;box-shadow:0 3px 14px rgba(0,0,0,.18)}
+.top-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.logo{width:42px;height:42px;flex:0 0 auto;border-radius:13px;background:linear-gradient(160deg,#fff,#eef7f0);display:grid;place-items:center;font-size:22px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.6),0 2px 6px rgba(0,0,0,.15)}
+.brand-text{min-width:0}
+.brand b{font-size:18px;letter-spacing:-.2px;display:block}
+.brand small{display:block;font-size:10.5px;opacity:.88;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top-actions{display:flex;gap:7px;flex:0 0 auto}
+.icon-btn{width:40px;height:40px;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.14);color:#fff;border-radius:12px;font-size:15px;font-weight:800}
+.icon-btn:active{background:rgba(255,255,255,.26)}
+
+main{padding:14px 12px 96px}
+
+/* ============ Primitives ============ */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-sm)}
+.section{margin-top:20px}
+.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:8px}
+.section-head h2{font-size:17px;margin:0;font-weight:800;letter-spacing:-.1px}
+.link-btn{border:0;background:none;color:var(--green-700);font-weight:800;font-size:12px;padding:6px 0}
+.freshness{font-size:11px;color:var(--ink-soft);display:inline-flex;align-items:center;gap:6px;font-weight:700;white-space:nowrap}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--green-500);display:inline-block;box-shadow:0 0 0 3px var(--green-tint)}
+.eyebrow{font-size:10px;color:var(--ink-soft);font-weight:800;letter-spacing:.5px;text-transform:uppercase}
+.small{font-size:12px;color:var(--ink-soft)}
+.note{font-size:11.5px;color:var(--ink-soft);line-height:1.55}
+
+/* Tone system */
+.tone-good{color:var(--green-600)}
+.tone-caution{color:var(--marigold-deep)}
+.tone-alert{color:var(--red)}
+.badge{display:inline-block;padding:6px 10px;border-radius:var(--r-pill);font-size:10px;font-weight:900;letter-spacing:.4px;text-transform:uppercase}
+.badge.tone-good{background:var(--green-tint);color:var(--green-800)}
+.badge.tone-caution{background:var(--marigold-tint);color:var(--marigold-deep)}
+.badge.tone-alert{background:var(--red-bg);color:var(--red)}
+.badge.tone-purple{background:var(--purple-bg);color:var(--purple)}
+.badge.tone-neutral{background:var(--paper-deep);color:var(--ink-soft)}
+.trend{font-size:12px;font-weight:800;display:block;margin-top:4px}
+.trend.tone-good{color:var(--green-600)}
+.trend.tone-caution{color:var(--marigold-deep)}
+.trend.tone-alert{color:var(--red)}
+
+/* ============ Hero ============ */
+.hero{background:linear-gradient(150deg,#EAF7EE 0%,#F7FBF3 55%,#FDF6E9 100%);padding:18px;border-radius:22px;border:1px solid #D7EAD9}
+.hero-eyebrow{font-size:11px;font-weight:800;letter-spacing:.4px;color:var(--green-700);text-transform:uppercase;margin:0 0 8px;display:flex;align-items:center;gap:6px}
+.hero h1{font-family:var(--font-display);font-size:25px;line-height:1.18;margin:0 0 6px;font-weight:700}
+.hero p{margin:0;color:var(--ink-soft);font-size:13.5px;line-height:1.5}
+.selector-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+select,.input{width:100%;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:11px 30px 11px 12px;outline:none;font-size:13.5px}
+select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9'%3E%3Cpath d='M1 1l6 6 6-6' stroke='%2354685D' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+select:focus,.input:focus{border-color:var(--green-600)}
+.voice-btn{border:0;background:linear-gradient(135deg,var(--green-700),var(--green-600));color:#fff;border-radius:13px;padding:13px 14px;font-weight:800;margin-top:10px;width:100%;display:flex;align-items:center;justify-content:center;gap:8px;font-size:13.5px;box-shadow:0 10px 20px -8px rgba(14,86,49,.55)}
+.voice-icon{font-size:16px}
+
+/* ============ Stat grid ============ */
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.stat{padding:15px}
+.big{font-family:var(--font-display);font-size:22px;font-weight:700;margin:6px 0 2px;letter-spacing:-.2px}
+
+/* ============ Weather ============ */
+.weather-card{padding:16px;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}
+.weather-temp{font-family:var(--font-display);font-size:27px;font-weight:700;margin-top:4px}
+.weather-icon{font-size:38px}
+.weather-grid-wrap{grid-column:1/-1}
+.weather-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}
+.weather-mini{background:var(--paper-deep);border-radius:11px;padding:9px;text-align:center;font-size:11px}
+.weather-mini b{display:block;font-size:12px;color:var(--ink-soft);font-weight:700;margin-bottom:2px}
+
+/* ============ Advice ============ */
+.advice{padding:18px;background:linear-gradient(135deg,#fff,var(--green-tint-2));position:relative;overflow:hidden;border:2px solid var(--line)}
+.advice::before{content:'';position:absolute;left:0;top:0;bottom:0;width:6px}
+.advice.tone-good{border-color:#BFE2CC}
+.advice.tone-good::before{background:var(--green-600)}
+.advice.tone-caution{border-color:#F0DBA8}
+.advice.tone-caution::before{background:var(--marigold)}
+.advice.tone-alert{border-color:#EFC4C0}
+.advice.tone-alert::before{background:var(--red)}
+.advice-content{padding-right:78px}
+.advice h3{font-family:var(--font-display);font-size:22px;margin:12px 0 6px;font-weight:700}
+.advice p{color:var(--ink-soft);font-size:13.5px;margin:0;line-height:1.55}
+.seal{position:absolute;top:16px;right:16px;width:70px;height:70px;border-radius:50%;display:grid;place-items:center;border:2px dashed currentColor;transform:rotate(-8deg);font-family:var(--font-display);font-weight:700;font-size:10.5px;letter-spacing:.4px;text-align:center;line-height:1.15}
+.seal::before{content:'';position:absolute;inset:6px;border:1px solid currentColor;border-radius:50%;opacity:.45}
+.seal span{position:relative}
+.buttons{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
+.primary,.secondary{border-radius:12px;padding:11px 14px;font-weight:800;font-size:13px}
+.primary{border:0;background:var(--green-700);color:#fff}
+.secondary{border:1px solid var(--line);background:#fff;color:var(--ink)}
+.primary:active,.secondary:active{transform:scale(.97)}
+
+/* ============ Quick tools ============ */
+.quick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.quick{padding:14px 6px 12px;text-align:center;border:1px solid var(--line);background:#fff;border-radius:16px;color:var(--ink);font-weight:800;font-size:11px;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;align-items:center;gap:2px}
+.quick:active{transform:scale(.96)}
+.qicon-wrap{width:40px;height:40px;border-radius:50%;background:var(--green-tint);display:grid;place-items:center;margin-bottom:3px}
+.qicon{font-size:19px;line-height:1}
+
+/* ============ Risk card & ring ============ */
+.risk-card{padding:16px}
+.risk-card-top{display:flex;gap:16px;align-items:center}
+.ring-wrap{position:relative;width:96px;height:96px;flex:0 0 auto}
+.risk-ring{width:100%;height:100%;display:block}
+.ring-track{fill:none;stroke:var(--line);stroke-width:10}
+.ring-fill{fill:none;stroke-width:10;stroke-linecap:round;transform-origin:60px 60px;transform:rotate(-90deg);transition:stroke-dashoffset .7s cubic-bezier(.16,1,.3,1),stroke .3s}
+.ring-fill.tone-good{stroke:var(--green-600)}
+.ring-fill.tone-caution{stroke:var(--marigold)}
+.ring-fill.tone-alert{stroke:var(--red)}
+.ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
+.ring-center strong{font-family:var(--font-display);font-size:24px}
+.ring-center span{font-size:10.5px;color:var(--ink-soft)}
+.risk-card-info{flex:1;min-width:0}
+.reasons{display:grid;gap:7px;margin-top:13px}
+.reason{display:flex;justify-content:space-between;gap:8px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:12.5px}
+.reason:last-child{border-bottom:0}
+.reason-value{font-weight:800;color:var(--ink)}
+
+/* ============ Tabs ============ */
+.tabs{display:flex;gap:7px;overflow-x:auto;margin:20px -12px 0;padding:2px 12px 6px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{white-space:nowrap;border:1px solid var(--line);background:#fff;color:var(--ink-soft);border-radius:12px;padding:10px 14px;font-weight:800;font-size:12.5px}
+.tab.active{background:var(--green-700);border-color:var(--green-700);color:#fff}
+.panel{display:none}
+.panel.active{display:block}
+
+/* ============ Horizon Selector (New) ============ */
+.horizon-selector-container{margin-bottom:14px}
+.horizon-bar{display:grid;grid-template-columns:repeat(3,1fr);background:var(--paper-deep);padding:4px;border-radius:14px;gap:4px;border:1px solid var(--line)}
+.horizon-btn{border:0;background:transparent;padding:10px 6px;font-size:12px;font-weight:800;border-radius:10px;color:var(--ink-soft);transition:all .2s ease;display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center}
+.horizon-btn.active{background:#fff;color:var(--green-800);box-shadow:var(--shadow-sm)}
+.horizon-tag{font-size:9px;padding:2px 6px;border-radius:999px;font-weight:900;letter-spacing:.3px;text-transform:uppercase}
+.horizon-tag-prod{background:var(--green-tint);color:var(--green-800)}
+.horizon-tag-optin{background:var(--blue-bg);color:var(--blue)}
+.horizon-tag-exp{background:var(--marigold-tint);color:var(--marigold-deep)}
+
+/* ============ Forecast Cards & Details ============ */
+.forecast-banner{padding:14px;border-radius:14px;margin-bottom:12px;font-size:12.5px;display:flex;gap:10px;align-items:flex-start}
+.forecast-banner.opt-in{background:var(--blue-bg);border:1px solid #C4DDF2;color:#18456B}
+.forecast-banner.experimental{background:var(--marigold-tint);border:1px solid #F0DBA8;color:var(--marigold-deep)}
+.forecast-banner.production{background:var(--green-tint-2);border:1px solid #CCE5D4;color:var(--green-800)}
+.forecast-banner-icon{font-size:18px;line-height:1;flex:0 0 auto}
+
+.target-window-note{background:var(--paper-deep);border-radius:12px;padding:11px 14px;margin-top:10px;font-size:11.5px;color:var(--ink-soft);line-height:1.5}
+.target-window-note b{color:var(--ink)}
+
+.governance-card{padding:14px;background:#FAFCF9;border:1px solid var(--line);border-radius:14px;margin-top:12px}
+.governance-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;font-size:12px;border-bottom:1px dashed var(--line)}
+.governance-row:last-child{border-bottom:0}
+.governance-label{color:var(--ink-soft)}
+.governance-val{font-weight:700}
+
+/* Loading & Error States */
+.state-box{padding:26px 16px;text-align:center;border-radius:16px;background:#fff;border:1px solid var(--line);margin-bottom:14px}
+.spinner{width:36px;height:36px;border:3px solid var(--line);border-top-color:var(--green-600);border-radius:50%;margin:0 auto 10px;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.error-box{background:var(--red-bg);border:1px solid #F3C4C0;color:var(--red);padding:16px;border-radius:14px;margin-bottom:14px;text-align:left}
+.error-box h4{margin:0 0 6px;font-size:14px}
+.error-box p{margin:0 0 10px;font-size:12.5px;line-height:1.45}
+.retry-btn{background:var(--red);color:#fff;border:0;padding:7px 14px;border-radius:8px;font-weight:800;font-size:12px}
+
+/* ============ Bottom nav ============ */
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(540px,100%);height:calc(68px + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);z-index:49;box-shadow:0 -4px 18px rgba(0,0,0,.07)}
+.nav-btn{border:0;background:none;color:var(--ink-faint);font-size:10px;font-weight:800;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.nav-icon{display:block;font-size:20px}
+.nav-label{display:block}
+.nav-btn.active{color:var(--green-700)}
+.nav-btn:active{opacity:.7}
+
+/* ============ Modal ============ */
+.modal-bg{position:fixed;inset:0;background:rgba(10,26,17,.44);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);z-index:100;display:none;align-items:end;justify-content:center}
+.modal-bg.show{display:flex}
+.modal{width:min(540px,100%);background:#fff;border-radius:24px 24px 0 0;padding:14px 18px calc(20px + env(safe-area-inset-bottom));max-height:88vh;overflow:auto;box-shadow:var(--shadow-lg);animation:sheet-up .28s cubic-bezier(.16,1,.3,1) both}
+@keyframes sheet-up{from{transform:translateY(26px);opacity:.5}to{transform:translateY(0);opacity:1}}
+.sheet-handle{width:40px;height:4px;border-radius:4px;background:var(--line-strong);margin:0 auto 14px}
+.modal-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.modal-head h2{font-size:19px;margin:0}
+.close{border:0;background:var(--paper-deep);width:36px;height:36px;border-radius:50%;font-size:17px;flex:0 0 auto}
+
+/* ============ Toast ============ */
+.toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom));transform:translate(-50%,120px);background:var(--ink);color:#fff;border-radius:12px;padding:12px 18px;font-size:12.5px;font-weight:700;z-index:120;transition:transform .25s ease,opacity .25s ease;opacity:0;box-shadow:var(--shadow-lg);max-width:86%;text-align:center}
+.toast.show{transform:translate(-50%,0);opacity:1}
+
+/* ============ Charts ============ */
+.chart{padding:14px}
+.chartbox{height:190px}
+.chart svg{width:100%;height:100%}
+
+/* ============ Tables ============ */
+.table{overflow:auto}
+.table table{border-collapse:collapse;width:100%;font-size:12px}
+.table th,.table td{padding:10px 8px;border-bottom:1px solid #EDF2EE;text-align:left;white-space:nowrap}
+.table th{color:var(--ink-soft)}
+
+/* ============ Mandi Rows ============ */
+.mandi{padding:14px}
+.mandi-row{display:grid;grid-template-columns:1.25fr .8fr .7fr;gap:6px;padding:11px 8px;border-bottom:1px solid #EDF2EE;align-items:center;font-size:12.5px;border-radius:10px}
+.mandi-row:last-child{border-bottom:0}
+.mandi-head{font-weight:800;color:var(--ink-soft);padding-bottom:9px}
+.best{color:var(--green-700);font-weight:900}
+.best-row{background:var(--green-tint-2)}
+
+.rowcard{padding:14px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:9px}
+.row-left{display:flex;align-items:center;gap:10px}
+.row-icon{width:36px;height:36px;border-radius:50%;background:var(--green-tint);display:grid;place-items:center;font-size:17px;flex:0 0 auto}
+.chevron{color:var(--ink-faint);font-size:19px}
+.link-row{width:100%;text-align:left;background:#fff;display:block}
+
+/* ============ Accessibility & Media ============ */
+@media(min-width:700px){
+  body{background:var(--paper-deep)}
+  .app{min-height:100vh;box-shadow:var(--shadow-lg)}
+  .hero{padding:22px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+  <div class="top-row">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">🌾</div>
+      <div class="brand-text">
+        <b>AgroVision</b>
+        <small id="tagline" data-i18n="tagline">Your crop. Your market. Your decision.</small>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button class="icon-btn" onclick="toggleLanguage()" id="langBtn" aria-label="Switch language">अ</button>
+      <button class="icon-btn" onclick="openModal('settingsModal')" aria-label="Settings">⚙️</button>
+      <button class="icon-btn" onclick="openModal('helpModal')" aria-label="Help">?</button>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <p class="hero-eyebrow" id="heroLocationDate">📍 West Bengal · Verified Mandi Network</p>
+  <h1 id="greeting" data-i18n="greeting">Namaste, Farmer 👋</h1>
+  <p id="intro" data-i18n="intro">Simple, evidence-backed market information to help you decide when to harvest, sell or store.</p>
+  <div class="selector-row">
+    <select id="cropSelect" onchange="onCropChange()" aria-label="Select crop">
+      <option value="Rice" selected data-i18n="cropRice">Rice (ধান)</option>
+      <option value="Tomato" data-i18n="cropTomato">Tomato</option>
+      <option value="Potato" data-i18n="cropPotato">Potato</option>
+      <option value="Wheat" data-i18n="cropWheat">Wheat</option>
+      <option value="Onion" data-i18n="cropOnion">Onion</option>
+    </select>
+    <select id="mandiSelect" onchange="onMandiChange()" aria-label="Select mandi">
+      <option value="Burdwan" selected>Burdwan (East Bardhaman)</option>
+      <option value="Kalna">Kalna</option>
+      <option value="Kalyani">Kalyani (Nadia)</option>
+      <option value="Bishnupur(Bankura)">Bishnupur (Bankura)</option>
+      <option value="Jalpaiguri Sadar">Jalpaiguri Sadar</option>
+      <option value="Alipurduar">Alipurduar</option>
+    </select>
+  </div>
+  <div class="selector-row" id="varietyRow" style="margin-top:8px">
+    <select id="varietySelect" onchange="onVarietyChange()" aria-label="Select variety">
+      <option value="Common" selected>Variety: Common</option>
+      <option value="Fine">Variety: Fine</option>
+      <option value="Super Fine">Variety: Super Fine</option>
+      <option value="Other">Variety: Other</option>
+    </select>
+    <div style="display:flex;align-items:center;font-size:12px;color:var(--ink-soft);padding:0 6px">
+      <span>Origin Date: <strong id="originDateDisplay">2024-01-31</strong></span>
+    </div>
+  </div>
+  <button class="voice-btn" onclick="speakAdvice()"><span class="voice-icon" aria-hidden="true">🎙️</span><span data-i18n="hearAdvice">Hear today's advice</span></button>
+</section>
+
+<!-- Today's Status Overview -->
+<section class="section">
+  <div class="section-head">
+    <h2 data-i18n="todaysStatus">Today's status</h2>
+    <span class="freshness"><i class="live-dot" aria-hidden="true"></i><span id="headerFreshnessText">Live Backend Parity</span></span>
+  </div>
+  <div class="stat-grid">
+    <div class="card stat">
+      <div class="eyebrow" data-i18n="mandiPrice">CURRENT MODAL PRICE</div>
+      <div class="big" id="todayPrice">₹3,000</div>
+      <div class="small" data-i18n="perQuintal">per quintal</div>
+      <div class="trend tone-good" id="priceTrend">Latest reporting date</div>
+    </div>
+    <div class="card stat">
+      <div class="eyebrow" id="overviewHorizonLabel">PREDICTED PRICE</div>
+      <div class="big" id="futurePrice">₹3,003</div>
+      <div class="small" id="overviewHorizonDays">expected price</div>
+      <div class="trend tone-good" id="futureTrend">Model projection</div>
+    </div>
+    <div class="card stat">
+      <div class="eyebrow" data-i18n="expectedYield">EXPECTED YIELD</div>
+      <div class="big" id="yieldHome">21.6 q</div>
+      <div class="small" data-i18n="perAcre">per acre</div>
+      <div class="trend tone-good" id="yieldOutlookHome">Seasonal baseline</div>
+    </div>
+    <div class="card stat">
+      <div class="eyebrow" data-i18n="overallRisk">MARKET VOLATILITY</div>
+      <div class="big" id="riskLabel">MEDIUM</div>
+      <div class="small">5-day historical baseline</div>
+      <div class="trend tone-caution" id="riskContextTrend">Reference indicator</div>
+    </div>
+  </div>
+</section>
+
+<!-- Advice Card -->
+<section class="section">
+  <div class="card advice tone-good" id="adviceCard">
+    <div class="seal tone-good" id="adviceSeal"><span id="adviceSealText">STEADY</span></div>
+    <div class="advice-content">
+      <span class="badge tone-good" id="adviceBadge">RECOMMENDED ACTION</span>
+      <h3 id="adviceTitle">Hold — market is steady</h3>
+      <p id="adviceDesc">Current demand and prices are stable with little weather risk. Review the multi-horizon projections below before taking large selling decisions.</p>
+    </div>
+    <div class="buttons">
+      <button class="primary" onclick="saveAdvice()"><span data-i18n="saveAdvice">✓ Save advice</span></button>
+      <button class="secondary" onclick="shareAdvice()"><span data-i18n="share">↗ Share</span></button>
+      <button class="secondary" onclick="openModal('whyModal')"><span data-i18n="why">Why?</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- Tabs Header -->
+<div class="tabs" role="tablist" aria-label="Sections">
+  <button class="tab active" data-tab="forecast" role="tab" aria-selected="true" onclick="switchTab('forecast')" data-i18n="tabForecast">Predictions (পূর্বাভাস)</button>
+  <button class="tab" data-tab="home" role="tab" aria-selected="false" onclick="switchTab('home')" data-i18n="tabHome">Overview</button>
+  <button class="tab" data-tab="market" role="tab" aria-selected="false" onclick="switchTab('market')" data-i18n="tabMarket">Market</button>
+  <button class="tab" data-tab="weather" role="tab" aria-selected="false" onclick="switchTab('weather')" data-i18n="tabWeather">Weather</button>
+  <button class="tab" data-tab="tools" role="tab" aria-selected="false" onclick="switchTab('tools')" data-i18n="tabTools">Tools</button>
+</div>
+
+<!-- ============================================================ -->
+<!-- PREDICTIONS PANEL (Dedicated Horizon Integration)             -->
+<!-- ============================================================ -->
+<section id="forecast" class="panel active" role="tabpanel">
+  <div class="section">
+    <div class="section-head">
+      <h2>Rice Price Forecasting</h2>
+      <span class="badge tone-good" id="forecastStatusBadge">Ready</span>
+    </div>
+
+    <!-- Prediction Horizon Selector Control -->
+    <div class="horizon-selector-container">
+      <div class="eyebrow" style="margin-bottom:6px">SELECT PREDICTION HORIZON</div>
+      <div class="horizon-bar" role="radiogroup" aria-label="Forecast Horizon">
+        <button class="horizon-btn active" id="btnHorizonShort" onclick="selectHorizon('short')">
+          <span>Short-Term</span>
+          <span class="horizon-tag horizon-tag-prod">1–7 Days</span>
+        </button>
+        <button class="horizon-btn" id="btnHorizon14" onclick="selectHorizon('14')">
+          <span>14-Day</span>
+          <span class="horizon-tag horizon-tag-optin">Opt-In</span>
+        </button>
+        <button class="horizon-btn" id="btnHorizon30" onclick="selectHorizon('30')">
+          <span>30-Day</span>
+          <span class="horizon-tag horizon-tag-exp">Experimental</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Active Horizon Operational Banner -->
+    <div id="horizonBanner" class="forecast-banner production">
+      <div class="forecast-banner-icon">ℹ️</div>
+      <div id="horizonBannerText">
+        <b>Production Baseline:</b> Forecasting the modal price to the next valid reporting date within 1–7 calendar days using frozen 48-feature XGBoost regressor.
+      </div>
+    </div>
+
+    <!-- State: Loading Spinner -->
+    <div id="forecastLoading" class="state-box" style="display:none">
+      <div class="spinner"></div>
+      <div style="font-weight:700" id="loadingText">Fetching forecast from AgroVision ML engine...</div>
+      <div class="small" style="margin-top:4px">Querying FastAPI backend at <span id="apiHostLabel">127.0.0.1:8000</span></div>
+    </div>
+
+    <!-- State: Error Box -->
+    <div id="forecastError" class="error-box" style="display:none">
+      <h4 id="errorTitle">Unable to Fetch Prediction</h4>
+      <p id="errorMsg">The requested model service encountered an error.</p>
+      <button class="retry-btn" onclick="retryForecast()">Retry Request</button>
+    </div>
+
+    <!-- Main Results Container -->
+    <div id="forecastResults">
+      <!-- Stat Grid for Selected Horizon -->
+      <div class="stat-grid">
+        <div class="card stat">
+          <div class="eyebrow">CURRENT MODAL PRICE</div>
+          <div class="big" id="resultCurrentPrice">₹3,000</div>
+          <div class="small">origin: <span id="resultOriginDate">2024-01-31</span></div>
+          <div class="trend" id="resultOriginMandi">Burdwan · Common</div>
+        </div>
+        <div class="card stat">
+          <div class="eyebrow" id="resultPredictedTitle">PREDICTED PRICE</div>
+          <div class="big" id="resultPredictedPrice">₹3,003</div>
+          <div class="small">target: <span id="resultTargetDate">2024-02-14</span></div>
+          <div class="trend tone-good" id="resultPriceChange">+₹3.24 (+0.1%)</div>
+        </div>
+      </div>
+
+      <!-- Target Window Policy Notice -->
+      <div class="target-window-note" id="targetWindowNote">
+        <b>Target Window Policy:</b> <span id="targetWindowDesc">Next valid observation within 1–7 calendar days (14-Day Horizon: first eligible observation in [t + 14, t + 17] calendar days; 30-Day Horizon: first eligible observation in [t + 30, t + 33] calendar days).</span>
+      </div>
+
+      <!-- Historical Price Chart & Single Projected Point -->
+      <div class="card chart" style="margin-top:14px">
+        <div class="section-head" style="margin-bottom:6px">
+          <b style="font-size:13px">Price Trajectory &amp; Horizon Target</b>
+          <span class="small" id="chartRangeLabel">30-day history + target</span>
+        </div>
+        <div class="chartbox">
+          <svg viewBox="0 0 800 210" preserveAspectRatio="none" id="forecastSvg">
+            <defs>
+              <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#1C8449" stop-opacity="0.25"/>
+                <stop offset="100%" stop-color="#1C8449" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <line x1="45" y1="10" x2="45" y2="180" stroke="#DEE7DD"/><line x1="45" y1="180" x2="770" y2="180" stroke="#DEE7DD"/>
+            <path id="svgArea" d="M45,130 L160,125 L280,120 L400,105 L520,95 L640,80 L760,78 L760,180 L45,180 Z" fill="url(#chartGrad)"/>
+            <polyline id="svgHistoryLine" fill="none" stroke="#1C8449" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" points="45,130 160,125 280,120 400,105 520,95 640,80"/>
+            <polyline id="svgProjectionLine" fill="none" stroke="#2C5C86" stroke-width="3" stroke-dasharray="6 6" stroke-linecap="round" points="640,80 760,78"/>
+            <g id="svgDots">
+              <circle cx="640" cy="80" r="5" fill="#1C8449"/>
+              <circle cx="760" cy="78" r="7" fill="#2C5C86" stroke="#fff" stroke-width="2"/>
+            </g>
+            <text x="50" y="200" fill="#54685D" font-size="11" id="svgStartLabel">t - 30d</text>
+            <text x="615" y="200" fill="#1C8449" font-size="11" font-weight="700" id="svgOriginLabel">Origin</text>
+            <text x="725" y="200" fill="#2C5C86" font-size="11" font-weight="700" id="svgTargetLabel">Target</text>
+          </svg>
+        </div>
+        <div class="small" style="margin-top:6px">
+          Solid green line = genuine historical observations · Dashed blue line = single model horizon target. No artificial daily intermediate values are fabricated.
+        </div>
+      </div>
+
+      <!-- Volatility Reference Panel -->
+      <div class="card stat" style="margin-top:12px;padding:14px">
+        <div class="section-head" style="margin-bottom:4px">
+          <div class="eyebrow">VOLATILITY ASSESSMENT</div>
+          <span class="badge tone-caution" id="volatilityClassBadge">MEDIUM</span>
+        </div>
+        <div class="small" id="volatilityContextText">
+          Baseline 5-day historical volatility range: <strong>₹100.00 / quintal</strong>.
+        </div>
+        <p class="note" id="volatilityCaveat" style="margin:6px 0 0">
+          Note: Horizon models (14d and 30d) predict expected price levels only; volatility classifications represent the standard 5-observation short-term reference.
+        </p>
+      </div>
+
+      <!-- Model Governance & Limitations Card -->
+      <div class="governance-card">
+        <div class="section-head" style="margin-bottom:8px">
+          <b style="font-size:12.5px">Model Governance &amp; Metadata</b>
+          <span class="badge tone-neutral" id="govReleaseStatus">Production</span>
+        </div>
+        <div class="governance-row">
+          <span class="governance-label">Model Identifier</span>
+          <span class="governance-val" id="govModelName">rice-price-xgb</span>
+        </div>
+        <div class="governance-row">
+          <span class="governance-label">Model Version</span>
+          <span class="governance-val" id="govModelVersion">1.0.0</span>
+        </div>
+        <div class="governance-row">
+          <span class="governance-label">Evaluation Horizon</span>
+          <span class="governance-val" id="govHorizon">1–7 Calendar Days</span>
+        </div>
+        <div class="governance-row">
+          <span class="governance-label">Feature Pipeline</span>
+          <span class="governance-val">Frozen 48-Feature Engine</span>
+        </div>
+        <div style="margin-top:10px;font-size:11.5px;color:var(--ink-soft);line-height:1.5" id="govLimitations">
+          Frozen production XGBoost regressor for rice price forecasting in West Bengal mandis.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Overview Panel (Home) -->
+<section id="home" class="panel" role="tabpanel">
+  <div class="section">
+    <div class="card weather-card">
+      <div>
+        <div class="eyebrow" data-i18n="weatherNear">WEATHER NEAR YOU</div>
+        <div class="weather-temp">29°C <span aria-hidden="true">☁️</span></div>
+        <div class="small">Rain chance <b>20%</b> · Humidity 68%</div>
+      </div>
+      <div class="weather-icon" aria-hidden="true">🌤️</div>
+      <div class="weather-grid-wrap">
+        <div class="weather-grid">
+          <div class="weather-mini"><b>Today</b>🌤️ 29°</div>
+          <div class="weather-mini"><b>Tomorrow</b>☀️ 30°</div>
+          <div class="weather-mini"><b>Wed</b>⛅ 30°</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><h2 data-i18n="quickTools">Quick tools</h2></div>
+    <div class="quick-grid">
+      <button class="quick" onclick="switchTab('forecast')"><span class="qicon-wrap"><span class="qicon" aria-hidden="true">📈</span></span>Forecasts</button>
+      <button class="quick" onclick="switchTab('market')"><span class="qicon-wrap"><span class="qicon" aria-hidden="true">🏪</span></span>Mandi</button>
+      <button class="quick" onclick="openModal('profitModal')"><span class="qicon-wrap"><span class="qicon" aria-hidden="true">💰</span></span>Profit</button>
+      <button class="quick" onclick="switchTab('weather')"><span class="qicon-wrap"><span class="qicon" aria-hidden="true">🌧️</span></span>Weather</button>
+      <button class="quick" onclick="openModal('alertsModal')"><span class="qicon-wrap"><span class="qicon" aria-hidden="true">🔔</span></span>Alerts</button>
+    </div>
+  </div>
+</section>
+
+<!-- Market Panel -->
+<section id="market" class="panel" role="tabpanel">
+  <div class="section">
+    <div class="section-head"><h2>Nearby Mandi Observations</h2><span class="small">Modal price</span></div>
+    <div class="card mandi">
+      <div class="mandi-row mandi-head"><span>Mandi</span><span>Price</span><span>Variety</span></div>
+      <div class="mandi-row best-row"><span class="best">Burdwan ★</span><span class="best" id="mandiBurdwanPrice">₹3,000</span><span class="best">Common</span></div>
+      <div class="mandi-row"><span>Kalna</span><span>₹3,050</span><span>Common</span></div>
+      <div class="mandi-row"><span>Kalyani</span><span>₹2,980</span><span>Common</span></div>
+      <div class="mandi-row"><span>Bishnupur</span><span>₹2,950</span><span>Common</span></div>
+    </div>
+  </div>
+  <div class="section"><div class="card alert"><div class="aicon" aria-hidden="true">💡</div><div><b>Market tip</b><p>Always compare at least 2–3 nearby mandis and transport charges before choosing where to liquidate produce.</p></div></div></div>
+</section>
+
+<!-- Weather Panel -->
+<section id="weather" class="panel" role="tabpanel">
+  <div class="section"><div class="section-head"><h2>Weather &amp; farming alerts</h2><span class="small">7-day outlook</span></div>
+    <div class="card forecast-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px;padding:12px">
+      <div class="weather-mini"><div class="day">Today</div><div style="font-size:24px">🌤️</div><b>29°C</b><div class="small">20% rain</div></div>
+      <div class="weather-mini"><div class="day">Tue</div><div style="font-size:24px">☀️</div><b>30°C</b><div class="small">10% rain</div></div>
+      <div class="weather-mini"><div class="day">Wed</div><div style="font-size:24px">⛅</div><b>30°C</b><div class="small">25% rain</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Tools Panel -->
+<section id="tools" class="panel" role="tabpanel">
+  <div class="section"><div class="section-head"><h2>Farmer tools</h2></div>
+    <div class="quick-grid">
+      <button class="quick" onclick="openModal('profitModal')"><span class="qicon-wrap"><span class="qicon" aria-hidden="true">🧮</span></span>Profit calc</button>
+      <button class="quick" onclick="openModal('whatifModal')"><span class="qicon-wrap"><span class="qicon" aria-hidden="true">🔄</span></span>What-if</button>
+      <button class="quick" onclick="openModal('storageModal')"><span class="qicon-wrap"><span class="qicon" aria-hidden="true">📦</span></span>Storage tips</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- Bottom Navigation -->
+<nav class="bottom-nav" aria-label="Primary">
+  <button class="nav-btn active" data-nav="forecast" onclick="switchTab('forecast')"><span class="nav-icon" aria-hidden="true">📈</span><span class="nav-label" data-i18n="navPredict">Predict</span></button>
+  <button class="nav-btn" data-nav="home" onclick="switchTab('home')"><span class="nav-icon" aria-hidden="true">🏠</span><span class="nav-label" data-i18n="navHome">Home</span></button>
+  <button class="nav-btn" data-nav="market" onclick="switchTab('market')"><span class="nav-icon" aria-hidden="true">🏪</span><span class="nav-label" data-i18n="navMarket">Market</span></button>
+  <button class="nav-btn" data-nav="weather" onclick="switchTab('weather')"><span class="nav-icon" aria-hidden="true">🌦️</span><span class="nav-label" data-i18n="navWeather">Weather</span></button>
+  <button class="nav-btn" data-nav="tools" onclick="switchTab('tools')"><span class="nav-icon" aria-hidden="true">☰</span><span class="nav-label" data-i18n="navMore">More</span></button>
+</nav>
+
+<!-- Modals -->
+<div class="modal-bg" id="whyModal" onclick="outsideClose(event,'whyModal')"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="whyModalTitle">
+  <div class="sheet-handle"></div>
+  <div class="modal-head"><h2 id="whyModalTitle">Why this advice?</h2><button class="close" onclick="closeModal('whyModal')" aria-label="Close">×</button></div>
+  <div class="list" style="margin-top:12px;display:grid;gap:8px">
+    <div class="card rowcard"><div class="row"><b>Price Forecast</b><span class="tone-good">Steady</span></div><div class="small">Prices in West Bengal mandis are tracking close to recent historical medians.</div></div>
+    <div class="card rowcard"><div class="row"><b>Model Parity</b><span class="tone-good">Verified</span></div><div class="small">Inference pipeline matches the 48 training feature definitions exactly.</div></div>
+  </div>
+</div></div>
+
+<div class="modal-bg" id="profitModal" onclick="outsideClose(event,'profitModal')"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="profitModalTitle">
+  <div class="sheet-handle"></div>
+  <div class="modal-head"><h2 id="profitModalTitle">🧮 Profit calculator</h2><button class="close" onclick="closeModal('profitModal')" aria-label="Close">×</button></div>
+  <div style="margin-top:8px">
+    <div style="margin-bottom:12px"><label style="display:block;font-size:12px;font-weight:800;margin-bottom:4px">Area (acres)</label><input class="input" id="area" type="number" value="2" min="0" step=".1" oninput="calcProfit()"></div>
+    <div style="margin-bottom:12px"><label style="display:block;font-size:12px;font-weight:800;margin-bottom:4px">Expected Yield (q/acre)</label><input class="input" id="calcYield" type="number" value="21.6" min="0" step=".1" oninput="calcProfit()"></div>
+    <div style="margin-bottom:12px"><label style="display:block;font-size:12px;font-weight:800;margin-bottom:4px">Predicted Price (₹/quintal)</label><input class="input" id="calcPrice" type="number" value="3003" min="0" oninput="calcProfit()"></div>
+    <div style="margin-bottom:12px"><label style="display:block;font-size:12px;font-weight:800;margin-bottom:4px">Estimated Cost (₹)</label><input class="input" id="calcCost" type="number" value="28000" min="0" oninput="calcProfit()"></div>
+    <div style="background:var(--green-tint-2);border:1px solid #CDE6D4;border-radius:14px;padding:14px">
+      <div class="small">Estimated Production</div><b id="calcProd">43.2 quintals</b>
+      <div class="small" style="margin-top:8px">Estimated Gross Revenue</div><b id="calcRev">₹1,29,730</b>
+      <div class="small" style="margin-top:8px">Estimated Net Profit</div><div style="font-size:26px;font-weight:900;color:var(--green-700);font-family:var(--font-display)" id="calcProfitResult">₹1,01,730</div>
+    </div>
+  </div>
+</div></div>
+
+<div class="modal-bg" id="whatifModal" onclick="outsideClose(event,'whatifModal')"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="whatifModalTitle">
+  <div class="sheet-handle"></div>
+  <div class="modal-head"><h2 id="whatifModalTitle">🔄 What-if scenario</h2><button class="close" onclick="closeModal('whatifModal')" aria-label="Close">×</button></div>
+  <div style="margin-top:12px">
+    <p class="note">Assess how arrivals and rainfall affect expected mandi price realizations.</p>
+  </div>
+</div></div>
+
+<div class="modal-bg" id="storageModal" onclick="outsideClose(event,'storageModal')"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="storageModalTitle">
+  <div class="sheet-handle"></div>
+  <div class="modal-head"><h2 id="storageModalTitle">📦 Storage tips</h2><button class="close" onclick="closeModal('storageModal')" aria-label="Close">×</button></div>
+  <div style="margin-top:12px;display:grid;gap:8px">
+    <div class="card rowcard"><b>1. Maintain safe moisture levels</b><div class="small">Dry paddy below 14% moisture before bag storage.</div></div>
+    <div class="card rowcard"><b>2. Monitor pest activity</b><div class="small">Inspect bags every 10–14 days for heat spots or weevil signs.</div></div>
+  </div>
+</div></div>
+
+<div class="modal-bg" id="alertsModal" onclick="outsideClose(event,'alertsModal')"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="alertsModalTitle">
+  <div class="sheet-handle"></div>
+  <div class="modal-head"><h2 id="alertsModalTitle">🔔 My alerts</h2><button class="close" onclick="closeModal('alertsModal')" aria-label="Close">×</button></div>
+  <div style="margin-top:12px;display:grid;gap:8px">
+    <div class="card rowcard"><b>Horizon Alert</b><div class="small">14-day and 30-day models are available for rice mandi price planning.</div></div>
+  </div>
+</div></div>
+
+<div class="modal-bg" id="helpModal" onclick="outsideClose(event,'helpModal')"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="helpModalTitle">
+  <div class="sheet-handle"></div>
+  <div class="modal-head"><h2 id="helpModalTitle">❓ Help &amp; Model Guidance</h2><button class="close" onclick="closeModal('helpModal')" aria-label="Close">×</button></div>
+  <div style="margin-top:12px;display:grid;gap:8px">
+    <div class="card rowcard"><b>Short-Term (1–7 Days)</b><div class="small">Production XGBoost model trained on historical West Bengal price observations within a 1–7 day continuity constraint.</div></div>
+    <div class="card rowcard"><b>14-Day Calendar Horizon</b><div class="small">Independently evaluated XGBoost model targeting the first observation between day 14 and day 17.</div></div>
+    <div class="card rowcard"><b>30-Day Calendar Horizon</b><div class="small">Experimental model targeting the first observation between day 30 and day 33. Suitable for strategic guidance; interpret with caution in low-turnover mandis.</div></div>
+  </div>
+</div></div>
+
+<div class="modal-bg" id="settingsModal" onclick="outsideClose(event,'settingsModal')"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="settingsModalTitle">
+  <div class="sheet-handle"></div>
+  <div class="modal-head"><h2 id="settingsModalTitle">⚙️ Settings &amp; API Configuration</h2><button class="close" onclick="closeModal('settingsModal')" aria-label="Close">×</button></div>
+  <div style="margin-top:10px">
+    <div style="margin-bottom:12px">
+      <label style="display:block;font-size:12px;font-weight:800;margin-bottom:4px">Backend API URL</label>
+      <input class="input" id="apiUrlInput" value="http://127.0.0.1:8000" placeholder="http://127.0.0.1:8000">
+      <div class="small" style="margin-top:4px">Configure backend FastAPI server address. Default: http://127.0.0.1:8000</div>
+    </div>
+    <button class="primary" onclick="saveSettings()">Save Configuration</button>
+  </div>
+</div></div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+</div>
+
+<script>
+/* ============================================================
+   AgroVision — Frontend API Client & Horizon Logic
+   ============================================================ */
+
+const i18n = {
+  en:{
+    tagline:"Your crop. Your market. Your decision.",
+    greeting:"Namaste, Farmer 👋",
+    intro:"Simple, evidence-backed market information to help you decide when to harvest, sell or store.",
+    navHome:"Home",navMarket:"Market",navPredict:"Predict",navWeather:"Weather",navMore:"More",
+    tabHome:"Overview",tabMarket:"Market",tabForecast:"Predictions",tabWeather:"Weather",tabTools:"Tools",
+    todaysStatus:"Today's status",mandiPrice:"CURRENT MODAL PRICE",perQuintal:"per quintal",
+    expectedYield:"EXPECTED YIELD",perAcre:"per acre",overallRisk:"MARKET VOLATILITY",
+    weatherNear:"WEATHER NEAR YOU",quickTools:"Quick tools",
+    hearAdvice:"Hear today's advice",saveAdvice:"✓ Save advice",share:"↗ Share",why:"Why?",
+    cropTomato:"Tomato",cropPotato:"Potato",cropRice:"Rice (ধান)",cropWheat:"Wheat",cropOnion:"Onion"
+  },
+  hi:{
+    tagline:"आपकी फसल। आपका बाजार। आपका फैसला।",
+    greeting:"नमस्ते किसान 👋",
+    intro:"फसल बेचने, रखने या काटने का सही फैसला लेने में मदद।",
+    navHome:"होम",navMarket:"मंडी",navPredict:"अनुमान",navWeather:"मौसम",navMore:"और",
+    tabHome:"विवरण",tabMarket:"मंडी",tabForecast:"पूर्वानुमान",tabWeather:"मौसम",tabTools:"और",
+    todaysStatus:"आज की स्थिति",mandiPrice:"मौजूदा मंडी भाव",perQuintal:"प्रति क्विंटल",
+    expectedYield:"अनुमानित उपज",perAcre:"प्रति एकड़",overallRisk:"बाजार उतार-चढ़ाव",
+    weatherNear:"आपके यहां मौसम",quickTools:"जरूरी उपकरण",
+    hearAdvice:"आज की सलाह सुनें",saveAdvice:"✓ सलाह सहेजें",share:"↗ साझा करें",why:"क्यों?",
+    cropTomato:"टमाटर",cropPotato:"आलू",cropRice:"चावल (धान)",cropWheat:"गेहूं",cropOnion:"प्याज़"
+  }
+};
+let hindi = false;
+
+// API Base URL resolution:
+// Checks window global, localStorage, Vite environment convention, or current origin
+function getApiBaseUrl(){
+  if(window.__AGROVISION_API_BASE_URL__) return window.__AGROVISION_API_BASE_URL__;
+  const stored = localStorage.getItem('AGROVISION_API_BASE_URL');
+  if(stored) return stored;
+  if(window.location.origin && window.location.origin.startsWith('http') && !window.location.origin.includes(':5173') && !window.location.origin.includes(':3000')){
+    return window.location.origin;
+  }
+  return 'http://127.0.0.1:8000';
+}
+
+function setApiBaseUrl(url){
+  const clean = url.trim().replace(/\/+$/, '');
+  localStorage.setItem('AGROVISION_API_BASE_URL', clean);
+  window.__AGROVISION_API_BASE_URL__ = clean;
+  const input = $('apiUrlInput');
+  if(input) input.value = clean;
+  const hostLabel = $('apiHostLabel');
+  if(hostLabel) hostLabel.textContent = clean;
+  showToast('API URL updated: ' + clean);
+}
+
+// Current UI state
+let currentHorizon = 'short'; // 'short' (1-7d), '14' (14d), '30' (30d)
+let activeRequestId = 0;
+let activeAbortController = null;
+let cachedHistory = null;
+let cachedHistoryKey = '';
+
+function fmtINR(n){
+  if(n === null || n === undefined || isNaN(n)) return '₹0';
+  return '₹' + Math.round(n).toLocaleString('en-IN');
+}
+function $(id){ return document.getElementById(id); }
+
+function showToast(msg){
+  const t = $('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(window.__toastTimer);
+  window.__toastTimer = setTimeout(()=>t.classList.remove('show'), 2400);
+}
+
+function openModal(id){
+  const m = $(id); if(!m) return;
+  m.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(id){
+  const m = $(id); if(!m) return;
+  m.classList.remove('show');
+  document.body.style.overflow = '';
+}
+function outsideClose(e,id){ if(e.target.id===id) closeModal(id); }
+
+function switchTab(id){
+  ['home','market','forecast','weather','tools'].forEach(p=>{
+    const el = $(p); if(el) el.classList.toggle('active', p===id);
+  });
+  document.querySelectorAll('.tab').forEach(t=>{
+    const on = t.dataset.tab === id;
+    t.classList.toggle('active', on);
+    t.setAttribute('aria-selected', on ? 'true':'false');
+  });
+  document.querySelectorAll('.nav-btn').forEach(n=>n.classList.toggle('active', n.dataset.nav===id));
+}
+
+function toggleLanguage(){
+  hindi = !hindi;
+  const dict = hindi ? i18n.hi : i18n.en;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k = el.getAttribute('data-i18n');
+    if(dict[k] !== undefined) el.textContent = dict[k];
+  });
+  $('langBtn').textContent = hindi ? 'EN' : 'अ';
+  showToast(hindi ? 'हिन्दी मोड सक्रिय' : 'English mode active');
+}
+
+function selectHorizon(h){
+  if(currentHorizon === h) return;
+  currentHorizon = h;
+  $('btnHorizonShort').classList.toggle('active', h === 'short');
+  $('btnHorizon14').classList.toggle('active', h === '14');
+  $('btnHorizon30').classList.toggle('active', h === '30');
+
+  // Update banner
+  const banner = $('horizonBanner');
+  const bannerText = $('horizonBannerText');
+  if(h === 'short'){
+    banner.className = 'forecast-banner production';
+    bannerText.innerHTML = '<b>Production Baseline:</b> Predicting modal price to next valid reporting day within 1–7 calendar days using frozen 48-feature XGBoost regressor.';
+  } else if(h === '14'){
+    banner.className = 'forecast-banner opt-in';
+    bannerText.innerHTML = '<b>14-Day Calendar Horizon (Opt-In):</b> Direct 14-day forecast evaluated on 18,921 holdout observations. Validated across major varieties in West Bengal.';
+  } else if(h === '30'){
+    banner.className = 'forecast-banner experimental';
+    bannerText.innerHTML = '<b>⚠️ 30-Day Calendar Horizon (Experimental):</b> Strategic 30-day forecast. Evaluated on 18,746 observations. Interpret with caution in low-turnover mandis.';
+  }
+
+  fetchForecast();
+}
+
+function onCropChange(){
+  const crop = $('cropSelect').value;
+  const varietyRow = $('varietyRow');
+  if(varietyRow) varietyRow.style.display = (crop === 'Rice') ? 'grid' : 'none';
+  if(crop !== 'Rice'){
+    showToast('Multi-horizon ML model is currently active for Rice in West Bengal mandis.');
+  }
+  cachedHistory = null;
+  fetchForecast();
+}
+
+function onMandiChange(){
+  cachedHistory = null;
+  fetchForecast();
+}
+
+function onVarietyChange(){
+  cachedHistory = null;
+  fetchForecast();
+}
+
+// Fetch historical observations from the backend API (or fallback if offline)
+async function loadValidHistory(market, variety, signal){
+  const historyKey = `${market}__${variety}`;
+  if(cachedHistory && cachedHistoryKey === historyKey){
+    return cachedHistory;
+  }
+  const baseUrl = getApiBaseUrl();
+  const url = `${baseUrl}/history?market=${encodeURIComponent(market)}&variety=${encodeURIComponent(variety)}&limit=35`;
+  const resp = await fetch(url, { signal });
+  if(!resp.ok){
+    const errData = await resp.json().catch(()=>({detail: 'Failed to fetch history'}));
+    throw new Error(errData.detail || `History error HTTP ${resp.status}`);
+  }
+  const data = await resp.json();
+  if(!Array.isArray(data) || data.length < 30){
+    throw new Error(`Insufficient history: backend returned ${data ? data.length : 0} observations (minimum 30 required).`);
+  }
+  cachedHistory = data;
+  cachedHistoryKey = historyKey;
+  return data;
+}
+
+// Main Prediction Fetcher with race-condition / stale response protection
+async function fetchForecast(){
+  const reqId = ++activeRequestId;
+  if(activeAbortController){
+    activeAbortController.abort();
+  }
+  activeAbortController = new AbortController();
+  const signal = activeAbortController.signal;
+
+  const crop = $('cropSelect').value;
+  const market = $('mandiSelect').value;
+  const variety = $('varietySelect').value;
+  const horizon = currentHorizon;
+
+  // Show loading indicator, hide error and results
+  $('forecastLoading').style.display = 'block';
+  $('forecastError').style.display = 'none';
+  $('forecastResults').style.opacity = '0.4';
+  $('forecastStatusBadge').textContent = 'Loading...';
+  $('forecastStatusBadge').className = 'badge tone-neutral';
+
+  try {
+    // Step 1: Obtain genuine historical observations through backend interface
+    const history = await loadValidHistory(market, variety, signal);
+    const originDate = history[history.length - 1].reported_date;
+    $('originDateDisplay').textContent = originDate;
+
+    // Step 2: Route request according to selected horizon
+    const baseUrl = getApiBaseUrl();
+    let url, payload;
+
+    if(horizon === 'short'){
+      url = `${baseUrl}/predict`;
+      payload = {
+        market: market,
+        variety: variety,
+        prediction_date: originDate,
+        history: history,
+        volatility_version: 'v1'
+      };
+    } else {
+      url = `${baseUrl}/predict-horizon`;
+      payload = {
+        market: market,
+        variety: variety,
+        prediction_date: originDate,
+        horizon_days: parseInt(horizon, 10),
+        history: history
+      };
+    }
+
+    const resp = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      signal: signal
+    });
+
+    if(!resp.ok){
+      const errJson = await resp.json().catch(()=>({detail: 'Server response ' + resp.status}));
+      const msg = errJson.detail || `HTTP ${resp.status}`;
+      const err = new Error(msg);
+      err.status = resp.status;
+      throw err;
+    }
+
+    const result = await resp.json();
+
+    // Stale check: ignore out-of-order responses
+    if(reqId !== activeRequestId) return;
+
+    renderSuccess(result, horizon, history);
+
+  } catch(err) {
+    if(err.name === 'AbortError') return; // Cancelled by newer request
+    if(reqId !== activeRequestId) return;
+    renderError(err, horizon);
+  } finally {
+    if(reqId === activeRequestId){
+      $('forecastLoading').style.display = 'none';
+      $('forecastResults').style.opacity = '1';
+    }
+  }
+}
+
+function renderSuccess(result, horizon, history){
+  $('forecastError').style.display = 'none';
+  $('forecastStatusBadge').textContent = horizon === '30' ? 'Experimental' : horizon === '14' ? 'Opt-In' : 'Production';
+  $('forecastStatusBadge').className = 'badge ' + (horizon === '30' ? 'tone-caution' : 'tone-good');
+
+  const curPrice = result.current_modal_price || (history[history.length - 1] ? history[history.length - 1].modal_price : 3000.0);
+  const predPrice = result.predicted_modal_price;
+  const change = (result.predicted_price_change !== undefined) ? result.predicted_price_change : (predPrice - curPrice);
+  const changePct = curPrice > 0 ? ((change / curPrice) * 100).toFixed(1) : '0.0';
+  const originDate = result.forecast_origin_date || result.prediction_date;
+  const targetDate = result.requested_target_date || (horizon === '14' ? addDays(originDate, 14) : horizon === '30' ? addDays(originDate, 30) : 'Next 1–7d');
+
+  // Update primary overview stats
+  $('todayPrice').textContent = fmtINR(curPrice);
+  $('futurePrice').textContent = fmtINR(predPrice);
+  $('overviewHorizonLabel').textContent = horizon === '30' ? '30-DAY FORECAST' : horizon === '14' ? '14-DAY FORECAST' : '1–7 DAY FORECAST';
+  $('overviewHorizonDays').textContent = horizon === '30' ? 'in ~30 calendar days' : horizon === '14' ? 'in ~14 calendar days' : 'next valid observation';
+
+  const ft = $('futureTrend');
+  if(change > 0){
+    ft.textContent = `▲ +₹${change.toFixed(2)} (+${changePct}%)`;
+    ft.className = 'trend tone-good';
+  } else if(change < 0){
+    ft.textContent = `▼ -₹${Math.abs(change).toFixed(2)} (${changePct}%)`;
+    ft.className = 'trend tone-alert';
+  } else {
+    ft.textContent = `₹0.00 (Unchanged)`;
+    ft.className = 'trend';
+  }
+
+  // Update Prediction Panel Results
+  $('resultCurrentPrice').textContent = fmtINR(curPrice);
+  $('resultOriginDate').textContent = originDate;
+  $('resultOriginMandi').textContent = `${result.market} · ${result.variety}`;
+
+  $('resultPredictedTitle').textContent = horizon === '30' ? 'PREDICTED PRICE (30D)' : horizon === '14' ? 'PREDICTED PRICE (14D)' : 'PREDICTED PRICE (1–7D)';
+  $('resultPredictedPrice').textContent = fmtINR(predPrice);
+  $('resultTargetDate').textContent = targetDate;
+
+  const rpc = $('resultPriceChange');
+  if(change > 0){
+    rpc.textContent = `▲ +₹${change.toFixed(2)} (+${changePct}%) projected`;
+    rpc.className = 'trend tone-good';
+  } else if(change < 0){
+    rpc.textContent = `▼ -₹${Math.abs(change).toFixed(2)} (${changePct}%) projected`;
+    rpc.className = 'trend tone-alert';
+  } else {
+    rpc.textContent = `₹0.00 (Projected steady)`;
+    rpc.className = 'trend';
+  }
+
+  // Target window policy
+  const winDesc = $('targetWindowDesc');
+  if(result.target_date_convention){
+    winDesc.textContent = result.target_date_convention + '. Requested target date is an anchor, not a guarantee of reporting date.';
+  } else {
+    winDesc.textContent = 'Next valid observation within 1–7 calendar days continuity constraint.';
+  }
+
+  // Volatility
+  if(result.predicted_volatility_class){
+    $('volatilityClassBadge').textContent = result.predicted_volatility_class;
+    const vTone = result.predicted_volatility_class === 'LOW' ? 'tone-good' : result.predicted_volatility_class === 'HIGH' ? 'tone-alert' : 'tone-caution';
+    $('volatilityClassBadge').className = 'badge ' + vTone;
+    $('volatilityContextText').innerHTML = `5-day historical volatility range: <strong>₹${(result.predicted_volatility_range || 100).toFixed(2)} / quintal</strong>.`;
+  }
+
+  // Governance metadata
+  $('govModelName').textContent = result.model_name || 'rice-price-xgb';
+  $('govModelVersion').textContent = result.model_version || '1.0.0';
+  $('govHorizon').textContent = horizon === '30' ? '30 Calendar Days' : horizon === '14' ? '14 Calendar Days' : '1–7 Calendar Days';
+  $('govReleaseStatus').textContent = result.release_status || (horizon === '30' ? 'Experimental' : horizon === '14' ? 'Opt-In' : 'Production');
+  $('govReleaseStatus').className = 'badge ' + (horizon === '30' ? 'tone-caution' : 'tone-good');
+  $('govLimitations').textContent = result.limitations || 'Frozen production XGBoost regressor for rice price forecasting in West Bengal mandis.';
+
+  // Draw chart
+  renderChart(history, curPrice, predPrice, horizon);
+
+  // Update profit calculator default
+  const calcP = $('calcPrice');
+  if(calcP) { calcP.value = Math.round(predPrice); calcProfit(); }
+}
+
+function renderError(err, horizon){
+  $('forecastError').style.display = 'block';
+  $('forecastStatusBadge').textContent = 'Unavailable';
+  $('forecastStatusBadge').className = 'badge tone-alert';
+
+  const titleEl = $('errorTitle');
+  const msgEl = $('errorMsg');
+
+  if(err.status === 503){
+    titleEl.textContent = 'Forecasting Horizon Disabled (HTTP 503)';
+    msgEl.innerHTML = `<strong>Operational Switch Inactive:</strong> ${err.message || 'Horizon forecasting is disabled by administrator configuration.'}<br><br>` +
+      `<em>To enable:</em> Start backend with <code>AGROVISION_ENABLE_HORIZON_FORECASTING=true</code> and <code>AGROVISION_ENABLE_HORIZON_${horizon.toUpperCase()}D=true</code>.`;
+  } else if(err.status === 400){
+    titleEl.textContent = 'Data Validation Notice (HTTP 400)';
+    msgEl.textContent = err.message || 'Insufficient historical observations for this market and variety.';
+  } else {
+    titleEl.textContent = 'Backend Connection Error';
+    msgEl.innerHTML = `Could not reach the AgroVision backend at <code>${getApiBaseUrl()}</code>.<br><br>` +
+      `Make sure the FastAPI server is running with: <code>uvicorn src.api:app --reload</code>.<br>` +
+      `You can also update the API URL in <a href="javascript:openModal('settingsModal')">Settings</a>.`;
+  }
+}
+
+function retryForecast(){
+  fetchForecast();
+}
+
+function addDays(dateStr, n){
+  try {
+    const d = new Date(dateStr);
+    d.setDate(d.getDate() + n);
+    return d.toISOString().split('T')[0];
+  } catch(e){
+    return `t + ${n}d`;
+  }
+}
+
+// Dynamic SVG Chart rendering
+function renderChart(history, curPrice, predPrice, horizon){
+  const obs = (history && history.length > 0) ? history.slice(-25) : [];
+  if(obs.length === 0) return;
+
+  const prices = obs.map(o => o.modal_price).concat([predPrice]);
+  const minP = Math.min(...prices) * 0.98;
+  const maxP = Math.max(...prices) * 1.02;
+  const range = (maxP - minP) || 1;
+
+  const chartW = 720;
+  const chartH = 160;
+  const topY = 20;
+  const botY = 175;
+
+  function toY(p){
+    const norm = (p - minP) / range;
+    return botY - (norm * (botY - topY));
+  }
+
+  // Generate historical points
+  const stepX = (chartW - 80) / (obs.length);
+  const pts = [];
+  obs.forEach((o, i)=>{
+    const x = 50 + (i * stepX);
+    const y = toY(o.modal_price);
+    pts.push({ x, y, p: o.modal_price, date: o.reported_date });
+  });
+
+  const lastHist = pts[pts.length - 1];
+  const targetX = 750;
+  const targetY = toY(predPrice);
+
+  const histLineStr = pts.map(p => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ');
+  const projLineStr = `${lastHist.x.toFixed(1)},${lastHist.y.toFixed(1)} ${targetX},${targetY.toFixed(1)}`;
+  const areaStr = `M45,${botY} L${pts[0].x.toFixed(1)},${pts[0].y.toFixed(1)} ` +
+    pts.map(p => `L${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ') +
+    ` L${targetX},${targetY.toFixed(1)} L${targetX},${botY} Z`;
+
+  $('svgHistoryLine').setAttribute('points', histLineStr);
+  $('svgProjectionLine').setAttribute('points', projLineStr);
+  $('svgArea').setAttribute('d', areaStr);
+
+  const dotsG = $('svgDots');
+  dotsG.innerHTML = `
+    <circle cx="${lastHist.x.toFixed(1)}" cy="${lastHist.y.toFixed(1)}" r="5" fill="#1C8449" />
+    <circle cx="${targetX}" cy="${targetY.toFixed(1)}" r="7" fill="${horizon==='30'?'#A96A0C':'#2C5C86'}" stroke="#fff" stroke-width="2"/>
+  `;
+
+  $('svgStartLabel').textContent = obs[0].reported_date.slice(5);
+  $('svgOriginLabel').textContent = obs[obs.length - 1].reported_date.slice(5);
+  $('svgTargetLabel').textContent = horizon === '30' ? '+30d' : horizon === '14' ? '+14d' : '+1–7d';
+}
+
+function saveSettings(){
+  const val = $('apiUrlInput').value;
+  setApiBaseUrl(val);
+  closeModal('settingsModal');
+  cachedHistory = null;
+  fetchForecast();
+}
+
+function calcProfit(){
+  const a = +$('area').value || 0;
+  const y = +$('calcYield').value || 0;
+  const p = +$('calcPrice').value || 0;
+  const c = +$('calcCost').value || 0;
+  const prod = a * y;
+  const rev = prod * p;
+  const profit = rev - c;
+  $('calcProd').textContent = prod.toFixed(1) + ' quintals';
+  $('calcRev').textContent = fmtINR(rev);
+  const pr = $('calcProfitResult');
+  pr.textContent = fmtINR(profit);
+  pr.style.color = profit < 0 ? 'var(--red)' : 'var(--green-700)';
+}
+
+function saveAdvice(){ showToast('Prediction and advice saved to local log.'); }
+function shareAdvice(){
+  const text = `AgroVision Rice Price Outlook: Current ${$('todayPrice').textContent}/q. ${$('overviewHorizonLabel').textContent}: ${$('futurePrice').textContent}/q. Market: ${$('mandiSelect').value}.`;
+  if(navigator.share){
+    navigator.share({ title: 'AgroVision Rice Forecast', text }).catch(()=>{});
+  } else if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(()=>showToast('Forecast copied to clipboard.')).catch(()=>showToast('Forecast copied.'));
+  } else {
+    showToast('Forecast copied.');
+  }
+}
+function speakAdvice(){
+  const text = `Today rice price in ${$('mandiSelect').value} is ${$('todayPrice').textContent} per quintal. Expected future price is ${$('futurePrice').textContent}. Price outlook is stable.`;
+  if('speechSynthesis' in window){
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = hindi ? 'hi-IN' : 'en-IN';
+    speechSynthesis.speak(u);
+    showToast('Reading advice aloud');
+  } else {
+    showToast('Voice output not supported on this device.');
+  }
+}
+
+// Initialization on DOM load
+document.addEventListener('DOMContentLoaded', function(){
+  const hostLabel = $('apiHostLabel');
+  if(hostLabel) hostLabel.textContent = getApiBaseUrl();
+  const input = $('apiUrlInput');
+  if(input) input.value = getApiBaseUrl();
+
+  calcProfit();
+  fetchForecast();
+});
+</script>
+</body>
+</html>

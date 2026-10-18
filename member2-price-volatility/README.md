@@ -40,6 +40,23 @@ Evaluated on the independent retrospective holdout period (2023-02-01 to 2024-02
 
 ---
 
+### 📅 Direct Calendar-Horizon Price Forecasting (14-Day & 30-Day Models)
+Evaluated on the independent retrospective holdout period (2023-02-01 to 2024-02-01):
+
+| Horizon | Model | Sample ($N$) | MAE (₹/qtl) | RMSE (₹/qtl) | $R^2$ Variance | MAPE (%) | $100 - \text{MAPE}$ (%) | Within $\pm ₹25$/qtl (%) |
+|---|---|---|---|---|---|---|---|---|
+| **14-Day** | **Tuned XGBoost 14d** | **18,921** | **₹59.87** | **141.01** | **0.9472** | **1.67%** | **98.33%** | **57.30%** |
+| | Persistence Baseline | 18,921 | ₹60.16 | 146.29 | 0.9432 | 1.68% | 98.32% | 57.80% |
+| **30-Day** | **Tuned XGBoost 30d** | **17,860** | **₹99.95** | **200.25** | **0.8940** | **2.76%** | **97.24%** | **42.57%** |
+| | Persistence Baseline | 17,860 | ₹99.50 | 204.52 | 0.8895 | 2.75% | 97.25% | 43.19% |
+
+> **Key Horizon Observations:**
+> - **14-Day Model**: Outperforms the persistence baseline on MAE (₹59.87 vs ₹60.16), RMSE (141.01 vs 146.29), and $R^2$ (0.9472 vs 0.9432).
+> - **30-Day Model**: At 1-month lookahead, outperforms persistence on RMSE (200.25 vs 204.52) and $R^2$ (0.8940 vs 0.8895).
+> - **Uncertainty Scaling**: Prediction errors naturally scale with forward calendar distance: 1-Day MAE = ₹15.75 $\to$ 14-Day MAE = ₹59.87 $\to$ 30-Day MAE = ₹99.95.
+
+---
+
 ### ⚡ Volatility Classification Accuracy (5-Observation Forward Horizon)
 Evaluated on the held-out retrospective benchmark (2023-01-27 to 2024-01-27, $N = 20,336$ paired observations):
 
@@ -73,8 +90,10 @@ Evaluated on the held-out retrospective benchmark (2023-01-27 to 2024-01-27, $N 
 | Leakage prevention & mathematical parity verification | ✅ Completed (< 1e-5 feature difference) |
 | Model export & versioned artifact persistence | ✅ Completed (`rice_price_model.pkl` & `rice_volatility_normalized_model.pkl`) |
 | Versioned inference pipeline & dual-path routing | ✅ Completed (Default `v1` + Opt-in `v2_normalized`) |
-| FastAPI & AgroVision bridge integration | ✅ Completed (`/health`, `/predict`, `predict_price`) |
-| Comprehensive test suite & pre-commit audit | ✅ Completed (**58/58 tests passing**, git diff clean) |
+| FastAPI & AgroVision bridge integration | ✅ Completed (`/health`, `/predict`, `predict_price`, `predict_price_horizon`) |
+| Direct 14-Day & 30-Day price forecasting models | ✅ Completed (`rice_price_model_14d.pkl` & `rice_price_model_30d.pkl`) |
+| Horizon inference & POST /predict-horizon API | ✅ Completed (isolated, backward-compatible) |
+| Comprehensive test suite & pre-commit audit | ✅ Completed (**75/75 tests passing**, git diff clean) |
 
 ---
 
@@ -522,7 +541,8 @@ The entire automated test suite passes with **zero failures**:
 | Price Parity Tests | `tests/test_training_inference_parity.py` | 2 | ✅ PASS | Training vs inference price parity |
 | Volatility Experiments | `tests/test_volatility_experiments.py` | 6 | ✅ PASS | Purging, target definitions |
 | Normalized Volatility | `tests/test_volatility_normalized.py` | 8 | ✅ PASS | Parity, leakage, v2 schema, bridge |
-| **Total** | **9 Test Files** | **58/58** | ✅ **ALL PASS** | **Execution time: ~107s** |
+| 14d & 30d Price Horizons | `tests/test_price_horizons_14d_30d.py` | 17 | ✅ PASS | Direct 14d/30d targets, tolerance, purge, API |
+| **Total** | **10 Test Files** | **75/75** | ✅ **ALL PASS** | **Execution time: ~115s** |
 
 ---
 
@@ -613,3 +633,134 @@ curl -X POST "http://127.0.0.1:8000/predict" \
 - **XGBoost**
 - **FastAPI & Pydantic**
 - **Pytest**
+
+---
+
+## 32. Direct 14-Day and 30-Day Calendar Price Forecasting (Opt-in & Experimental)
+
+### 32.1 Overview & Architecture
+Direct calendar-horizon modal price forecasting predicts rice modal prices at $+14$ and $+30$ calendar days from a given forecast origin date $t$.
+- **Target Convention:** For forecast origin $t$, selects the first valid observation in $[t + H, t + H + 3]$ calendar days within the same `(Market Name, Variety)`.
+  $$\text{future\_price\_change\_Hd} = \text{future\_modal\_price\_Hd} - \text{origin\_modal\_price}$$
+- **Model Architecture:** Two independent XGBoost regressors trained on the frozen 48 point-in-time features with strict chronological partitioning and temporal purging.
+- **Safety Guarantee:** The original 1–7 day production model (`artifacts/rice_price_model.pkl`) remains frozen, untouched, and active as the default prediction engine.
+
+### 32.2 Release Policy & Evaluation Benchmarks (Feb 2023 – Feb 2024 Holdout)
+
+| Horizon | Artifact | Release Policy | Model MAE | Persistence MAE | Model RMSE | Persistence RMSE | Model $R^2$ | Within $\pm ₹25$ |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **14-Day** | `rice_price_model_14d.pkl` | **Opt-in Production** | **₹59.87** | ₹60.16 | **₹141.01** | ₹146.29 | **0.9472** | 57.30% |
+| **30-Day** | `rice_price_model_30d.pkl` | **Experimental** | ₹99.95 | **₹99.50** | **₹200.25** | ₹204.52 | **0.8940** | 42.57% |
+
+#### Evaluation Caveats & Operational Guidance:
+- **14-Day Horizon (Opt-in):** Outperforms the persistence baseline across MAE, RMSE, and $R^2$. Evaluated across major varieties (Fine, Common, Super Fine). Recommended for opt-in production release.
+- **30-Day Horizon (Experimental):** On days when prices actually move ($60.34\%$ of observations), the model substantially beats persistence (MAE ₹161.45 vs ₹164.91, RMSE ₹257.07 vs ₹263.30). However, on flat/zero-movement days ($39.66\%$), persistence has zero error, giving it a 45 paise overall MAE advantage. The 30-day model provides variance and shock reduction, but is released as **experimental opt-in** and must not be used as the default.
+
+### 32.3 API Schema & Endpoints
+
+#### Endpoint: `POST /predict-horizon`
+**Request Schema (`PredictHorizonRequest`):**
+```json
+{
+  "market": "Burdwan",
+  "variety": "Common",
+  "prediction_date": "2024-02-04",
+  "horizon_days": 14,
+  "history": [
+    {
+      "reported_date": "2024-01-01",
+      "modal_price": 2500.0,
+      "arrivals": 120.0
+    }
+  ]
+}
+```
+
+**Response Schema (`PredictHorizonResponse`):**
+```json
+{
+  "market": "Burdwan",
+  "variety": "Common",
+  "prediction_date": "2024-02-04",
+  "forecast_origin_date": "2024-02-04",
+  "horizon_days": 14,
+  "requested_target_date": "2024-02-18",
+  "current_modal_price": 2670.0,
+  "predicted_modal_price": 2696.28,
+  "predicted_price_change": 26.28,
+  "target_date_convention": "First observation in [t + 14, t + 17] calendar days within Market + Variety",
+  "model_name": "rice-price-xgb-14d",
+  "model_version": "1.0.0",
+  "release_status": "opt-in",
+  "limitations": "Opt-in release. Evaluated on 18,921 holdout observations...",
+  "horizon_metadata": {
+    "max_tolerance_days": 3,
+    "train_period": ["2002-05-28", "2021-01-31"],
+    "holdout_benchmark": { ... }
+  }
+}
+```
+
+### 32.4 Operational Controls & Environment Switches
+Admins can toggle horizon forecasting without code changes:
+- `AGROVISION_ENABLE_HORIZON_FORECASTING`: Master switch (`true` / `false`, default: `false` in fresh installations for strict opt-in safety).
+- `AGROVISION_ENABLE_HORIZON_14D`: 14-day model switch (`true` / `false`, default: `false`).
+- `AGROVISION_ENABLE_HORIZON_30D`: 30-day model switch (`true` / `false`, default: `false`).
+
+When disabled, `POST /predict-horizon` immediately responds with **HTTP 503 Service Unavailable** with an explicit error message, while the core `POST /predict` endpoint continues serving unhindered.
+
+### 32.5 Observability & Health Endpoints
+- **Horizon Health:** `GET /health/horizons` — reports artifact existence, switch statuses, and readiness.
+- **Horizon Metrics:** `GET /metrics/horizons` — reports request counts, success rates, latencies, and error categories.
+
+### 32.6 Rollback Procedure
+If operational or prediction anomalies occur in production with the horizon models:
+1. **Disable 30-day model only:** Set `AGROVISION_ENABLE_HORIZON_30D=false`.
+2. **Disable all horizon models:** Set `AGROVISION_ENABLE_HORIZON_FORECASTING=false`.
+3. **Verify core service:** Confirm that `GET /health` and `POST /predict` continue serving default 1–7 day predictions without interruption.
+
+---
+
+## 33. Live Shadow-Mode Evaluation Architecture (Section 33)
+
+To safely benchmark the newly introduced 14-day and 30-day horizon forecasting models against real upcoming mandi observations without exposing experimental forecasts to clients or altering core production decisions, AgroVision-ML includes an isolated **Live Shadow-Mode Evaluation Engine**.
+
+### 33.1 Architecture Overview
+- **Zero Client Impact:** Shadow evaluation runs in the background using an internal SQLite WAL database (`data/processed/shadow_evaluation.db`). Client-facing endpoints (`POST /predict-horizon`) can remain closed (`503 Service Unavailable`) while shadow forecasting continues internally.
+- **Point-in-Time Generation:** Forecasts are generated strictly using historical records $\le t_{\text{origin}}$, guaranteeing zero temporal lookahead leakage.
+- **Deterministic Idempotency:** Every forecast receives a unique hash `sha256(market|variety|origin_date|horizon|version)[:16]`. Repeated batch runs skip existing records.
+- **Delayed Outcome Matching:** Observations arriving weeks later are matched against pending forecasts within their target window $[t + H, t + H + 3]$ calendar days. If the window closes without an observation, status is marked `TARGET_UNAVAILABLE`.
+- **Honest Comparative Metrics:** Every evaluated prediction is automatically paired against a persistence baseline on the exact same row, broken down by overall data, flat markets, and movement markets.
+
+### 33.2 Environment Controls
+- `AGROVISION_ENABLE_SHADOW_EVALUATION`: Master shadow evaluation switch (`true` / `false`, default: `false`).
+- `AGROVISION_SHADOW_DB_PATH`: Custom path to SQLite evaluation database (default: `data/processed/shadow_evaluation.db`).
+
+### 33.3 Shadow Evaluation CLI Runner
+The platform provides a unified CLI runner at `experiments/run_shadow_evaluation.py`:
+
+```bash
+# 1. Ingest newly arrived mandi observations from a CSV file
+python member2-price-volatility/experiments/run_shadow_evaluation.py --ingest data/raw/rice_daily_mandi.csv
+
+# 2. Generate point-in-time shadow forecasts for today's origin date
+python member2-price-volatility/experiments/run_shadow_evaluation.py --generate
+
+# 3. Match pending forecasts against subsequently arrived observations
+python member2-price-volatility/experiments/run_shadow_evaluation.py --evaluate
+
+# 4. View detailed comparative performance summary
+python member2-price-volatility/experiments/run_shadow_evaluation.py --report
+
+# 5. Run end-to-end self-contained demonstration
+python member2-price-volatility/experiments/run_shadow_evaluation.py --demo
+```
+
+### 33.4 API Observability Routes
+- `GET /shadow/status`: Returns current shadow evaluation database path, switch status, and counts of pending, evaluated, and unavailable forecasts.
+- `GET /shadow/metrics?horizon_days=14`: Returns detailed comparative performance metrics (MAE, RMSE, $R^2$, MAPE, tolerance band, quantiles, and movement breakdown) against the persistence baseline.
+
+### 33.5 Promotion & Rollback Criteria
+- **14-Day Model Promotion:** Requires $\ge 500$ shadow evaluations across $\ge 10$ mandis, with overall MAE $\le$ Persistence MAE and movement-day MAE outperforming Persistence by $\ge 3\%$.
+- **30-Day Model Promotion:** Retains `experimental` status; requires $\ge 1000$ evaluations with movement RMSE outperforming Persistence by $\ge 4\%$.
+- **Automatic Rollback:** Roll back to disabled if shadow MAE exceeds persistence by $> 5\%$ over any rolling 30-day window ($N \ge 50$) or if single forecast error exceeds ₹500/quintal.

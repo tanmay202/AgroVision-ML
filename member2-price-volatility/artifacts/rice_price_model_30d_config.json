@@ -1,0 +1,130 @@
+{
+  "commodity": "rice",
+  "horizon_days": 30,
+  "max_tolerance_days": 3,
+  "target": "future_price_change_30d = future_modal_price_30d - current_modal_price",
+  "target_date_convention": "First observation in [t + 30, t + 33] calendar days within Market + Variety",
+  "features": [
+    "lag_1",
+    "lag_7",
+    "lag_14",
+    "lag_30",
+    "rolling_mean_7",
+    "rolling_mean_14",
+    "rolling_mean_30",
+    "rolling_std_7",
+    "rolling_std_14",
+    "year",
+    "day",
+    "month",
+    "day_of_week",
+    "week_of_year",
+    "arrival_lag_1",
+    "arrival_lag_7",
+    "arrival_rolling_mean_7",
+    "arrival_rolling_mean_14",
+    "price_pct_change",
+    "arrival_pct_change",
+    "price_change_1",
+    "price_change_7",
+    "price_change_14",
+    "accel_1_7",
+    "accel_1_14",
+    "trend_slope_7",
+    "trend_slope_14",
+    "trend_slope_30",
+    "ewma_7",
+    "ewma_14",
+    "ewma_30",
+    "rolling_median_7",
+    "rolling_median_14",
+    "rolling_median_30",
+    "gap_mean_7",
+    "gap_mean_14",
+    "zscore_7",
+    "zscore_14",
+    "move_count_7",
+    "move_count_14",
+    "move_count_30",
+    "pos_count_7",
+    "neg_count_7",
+    "streak_zero",
+    "streak_pos",
+    "streak_neg",
+    "last_non_zero_move",
+    "last_move_abs"
+  ],
+  "hyperparameters": {
+    "n_estimators": 1000,
+    "max_depth": 5,
+    "learning_rate": 0.05,
+    "min_child_weight": 3,
+    "subsample": 1.0,
+    "colsample_bytree": 0.85,
+    "gamma": 0,
+    "reg_alpha": 1,
+    "reg_lambda": 1,
+    "objective": "reg:pseudohubererror",
+    "random_state": 42,
+    "tree_method": "hist",
+    "n_jobs": -1
+  },
+  "train_period": [
+    "2002-05-28",
+    "2021-01-31"
+  ],
+  "validation_period": [
+    "2021-02-01",
+    "2023-01-31"
+  ],
+  "final_holdout_period": [
+    "2023-02-01",
+    "2024-02-01"
+  ],
+  "temporal_purge": {
+    "train_purged_rows": 1191,
+    "val_purged_rows": 1230,
+    "train_cutoff": "2021-01-01",
+    "val_cutoff": "2023-01-01"
+  },
+  "validation_metrics": {
+    "model": {
+      "N": 35758,
+      "MAE": 109.22,
+      "RMSE": 604.05,
+      "R2": 0.733,
+      "MAPE": 3.35,
+      "100_minus_MAPE": 96.65,
+      "Within_25_qtl": 42.48
+    },
+    "baseline": {
+      "N": 35758,
+      "MAE": 109.99,
+      "RMSE": 608.04,
+      "R2": 0.7295,
+      "MAPE": 3.37,
+      "100_minus_MAPE": 96.63,
+      "Within_25_qtl": 43.48
+    }
+  },
+  "holdout_benchmark": {
+    "model": {
+      "N": 17860,
+      "MAE": 99.95,
+      "RMSE": 200.25,
+      "R2": 0.894,
+      "MAPE": 2.76,
+      "100_minus_MAPE": 97.24,
+      "Within_25_qtl": 42.57
+    },
+    "baseline": {
+      "N": 17860,
+      "MAE": 99.5,
+      "RMSE": 204.52,
+      "R2": 0.8895,
+      "MAPE": 2.75,
+      "100_minus_MAPE": 97.25,
+      "Within_25_qtl": 43.19
+    }
+  }
+}

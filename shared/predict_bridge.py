@@ -204,6 +204,10 @@ class AgroVisionPredictor:
                 "market", "variety", "prediction_date",
                 "volatility_version", "normalized_volatility_class",
                 "normalized_volatility_probabilities", "historical_pct_range_5",
+                "horizon_days", "current_modal_price", "predicted_price_change",
+                "target_date_convention", "model_name", "horizon_metadata",
+                "forecast_origin_date", "requested_target_date", "model_version",
+                "release_status", "limitations",
             ):
                 if k in res:
                     out[k] = res[k]
@@ -216,6 +220,22 @@ class AgroVisionPredictor:
                 "volatility": raw["volatility"],
                 "commodity": raw["commodity"],
             }
+
+    def predict_price_horizon(
+        self,
+        data_df,
+        horizon_days: int = 14,
+        commodity: str = "rice",
+        **kwargs
+    ) -> dict:
+        """
+        Direct calendar-horizon price forecasting (14 or 30 days) for rice.
+        """
+        comm = str(commodity).strip().lower()
+        if comm != "rice":
+            raise NotImplementedError(f"Horizon forecasting currently supported for 'rice', received '{comm}'")
+        self._load_rice()
+        return self._rice_pipeline.predict_horizon(data_df, horizon_days=horizon_days, **kwargs)
 
     def predict_all(self, data_df, commodity: str = "tea", yield_input: Optional[dict] = None) -> dict:
         """

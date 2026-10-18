@@ -1,0 +1,84 @@
+{
+  "commodity": "rice",
+  "volatility_version": "v2_normalized",
+  "target_name": "future_pct_range_class",
+  "volatility_definition": "percentage range of next 5 observations: (max - min) / price_t * 100",
+  "volatility_window": 5,
+  "classes": [
+    "LOW",
+    "MEDIUM",
+    "HIGH"
+  ],
+  "thresholds": {
+    "low_medium_threshold": 0.014286,
+    "medium_high_threshold": 1.960784,
+    "derivation": "derived strictly from training set (<= 0.014286% is flat/LOW, non-zero median 1.960784% splits MEDIUM/HIGH)"
+  },
+  "features": [
+    "past_5_range",
+    "past_5_pct_range",
+    "past_10_range",
+    "past_10_pct_range",
+    "past_20_range",
+    "past_20_pct_range",
+    "rolling_std_5",
+    "rolling_std_7",
+    "rolling_std_14",
+    "rolling_std_30",
+    "rolling_std_pct_5",
+    "rolling_std_pct_14",
+    "pct_change_1",
+    "pct_change_2",
+    "pct_change_5",
+    "abs_pct_change_1",
+    "abs_pct_change_5",
+    "ewma_abs_diff_5",
+    "ewma_abs_diff_14",
+    "ewma_pct_vol_5",
+    "ewma_pct_vol_14",
+    "vol_trend_5_10",
+    "vol_pct_trend_5_10",
+    "vol_std_ratio_5_14",
+    "nonzero_moves_5",
+    "nonzero_moves_10",
+    "streak_zero",
+    "max_daily_pct_jump_5",
+    "price_level",
+    "price_to_mean_7",
+    "month",
+    "day_of_week",
+    "week_of_year",
+    "arrival_lag_1",
+    "arrival_rolling_mean_7"
+  ],
+  "feature_count": 35,
+  "model_architecture": {
+    "type": "XGBClassifier",
+    "objective": "multi:softprob",
+    "weight_strategy": "balanced",
+    "n_estimators": 250,
+    "max_depth": 4,
+    "learning_rate": 0.05
+  },
+  "walk_forward_validation_summary": {
+    "mean_macro_f1": 0.6066,
+    "mean_balanced_accuracy": 0.6147,
+    "mean_accuracy": 0.6746,
+    "mean_high_recall": 0.468,
+    "baseline_mean_macro_f1": 0.5832,
+    "baseline_mean_balanced_acc": 0.5833
+  },
+  "retrospective_holdout_summary": {
+    "accuracy": 0.6825,
+    "macro_f1": 0.6247,
+    "balanced_accuracy": 0.632,
+    "high_recall": 0.5562,
+    "baseline_accuracy": 0.6708,
+    "baseline_macro_f1": 0.6021,
+    "mcnemar_significance": {
+      "chi2": 18.6113,
+      "p_value": 1.6026506019617415e-05,
+      "statistically_significant": true
+    }
+  }
+}

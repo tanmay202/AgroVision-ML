@@ -347,3 +347,107 @@ VOLATILITY_REVERSE_LABEL_MAP = {
 }
 
 VOLATILITY_CLASSES = ["LOW", "MEDIUM", "HIGH"]
+
+
+# ============================================================
+# HORIZON FORECASTING & SHADOW EVALUATION RELEASE CONTROLS
+# ============================================================
+
+_HORIZON_FORECASTING_ENABLED_OVERRIDE = None
+_HORIZON_14D_ENABLED_OVERRIDE = None
+_HORIZON_30D_ENABLED_OVERRIDE = None
+_SHADOW_EVALUATION_ENABLED_OVERRIDE = None
+
+
+def is_horizon_forecasting_enabled() -> bool:
+    """
+    Master switch for user-facing 14d and 30d horizon forecasting API.
+
+    Deployment Policy:
+    Disabled by default ('false') in fresh installations to ensure strict opt-in semantics.
+    Operators must explicitly set AGROVISION_ENABLE_HORIZON_FORECASTING=true to expose
+    horizon forecasting to API clients.
+    """
+    if _HORIZON_FORECASTING_ENABLED_OVERRIDE is not None:
+        return _HORIZON_FORECASTING_ENABLED_OVERRIDE
+    val = os.environ.get("AGROVISION_ENABLE_HORIZON_FORECASTING", "false").strip().lower()
+    return val in ("true", "1", "yes", "on")
+
+
+def is_horizon_14d_enabled() -> bool:
+    """
+    Individual switch for 14-day horizon forecasting.
+    Requires master horizon switch to be active for public API routing.
+    Disabled by default in fresh installations ('false').
+    """
+    if _HORIZON_14D_ENABLED_OVERRIDE is not None:
+        return _HORIZON_14D_ENABLED_OVERRIDE
+    val = os.environ.get("AGROVISION_ENABLE_HORIZON_14D", "false").strip().lower()
+    return val in ("true", "1", "yes", "on")
+
+
+def is_horizon_30d_enabled() -> bool:
+    """
+    Individual switch for experimental 30-day horizon forecasting.
+    Requires master horizon switch to be active for public API routing.
+    Disabled by default in fresh installations ('false').
+    """
+    if _HORIZON_30D_ENABLED_OVERRIDE is not None:
+        return _HORIZON_30D_ENABLED_OVERRIDE
+    val = os.environ.get("AGROVISION_ENABLE_HORIZON_30D", "false").strip().lower()
+    return val in ("true", "1", "yes", "on")
+
+
+def is_shadow_evaluation_enabled() -> bool:
+    """
+    Operational switch for background shadow-mode forecast generation and delayed evaluation.
+
+    Can run independently of user-facing API availability.
+    Disabled by default in fresh installations ('false').
+    Operators must explicitly set AGROVISION_ENABLE_SHADOW_EVALUATION=true to activate.
+    """
+    if _SHADOW_EVALUATION_ENABLED_OVERRIDE is not None:
+        return _SHADOW_EVALUATION_ENABLED_OVERRIDE
+    val = os.environ.get("AGROVISION_ENABLE_SHADOW_EVALUATION", "false").strip().lower()
+    return val in ("true", "1", "yes", "on")
+
+
+def set_horizon_forecasting_enabled(enabled: bool) -> None:
+    """Programmatically override master horizon forecasting switch (for testing/runtime toggling)."""
+    global _HORIZON_FORECASTING_ENABLED_OVERRIDE
+    _HORIZON_FORECASTING_ENABLED_OVERRIDE = bool(enabled)
+
+
+def set_horizon_14d_enabled(enabled: bool) -> None:
+    """Programmatically override 14-day horizon switch."""
+    global _HORIZON_14D_ENABLED_OVERRIDE
+    _HORIZON_14D_ENABLED_OVERRIDE = bool(enabled)
+
+
+def set_horizon_30d_enabled(enabled: bool) -> None:
+    """Programmatically override 30-day horizon switch."""
+    global _HORIZON_30D_ENABLED_OVERRIDE
+    _HORIZON_30D_ENABLED_OVERRIDE = bool(enabled)
+
+
+def set_shadow_evaluation_enabled(enabled: bool) -> None:
+    """Programmatically override shadow evaluation switch."""
+    global _SHADOW_EVALUATION_ENABLED_OVERRIDE
+    _SHADOW_EVALUATION_ENABLED_OVERRIDE = bool(enabled)
+
+
+def reset_horizon_forecasting_switches() -> None:
+    """Reset programmatic overrides to defer to environment variables."""
+    global _HORIZON_FORECASTING_ENABLED_OVERRIDE, _HORIZON_14D_ENABLED_OVERRIDE, _HORIZON_30D_ENABLED_OVERRIDE, _SHADOW_EVALUATION_ENABLED_OVERRIDE
+    _HORIZON_FORECASTING_ENABLED_OVERRIDE = None
+    _HORIZON_14D_ENABLED_OVERRIDE = None
+    _HORIZON_30D_ENABLED_OVERRIDE = None
+    _SHADOW_EVALUATION_ENABLED_OVERRIDE = None
+
+
+def get_shadow_db_path() -> Path:
+    """Return configured SQLite database path for shadow evaluation records."""
+    env_path = os.environ.get("AGROVISION_SHADOW_DB_PATH")
+    if env_path:
+        return Path(env_path)
+    return PROCESSED_DATA_DIR / "shadow_evaluation.db"
