@@ -214,3 +214,34 @@ def test_parity_with_member2_inference_pipeline(predictor, synthetic_history):
     pred_30 = predictor.predict_horizon(synthetic_history, horizon_days=30)
     pipe_30 = pipe.predict_horizon(synthetic_history, horizon_days=30, bypass_switches=True)
     assert np.isclose(pred_30["predicted_modal_price"], pipe_30["predicted_modal_price"], atol=1e-2)
+
+
+def test_deliverable_residual_and_mapping_files_present():
+    """Verifies that Member 3 has access to residuals and group mappings in deliverables."""
+    import json
+    artifacts_dir = PACKAGE_DIR / "artifacts"
+    expected_files = [
+        "rice_holdout_residuals_7d.json",
+        "rice_holdout_residuals_14d.json",
+        "rice_holdout_residuals_30d.json",
+        "rice_holdout_residuals.json",
+        "rice_group_mappings.json",
+        "tea_group_mappings.json",
+        "model_handoff_manifest.json",
+    ]
+    for fn in expected_files:
+        fp = artifacts_dir / fn
+        assert fp.exists(), f"Missing deliverable artifact: {fn}"
+        with open(fp, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        assert len(data) > 0
+        if "residuals" in fn:
+            assert "model_version" in data
+            assert "target_definition" in data
+            assert "holdout_period" in data
+            assert "model_artifact" in data
+            assert "model_artifact_sha256" in data
+        elif "manifest" in fn:
+            assert "models" in data
+            assert "crop_group_mappings" in data
+            assert len(data["models"]) >= 4

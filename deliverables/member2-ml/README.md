@@ -39,19 +39,27 @@ deliverables/member2-ml/
 │   ├── rice_volatility_normalized_model.pkl
 │   ├── rice_volatility_normalized_config.json
 │   ├── rice_volatility_model.pkl
-│   └── rice_volatility_config.json
+│   ├── rice_volatility_config.json
+│   ├── rice_holdout_residuals_7d.json  # Holdout residuals for 7-day prediction intervals
+│   ├── rice_holdout_residuals_14d.json # Holdout residuals for 14-day prediction intervals
+│   ├── rice_holdout_residuals_30d.json # Holdout residuals for 30-day prediction intervals
+│   ├── rice_holdout_residuals.json     # Holdout residuals for short-term prediction intervals
+│   ├── rice_group_mappings.json        # Exact market/variety/district strings for Rice (87 mandis)
+│   ├── tea_group_mappings.json         # Exact market/variety/district strings for Tea (13 mandis)
+│   └── model_handoff_manifest.json     # Comprehensive machine-readable handoff manifest
 ├── src/
 │   ├── __init__.py                     # Package export declarations
 │   ├── predictor.py                    # Standalone RicePricePredictor class
 │   ├── feature_engineering.py          # 48 price features + 35 normalized vol features
 │   └── config.py                       # Constants, column mappings, and metadata
 ├── reports/
-│   └── model_evaluation_summary.md     # Holdout benchmarks & evaluation report
+│   ├── model_evaluation_summary.md     # Holdout benchmarks & evaluation report
+│   └── direct_horizon_evaluation.md    # Direct T+7, T+14, T+30 evaluation & residual audit
 ├── examples/
 │   └── quickstart.py                   # Self-contained runnable usage script
 └── tests/
     ├── __init__.py
-    └── test_predictor.py               # Standalone test suite (10/10 passing)
+    └── test_predictor.py               # Standalone test suite (11/11 passing)
 ```
 
 ---

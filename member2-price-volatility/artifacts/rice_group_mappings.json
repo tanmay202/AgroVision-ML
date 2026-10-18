@@ -1,0 +1,2252 @@
+{
+  "crop": "rice",
+  "source_dataset": "member2-price-volatility/data/processed/rice_cleaned.csv",
+  "training_date_range": {
+    "start": "2001-03-16",
+    "end": "2021-01-31"
+  },
+  "total_training_records": 257872,
+  "columns": {
+    "State Name": [
+      "West Bengal"
+    ],
+    "District Name": [
+      "Bankura",
+      "Birbhum",
+      "Burdwan",
+      "Coochbehar",
+      "Dakshin Dinajpur",
+      "Darjeeling",
+      "Hooghly",
+      "Howrah",
+      "Jalpaiguri",
+      "Kolkata",
+      "Malda",
+      "Medinipur(E)",
+      "Medinipur(W)",
+      "Murshidabad",
+      "Nadia",
+      "North 24 Parganas",
+      "Puruliya",
+      "Sounth 24 Parganas",
+      "Uttar Dinajpur"
+    ],
+    "Market Name": [
+      "Alipurduar",
+      "Asansol",
+      "Balarampur",
+      "Balurghat",
+      "Bankura Sadar",
+      "Barasat",
+      "Baruipur(Canning)",
+      "Baxirhat",
+      "Belacoba",
+      "Beldanga",
+      "Bethuadahari",
+      "Birbhum",
+      "Bishnupur",
+      "Bishnupur(Bankura)",
+      "Bolpur",
+      "Burdwan",
+      "Chakdah",
+      "Champadanga",
+      "ChinSurah",
+      "Coochbehar",
+      "Darjeeling",
+      "Darjeeling(Klimpong)",
+      "Diamond Harbour",
+      "Diamond Harbour(South 24-pgs)",
+      "Dinhata",
+      "Durgapur",
+      "Egra/contai",
+      "English Bazar",
+      "Falakata",
+      "Falakata(Dhupguri)",
+      "Gajol",
+      "Gangarampur",
+      "Gangarampur(Dakshin Dinajpur)",
+      "Garbeta(Medinipur)",
+      "Ghatal",
+      "Guskara",
+      "Guskara(Burdwan)",
+      "Habra",
+      "Haldibari",
+      "Howrah",
+      "Indus",
+      "Indus(Bankura Sadar)",
+      "Islampur",
+      "Jalpaiguri Sadar",
+      "Jangipur",
+      "Jhargram",
+      "Jiaganj",
+      "Jiaganj(Lalbagh)",
+      "Kaliaganj",
+      "Kalimpong",
+      "Kalipur",
+      "Kalipur(Champadanga)",
+      "Kalna",
+      "Kalyani",
+      "Kandi",
+      "Karimpur",
+      "Karsiyang(Matigara)",
+      "Kasimbazar",
+      "Kasipur",
+      "Katwa",
+      "Khatra",
+      "Kolaghat",
+      "Lalbagh",
+      "Mathabhanga",
+      "Medinipur(West)",
+      "Mekhliganj",
+      "Memari",
+      "Midnapore Sadar",
+      "Nadia",
+      "Pandua",
+      "Pundibari",
+      "Purulia",
+      "Raiganj",
+      "Raiganj(Kalinganj)",
+      "Ramkrishanpur(Howrah)",
+      "Rampurhat",
+      "Ranaghat",
+      "Ranaghat(Kalyani)",
+      "Sainthia",
+      "Sainthia(Suri)",
+      "Samsi",
+      "Sealdah Koley Market",
+      "Sheoraphuly",
+      "Siliguri",
+      "Tamluk (Medinipur E)",
+      "Toofanganj",
+      "Uluberia"
+    ],
+    "Variety": [
+      "1009 Kar",
+      "AP Raw Rice PLR Soma",
+      "Alur Sanna",
+      "Amire Full Basmati",
+      "Arti Mashuri",
+      "Basamti Dawat",
+      "Basmati-370",
+      "Boiled Rice",
+      "CO 36",
+      "CO-43 (Medium) Boiled",
+      "Coarse",
+      "Coarse (I.R.20)",
+      "Common",
+      "Fine",
+      "Fine(Basmati)",
+      "H.Y.V.",
+      "IR 20 Medium Boiled",
+      "IR 50",
+      "Jaya",
+      "Kachha Basmati",
+      "Masoori-Non Basmti",
+      "Masuri",
+      "Medium",
+      "Other",
+      "Parimal (New)",
+      "Ratnachudi (718 5-749)",
+      "Sanna Bhatta",
+      "Sona",
+      "Sona Coarse",
+      "Sona Fine",
+      "Sona Mansoori Non Basmati",
+      "Sona Medium",
+      "Super Fine",
+      "Suvarna Best"
+    ],
+    "Group": [
+      "Cereals"
+    ]
+  },
+  "missing_value_counts": {
+    "State Name": 0,
+    "District Name": 0,
+    "Market Name": 0,
+    "Variety": 0,
+    "Group": 0
+  },
+  "observed_combinations_count": 297,
+  "observed_combinations": [
+    {
+      "State Name": "West Bengal",
+      "District Name": "Bankura",
+      "Market Name": "Bankura Sadar",
+      "Variety": "Common",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Bankura",
+      "Market Name": "Bankura Sadar",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Bankura",
+      "Market Name": "Bankura Sadar",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Bankura",
+      "Market Name": "Bishnupur(Bankura)",
+      "Variety": "Alur Sanna",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Bankura",
+      "Market Name": "Bishnupur(Bankura)",
+      "Variety": "Basamti Dawat",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Bankura",
+      "Market Name": "Bishnupur(Bankura)",
+      "Variety": "Common",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Bankura",
+      "Market Name": "Bishnupur(Bankura)",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Bankura",
+      "Market Name": "Bishnupur(Bankura)",
+      "Variety": "Masuri",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Bankura",
+      "Market Name": "Bishnupur(Bankura)",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Bankura",
+      "Market Name": "Bishnupur(Bankura)",
+      "Variety": "Sona Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Bankura",
+      "Market Name": "Bishnupur(Bankura)",
+      "Variety": "Sona Mansoori Non Basmati",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Bankura",
+      "Market Name": "Indus",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Bankura",
+      "Market Name": "Indus",
+      "Variety": "Masuri",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Bankura",
+      "Market Name": "Indus",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Bankura",
+      "Market Name": "Indus(Bankura Sadar)",
+      "Variety": "Common",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Bankura",
+      "Market Name": "Indus(Bankura Sadar)",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Bankura",
+      "Market Name": "Indus(Bankura Sadar)",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Bankura",
+      "Market Name": "Khatra",
+      "Variety": "Common",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Bankura",
+      "Market Name": "Khatra",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Bankura",
+      "Market Name": "Khatra",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Birbhum",
+      "Market Name": "Birbhum",
+      "Variety": "Coarse",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Birbhum",
+      "Market Name": "Birbhum",
+      "Variety": "Coarse (I.R.20)",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Birbhum",
+      "Market Name": "Birbhum",
+      "Variety": "Common",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Birbhum",
+      "Market Name": "Birbhum",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Birbhum",
+      "Market Name": "Birbhum",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Birbhum",
+      "Market Name": "Bishnupur",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Birbhum",
+      "Market Name": "Bishnupur",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Birbhum",
+      "Market Name": "Bolpur",
+      "Variety": "Coarse",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Birbhum",
+      "Market Name": "Bolpur",
+      "Variety": "Common",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Birbhum",
+      "Market Name": "Bolpur",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Birbhum",
+      "Market Name": "Bolpur",
+      "Variety": "H.Y.V.",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Birbhum",
+      "Market Name": "Bolpur",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Birbhum",
+      "Market Name": "Rampurhat",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Birbhum",
+      "Market Name": "Sainthia",
+      "Variety": "Common",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Birbhum",
+      "Market Name": "Sainthia",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Birbhum",
+      "Market Name": "Sainthia",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Birbhum",
+      "Market Name": "Sainthia(Suri)",
+      "Variety": "Coarse",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Birbhum",
+      "Market Name": "Sainthia(Suri)",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Burdwan",
+      "Market Name": "Asansol",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Burdwan",
+      "Market Name": "Asansol",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Burdwan",
+      "Market Name": "Burdwan",
+      "Variety": "Coarse",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Burdwan",
+      "Market Name": "Burdwan",
+      "Variety": "Common",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Burdwan",
+      "Market Name": "Burdwan",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Burdwan",
+      "Market Name": "Burdwan",
+      "Variety": "H.Y.V.",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Burdwan",
+      "Market Name": "Burdwan",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Burdwan",
+      "Market Name": "Durgapur",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Burdwan",
+      "Market Name": "Durgapur",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Burdwan",
+      "Market Name": "Guskara",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Burdwan",
+      "Market Name": "Guskara",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Burdwan",
+      "Market Name": "Guskara(Burdwan)",
+      "Variety": "Common",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Burdwan",
+      "Market Name": "Guskara(Burdwan)",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Burdwan",
+      "Market Name": "Kalna",
+      "Variety": "Coarse",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Burdwan",
+      "Market Name": "Kalna",
+      "Variety": "Coarse (I.R.20)",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Burdwan",
+      "Market Name": "Kalna",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Burdwan",
+      "Market Name": "Kalna",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Burdwan",
+      "Market Name": "Katwa",
+      "Variety": "Common",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Burdwan",
+      "Market Name": "Katwa",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Burdwan",
+      "Market Name": "Katwa",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Burdwan",
+      "Market Name": "Memari",
+      "Variety": "Coarse",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Burdwan",
+      "Market Name": "Memari",
+      "Variety": "Common",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Burdwan",
+      "Market Name": "Memari",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Burdwan",
+      "Market Name": "Memari",
+      "Variety": "H.Y.V.",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Burdwan",
+      "Market Name": "Memari",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Coochbehar",
+      "Market Name": "Baxirhat",
+      "Variety": "1009 Kar",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Coochbehar",
+      "Market Name": "Baxirhat",
+      "Variety": "Common",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Coochbehar",
+      "Market Name": "Baxirhat",
+      "Variety": "Masuri",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Coochbehar",
+      "Market Name": "Coochbehar",
+      "Variety": "Coarse",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Coochbehar",
+      "Market Name": "Coochbehar",
+      "Variety": "Masuri",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Coochbehar",
+      "Market Name": "Coochbehar",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Coochbehar",
+      "Market Name": "Coochbehar",
+      "Variety": "Sona Coarse",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Coochbehar",
+      "Market Name": "Coochbehar",
+      "Variety": "Sona Mansoori Non Basmati",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Coochbehar",
+      "Market Name": "Coochbehar",
+      "Variety": "Sona Medium",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Coochbehar",
+      "Market Name": "Dinhata",
+      "Variety": "Common",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Coochbehar",
+      "Market Name": "Dinhata",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Coochbehar",
+      "Market Name": "Dinhata",
+      "Variety": "Masuri",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Coochbehar",
+      "Market Name": "Dinhata",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Coochbehar",
+      "Market Name": "Haldibari",
+      "Variety": "Alur Sanna",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Coochbehar",
+      "Market Name": "Haldibari",
+      "Variety": "Common",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Coochbehar",
+      "Market Name": "Haldibari",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Coochbehar",
+      "Market Name": "Haldibari",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Coochbehar",
+      "Market Name": "Haldibari",
+      "Variety": "Sona Coarse",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Coochbehar",
+      "Market Name": "Mathabhanga",
+      "Variety": "Common",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Coochbehar",
+      "Market Name": "Mathabhanga",
+      "Variety": "Masuri",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Coochbehar",
+      "Market Name": "Mathabhanga",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Coochbehar",
+      "Market Name": "Mathabhanga",
+      "Variety": "Sona Mansoori Non Basmati",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Coochbehar",
+      "Market Name": "Mekhliganj",
+      "Variety": "Alur Sanna",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Coochbehar",
+      "Market Name": "Mekhliganj",
+      "Variety": "Common",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Coochbehar",
+      "Market Name": "Mekhliganj",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Coochbehar",
+      "Market Name": "Mekhliganj",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Coochbehar",
+      "Market Name": "Pundibari",
+      "Variety": "Coarse",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Coochbehar",
+      "Market Name": "Pundibari",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Coochbehar",
+      "Market Name": "Pundibari",
+      "Variety": "Masuri",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Coochbehar",
+      "Market Name": "Pundibari",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Coochbehar",
+      "Market Name": "Toofanganj",
+      "Variety": "Arti Mashuri",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Coochbehar",
+      "Market Name": "Toofanganj",
+      "Variety": "Common",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Coochbehar",
+      "Market Name": "Toofanganj",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Coochbehar",
+      "Market Name": "Toofanganj",
+      "Variety": "Masoori-Non Basmti",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Coochbehar",
+      "Market Name": "Toofanganj",
+      "Variety": "Masuri",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Coochbehar",
+      "Market Name": "Toofanganj",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Coochbehar",
+      "Market Name": "Toofanganj",
+      "Variety": "Ratnachudi (718 5-749)",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Dakshin Dinajpur",
+      "Market Name": "Balurghat",
+      "Variety": "Common",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Dakshin Dinajpur",
+      "Market Name": "Balurghat",
+      "Variety": "Masuri",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Dakshin Dinajpur",
+      "Market Name": "Balurghat",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Dakshin Dinajpur",
+      "Market Name": "Gangarampur",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Dakshin Dinajpur",
+      "Market Name": "Gangarampur",
+      "Variety": "Masuri",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Dakshin Dinajpur",
+      "Market Name": "Gangarampur",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Dakshin Dinajpur",
+      "Market Name": "Gangarampur(Dakshin Dinajpur)",
+      "Variety": "Common",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Darjeeling",
+      "Market Name": "Darjeeling",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Darjeeling",
+      "Market Name": "Darjeeling",
+      "Variety": "Parimal (New)",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Darjeeling",
+      "Market Name": "Darjeeling(Klimpong)",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Darjeeling",
+      "Market Name": "Darjeeling(Klimpong)",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Darjeeling",
+      "Market Name": "Kalimpong",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Darjeeling",
+      "Market Name": "Kalimpong",
+      "Variety": "Parimal (New)",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Darjeeling",
+      "Market Name": "Kalimpong",
+      "Variety": "Ratnachudi (718 5-749)",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Darjeeling",
+      "Market Name": "Karsiyang(Matigara)",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Darjeeling",
+      "Market Name": "Karsiyang(Matigara)",
+      "Variety": "Parimal (New)",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Darjeeling",
+      "Market Name": "Siliguri",
+      "Variety": "Fine(Basmati)",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Darjeeling",
+      "Market Name": "Siliguri",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Hooghly",
+      "Market Name": "Champadanga",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Hooghly",
+      "Market Name": "Champadanga",
+      "Variety": "Ratnachudi (718 5-749)",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Hooghly",
+      "Market Name": "Champadanga",
+      "Variety": "Sona Mansoori Non Basmati",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Hooghly",
+      "Market Name": "ChinSurah",
+      "Variety": "Ratnachudi (718 5-749)",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Hooghly",
+      "Market Name": "Kalipur",
+      "Variety": "Common",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Hooghly",
+      "Market Name": "Kalipur",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Hooghly",
+      "Market Name": "Kalipur",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Hooghly",
+      "Market Name": "Kalipur",
+      "Variety": "Sona Mansoori Non Basmati",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Hooghly",
+      "Market Name": "Kalipur(Champadanga)",
+      "Variety": "Masoori-Non Basmti",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Hooghly",
+      "Market Name": "Kalipur(Champadanga)",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Hooghly",
+      "Market Name": "Kalipur(Champadanga)",
+      "Variety": "Ratnachudi (718 5-749)",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Hooghly",
+      "Market Name": "Kalipur(Champadanga)",
+      "Variety": "Sona Mansoori Non Basmati",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Hooghly",
+      "Market Name": "Pandua",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Hooghly",
+      "Market Name": "Pandua",
+      "Variety": "Ratnachudi (718 5-749)",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Hooghly",
+      "Market Name": "Sheoraphuly",
+      "Variety": "Jaya",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Hooghly",
+      "Market Name": "Sheoraphuly",
+      "Variety": "Masuri",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Hooghly",
+      "Market Name": "Sheoraphuly",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Hooghly",
+      "Market Name": "Sheoraphuly",
+      "Variety": "Ratnachudi (718 5-749)",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Howrah",
+      "Market Name": "Howrah",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Howrah",
+      "Market Name": "Ramkrishanpur(Howrah)",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Howrah",
+      "Market Name": "Ramkrishanpur(Howrah)",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Howrah",
+      "Market Name": "Ramkrishanpur(Howrah)",
+      "Variety": "Sona Mansoori Non Basmati",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Howrah",
+      "Market Name": "Uluberia",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Howrah",
+      "Market Name": "Uluberia",
+      "Variety": "Sona Mansoori Non Basmati",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Jalpaiguri",
+      "Market Name": "Alipurduar",
+      "Variety": "Amire Full Basmati",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Jalpaiguri",
+      "Market Name": "Alipurduar",
+      "Variety": "Basamti Dawat",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Jalpaiguri",
+      "Market Name": "Alipurduar",
+      "Variety": "Boiled Rice",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Jalpaiguri",
+      "Market Name": "Alipurduar",
+      "Variety": "CO-43 (Medium) Boiled",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Jalpaiguri",
+      "Market Name": "Alipurduar",
+      "Variety": "Common",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Jalpaiguri",
+      "Market Name": "Alipurduar",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Jalpaiguri",
+      "Market Name": "Alipurduar",
+      "Variety": "Fine(Basmati)",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Jalpaiguri",
+      "Market Name": "Alipurduar",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Jalpaiguri",
+      "Market Name": "Alipurduar",
+      "Variety": "Super Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Jalpaiguri",
+      "Market Name": "Belacoba",
+      "Variety": "CO-43 (Medium) Boiled",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Jalpaiguri",
+      "Market Name": "Belacoba",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Jalpaiguri",
+      "Market Name": "Belacoba",
+      "Variety": "Medium",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Jalpaiguri",
+      "Market Name": "Belacoba",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Jalpaiguri",
+      "Market Name": "Belacoba",
+      "Variety": "Super Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Jalpaiguri",
+      "Market Name": "Falakata",
+      "Variety": "Common",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Jalpaiguri",
+      "Market Name": "Falakata",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Jalpaiguri",
+      "Market Name": "Falakata",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Jalpaiguri",
+      "Market Name": "Falakata(Dhupguri)",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Jalpaiguri",
+      "Market Name": "Falakata(Dhupguri)",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Jalpaiguri",
+      "Market Name": "Falakata(Dhupguri)",
+      "Variety": "Super Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Jalpaiguri",
+      "Market Name": "Jalpaiguri Sadar",
+      "Variety": "CO-43 (Medium) Boiled",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Jalpaiguri",
+      "Market Name": "Jalpaiguri Sadar",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Jalpaiguri",
+      "Market Name": "Jalpaiguri Sadar",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Jalpaiguri",
+      "Market Name": "Jalpaiguri Sadar",
+      "Variety": "Super Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Kolkata",
+      "Market Name": "Sealdah Koley Market",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Kolkata",
+      "Market Name": "Sealdah Koley Market",
+      "Variety": "Super Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Malda",
+      "Market Name": "English Bazar",
+      "Variety": "Coarse",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Malda",
+      "Market Name": "English Bazar",
+      "Variety": "Common",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Malda",
+      "Market Name": "English Bazar",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Malda",
+      "Market Name": "English Bazar",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Malda",
+      "Market Name": "Gajol",
+      "Variety": "Common",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Malda",
+      "Market Name": "Gajol",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Malda",
+      "Market Name": "Gajol",
+      "Variety": "H.Y.V.",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Malda",
+      "Market Name": "Gajol",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Malda",
+      "Market Name": "Gajol",
+      "Variety": "Super Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Malda",
+      "Market Name": "Samsi",
+      "Variety": "Basmati-370",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Malda",
+      "Market Name": "Samsi",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Malda",
+      "Market Name": "Samsi",
+      "Variety": "H.Y.V.",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Malda",
+      "Market Name": "Samsi",
+      "Variety": "Jaya",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Malda",
+      "Market Name": "Samsi",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Medinipur(E)",
+      "Market Name": "Egra/contai",
+      "Variety": "Coarse",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Medinipur(E)",
+      "Market Name": "Egra/contai",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Medinipur(E)",
+      "Market Name": "Kolaghat",
+      "Variety": "Common",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Medinipur(E)",
+      "Market Name": "Kolaghat",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Medinipur(E)",
+      "Market Name": "Kolaghat",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Medinipur(E)",
+      "Market Name": "Tamluk (Medinipur E)",
+      "Variety": "Coarse",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Medinipur(E)",
+      "Market Name": "Tamluk (Medinipur E)",
+      "Variety": "Common",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Medinipur(E)",
+      "Market Name": "Tamluk (Medinipur E)",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Medinipur(E)",
+      "Market Name": "Tamluk (Medinipur E)",
+      "Variety": "IR 20 Medium Boiled",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Medinipur(E)",
+      "Market Name": "Tamluk (Medinipur E)",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Medinipur(E)",
+      "Market Name": "Tamluk (Medinipur E)",
+      "Variety": "Super Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Medinipur(W)",
+      "Market Name": "Garbeta(Medinipur)",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Medinipur(W)",
+      "Market Name": "Garbeta(Medinipur)",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Medinipur(W)",
+      "Market Name": "Ghatal",
+      "Variety": "CO 36",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Medinipur(W)",
+      "Market Name": "Ghatal",
+      "Variety": "Coarse",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Medinipur(W)",
+      "Market Name": "Ghatal",
+      "Variety": "Coarse (I.R.20)",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Medinipur(W)",
+      "Market Name": "Ghatal",
+      "Variety": "Common",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Medinipur(W)",
+      "Market Name": "Ghatal",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Medinipur(W)",
+      "Market Name": "Ghatal",
+      "Variety": "Masuri",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Medinipur(W)",
+      "Market Name": "Ghatal",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Medinipur(W)",
+      "Market Name": "Ghatal",
+      "Variety": "Super Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Medinipur(W)",
+      "Market Name": "Jhargram",
+      "Variety": "Common",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Medinipur(W)",
+      "Market Name": "Jhargram",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Medinipur(W)",
+      "Market Name": "Jhargram",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Medinipur(W)",
+      "Market Name": "Jhargram",
+      "Variety": "Super Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Medinipur(W)",
+      "Market Name": "Kolaghat",
+      "Variety": "Coarse",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Medinipur(W)",
+      "Market Name": "Kolaghat",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Medinipur(W)",
+      "Market Name": "Medinipur(West)",
+      "Variety": "Coarse",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Medinipur(W)",
+      "Market Name": "Medinipur(West)",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Medinipur(W)",
+      "Market Name": "Medinipur(West)",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Medinipur(W)",
+      "Market Name": "Medinipur(West)",
+      "Variety": "Suvarna Best",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Medinipur(W)",
+      "Market Name": "Midnapore Sadar",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Medinipur(W)",
+      "Market Name": "Midnapore Sadar",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Murshidabad",
+      "Market Name": "Beldanga",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Murshidabad",
+      "Market Name": "Beldanga",
+      "Variety": "IR 50",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Murshidabad",
+      "Market Name": "Beldanga",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Murshidabad",
+      "Market Name": "Jangipur",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Murshidabad",
+      "Market Name": "Jangipur",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Murshidabad",
+      "Market Name": "Jangipur",
+      "Variety": "Sanna Bhatta",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Murshidabad",
+      "Market Name": "Jangipur",
+      "Variety": "Super Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Murshidabad",
+      "Market Name": "Jiaganj",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Murshidabad",
+      "Market Name": "Jiaganj",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Murshidabad",
+      "Market Name": "Jiaganj(Lalbagh)",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Murshidabad",
+      "Market Name": "Jiaganj(Lalbagh)",
+      "Variety": "IR 50",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Murshidabad",
+      "Market Name": "Jiaganj(Lalbagh)",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Murshidabad",
+      "Market Name": "Kandi",
+      "Variety": "AP Raw Rice PLR Soma",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Murshidabad",
+      "Market Name": "Kandi",
+      "Variety": "Amire Full Basmati",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Murshidabad",
+      "Market Name": "Kandi",
+      "Variety": "Boiled Rice",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Murshidabad",
+      "Market Name": "Kandi",
+      "Variety": "Common",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Murshidabad",
+      "Market Name": "Kandi",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Murshidabad",
+      "Market Name": "Kandi",
+      "Variety": "Kachha Basmati",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Murshidabad",
+      "Market Name": "Kandi",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Murshidabad",
+      "Market Name": "Kasimbazar",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Murshidabad",
+      "Market Name": "Lalbagh",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Murshidabad",
+      "Market Name": "Lalbagh",
+      "Variety": "IR 50",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Murshidabad",
+      "Market Name": "Lalbagh",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Murshidabad",
+      "Market Name": "Lalbagh",
+      "Variety": "Sanna Bhatta",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Murshidabad",
+      "Market Name": "Lalbagh",
+      "Variety": "Suvarna Best",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Nadia",
+      "Market Name": "Bethuadahari",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Nadia",
+      "Market Name": "Chakdah",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Nadia",
+      "Market Name": "Chakdah",
+      "Variety": "Masuri",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Nadia",
+      "Market Name": "Chakdah",
+      "Variety": "Medium",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Nadia",
+      "Market Name": "Chakdah",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Nadia",
+      "Market Name": "Chakdah",
+      "Variety": "Super Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Nadia",
+      "Market Name": "Kalyani",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Nadia",
+      "Market Name": "Kalyani",
+      "Variety": "Masuri",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Nadia",
+      "Market Name": "Kalyani",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Nadia",
+      "Market Name": "Kalyani",
+      "Variety": "Sona",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Nadia",
+      "Market Name": "Karimpur",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Nadia",
+      "Market Name": "Karimpur",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Nadia",
+      "Market Name": "Nadia",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Nadia",
+      "Market Name": "Nadia",
+      "Variety": "Medium",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Nadia",
+      "Market Name": "Ranaghat",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Nadia",
+      "Market Name": "Ranaghat(Kalyani)",
+      "Variety": "Ratnachudi (718 5-749)",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "North 24 Parganas",
+      "Market Name": "Barasat",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "North 24 Parganas",
+      "Market Name": "Barasat",
+      "Variety": "Masuri",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "North 24 Parganas",
+      "Market Name": "Barasat",
+      "Variety": "Medium",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "North 24 Parganas",
+      "Market Name": "Barasat",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "North 24 Parganas",
+      "Market Name": "Barasat",
+      "Variety": "Ratnachudi (718 5-749)",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "North 24 Parganas",
+      "Market Name": "Barasat",
+      "Variety": "Super Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "North 24 Parganas",
+      "Market Name": "Diamond Harbour",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "North 24 Parganas",
+      "Market Name": "Diamond Harbour",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "North 24 Parganas",
+      "Market Name": "Diamond Harbour",
+      "Variety": "Sona",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "North 24 Parganas",
+      "Market Name": "Diamond Harbour",
+      "Variety": "Super Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "North 24 Parganas",
+      "Market Name": "Habra",
+      "Variety": "Coarse",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "North 24 Parganas",
+      "Market Name": "Habra",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "North 24 Parganas",
+      "Market Name": "Habra",
+      "Variety": "Masuri",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "North 24 Parganas",
+      "Market Name": "Habra",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "North 24 Parganas",
+      "Market Name": "Habra",
+      "Variety": "Ratnachudi (718 5-749)",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "North 24 Parganas",
+      "Market Name": "Habra",
+      "Variety": "Sona Mansoori Non Basmati",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Puruliya",
+      "Market Name": "Balarampur",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Puruliya",
+      "Market Name": "Kasipur",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Puruliya",
+      "Market Name": "Purulia",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Sounth 24 Parganas",
+      "Market Name": "Baruipur(Canning)",
+      "Variety": "Common",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Sounth 24 Parganas",
+      "Market Name": "Baruipur(Canning)",
+      "Variety": "Sona Mansoori Non Basmati",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Sounth 24 Parganas",
+      "Market Name": "Baruipur(Canning)",
+      "Variety": "Super Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Sounth 24 Parganas",
+      "Market Name": "Diamond Harbour(South 24-pgs)",
+      "Variety": "Common",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Sounth 24 Parganas",
+      "Market Name": "Diamond Harbour(South 24-pgs)",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Sounth 24 Parganas",
+      "Market Name": "Diamond Harbour(South 24-pgs)",
+      "Variety": "Super Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Uttar Dinajpur",
+      "Market Name": "Islampur",
+      "Variety": "1009 Kar",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Uttar Dinajpur",
+      "Market Name": "Islampur",
+      "Variety": "Coarse",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Uttar Dinajpur",
+      "Market Name": "Islampur",
+      "Variety": "Common",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Uttar Dinajpur",
+      "Market Name": "Islampur",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Uttar Dinajpur",
+      "Market Name": "Islampur",
+      "Variety": "Masuri",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Uttar Dinajpur",
+      "Market Name": "Islampur",
+      "Variety": "Medium",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Uttar Dinajpur",
+      "Market Name": "Islampur",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Uttar Dinajpur",
+      "Market Name": "Kaliaganj",
+      "Variety": "Common",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Uttar Dinajpur",
+      "Market Name": "Kaliaganj",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Uttar Dinajpur",
+      "Market Name": "Kaliaganj",
+      "Variety": "Masuri",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Uttar Dinajpur",
+      "Market Name": "Kaliaganj",
+      "Variety": "Medium",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Uttar Dinajpur",
+      "Market Name": "Kaliaganj",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Uttar Dinajpur",
+      "Market Name": "Raiganj",
+      "Variety": "Common",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Uttar Dinajpur",
+      "Market Name": "Raiganj",
+      "Variety": "Fine",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Uttar Dinajpur",
+      "Market Name": "Raiganj",
+      "Variety": "Other",
+      "Group": "Cereals"
+    },
+    {
+      "State Name": "West Bengal",
+      "District Name": "Uttar Dinajpur",
+      "Market Name": "Raiganj(Kalinganj)",
+      "Variety": "Masuri",
+      "Group": "Cereals"
+    }
+  ]
+}
