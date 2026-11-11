@@ -59,12 +59,6 @@ def run_diagnostics():
     ridge_model = joblib.load(ridge_path)
     xgb_model = joblib.load(xgb_path)
 
-    # Fix SimpleImputer version issue if present
-    for name, transformer, cols in ridge_model.named_steps['preprocessor'].transformers_:
-        if hasattr(transformer, 'named_steps'):
-            for step in transformer.named_steps.values():
-                if hasattr(step, '_fit_dtype') and not hasattr(step, '_fill_dtype'):
-                    step._fill_dtype = step._fit_dtype
 
     # Features for Ridge
     num_features_ridge = [

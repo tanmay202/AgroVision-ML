@@ -91,12 +91,6 @@ def test_original_models_preservation(dataset_splits, models):
     
     # Ridge
     orig_ridge = models['orig_ridge']
-    for name, transformer, cols in orig_ridge.named_steps['preprocessor'].transformers_:
-        if hasattr(transformer, 'named_steps'):
-            for step in transformer.named_steps.values():
-                if hasattr(step, '_fit_dtype') and not hasattr(step, '_fill_dtype'):
-                    step._fill_dtype = step._fit_dtype
-    
     pred_r = orig_ridge.predict(test_base[num_ridge + cat_cols])
     mae_r = mean_absolute_error(y_test, pred_r)
     r2_r = r2_score(y_test, pred_r)

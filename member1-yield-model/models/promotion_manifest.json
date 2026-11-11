@@ -1,0 +1,36 @@
+{
+  "promotion_timestamp": "2026-11-11T04:50:39.653789+00:00",
+  "status": "SUCCESS",
+  "approved_production_artifact": "m1_improved_delta_ridge.pkl",
+  "certified_environment": {
+    "python": "3.13.3",
+    "scikit-learn": "1.7.2",
+    "xgboost": "3.4.1",
+    "joblib": "1.5.2",
+    "pandas": "2.2.3",
+    "numpy": "2.2.6",
+    "scipy": "1.16.3"
+  },
+  "promoted_artifacts": {
+    "m1_improved_delta_ridge": {
+      "artifact_sha256": "3099c2d6d113105f185111f6b1f02004229cc0e32318e9f35532841f7d4dcb56",
+      "promoted_at": "2026-11-11T04:50:39.641130+00:00"
+    },
+    "m1_improved_delta_xgboost_conservative": {
+      "artifact_sha256": "9875a356d20b26e8776acd8f804b9b605397f94742ebf7253269e180f92368b7",
+      "promoted_at": "2026-11-11T04:50:39.644230+00:00"
+    },
+    "m1_improved_delta_xgboost": {
+      "artifact_sha256": "f0aefb368615fda9e094617cc914e45757601ec60e36a30d24e45760d09d2cc6",
+      "promoted_at": "2026-11-11T04:50:39.647216+00:00"
+    },
+    "m1_best_ridge": {
+      "artifact_sha256": "bfa899da7edea7f1f6564b8baa5e9a5f4bd54aa672a576107677960485dc78f5",
+      "promoted_at": "2026-11-11T04:50:39.650384+00:00"
+    },
+    "m1_inseason_xgboost": {
+      "artifact_sha256": "6d735a1b4e8cf27ec514fb5f4e9f4887a19508f69223d932fdeefca688a9c5f5",
+      "promoted_at": "2026-11-11T04:50:39.653771+00:00"
+    }
+  }
+}

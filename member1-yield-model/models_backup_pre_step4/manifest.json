@@ -1,0 +1,31 @@
+{
+  "backup_timestamp": "2026-11-11T04:17:06.699115+00:00",
+  "reason": "Step 4 pre-promotion immutable backup of historical model artifacts",
+  "artifacts": {
+    "m1_best_ridge.pkl": {
+      "size_bytes": 5082,
+      "sha256": "d1fd6f77774e6c51ce30ac3e0d3b8c388fae20c0540ba02ae5f10a4307b45441",
+      "backup_path": "member1-yield-model\\models_backup_pre_step4\\m1_best_ridge.pkl"
+    },
+    "m1_improved_delta_ridge.pkl": {
+      "size_bytes": 5970,
+      "sha256": "ce953a05a2d43d480f2679e9122e24194e1fcfa733e8066cba3b7a6544759a92",
+      "backup_path": "member1-yield-model\\models_backup_pre_step4\\m1_improved_delta_ridge.pkl"
+    },
+    "m1_improved_delta_xgboost.pkl": {
+      "size_bytes": 158488,
+      "sha256": "a45222341aa81483cceabbfd7171b5f5eda41ffcd376c713762bb3a5ac46d7c5",
+      "backup_path": "member1-yield-model\\models_backup_pre_step4\\m1_improved_delta_xgboost.pkl"
+    },
+    "m1_improved_delta_xgboost_conservative.pkl": {
+      "size_bytes": 102956,
+      "sha256": "6119d84e459318f4a85290c3d18b1f74332f8937247d6739d0ee31ca535c1fb6",
+      "backup_path": "member1-yield-model\\models_backup_pre_step4\\m1_improved_delta_xgboost_conservative.pkl"
+    },
+    "m1_inseason_xgboost.pkl": {
+      "size_bytes": 485963,
+      "sha256": "6d735a1b4e8cf27ec514fb5f4e9f4887a19508f69223d932fdeefca688a9c5f5",
+      "backup_path": "member1-yield-model\\models_backup_pre_step4\\m1_inseason_xgboost.pkl"
+    }
+  }
+}
