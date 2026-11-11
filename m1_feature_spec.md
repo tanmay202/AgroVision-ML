@@ -28,12 +28,14 @@ This document provides the **complete** technical specification for the Member 1
 | **Audit reports** | 11 `.md` reports in `reports/` | ✅ Generated |
 | **Leakage audit** | Embedded assertions in every script | ✅ Passed in all scripts |
 | **Predictions + residuals saved** | `data/processed/m1_final_actual_vs_predicted.csv` | ✅ Saved |
+| **Dedicated inference engine** | `scripts/predict_rice_yield.py`, `src/predict.py` | ✅ Built & Verified (RiceYieldPredictor, weather policies, provisional seasonal routing) |
+| **In-season weather preprocessor** | `src/weather_preprocessor.py` | ✅ Built & Verified (reusable, cutoff-gated, no live API in inference) |
+| **Production inference bridge** | `shared/predict_bridge.py` | ✅ Built & Verified (canonical contract, dual-unit, legacy alias, Member 2 isolation) |
 
 ### 🚧 Still In Progress / Remaining
 
 | Component | Status | Notes |
 |---|---|---|
-| **Dedicated inference script (`src/predict.py`)** | ⬜ Not yet built | `predict_bridge.py` references `member1-yield-model/src/predict.py` with `load_model()` and `predict_yield()` — these functions **do not exist yet**. The `yield_model.pkl` file expected at `models/yield_model.pkl` is also **not present**; only `m1_best_ridge.pkl` and `m1_inseason_xgboost.pkl` exist. |
 | **SHAP explainability** | ⬜ Not implemented | No SHAP values are exported. `shap.TreeExplainer` can be used on `m1_inseason_xgboost.pkl` at request time (it is a valid XGBRegressor inside a sklearn Pipeline). |
 | **Confidence intervals / prediction intervals** | ⬜ Not implemented | Only point predictions and residuals are saved. No bootstrap or quantile-based intervals. |
 | **GDD / `cumulative_gdd` feature** | ⬜ Not computed | Growing Degree Days are not calculated in any script. No `T_base` constant is defined. |
@@ -41,7 +43,6 @@ This document provides the **complete** technical specification for the Member 1
 | **`moisture_deficit` feature** | ⬜ Not computed | Not present in the pipeline. |
 | **Post-harvest `H_anomaly`** | ⬜ Not computed | Not present in the pipeline. |
 | **Multi-crop support** | ⬜ Rice only | The pipeline is hardcoded for Rice in West Bengal. `tea_cleaned.csv` exists in raw data but is not processed. |
-| **Production inference bridge** | 🔶 Partial | `shared/predict_bridge.py` exists and provides `AgroVisionPredictor.predict_yield()`, but it requires `src/predict.py` which is missing. |
 
 ---
 
@@ -357,38 +358,19 @@ pipeline = joblib.load("models/m1_inseason_xgboost.pkl")
 
 The pipeline includes preprocessing (imputation, scaling/encoding) and the model — calling `pipeline.predict(X)` handles everything.
 
-### 7.2 Inference Interface (Current State)
+### 7.2 Inference Interface (Built & Verified in Step 2 & Step 3)
 
-> ⚠️ **A dedicated `src/predict.py` inference script does not yet exist.** The `shared/predict_bridge.py` expects it but will raise `ImportError` when called.
+The Member 1 production inference interface is implemented in `member1-yield-model/scripts/predict_rice_yield.py`, re-exported via `member1-yield-model/src/predict.py`, and accessed across the project through `shared/predict_bridge.py`.
 
-#### Expected Interface (to be built)
-
-Based on `predict_bridge.py`, the following interface is expected:
-
-```python
-# member1-yield-model/src/predict.py  (TO BE CREATED)
-
-def load_model(model_path: str) -> dict:
-    """
-    Load the yield model and return metadata.
-    
-    Returns: {"model": pipeline, "feature_names": [...]}
-    """
-
-def predict_yield(model_info: dict, input_dict: dict) -> float:
-    """
-    Predict yield from a dictionary of feature values.
-    
-    Parameters:
-        model_info: output of load_model()
-        input_dict: dict with keys matching feature_names.
-                    Unknown keys ignored; missing keys default to 0.
-    
-    Returns:
-        float — predicted yield value (interpreted as arrivals tonnes
-                by predict_bridge, but actually Rice_Yield_kg_ha)
-    """
-```
+#### Core Inference Engine & Bridge
+- **`RiceYieldPredictor`**: Core class supporting single-dict, list-of-dicts, and pandas DataFrame inputs. Handles district and season normalization, hierarchical baseline yield imputation, agronomic bounding [500, 6000 kg/ha], weather missingness policies, and provisional seasonal routing.
+- **Weather Availability Policy (`weather_missing_policy`)**:
+  - `"persistence"` (Production Default): When any of the 10 in-season weather features is missing or NaN, bypasses ML model and returns baseline yield (predicted delta = 0.0 kg/ha) with an explicit explanatory warning.
+  - `"model_imputation"`: Passes inputs through training-set median imputer, emitting a warning that predictions are median-imputed rather than weather-observed.
+- **Provisional Seasonal Routing (`enable_seasonal_routing`)**:
+  - Default: `True`. Routes Summer (Boro) predictions to persistence fallback, motivated by 2017–2019 test set analysis. Clearly labeled as provisional and not independently validated pending rolling-origin backtesting.
+- **In-Season Weather Preprocessor (`src/weather_preprocessor.py`)**:
+  - `preprocess_inseason_weather(daily_df, district, season, year)`: Aggregates daily NASA POWER observations into the exact 10 in-season features using strict cutoff dates (Aus: July 31, Aman: September 30, Boro: February 28). Zero live API calls inside inference.
 
 **Canonical Return Value from `predict_bridge.py` (`predict_yield()`):**
 ```python
@@ -399,6 +381,11 @@ def predict_yield(model_info: dict, input_dict: dict) -> float:
     "baseline_yield_kg_ha": 2850.0,            # Previous year or imputed baseline
     "predicted_delta_kg_ha": -36.53,           # Model deviation from baseline
     "is_yield_lag1_imputed": False,            # True if lag1 was imputed from fallback hierarchy
+    "prediction_method": "ml_inseason_delta",  # "ml_inseason_delta" | "persistence" | "provisional_summer_persistence"
+    "weather_feature_status": "complete",      # "complete" | "incomplete" | "missing"
+    "weather_features_used": True,             # True if ML model executed with observed weather
+    "missing_weather_features": [],            # List of missing in-season weather columns
+    "prediction_policy_version": "2.1",        # Policy specification version
     "model_name": "m1_improved_delta_ridge.pkl",
     "warnings": []
 }
@@ -512,7 +499,7 @@ For the Ridge model, feature importance is available via standardized coefficien
 | **Temporal integrity** | ✅ PASS | `assert not train['Year'].isin(test['Year']).any()` in all training scripts |
 | **Duplicate key integrity** | ✅ PASS | Asserted at every merge and split |
 | **Preprocessing isolation** | ✅ PASS | Scalers/imputers fitted on train only; val/test transformed |
-| **Inference script** | ❌ MISSING | `src/predict.py` referenced by `predict_bridge.py` does not exist |
+| **Inference script & bridge** | ✅ PASS | `src/predict.py`, `scripts/predict_rice_yield.py`, `src/weather_preprocessor.py`, `shared/predict_bridge.py` |
 | **SHAP export** | ❌ MISSING | Not implemented |
 | **Confidence intervals** | ❌ MISSING | Not implemented |
 

@@ -37,6 +37,22 @@ logger = logging.getLogger("predict_rice_yield")
 SCRIPT_DIR = Path(__file__).resolve().parent
 BASE_DIR = SCRIPT_DIR.parent
 MODELS_DIR = BASE_DIR / "models"
+SRC_DIR = BASE_DIR / "src"
+if str(SRC_DIR) not in sys.path:
+    sys.path.insert(0, str(SRC_DIR))
+
+try:
+    from weather_preprocessor import (
+        preprocess_inseason_weather,
+        get_season_window,
+        INSEASON_FEATURE_COLUMNS,
+    )
+except ImportError:
+    from src.weather_preprocessor import (
+        preprocess_inseason_weather,
+        get_season_window,
+        INSEASON_FEATURE_COLUMNS,
+    )
 
 # Feature specifications
 NUMERICAL_FEATURES = [
@@ -47,8 +63,16 @@ NUMERICAL_FEATURES = [
     'InSeason_T2M_Mean', 'InSeason_T2M_Min', 'InSeason_T2M_Max', 'InSeason_T2M_Range',
     'InSeason_RH2M_Mean', 'InSeason_Solar_Mean', 'InSeason_Wind_Mean'
 ]
+INSEASON_WEATHER_FEATURES = [
+    'InSeason_Precip_Cum', 'InSeason_Precip_Mean', 'InSeason_Precip_Max',
+    'InSeason_T2M_Mean', 'InSeason_T2M_Min', 'InSeason_T2M_Max', 'InSeason_T2M_Range',
+    'InSeason_RH2M_Mean', 'InSeason_Solar_Mean', 'InSeason_Wind_Mean'
+]
 CATEGORICAL_FEATURES = ['District', 'Season']
 ALL_FEATURES = NUMERICAL_FEATURES + CATEGORICAL_FEATURES
+
+POLICY_VERSION = "2.1"
+PROVISIONAL_SUMMER_ROUTING_POLICY = "provisional_summer_persistence"
 
 VALID_SEASONS = ['Autumn', 'Summer', 'Winter']
 
@@ -217,11 +241,21 @@ class RiceYieldPredictor:
         min_yield: float = AGRONOMIC_MIN_YIELD,
         max_yield: float = AGRONOMIC_MAX_YIELD,
         enable_seasonal_routing: bool = False,
+        weather_missing_policy: Optional[str] = None,
     ):
+        self.model_type = model_type
         self.clamp_yield = clamp_yield
         self.min_yield = min_yield
         self.max_yield = max_yield
         self.enable_seasonal_routing = enable_seasonal_routing
+        self.weather_missing_policy = (
+            str(weather_missing_policy).lower() if weather_missing_policy else None
+        )
+        if self.weather_missing_policy and self.weather_missing_policy not in ("persistence", "model_imputation"):
+            raise ValueError(
+                f"Invalid weather_missing_policy '{weather_missing_policy}'. "
+                f"Supported modes: 'persistence', 'model_imputation'."
+            )
 
         self.model_path = self._resolve_model_path(model_path, model_type)
         self.model_name = self.model_path.name
@@ -385,9 +419,25 @@ class RiceYieldPredictor:
             row = df_input.iloc[i].to_dict()
             warnings = all_warnings[i]
 
+            # Case-insensitive lookup map for input row
+            row_lower = {str(k).lower().strip(): v for k, v in row.items()}
+
+            def _get_field(name: str, aliases: Optional[List[str]] = None) -> Any:
+                if name in row:
+                    return row[name]
+                if name.lower() in row_lower:
+                    return row_lower[name.lower()]
+                if aliases:
+                    for a in aliases:
+                        if a in row:
+                            return row[a]
+                        if a.lower() in row_lower:
+                            return row_lower[a.lower()]
+                return None
+
             # 1. Normalize categoricals
-            district = self._normalize_district(row.get('District'))
-            season = self._normalize_season(row.get('Season'))
+            district = self._normalize_district(_get_field('District', ['district', 'district_name', 'District Name']))
+            season = self._normalize_season(_get_field('Season', ['season', 'season_name', 'Crop Season']))
 
             if district not in VALID_DISTRICTS:
                 warnings.append(f"Unseen District '{district}'. Prediction will rely on state baseline / zero encoding.")
@@ -398,6 +448,16 @@ class RiceYieldPredictor:
             row_norm = dict(row)
             row_norm['District'] = district
             row_norm['Season'] = season
+            for k_canon, aliases in [
+                ('Yield_lag1', ['yield_lag1', 'yield_lag_1', 'lag1', 'lag1_yield']),
+                ('Yield_lag2', ['yield_lag2', 'yield_lag_2', 'lag2', 'lag2_yield']),
+                ('Yield_hist_mean', ['yield_hist_mean', 'hist_mean', 'historical_mean']),
+            ]:
+                if k_canon not in row_norm:
+                    v_alias = _get_field(k_canon, aliases)
+                    if v_alias is not None:
+                        row_norm[k_canon] = v_alias
+
             baseline, is_imputed, lag_warns = self._impute_yield_lag1(row_norm)
             baselines[i] = baseline
             imputed_flags[i] = is_imputed
@@ -406,7 +466,7 @@ class RiceYieldPredictor:
             # 3. Validate numerical bounds & sanitize infinite / NaN values
             rec = {}
             for num_col in NUMERICAL_FEATURES:
-                val = row.get(num_col, np.nan)
+                val = _get_field(num_col, [num_col.lower()])
                 val_float = _parse_float(val)
 
                 # Check if raw val was infinite
@@ -451,7 +511,9 @@ class RiceYieldPredictor:
     def predict(
         self,
         data: Union[pd.DataFrame, Dict[str, Any], List[Dict[str, Any]]],
-        return_dict: bool = False
+        return_dict: bool = False,
+        enable_seasonal_routing: Optional[bool] = None,
+        weather_missing_policy: Optional[str] = None,
     ) -> Union[Dict[str, Any], List[Dict[str, Any]], pd.DataFrame]:
         """
         Execute prediction on single record, list of records, or DataFrame.
@@ -459,16 +521,37 @@ class RiceYieldPredictor:
         Parameters:
             data: Single dict, list of dicts, or pandas DataFrame.
             return_dict: If True and input is DataFrame, returns list of dicts.
+            enable_seasonal_routing: Optional override for provisional seasonal routing.
+            weather_missing_policy: Optional override ('persistence' or 'model_imputation').
 
         Returns:
-            Structured prediction results including:
-                - predicted_yield_kg_ha
-                - predicted_yield_tonnes_ha
-                - predicted_delta_kg_ha
-                - baseline_yield_kg_ha
-                - is_yield_lag1_imputed
-                - warnings
+            Structured prediction results including canonical dual-unit yields and
+            explicit weather/seasonal provenance metadata.
         """
+        # Resolve active policies for this prediction invocation
+        routing_enabled = (
+            self.enable_seasonal_routing
+            if enable_seasonal_routing is None
+            else bool(enable_seasonal_routing)
+        )
+        if weather_missing_policy is not None:
+            active_weather_policy = str(weather_missing_policy).lower()
+        elif self.weather_missing_policy is not None:
+            active_weather_policy = self.weather_missing_policy
+        else:
+            # Low-level fallback preserving backward compatibility for unconfigured instances
+            active_weather_policy = "model_imputation"
+
+        if active_weather_policy not in ("persistence", "model_imputation"):
+            raise ValueError(
+                f"Invalid weather_missing_policy '{active_weather_policy}'. "
+                f"Supported modes: 'persistence', 'model_imputation'."
+            )
+
+        routing_policy_name = (
+            PROVISIONAL_SUMMER_ROUTING_POLICY if routing_enabled else "disabled"
+        )
+
         is_single_dict = isinstance(data, dict)
 
         if is_single_dict:
@@ -488,20 +571,103 @@ class RiceYieldPredictor:
         # Prepare and validate features
         X_df, baselines, imputed_flags, all_warnings = self.validate_and_prepare_features(df_input)
 
-        # Predict delta deviation from baseline
+        # Predict delta deviation from baseline using trained pipeline
         predicted_deltas = np.array(self.pipeline.predict(X_df), dtype=float)
 
-        # Seasonal policy routing:
-        # Per Section 10 of audit report: Summer model underperforms persistence by 13.41 kg/ha.
-        # When seasonal routing is enabled, Summer requests bypass delta and use persistence directly.
-        if self.enable_seasonal_routing:
-            for i in range(len(predicted_deltas)):
-                rec_season = X_df.iloc[i]['Season']
-                if rec_season == 'Summer':
-                    predicted_deltas[i] = 0.0
+        # Audit weather availability and evaluate policies per record independently
+        pred_methods = []
+        weather_statuses = []
+        weather_used_flags = []
+        missing_weather_lists = []
+        routing_applied_flags = []
+
+        for i in range(len(df_input)):
+            row_dict = df_input.iloc[i].to_dict()
+            row_dict_lower = {str(k).lower().strip(): v for k, v in row_dict.items()}
+            rec_season = X_df.iloc[i]['Season']
+
+            # Check presence and validity of all 10 in-season weather features
+            missing_weather = []
+            for w_col in INSEASON_WEATHER_FEATURES:
+                raw_w = row_dict.get(w_col)
+                if raw_w is None:
+                    raw_w = row_dict_lower.get(w_col.lower())
+                parsed_w = _parse_float(raw_w)
+                if parsed_w is None:
+                    missing_weather.append(w_col)
+
+            missing_weather_lists.append(missing_weather)
+
+            if len(missing_weather) == 0:
+                w_status = "complete"
+            elif len(missing_weather) == len(INSEASON_WEATHER_FEATURES):
+                w_status = "missing"
+            else:
+                w_status = "incomplete"
+            weather_statuses.append(w_status)
+
+            # 1. Provisional seasonal routing evaluation:
+            # Summer yield underperforms persistence by 13.41 kg/ha in 2017-2019 test evaluations.
+            # When seasonal routing is enabled, Summer requests bypass delta and use persistence directly.
+            if routing_enabled and rec_season == 'Summer':
+                predicted_deltas[i] = 0.0
+                pred_method = PROVISIONAL_SUMMER_ROUTING_POLICY
+                routing_applied = True
+                weather_used = False
+                all_warnings[i].append(
+                    "Seasonal routing active: Provisional seasonal routing policy applied — Summer (Boro) yield "
+                    "routed to persistence baseline. Scientific qualification: This policy is provisional and was "
+                    "motivated by historical 2017-2019 test set evaluations; it is not independently validated and "
+                    "is subject to revision after Step 5 rolling-origin evaluation."
+                )
+                if w_status == "complete":
                     all_warnings[i].append(
-                        "Seasonal routing active: Summer yield routed directly to persistence baseline per Section 10 audit findings."
+                        "In-season weather features were supplied but ML model bypassed by provisional seasonal routing."
                     )
+                else:
+                    all_warnings[i].append("In-season weather features unavailable or incomplete.")
+            else:
+                # Seasonal routing not applied (either disabled or season is Autumn/Winter)
+                routing_applied = False
+                if w_status == "complete":
+                    # All 10 weather features available: use ML model prediction
+                    pred_method = getattr(self, "model_type", "improved_delta_ridge")
+                    if hasattr(self, "model_name") and self.model_name:
+                        pred_method = self.model_name.replace(".pkl", "")
+                    weather_used = True
+                else:
+                    # Weather incomplete or completely missing
+                    if active_weather_policy == "persistence":
+                        predicted_deltas[i] = 0.0
+                        pred_method = "persistence"
+                        weather_used = False
+                        if w_status == "missing":
+                            all_warnings[i].append(
+                                "In-season weather features unavailable; persistence fallback applied."
+                            )
+                        else:
+                            all_warnings[i].append(
+                                f"Incomplete in-season weather features (missing: {', '.join(missing_weather)}); "
+                                "persistence fallback applied."
+                            )
+                    else:  # model_imputation
+                        pred_method = "model_imputation"
+                        weather_used = False
+                        if w_status == "missing":
+                            all_warnings[i].append(
+                                "In-season weather features unavailable; missing values filled using training-set "
+                                "median imputation. Warning: This prediction does NOT represent observed weather."
+                            )
+                        else:
+                            all_warnings[i].append(
+                                f"Incomplete in-season weather features (missing: {', '.join(missing_weather)}); "
+                                "values filled using training-set median imputation. Warning: This prediction does "
+                                "NOT represent observed weather."
+                            )
+
+            pred_methods.append(pred_method)
+            weather_used_flags.append(weather_used)
+            routing_applied_flags.append(routing_applied)
 
         raw_predicted_yields = baselines + predicted_deltas
 
@@ -533,19 +699,30 @@ class RiceYieldPredictor:
                 "predicted_yield_tonnes_per_ha": tonnes_val,
                 "predicted_yield_kg_ha": kg_val,
                 "predicted_yield_tonnes_ha": tonnes_val,
-                "predicted_delta_kg_ha": round(float(predicted_deltas[i]), 2),
                 "baseline_yield_kg_ha": round(float(baselines[i]), 2),
+                "predicted_delta_kg_ha": round(float(predicted_deltas[i]), 2),
                 "is_yield_lag1_imputed": bool(imputed_flags[i]),
+                "prediction_method": pred_methods[i],
+                "weather_feature_status": weather_statuses[i],
+                "weather_features_used": bool(weather_used_flags[i]),
+                "missing_weather_features": missing_weather_lists[i],
+                "prediction_policy_version": POLICY_VERSION,
+                "seasonal_routing_applied": bool(routing_applied_flags[i]),
+                "seasonal_routing_policy": routing_policy_name,
                 "model_name": self.model_name,
                 "warnings": all_warnings[i]
             }
 
             # Optional crop production calculation when valid area is explicitly supplied
             row_dict = df_input.iloc[i].to_dict()
+            row_dict_lower = {str(k).lower().strip(): v for k, v in row_dict.items()}
             area_val = None
             for area_key in ("Area_ha", "area_ha", "Area", "area", "harvested_area_ha", "planted_area_ha"):
-                if area_key in row_dict and not pd.isna(row_dict[area_key]):
-                    parsed_a = _parse_float(row_dict[area_key])
+                raw_a = row_dict.get(area_key)
+                if raw_a is None:
+                    raw_a = row_dict_lower.get(area_key.lower())
+                if raw_a is not None and not pd.isna(raw_a):
+                    parsed_a = _parse_float(raw_a)
                     if parsed_a is not None and parsed_a > 0:
                         area_val = parsed_a
                         break
@@ -574,6 +751,13 @@ class RiceYieldPredictor:
         out_df["predicted_delta_kg_ha"] = [r["predicted_delta_kg_ha"] for r in results]
         out_df["baseline_yield_kg_ha"] = [r["baseline_yield_kg_ha"] for r in results]
         out_df["is_yield_lag1_imputed"] = [r["is_yield_lag1_imputed"] for r in results]
+        out_df["prediction_method"] = [r["prediction_method"] for r in results]
+        out_df["weather_feature_status"] = [r["weather_feature_status"] for r in results]
+        out_df["weather_features_used"] = [r["weather_features_used"] for r in results]
+        out_df["missing_weather_features"] = [", ".join(r["missing_weather_features"]) if r["missing_weather_features"] else "none" for r in results]
+        out_df["prediction_policy_version"] = [r["prediction_policy_version"] for r in results]
+        out_df["seasonal_routing_applied"] = [r["seasonal_routing_applied"] for r in results]
+        out_df["seasonal_routing_policy"] = [r["seasonal_routing_policy"] for r in results]
         out_df["prediction_warnings"] = ["; ".join(r["warnings"]) if r["warnings"] else "None" for r in results]
         if any("estimated_production_tonnes" in r for r in results):
             out_df["estimated_production_tonnes"] = [r.get("estimated_production_tonnes", np.nan) for r in results]
@@ -589,18 +773,21 @@ _DEFAULT_PREDICTOR: Optional[RiceYieldPredictor] = None
 
 def get_default_predictor(
     model_path: Optional[str] = None,
-    enable_seasonal_routing: bool = False
+    enable_seasonal_routing: bool = True,
+    weather_missing_policy: str = "persistence"
 ) -> RiceYieldPredictor:
-    """Returns singleton instance of default predictor."""
+    """Returns singleton instance of default predictor matching configuration."""
     global _DEFAULT_PREDICTOR
     if (
         _DEFAULT_PREDICTOR is None
         or (model_path and Path(model_path) != _DEFAULT_PREDICTOR.model_path)
         or (_DEFAULT_PREDICTOR.enable_seasonal_routing != enable_seasonal_routing)
+        or (_DEFAULT_PREDICTOR.weather_missing_policy != weather_missing_policy)
     ):
         _DEFAULT_PREDICTOR = RiceYieldPredictor(
             model_path=model_path,
-            enable_seasonal_routing=enable_seasonal_routing
+            enable_seasonal_routing=enable_seasonal_routing,
+            weather_missing_policy=weather_missing_policy
         )
     return _DEFAULT_PREDICTOR
 
@@ -609,23 +796,33 @@ def predict_rice_yield(
     data: Union[pd.DataFrame, Dict[str, Any], List[Dict[str, Any]]],
     model_path: Optional[str] = None,
     clamp_yield: bool = True,
-    enable_seasonal_routing: bool = False
+    enable_seasonal_routing: bool = True,
+    weather_missing_policy: str = "persistence"
 ) -> Union[Dict[str, Any], List[Dict[str, Any]], pd.DataFrame]:
     """Convenience function to predict yield on data."""
     predictor = RiceYieldPredictor(
         model_path=model_path,
         clamp_yield=clamp_yield,
-        enable_seasonal_routing=enable_seasonal_routing
+        enable_seasonal_routing=enable_seasonal_routing,
+        weather_missing_policy=weather_missing_policy
     )
     return predictor.predict(data)
 
 
-def load_model(model_path: Optional[str] = None) -> Dict[str, Any]:
+def load_model(
+    model_path: Optional[str] = None,
+    enable_seasonal_routing: bool = True,
+    weather_missing_policy: str = "persistence"
+) -> Dict[str, Any]:
     """
     Integration loader matching shared/predict_bridge.py contract.
     Returns model metadata dictionary with feature_names and pipeline.
     """
-    predictor = get_default_predictor(model_path)
+    predictor = get_default_predictor(
+        model_path=model_path,
+        enable_seasonal_routing=enable_seasonal_routing,
+        weather_missing_policy=weather_missing_policy
+    )
     return {
         "pipeline": predictor.pipeline,
         "feature_names": ALL_FEATURES,
@@ -637,14 +834,23 @@ def load_model(model_path: Optional[str] = None) -> Dict[str, Any]:
 def predict_yield(
     model_info: Dict[str, Any],
     input_dict: Dict[str, Any],
-    as_dict: bool = False
+    as_dict: bool = False,
+    enable_seasonal_routing: Optional[bool] = None,
+    weather_missing_policy: Optional[str] = None,
 ) -> Union[float, Dict[str, Any]]:
     """
     Integration prediction function matching shared/predict_bridge.py contract.
     Returns predicted yield in tonnes/ha (or full prediction dict if as_dict=True).
     """
-    predictor = model_info.get("predictor") or get_default_predictor()
-    res = predictor.predict(input_dict)
+    predictor = model_info.get("predictor") or get_default_predictor(
+        enable_seasonal_routing=enable_seasonal_routing if enable_seasonal_routing is not None else True,
+        weather_missing_policy=weather_missing_policy if weather_missing_policy is not None else "persistence"
+    )
+    res = predictor.predict(
+        input_dict,
+        enable_seasonal_routing=enable_seasonal_routing,
+        weather_missing_policy=weather_missing_policy
+    )
     if isinstance(res, dict):
         if as_dict:
             return res
@@ -666,8 +872,13 @@ def parse_args():
     parser.add_argument("--model", type=str, default="improved_ridge",
                         help="Candidate model name or path (improved_ridge, improved_xgb_cons, improved_xgb)")
     parser.add_argument("--no-clamp", action="store_true", help="Disable agronomic bounds clamping [500, 6000]")
-    parser.add_argument("--enable-seasonal-routing", action="store_true",
-                        help="Enable seasonal routing policy (Summer routes to persistence baseline)")
+    parser.add_argument("--weather-missing-policy", type=str, default="persistence",
+                        choices=["persistence", "model_imputation"],
+                        help="Weather missing policy: 'persistence' (default) or 'model_imputation'")
+    parser.add_argument("--enable-seasonal-routing", action="store_true", default=True,
+                        help="Enable provisional seasonal routing (Summer routes to persistence baseline; default: enabled)")
+    parser.add_argument("--disable-seasonal-routing", dest="enable_seasonal_routing", action="store_false",
+                        help="Disable provisional seasonal routing policy")
 
     # Single-instance CLI arguments
     parser.add_argument("--district", type=str, help="District name (e.g. Hooghly, Purba Bardhaman)")
@@ -706,7 +917,8 @@ def main():
         predictor = RiceYieldPredictor(
             model_type=args.model,
             clamp_yield=clamp,
-            enable_seasonal_routing=args.enable_seasonal_routing
+            enable_seasonal_routing=args.enable_seasonal_routing,
+            weather_missing_policy=args.weather_missing_policy,
         )
     except Exception as e:
         logger.error(f"Failed to initialize predictor: {e}")
@@ -814,6 +1026,11 @@ def main():
     print("AGROVISION RICE YIELD PREDICTION RESULT")
     print("=" * 50)
     print(f"Model:                      {result['model_name']}")
+    print(f"Prediction Method:          {result['prediction_method']}")
+    print(f"Weather Feature Status:     {result['weather_feature_status']}")
+    print(f"Weather Features Used:      {result['weather_features_used']}")
+    print(f"Seasonal Routing Applied:   {result['seasonal_routing_applied']} ({result['seasonal_routing_policy']})")
+    print(f"Prediction Policy Version:  {result['prediction_policy_version']}")
     kg_ha_display = result.get('predicted_yield_kg_per_ha', result.get('predicted_yield_kg_ha', 0.0))
     t_ha_display = result.get('predicted_yield_tonnes_per_ha', result.get('predicted_yield_tonnes_ha', 0.0))
     print(f"Predicted Yield (kg/ha):    {kg_ha_display:.2f} kg/ha")

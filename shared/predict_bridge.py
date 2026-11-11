@@ -68,8 +68,15 @@ class YieldPredictionResult(dict):
         - baseline_yield_kg_ha (float): Historical/lag baseline yield in kg/ha.
         - predicted_delta_kg_ha (float): Model deviation from baseline in kg/ha.
         - is_yield_lag1_imputed (bool): True if lag1 was imputed from district/season means.
+        - prediction_method (str): Active method ('persistence', 'improved_delta_ridge', 'provisional_summer_persistence', etc.).
+        - weather_feature_status (str): In-season weather completeness ('complete', 'incomplete', 'missing').
+        - weather_features_used (bool): True only when all 10 features were valid and used by ML model.
+        - missing_weather_features (list[str]): Names of missing in-season weather features.
+        - prediction_policy_version (str): Active policy schema version ('2.1').
+        - seasonal_routing_applied (bool): True if Summer was routed to persistence baseline.
+        - seasonal_routing_policy (str): Active seasonal routing policy ('provisional_summer_persistence' or 'disabled').
         - model_name (str): Active model artifact name.
-        - warnings (list[str]): Agronomic or imputation warnings.
+        - warnings (list[str]): Agronomic, weather policy, or imputation warnings.
 
     Deprecated legacy alias:
         - yield_arrivals_tonnes: Emits a DeprecationWarning on access explaining the
@@ -143,6 +150,13 @@ class AgroVisionPredictor:
         Directory containing Member 2 model artifacts. Defaults to standard location.
     enable_legacy_alias : bool, default=True
         Whether to include the deprecated 'yield_arrivals_tonnes' legacy alias in prediction dicts.
+    enable_seasonal_routing : bool, default=True
+        Whether to route Summer (Boro) predictions to persistence baseline.
+        Provisional interim policy motivated by 2017-2019 test evaluations.
+    weather_missing_policy : str, default='persistence'
+        Policy when in-season weather features are incomplete or missing:
+        'persistence' (default production mode: delta=0, bypass ML model) or
+        'model_imputation' (fills missing weather features using training-set medians).
     """
 
     def __init__(
@@ -150,6 +164,8 @@ class AgroVisionPredictor:
         m1_model_path: Optional[Union[str, Path]] = None,
         m2_artifacts_dir: Optional[Union[str, Path]] = None,
         enable_legacy_alias: bool = True,
+        enable_seasonal_routing: bool = True,
+        weather_missing_policy: str = "persistence",
     ):
         self._m1_root = get_member1_root()
         self._m2_src = get_member2_root() / "src"
@@ -164,6 +180,8 @@ class AgroVisionPredictor:
             get_member2_root() / "artifacts"
         )
         self.enable_legacy_alias = bool(enable_legacy_alias)
+        self.enable_seasonal_routing = bool(enable_seasonal_routing)
+        self.weather_missing_policy = str(weather_missing_policy).lower()
 
         # Lazy-loaded internal modules
         self._m1_predict = None
@@ -193,10 +211,18 @@ class AgroVisionPredictor:
             self._m1_load_model = load_model
             self._m1_predict_yield = predict_yield
             model_path_str = str(self._m1_model_path) if self._m1_model_path else None
-            self._m1_model_info = load_model(model_path_str)
+            self._m1_model_info = load_model(
+                model_path_str,
+                enable_seasonal_routing=self.enable_seasonal_routing,
+                weather_missing_policy=self.weather_missing_policy,
+            )
             self._m1_predictor = self._m1_model_info.get("predictor")
             if self._m1_predictor is None:
-                self._m1_predictor = RiceYieldPredictor(model_path=model_path_str)
+                self._m1_predictor = RiceYieldPredictor(
+                    model_path=model_path_str,
+                    enable_seasonal_routing=self.enable_seasonal_routing,
+                    weather_missing_policy=self.weather_missing_policy,
+                )
             self._m1_predict = True
             self._m1_load_error = None
         except Exception as e:
@@ -244,6 +270,8 @@ class AgroVisionPredictor:
         data: Union[dict, list, pd.DataFrame],
         area_ha: Optional[float] = None,
         enable_legacy_alias: Optional[bool] = None,
+        enable_seasonal_routing: Optional[bool] = None,
+        weather_missing_policy: Optional[str] = None,
     ) -> Union[YieldPredictionResult, List[YieldPredictionResult], pd.DataFrame]:
         """
         Predict rice crop yield using Member 1's validated pipeline.
@@ -266,6 +294,12 @@ class AgroVisionPredictor:
         enable_legacy_alias : bool, optional
             Whether to expose the deprecated 'yield_arrivals_tonnes' alias.
             Defaults to the instance-level `self.enable_legacy_alias` setting.
+        enable_seasonal_routing : bool, optional
+            Whether to enforce provisional seasonal routing (Summer persistence baseline).
+            Defaults to instance-level `self.enable_seasonal_routing`.
+        weather_missing_policy : str, optional
+            Policy for missing weather ('persistence' or 'model_imputation').
+            Defaults to instance-level `self.weather_missing_policy`.
 
         Returns
         -------
@@ -280,12 +314,18 @@ class AgroVisionPredictor:
             raise RuntimeError(err_msg)
 
         legacy_enabled = self.enable_legacy_alias if enable_legacy_alias is None else bool(enable_legacy_alias)
+        routing_enabled = self.enable_seasonal_routing if enable_seasonal_routing is None else bool(enable_seasonal_routing)
+        missing_policy = self.weather_missing_policy if weather_missing_policy is None else str(weather_missing_policy).lower()
 
         if isinstance(data, pd.DataFrame):
             df_input = data.copy()
             if area_ha is not None:
                 df_input["Area_ha"] = area_ha
-            out_df = self._m1_predictor.predict(df_input)
+            out_df = self._m1_predictor.predict(
+                df_input,
+                enable_seasonal_routing=routing_enabled,
+                weather_missing_policy=missing_policy,
+            )
             if legacy_enabled and "predicted_yield_tonnes_per_ha" in out_df.columns:
                 out_df["yield_arrivals_tonnes"] = out_df["predicted_yield_tonnes_per_ha"]
             return out_df
@@ -297,6 +337,8 @@ class AgroVisionPredictor:
                     item,
                     area_ha=area_ha,
                     enable_legacy_alias=legacy_enabled,
+                    enable_seasonal_routing=routing_enabled,
+                    weather_missing_policy=missing_policy,
                 )
                 results.append(res)
             return results
@@ -309,7 +351,11 @@ class AgroVisionPredictor:
         if area_ha is not None and "Area_ha" not in input_dict and "area_ha" not in input_dict:
             input_dict["Area_ha"] = area_ha
 
-        raw_res = self._m1_predictor.predict(input_dict)
+        raw_res = self._m1_predictor.predict(
+            input_dict,
+            enable_seasonal_routing=routing_enabled,
+            weather_missing_policy=missing_policy,
+        )
         if not isinstance(raw_res, dict):
             raise ValueError(f"Expected dict result from Member 1 predictor, got {type(raw_res).__name__}")
 
@@ -328,7 +374,19 @@ class AgroVisionPredictor:
         }
 
         # Preserve metadata and warnings
-        for meta_k in ("baseline_yield_kg_ha", "predicted_delta_kg_ha", "is_yield_lag1_imputed", "model_name"):
+        for meta_k in (
+            "baseline_yield_kg_ha",
+            "predicted_delta_kg_ha",
+            "is_yield_lag1_imputed",
+            "model_name",
+            "prediction_method",
+            "weather_feature_status",
+            "weather_features_used",
+            "missing_weather_features",
+            "prediction_policy_version",
+            "seasonal_routing_applied",
+            "seasonal_routing_policy",
+        ):
             if meta_k in raw_res:
                 out_data[meta_k] = raw_res[meta_k]
         out_data["warnings"] = list(raw_res.get("warnings", []))
@@ -450,6 +508,8 @@ class AgroVisionPredictor:
         yield_input: Optional[dict] = None,
         area_ha: Optional[float] = None,
         enable_legacy_alias: Optional[bool] = None,
+        enable_seasonal_routing: Optional[bool] = None,
+        weather_missing_policy: Optional[str] = None,
         **price_kwargs
     ) -> CombinedPredictionResult:
         """
@@ -470,6 +530,10 @@ class AgroVisionPredictor:
             Harvested/planted area in hectares for optional production estimation.
         enable_legacy_alias : bool, optional
             Whether to expose deprecated 'yield_arrivals_tonnes' alias.
+        enable_seasonal_routing : bool, optional
+            Whether to enforce provisional seasonal routing (Summer persistence baseline).
+        weather_missing_policy : str, optional
+            Missing weather policy ('persistence' or 'model_imputation').
         **price_kwargs :
             Optional keyword arguments passed to predict_price().
 
@@ -516,6 +580,8 @@ class AgroVisionPredictor:
                     yield_input,
                     area_ha=area_ha,
                     enable_legacy_alias=legacy_enabled,
+                    enable_seasonal_routing=enable_seasonal_routing,
+                    weather_missing_policy=weather_missing_policy,
                 )
                 results["predicted_yield_kg_per_ha"] = yield_result["predicted_yield_kg_per_ha"]
                 results["predicted_yield_tonnes_per_ha"] = yield_result["predicted_yield_tonnes_per_ha"]
@@ -583,3 +649,16 @@ class AgroVisionPredictor:
             "rice_price_features": self._rice_pipeline.features_list,
             "rice_history_columns": [DATE_COLUMN, PRICE_COLUMN, ARRIVAL_COLUMN] + GROUP_COLUMNS,
         }
+
+
+def preprocess_inseason_weather(*args, **kwargs) -> Dict[str, Any]:
+    """
+    Convenience bridge function for preprocessing caller-supplied daily weather.
+    Exposes Member 1's cutoff-aware, leakage-safe weather preprocessor.
+    """
+    m1_root = get_member1_root()
+    if str(m1_root) not in sys.path:
+        sys.path.insert(0, str(m1_root))
+    from src.predict import preprocess_inseason_weather as _m1_preprocess
+    return _m1_preprocess(*args, **kwargs)
+

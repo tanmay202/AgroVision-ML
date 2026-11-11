@@ -21,8 +21,14 @@ from predict_rice_yield import (  # noqa: E402
     ALL_FEATURES,
     NUMERICAL_FEATURES,
     CATEGORICAL_FEATURES,
+    INSEASON_WEATHER_FEATURES,
     VALID_DISTRICTS,
-    VALID_SEASONS
+    VALID_SEASONS,
+    POLICY_VERSION,
+    PROVISIONAL_SUMMER_ROUTING_POLICY,
+    preprocess_inseason_weather,
+    get_season_window,
+    INSEASON_FEATURE_COLUMNS,
 )
 
 __all__ = [
@@ -33,6 +39,12 @@ __all__ = [
     "ALL_FEATURES",
     "NUMERICAL_FEATURES",
     "CATEGORICAL_FEATURES",
+    "INSEASON_WEATHER_FEATURES",
     "VALID_DISTRICTS",
-    "VALID_SEASONS"
+    "VALID_SEASONS",
+    "POLICY_VERSION",
+    "PROVISIONAL_SUMMER_ROUTING_POLICY",
+    "preprocess_inseason_weather",
+    "get_season_window",
+    "INSEASON_FEATURE_COLUMNS",
 ]
