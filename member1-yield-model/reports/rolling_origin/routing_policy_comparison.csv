@@ -1,0 +1,9 @@
+Policy_ID,Policy_Name,Description,Overall_MAE_kg_ha,Overall_RMSE_kg_ha,Overall_R2,Overall_MAPE_pct,Mean_Bias_kg_ha,MAE_Improvement_vs_P1,Autumn_Aus_MAE,Winter_Aman_MAE,Summer_Boro_MAE,ML_Eligible_Coverage_pct
+1,Policy 1: All Persistence,Persistence for all 3 seasons,258.24,394.18,0.5151,10.63,-66.53,0.0,311.56,205.68,258.03,0.0
+2,Policy 2: Ridge All Seasons,"Ridge for Aus, Aman, Boro (with Step 3 weather fallback)",241.09,366.38,0.5811,9.91,-77.67,17.15,280.79,194.85,248.11,96.89
+3,Policy 3: Ridge Aus Only,"Ridge for Aus, Persistence for Aman & Boro",248.02,379.84,0.5497,10.22,-69.03,10.22,280.79,205.68,258.03,32.18
+4,"Policy 4: Ridge Aus/Aman, Persist Boro","Provisional policy: Ridge for Aus & Aman, Persistence for Boro",244.38,374.19,0.563,10.05,-71.69,13.86,280.79,194.85,258.03,64.71
+5,"Policy 5: Persist Aus, Ridge Aman/Boro","Persistence for Aus, Ridge for Aman & Boro",251.31,381.22,0.5464,10.32,-75.17,6.93,311.56,194.85,248.11,64.71
+6,"Policy 6: Ridge Aus/Boro, Persist Aman","Ridge for Aus & Boro, Persistence for Aman",244.72,372.15,0.5678,10.09,-75.0,13.52,280.79,205.68,248.11,64.36
+7,"Policy 7: Ridge Aman/Boro, Persist Aus","Ridge for Aman & Boro, Persistence for Aus",251.31,381.22,0.5464,10.32,-75.17,6.93,311.56,194.85,248.11,64.71
+8,Policy 8: Validation-Supported Policy,Ridge for each season supported by rolling-origin validation (All Ridge),241.09,366.38,0.5811,9.91,-77.67,17.15,280.79,194.85,248.11,96.89

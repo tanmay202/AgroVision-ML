@@ -1,0 +1,6 @@
+Fold,Val_Year,Total_Rows,Complete_Weather_Rows,Incomplete_Weather_Rows,Missing_Weather_Rows,ML_Eligible_Pct
+1,2012,57,54,0,3,94.74
+2,2013,57,54,0,3,94.74
+3,2014,57,54,0,3,94.74
+4,2015,54,54,0,0,100.0
+5,2016,64,64,0,0,100.0

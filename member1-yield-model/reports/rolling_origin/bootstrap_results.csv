@@ -1,0 +1,11 @@
+Comparison,Season,N_Observations,Observed_MAE_Difference_kg_ha,Resampling_Method,Random_Seed,Replicates,CI_95_Lower_kg_ha,CI_95_Upper_kg_ha,Prob_Candidate_Better_pct,Sensitivity_Method,Sensitivity_CI_95_Lower,Sensitivity_CI_95_Upper,Wilcoxon_P_Value_OneSided,Paired_Ttest_P_Value_OneSided,Statistically_Significant_at_05
+Policy 2 (Ridge All) vs P1 (Persistence),All,289,17.15,"District-clustered bootstrap (B=10,000)",42,10000,7.07,28.02,99.95,"Year-clustered bootstrap (B=10,000, K=5 yrs)",12.23,21.5,4e-05,1e-05,True
+Policy 3 (Ridge Aus Only) vs P1,All,289,10.22,"District-clustered bootstrap (B=10,000)",42,10000,6.23,14.67,100.0,"Year-clustered bootstrap (B=10,000, K=5 yrs)",4.26,16.45,1e-05,3e-05,True
+Policy 4 (Provisional Aus/Aman) vs P1,All,289,13.86,"District-clustered bootstrap (B=10,000)",42,10000,6.39,22.98,99.99,"Year-clustered bootstrap (B=10,000, K=5 yrs)",6.09,18.89,3e-05,2e-05,True
+"Policy 5 (Persist Aus, Ridge Aman/Boro) vs P1",All,289,6.93,"District-clustered bootstrap (B=10,000)",42,10000,-1.72,15.42,94.01,"Year-clustered bootstrap (B=10,000, K=5 yrs)",1.47,13.93,0.03702,0.01643,False
+"Policy 6 (Ridge Aus/Boro, Persist Aman) vs P1",All,289,13.52,"District-clustered bootstrap (B=10,000)",42,10000,6.9,20.5,99.99,"Year-clustered bootstrap (B=10,000, K=5 yrs)",9.11,18.0,8e-05,6e-05,True
+"Policy 7 (Ridge Aman/Boro, Persist Aus) vs P1",All,289,6.93,"District-clustered bootstrap (B=10,000)",42,10000,-1.72,15.42,94.01,"Year-clustered bootstrap (B=10,000, K=5 yrs)",1.47,13.93,0.03702,0.01643,False
+Policy 8 (Validation-Supported) vs P1,All,289,17.15,"District-clustered bootstrap (B=10,000)",42,10000,7.07,28.02,99.95,"Year-clustered bootstrap (B=10,000, K=5 yrs)",12.23,21.5,4e-05,1e-05,True
+Autumn (Aus): Ridge vs Persistence,Autumn,96,30.77,"District-clustered bootstrap (B=10,000)",42,10000,19.08,44.34,100.0,"Year-clustered bootstrap (B=10,000, K=5 yrs)",12.78,49.52,1e-05,2e-05,True
+Winter (Aman): Ridge vs Persistence,Winter,97,10.83,"District-clustered bootstrap (B=10,000)",42,10000,-3.33,27.27,92.58,"Year-clustered bootstrap (B=10,000, K=5 yrs)",-6.14,27.65,0.07513,0.0473,False
+Summer (Boro): Ridge vs Persistence,Summer,96,9.92,"District-clustered bootstrap (B=10,000)",42,10000,-7.93,28.24,86.1,"Year-clustered bootstrap (B=10,000, K=5 yrs)",1.68,19.6,0.13532,0.08722,False
