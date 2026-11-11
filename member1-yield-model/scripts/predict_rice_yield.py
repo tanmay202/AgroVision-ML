@@ -526,15 +526,37 @@ class RiceYieldPredictor:
         # Construct result objects
         results = []
         for i in range(len(final_yields_kg)):
+            kg_val = round(float(final_yields_kg[i]), 2)
+            tonnes_val = round(float(final_yields_tonnes[i]), 4)
             res = {
-                "predicted_yield_kg_ha": round(float(final_yields_kg[i]), 2),
-                "predicted_yield_tonnes_ha": round(float(final_yields_tonnes[i]), 4),
+                "predicted_yield_kg_per_ha": kg_val,
+                "predicted_yield_tonnes_per_ha": tonnes_val,
+                "predicted_yield_kg_ha": kg_val,
+                "predicted_yield_tonnes_ha": tonnes_val,
                 "predicted_delta_kg_ha": round(float(predicted_deltas[i]), 2),
                 "baseline_yield_kg_ha": round(float(baselines[i]), 2),
                 "is_yield_lag1_imputed": bool(imputed_flags[i]),
                 "model_name": self.model_name,
                 "warnings": all_warnings[i]
             }
+
+            # Optional crop production calculation when valid area is explicitly supplied
+            row_dict = df_input.iloc[i].to_dict()
+            area_val = None
+            for area_key in ("Area_ha", "area_ha", "Area", "area", "harvested_area_ha", "planted_area_ha"):
+                if area_key in row_dict and not pd.isna(row_dict[area_key]):
+                    parsed_a = _parse_float(row_dict[area_key])
+                    if parsed_a is not None and parsed_a > 0:
+                        area_val = parsed_a
+                        break
+                    elif parsed_a is not None and parsed_a <= 0:
+                        all_warnings[i].append(f"Non-positive area supplied in '{area_key}' ({parsed_a}). Production omitted.")
+
+            if area_val is not None:
+                # Total Production (tonnes) = Yield (tonnes/ha) * Area (ha)
+                res["estimated_production_tonnes"] = round(tonnes_val * area_val, 4)
+                res["area_ha"] = area_val
+
             results.append(res)
 
         if is_single_dict:
@@ -545,12 +567,16 @@ class RiceYieldPredictor:
 
         # Return enhanced DataFrame
         out_df = df_input.copy()
+        out_df["predicted_yield_kg_per_ha"] = [r["predicted_yield_kg_per_ha"] for r in results]
+        out_df["predicted_yield_tonnes_per_ha"] = [r["predicted_yield_tonnes_per_ha"] for r in results]
         out_df["predicted_yield_kg_ha"] = [r["predicted_yield_kg_ha"] for r in results]
         out_df["predicted_yield_tonnes_ha"] = [r["predicted_yield_tonnes_ha"] for r in results]
         out_df["predicted_delta_kg_ha"] = [r["predicted_delta_kg_ha"] for r in results]
         out_df["baseline_yield_kg_ha"] = [r["baseline_yield_kg_ha"] for r in results]
         out_df["is_yield_lag1_imputed"] = [r["is_yield_lag1_imputed"] for r in results]
         out_df["prediction_warnings"] = ["; ".join(r["warnings"]) if r["warnings"] else "None" for r in results]
+        if any("estimated_production_tonnes" in r for r in results):
+            out_df["estimated_production_tonnes"] = [r.get("estimated_production_tonnes", np.nan) for r in results]
         return out_df
 
 
@@ -608,15 +634,21 @@ def load_model(model_path: Optional[str] = None) -> Dict[str, Any]:
     }
 
 
-def predict_yield(model_info: Dict[str, Any], input_dict: Dict[str, Any]) -> float:
+def predict_yield(
+    model_info: Dict[str, Any],
+    input_dict: Dict[str, Any],
+    as_dict: bool = False
+) -> Union[float, Dict[str, Any]]:
     """
     Integration prediction function matching shared/predict_bridge.py contract.
-    Returns predicted yield in tonnes/ha.
+    Returns predicted yield in tonnes/ha (or full prediction dict if as_dict=True).
     """
     predictor = model_info.get("predictor") or get_default_predictor()
     res = predictor.predict(input_dict)
     if isinstance(res, dict):
-        return float(res["predicted_yield_tonnes_ha"])
+        if as_dict:
+            return res
+        return float(res["predicted_yield_tonnes_per_ha"])
     raise ValueError("Expected dict result from single input dict.")
 
 
@@ -644,6 +676,8 @@ def parse_args():
     parser.add_argument("--yield-lag2", type=float, help="Two years prior yield (kg/ha)")
     parser.add_argument("--area-lag1", type=float, help="Previous year area (ha)")
     parser.add_argument("--area-lag2", type=float, help="Two years prior area (ha)")
+    parser.add_argument("--area-ha", "--area", dest="area_ha", type=float, default=None,
+                        help="Planted or harvested area in hectares for total production estimation")
     parser.add_argument("--precip-lag1", type=float, help="Previous year precipitation (mm)")
     parser.add_argument("--t2m-lag1", type=float, help="Previous year mean temperature (°C)")
     parser.add_argument("--rh2m-lag1", type=float, help="Previous year relative humidity (pct)")
@@ -738,6 +772,8 @@ def main():
         record["Area_lag1"] = args.area_lag1
     if args.area_lag2 is not None:
         record["Area_lag2"] = args.area_lag2
+    if args.area_ha is not None:
+        record["Area_ha"] = args.area_ha
     if args.precip_lag1 is not None:
         record["Precip_lag1"] = args.precip_lag1
     if args.t2m_lag1 is not None:
@@ -778,8 +814,12 @@ def main():
     print("AGROVISION RICE YIELD PREDICTION RESULT")
     print("=" * 50)
     print(f"Model:                      {result['model_name']}")
-    print(f"Predicted Yield (kg/ha):    {result['predicted_yield_kg_ha']:.2f} kg/ha")
-    print(f"Predicted Yield (tonnes/ha):{result['predicted_yield_tonnes_ha']:.4f} t/ha")
+    kg_ha_display = result.get('predicted_yield_kg_per_ha', result.get('predicted_yield_kg_ha', 0.0))
+    t_ha_display = result.get('predicted_yield_tonnes_per_ha', result.get('predicted_yield_tonnes_ha', 0.0))
+    print(f"Predicted Yield (kg/ha):    {kg_ha_display:.2f} kg/ha")
+    print(f"Predicted Yield (tonnes/ha):{t_ha_display:.4f} t/ha")
+    if "estimated_production_tonnes" in result:
+        print(f"Estimated Prod. (tonnes):  {result['estimated_production_tonnes']:.4f} tonnes (Area: {result.get('area_ha')} ha)")
     print(f"Baseline Yield (kg/ha):     {result['baseline_yield_kg_ha']:.2f} kg/ha")
     print(f"Predicted Delta (kg/ha):    {result['predicted_delta_kg_ha']:+.2f} kg/ha")
     print(f"Yield_lag1 Imputed?:        {result['is_yield_lag1_imputed']}")

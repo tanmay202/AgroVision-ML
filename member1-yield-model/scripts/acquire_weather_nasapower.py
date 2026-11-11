@@ -1,13 +1,19 @@
-import os
 import json
 import time
 import sys
+from pathlib import Path
 import requests
 import pandas as pd
+
+SCRIPT_DIR = Path(__file__).resolve().parent
+if str(SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_DIR))
+
 from district_normalization import DISTRICT_CENTROIDS
 
-RAW_DIR = "member1-yield-model/data/raw/weather/"
-PROCESSED_FILE = "member1-yield-model/data/processed/weather_nasapower_wb.csv"
+BASE_DIR = SCRIPT_DIR.parent
+RAW_DIR = BASE_DIR / "data" / "raw" / "weather"
+PROCESSED_FILE = BASE_DIR / "data" / "processed" / "weather_nasapower_wb.csv"
 BASE_URL = "https://power.larc.nasa.gov/api/temporal/daily/point"
 
 PARAMS = [
@@ -16,12 +22,9 @@ PARAMS = [
 ]
 
 def fetch_district_weather(district, lat, lon, start_year, end_year):
-    os.makedirs(RAW_DIR, exist_ok=True)
+    RAW_DIR.mkdir(parents=True, exist_ok=True)
 
-    raw_path = os.path.join(
-        RAW_DIR,
-        f"{district.lower().replace(' ', '_')}.json"
-    )
+    raw_path = RAW_DIR / f"{district.lower().replace(' ', '_')}.json"
 
     params = {
         "parameters": ",".join(PARAMS),
@@ -40,7 +43,7 @@ def fetch_district_weather(district, lat, lon, start_year, end_year):
 
     data = response.json()
 
-    with open(raw_path, "w") as f:
+    with open(raw_path, "w", encoding="utf-8") as f:
         json.dump(data, f)
 
     time.sleep(1)
@@ -97,10 +100,7 @@ def process_weather_data(start_year, end_year):
 
     final_df = pd.concat(records, ignore_index=True)
 
-    os.makedirs(
-        os.path.dirname(PROCESSED_FILE),
-        exist_ok=True
-    )
+    PROCESSED_FILE.parent.mkdir(parents=True, exist_ok=True)
 
     final_df.to_csv(
         PROCESSED_FILE,

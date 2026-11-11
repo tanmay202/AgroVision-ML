@@ -1,8 +1,8 @@
 # AgroVision-ML
 
-> **Agricultural commodity intelligence platform** — ML pipelines for tea mandi arrival forecasting, price prediction, and volatility classification.
+> **Agricultural commodity intelligence platform** — ML pipelines for West Bengal rice crop yield prediction (Member 1) and mandi price forecasting & volatility classification (Member 2).
 
-Built as a 3-member team project using Indian Agmarknet data.
+Built as a 3-member team project using Indian Agmarknet and NASA POWER agricultural data.
 
 ---
 
@@ -10,7 +10,7 @@ Built as a 3-member team project using Indian Agmarknet data.
 
 | Member | Role | Module | Output |
 |--------|------|--------|--------|
-| **Member 1** | Yield/Arrival ML | `member1-yield-model/` | `yield_model.pkl` |
+| **Member 1** | Crop Yield ML (tonnes/ha, kg/ha) | `member1-yield-model/` | `m1_improved_delta_ridge.pkl` |
 | **Member 2** | Price & Volatility ML | `member2-price-volatility/` | `{commodity}_price_model.pkl`, `{commodity}_volatility_model.pkl` |
 | **Member 3** | Engineering & API | FastAPI service (separate repo) | REST API, Dashboard |
 
@@ -68,21 +68,36 @@ AgroVision-ML/
 │   └── download_data.py             ← Data.gov.in API download script
 │
 ├── shared/
-│   └── predict_bridge.py            ← Member 3 integration API
+│   ├── paths.py                     ← Centralized dynamic path manager
+│   └── predict_bridge.py            ← Unified prediction bridge for Member 3
 │
-├── member1-yield-model/             ← MEMBER 1: Arrival forecasting
-│   ├── main.py                      ← Entry point
-│   ├── data/raw/                    ← Place tea_cleaned.csv here
-│   ├── models/yield_model.pkl       ← Trained model (auto-generated)
-│   ├── outputs/                     ← Plots & reports (auto-generated)
-│   └── src/                         ← Pipeline source code
+├── member1-yield-model/             ← MEMBER 1: Rice Crop Yield Model
+│   ├── scripts/                     ← Ingest, aggregate, train & inference scripts
+│   ├── models/                      ← Candidate models (m1_improved_delta_ridge.pkl)
+│   ├── data/                        ← Raw and processed district-seasonal datasets
+│   └── tests/                       ← Comprehensive regression test suite
 │
-└── member2-price-volatility/        ← MEMBER 2: Price + volatility
-    ├── run.py                        ← Entry point
-    ├── data/raw/                    ← Place tea.csv here
-    ├── artifacts/                   ← Trained models (auto-generated)
+└── member2-price-volatility/        ← MEMBER 2: Mandi Price & Volatility Model
+    ├── run.py                       ← Entry point
+    ├── artifacts/                   ← Trained models (XGBoost 48-feature)
     └── src/                         ← Pipeline source code
 ```
+
+---
+
+## Semantic Contract: Yield vs. Production vs. Arrivals
+
+AgroVision strictly distinguishes between three different agricultural concepts:
+
+1. **Crop Yield (`predicted_yield_tonnes_per_ha`, `predicted_yield_kg_per_ha`):**
+   Crop productivity intensity predicted by Member 1 (tonnes/ha or kg/ha). Typical West Bengal rice range is 1.5–4.0 tonnes/ha (500–6000 kg/ha agronomic bounds).
+2. **Crop Production (`estimated_production_tonnes`):**
+   Estimated total harvest in tonnes. Calculated optionally when caller provides harvested/planted area in hectares:
+   $$\text{Production (tonnes)} = \text{Yield (tonnes/ha)} \times \text{Area (ha)}$$
+3. **Mandi Market Arrivals:**
+   Quantity of produce physically traded at an APMC market wholesale yard on a given day (tonnes). This is a dynamic Agmarknet market observation consumed by Member 2, **never** output by Member 1's crop productivity model.
+
+> **Deprecated Key Notice:** The legacy key `yield_arrivals_tonnes` conflated crop yield with mandi arrivals. It is deprecated and emits a `DeprecationWarning` upon access. It is scheduled for removal in AgroVision v3.0.
 
 ---
 
@@ -94,16 +109,28 @@ import pandas as pd
 
 predictor = AgroVisionPredictor()
 
-# Full prediction (both models)
-data = pd.DataFrame([{ "lag_1": 240, "lag_7": 235, "rolling_mean_7": 242, ... }])
-result = predictor.predict_all(data, commodity="tea")
-print(result)
+# ─── 1. Member 1: Rice Yield Prediction ──────────────────────────────
+yield_input = {
+    "District": "Hooghly",
+    "Season": "Winter",
+    "Yield_lag1": 2850.0,
+    "Area_ha": 150.0  # Optional: enables estimated_production_tonnes
+}
+yield_res = predictor.predict_yield(yield_input)
+print(yield_res)
 # {
-#   "yield_arrivals_tonnes": 52.3,
-#   "predicted_price_rs_quintal": 248.50,
-#   "volatility": "LOW",
-#   "commodity": "tea"
+#   "predicted_yield_kg_per_ha": 2813.5,
+#   "predicted_yield_tonnes_per_ha": 2.8135,
+#   "estimated_production_tonnes": 422.025,
+#   "baseline_yield_kg_ha": 2850.0,
+#   "warnings": []
 # }
+
+# ─── 2. Combined Prediction (predict_all) ───────────────────────────
+data_history = pd.DataFrame([...])  # 35+ days of Agmarknet price history
+result = predictor.predict_all(data_history, commodity="rice", yield_input=yield_input)
+print(result["crop_yield"])    # Isolated Member 1 crop productivity
+print(result["market_price"])  # Isolated Member 2 mandi price + volatility
 ```
 
 See [`complete_guide.md`](complete_guide.md) for the full technical reference.

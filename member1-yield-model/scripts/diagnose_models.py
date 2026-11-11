@@ -13,7 +13,7 @@ import numpy as np
 from pathlib import Path
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score, mean_absolute_percentage_error
 
-BASE = Path(r"C:\Arunava Personal\Arunava_New\AgroVision-ML\member1-yield-model")
+BASE = Path(__file__).resolve().parent.parent
 TARGET = "Rice_Yield_kg_ha"
 
 def calc_metrics(y_true, y_pred):

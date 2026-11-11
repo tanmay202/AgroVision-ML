@@ -390,12 +390,21 @@ def predict_yield(model_info: dict, input_dict: dict) -> float:
     """
 ```
 
-**Return value from `predict_bridge.py`:**
+**Canonical Return Value from `predict_bridge.py` (`predict_yield()`):**
 ```python
-{"yield_arrivals_tonnes": float}
+{
+    "predicted_yield_kg_per_ha": 2813.5,       # Crop yield intensity (kg/ha)
+    "predicted_yield_tonnes_per_ha": 2.8135,   # Crop yield intensity (tonnes/ha = kg/ha / 1000)
+    "estimated_production_tonnes": 422.025,    # Optional: total production (if Area_ha supplied)
+    "baseline_yield_kg_ha": 2850.0,            # Previous year or imputed baseline
+    "predicted_delta_kg_ha": -36.53,           # Model deviation from baseline
+    "is_yield_lag1_imputed": False,            # True if lag1 was imputed from fallback hierarchy
+    "model_name": "m1_improved_delta_ridge.pkl",
+    "warnings": []
+}
 ```
 
-> **Note:** The `predict_bridge.py` naming convention (`yield_arrivals_tonnes`) appears to conflate yield (kg/ha) with arrivals (tonnes). This should be reconciled during integration.
+> **Contract Reconciled (Step 2):** The previous `yield_arrivals_tonnes` field conflated crop yield intensity (tonnes/ha) with mandi market arrivals (tonnes). The canonical output now explicitly provides both `predicted_yield_kg_per_ha` and `predicted_yield_tonnes_per_ha`. The legacy key `yield_arrivals_tonnes` is retained as a deprecated alias emitting a `DeprecationWarning`, scheduled for permanent removal in v3.0.
 
 #### Direct Inference (Works Now)
 

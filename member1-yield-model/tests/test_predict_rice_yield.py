@@ -359,7 +359,11 @@ def test_agrovision_predictor_bridge_integration():
     from shared.predict_bridge import AgroVisionPredictor
     bridge = AgroVisionPredictor()
     res = bridge.predict_yield({'District': 'Hooghly', 'Season': 'Winter', 'Yield_lag1': 2800.0})
+    assert "predicted_yield_kg_per_ha" in res
+    assert "predicted_yield_tonnes_per_ha" in res
+    assert abs(res["predicted_yield_tonnes_per_ha"] - (res["predicted_yield_kg_per_ha"] / 1000.0)) < 1e-4
     assert "yield_arrivals_tonnes" in res
+    assert 0.5 <= res["predicted_yield_tonnes_per_ha"] <= 6.0
     assert 0.5 <= res["yield_arrivals_tonnes"] <= 6.0
 
 

@@ -23,7 +23,7 @@ from sklearn.linear_model import Ridge, ElasticNet, HuberRegressor, Lasso
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
 from xgboost import XGBRegressor
 
-BASE = Path(r"C:\Arunava Personal\Arunava_New\AgroVision-ML\member1-yield-model")
+BASE = Path(__file__).resolve().parent.parent
 TARGET = "Rice_Yield_kg_ha"
 
 def calc_metrics(y_true, y_pred, name="Model"):

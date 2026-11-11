@@ -10,7 +10,7 @@
 2. [Full Project Structure](#2-full-project-structure)
 3. [Setup & Installation](#3-setup--installation)
 4. [Data: Download & Format](#4-data-download--format)
-5. [Member 1 — Yield/Arrival Model](#5-member-1--yieldarrival-model)
+5. [Member 1 — Crop Yield Model](#5-member-1--crop-yield-model)
 6. [Member 2 — Price & Volatility Model](#6-member-2--price--volatility-model)
 7. [Integration: How Both Members Connect](#7-integration-how-both-members-connect)
 8. [Member 3 — FastAPI Engineering Guide](#8-member-3--fastapi-engineering-guide)
@@ -243,10 +243,10 @@ member2-price-volatility/data/raw/tea.csv
 
 ---
 
-## 5. Member 1 — Yield/Arrival Model
+## 5. Member 1 — Crop Yield Model
 
 ### What It Does
-Predicts **how many tonnes of tea will arrive** at Indian mandis on a future date, using historical price and arrival patterns.
+Predicts **crop yield productivity intensity (tonnes/ha and kg/ha)** across West Bengal districts and seasons, using historical yield, NASA POWER weather lags, and NDVI features. Total production (tonnes) is optionally calculated when harvested/planted area (ha) is supplied. Mandi market arrival volume is never predicted by Member 1.
 
 ### Pipeline Overview
 ```
@@ -508,10 +508,12 @@ pytest tests/test_pipeline.py    # Integration tests
 ```
 
 ### Data Flow
-
+ 
 ```
-Same CSV data →  Member 1: Predicts ARRIVALS (tonnes)
-              →  Member 2: Predicts PRICE (₹/Quintal) + VOLATILITY (LOW/MEDIUM/HIGH)
+Input Features →  Member 1: Predicts CROP YIELD (tonnes/ha, kg/ha)
+               →  Member 2: Predicts PRICE (₹/Quintal) + VOLATILITY (LOW/MEDIUM/HIGH)
+
+Mandi Arrivals: Physical wholesale trading volume observed on Agmarknet (never predicted by Member 1)
 ```
 
 Both outputs feed Member 3's risk engine and dashboard.
@@ -551,19 +553,44 @@ data = pd.DataFrame([{
 }])
 
 # ─── Full prediction (both models) ───────────────────────────
+# Separates Member 1 crop yield from Member 2 market price
 result = predictor.predict_all(data, commodity="tea")
 print(result)
 # {
-#   "yield_arrivals_tonnes":     52.3,
+#   "crop_yield": {
+#     "predicted_yield_kg_per_ha": 2813.5,
+#     "predicted_yield_tonnes_per_ha": 2.8135,
+#     "error": null
+#   },
+#   "market_price": {
+#     "predicted_price_rs_quintal": 248.50,
+#     "volatility": "LOW",
+#     "commodity": "tea",
+#     "error": null
+#   },
+#   "predicted_yield_kg_per_ha": 2813.5,
+#   "predicted_yield_tonnes_per_ha": 2.8135,
 #   "predicted_price_rs_quintal": 248.50,
-#   "volatility":                 "LOW",
-#   "commodity":                  "tea"
+#   "volatility": "LOW",
+#   "commodity": "tea"
 # }
 
-# ─── Member 1 only (yield) ────────────────────────────────────
-yield_input = data.iloc[0].to_dict()
+# ─── Member 1 only (crop yield) ───────────────────────────────
+yield_input = {
+    "District": "Hooghly",
+    "Season": "Winter",
+    "Yield_lag1": 2850.0,
+    "Area_ha": 100.0  # Optional: enables estimated_production_tonnes
+}
 yield_result = predictor.predict_yield(yield_input)
-print(yield_result)  # {"yield_arrivals_tonnes": 52.3}
+print(yield_result)
+# {
+#   "predicted_yield_kg_per_ha": 2813.5,
+#   "predicted_yield_tonnes_per_ha": 2.8135,
+#   "estimated_production_tonnes": 281.35,
+#   "baseline_yield_kg_ha": 2850.0,
+#   "warnings": []
+# }
 
 # ─── Member 2 only (price + volatility) ───────────────────────
 price_result = predictor.predict_price(data, commodity="tea")
@@ -690,12 +717,26 @@ curl -X POST http://localhost:8000/predict \
 Expected response:
 ```json
 {
-  "yield_arrivals_tonnes": 52.3,
+  "crop_yield": {
+    "predicted_yield_kg_per_ha": 2813.5,
+    "predicted_yield_tonnes_per_ha": 2.8135,
+    "error": null
+  },
+  "market_price": {
+    "predicted_price_rs_quintal": 248.50,
+    "volatility": "LOW",
+    "commodity": "tea",
+    "error": null
+  },
+  "predicted_yield_kg_per_ha": 2813.5,
+  "predicted_yield_tonnes_per_ha": 2.8135,
   "predicted_price_rs_quintal": 248.50,
   "volatility": "LOW",
   "commodity": "tea"
 }
 ```
+
+> **Semantic Distinction:** Crop Yield (tonnes/ha or kg/ha) measures agricultural land productivity. Crop Production (tonnes) measures total harvested mass (Yield * Area). Mandi Arrivals (tonnes) measures physical market arrivals on an Agmarknet trading session. They are three distinct concepts. The legacy key `yield_arrivals_tonnes` is deprecated and will be removed in v3.0.
 
 ---
 
