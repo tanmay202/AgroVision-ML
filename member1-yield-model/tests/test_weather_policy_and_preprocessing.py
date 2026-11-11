@@ -603,3 +603,65 @@ def test_dataframe_batch_has_seasonal_routing_policy_column(full_weather_input):
     assert "seasonal_routing_policy" in out_df.columns
     assert out_df.iloc[0]["seasonal_routing_policy"] == PROVISIONAL_SUMMER_ROUTING_POLICY
 
+
+def test_composite_and_noun_first_district_aliases():
+    """Verify noun-first and phonetic district aliases map to canonical districts without warnings."""
+    from src.weather_preprocessor import normalize_district_name
+    test_cases = {
+        'Burdwan East': 'Purba Bardhaman',
+        'Burdwan West': 'Paschim Bardhaman',
+        'Bardhaman East': 'Purba Bardhaman',
+        'Bardhaman West': 'Paschim Bardhaman',
+        'Midnapore East': 'Purba Medinipur',
+        'Midnapore West': 'Paschim Medinipur',
+        'North 24 Paraganas': 'North 24 Parganas',
+        'South 24 Paraganas': 'South 24 Parganas',
+    }
+    for alias, canon in test_cases.items():
+        assert normalize_district_name(alias) == canon
+        assert RiceYieldPredictor._normalize_district(alias) == canon
+
+    # Verify end-to-end baseline yield lookup without 'Unseen District' warning
+    predictor = RiceYieldPredictor(weather_missing_policy="persistence")
+    res = predictor.predict({"District": "Burdwan East", "Season": "Winter"})
+    assert res["baseline_yield_kg_ha"] == 2966.30
+    assert not any("Unseen District" in w for w in res["warnings"])
+
+
+def test_sub_daily_conflicting_rainfall_observations():
+    """Verify sub-daily observations with extreme outlier differences are averaged cleanly."""
+    records = [
+        {"Date": "2018-06-01 06:00:00", "District": "Hooghly", "PRECTOTCORR": 0.0, "T2M": 25.0, "T2M_MIN": 20.0, "T2M_MAX": 30.0, "RH2M": 80.0, "ALLSKY_SFC_SW_DWN": 15.0, "WS2M": 2.0},
+        {"Date": "2018-06-01 18:00:00", "District": "Hooghly", "PRECTOTCORR": 250.0, "T2M": 27.0, "T2M_MIN": 20.0, "T2M_MAX": 30.0, "RH2M": 85.0, "ALLSKY_SFC_SW_DWN": 17.0, "WS2M": 2.5},
+    ]
+    res = preprocess_inseason_weather(records, district="Hooghly", year=2018, season="Winter")
+    assert res["metadata"]["observed_days"] == 1
+    assert res["features"]["InSeason_Precip_Cum"] == 125.0  # (0 + 250) / 2
+    assert res["features"]["InSeason_Precip_Mean"] == 125.0
+    assert res["features"]["InSeason_T2M_Mean"] == 26.0
+    assert any("Duplicate date entries found" in w for w in res["warnings"])
+
+
+def test_post_cutoff_weather_with_model_imputation_policy():
+    """Verify observations post-cutoff are excluded before evaluating missingness under model_imputation."""
+    # Observations entirely post-Aman cutoff (Sept 30)
+    post_cutoff_records = [
+        {"Date": "2018-10-05", "District": "Hooghly", "PRECTOTCORR": 25.0, "T2M": 28.0, "T2M_MIN": 22.0, "T2M_MAX": 33.0, "RH2M": 85.0, "ALLSKY_SFC_SW_DWN": 16.0, "WS2M": 2.0},
+        {"Date": "2018-10-15", "District": "Hooghly", "PRECTOTCORR": 10.0, "T2M": 27.0, "T2M_MIN": 21.0, "T2M_MAX": 32.0, "RH2M": 80.0, "ALLSKY_SFC_SW_DWN": 18.0, "WS2M": 1.8},
+    ]
+    w_res = preprocess_inseason_weather(post_cutoff_records, district="Hooghly", year=2018, season="Winter")
+    assert w_res["is_complete"] is False
+    assert w_res["metadata"]["observed_days"] == 0
+    assert w_res["metadata"]["excluded_post_cutoff_count"] == 2
+
+    # Predict with model_imputation
+    input_data = {"District": "Hooghly", "Season": "Winter", "Yield_lag1": 2800.0}
+    input_data.update(w_res["features"])
+    predictor = RiceYieldPredictor(weather_missing_policy="model_imputation")
+    pred = predictor.predict(input_data)
+    assert pred["prediction_method"] == "model_imputation"
+    assert pred["weather_feature_status"] == "missing"
+    assert pred["weather_features_used"] is False
+    assert any("Warning: This prediction does NOT represent observed weather" in w for w in pred["warnings"])
+
+

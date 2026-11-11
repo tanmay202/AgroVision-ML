@@ -154,6 +154,9 @@ def run_experiment_2_training_reproducibility() -> dict:
 
     # Clean up staging_repeat
     import shutil
+    import gc
+    del r1, r2, x1, x2
+    gc.collect()
     shutil.rmtree(repeat_dir, ignore_errors=True)
 
     return {"ridge_diff": max_diff_ridge, "xgb_diff": max_diff_xgb}
