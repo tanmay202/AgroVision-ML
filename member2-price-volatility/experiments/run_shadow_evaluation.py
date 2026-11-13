@@ -32,6 +32,7 @@ from config import (
     set_horizon_14d_enabled,
     set_horizon_30d_enabled,
     get_shadow_db_path,
+    is_volatility_shadow_enabled,
 )
 from shadow_evaluation import (
     init_shadow_db,
@@ -471,6 +472,21 @@ def run_daily_prospective_workflow(
             print(f"  Prospective Forecasts Gen  : {gen_count}")
             print(f"  Already Existing (Skipped) : {skip_count}")
 
+            # Volatility V3 shadow prospective forecast generation
+            if is_volatility_shadow_enabled():
+                try:
+                    from volatility_shadow import process_volatility_shadow_ingestion
+                    vol_res = process_volatility_shadow_ingestion(
+                        history_df=history_df,
+                        origin_date=origin_date,
+                        db_path=db_path,
+                        cohort="PROSPECTIVE",
+                        force_enabled=True,
+                    )
+                    print(f"  Volatility V3 Shadow Gen   : {vol_res.get('generated_count', 0)} (Skipped: {vol_res.get('skipped_duplicate_count', 0)})")
+                except Exception as vol_err:
+                    print(f"  [VOLATILITY SHADOW WARNING]: {vol_err}")
+
         # Step 5: Delayed Target Evaluation
         print("\n[PHASE 5: DELAYED OUTCOME EVALUATION]")
         eval_res = evaluate_pending_shadow_forecasts(db_path=db_path, recheck_unavailable=True)
@@ -479,6 +495,15 @@ def run_daily_prospective_workflow(
         print(f"  Awaiting Maturity (Pending): {eval_res['still_pending_count']}")
         if eval_res.get("recovered_late_count", 0) > 0:
             print(f"  Recovered Late Targets     : {eval_res['recovered_late_count']}")
+
+        if is_volatility_shadow_enabled():
+            try:
+                from volatility_shadow import VolatilityShadowEvaluator
+                vol_eval = VolatilityShadowEvaluator(db_path=db_path)
+                vol_eval_res = vol_eval.evaluate_pending_forecasts(db_path=db_path)
+                print(f"  Volatility Outcomes Eval   : {vol_eval_res.get('evaluated_count', 0)} (Empty: {vol_eval_res.get('window_empty_count', 0)}, Pending: {vol_eval_res.get('still_pending_count', 0)})")
+            except Exception as vol_eval_err:
+                print(f"  [VOLATILITY EVAL WARNING]  : {vol_eval_err}")
 
         # Step 6: Isolated Cohort Performance Reporting
         print("\n[PHASE 6: ISOLATED COHORT PERFORMANCE AUDIT]")
@@ -490,6 +515,17 @@ def run_daily_prospective_workflow(
         # Retrospective Cohort
         ret_metrics = compute_shadow_evaluation_metrics(db_path=db_path, cohort="RETROSPECTIVE")
         print_metrics_summary(ret_metrics, title="RETROSPECTIVE COHORT PERFORMANCE (Historical Simulation Benchmark)")
+
+        if is_volatility_shadow_enabled():
+            try:
+                from volatility_shadow import generate_volatility_shadow_report
+                vol_rep = generate_volatility_shadow_report(db_path=db_path, cohort="PROSPECTIVE")
+                print("\n" + "=" * 80)
+                print("VOLATILITY V3 SHADOW MONITORING SUMMARY (PROSPECTIVE)")
+                print("=" * 80)
+                print(vol_rep)
+            except Exception as vol_rep_err:
+                print(f"  [VOLATILITY REPORT WARNING]: {vol_rep_err}")
 
         # Record persistent audit entry
         duration_s = time.perf_counter() - t_start

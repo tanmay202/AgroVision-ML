@@ -19,10 +19,16 @@ from config import (
     is_horizon_14d_enabled,
     is_horizon_30d_enabled,
     is_shadow_evaluation_enabled,
+    is_volatility_shadow_enabled,
 )
 from shadow_evaluation import (
     get_shadow_status,
     compute_shadow_evaluation_metrics,
+)
+from volatility_shadow import (
+    compute_volatility_shadow_metrics,
+    VolatilityShadowEvaluator,
+    get_volatility_db_connection,
 )
 
 # Configure basic logging
@@ -219,6 +225,67 @@ async def shadow_metrics(horizon_days: Optional[int] = None, cohort: Optional[st
     cohort_filter = None if (cohort is None or cohort.upper() == "ALL") else cohort.upper()
     return compute_shadow_evaluation_metrics(horizon_days=horizon_days, cohort=cohort_filter)
 
+@app.get("/shadow/volatility/status")
+async def shadow_volatility_status(cohort: Optional[str] = "PROSPECTIVE"):
+    """Operational status and counts for isolated Volatility V3 shadow monitoring."""
+    if cohort is not None and cohort.upper() not in ("RETROSPECTIVE", "PROSPECTIVE", "ALL"):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Unsupported cohort: {cohort}. Expected RETROSPECTIVE, PROSPECTIVE, or ALL."
+        )
+    c_upper = cohort.upper() if cohort else "ALL"
+    cohort_filter = "" if c_upper == "ALL" else "WHERE cohort = ?"
+    params = () if c_upper == "ALL" else (c_upper,)
+
+    with get_volatility_db_connection() as conn:
+        cur = conn.cursor()
+        cur.execute(f"SELECT COUNT(*) as total FROM shadow_volatility_forecasts {cohort_filter};", params)
+        total = cur.fetchone()["total"]
+        cur.execute(f"SELECT COUNT(*) as pending FROM shadow_volatility_forecasts WHERE status = 'PENDING' {'AND cohort = ?' if params else ''};", params)
+        pending = cur.fetchone()["pending"]
+        cur.execute(f"SELECT COUNT(*) as evaluated FROM shadow_volatility_forecasts WHERE status = 'EVALUATED' {'AND cohort = ?' if params else ''};", params)
+        evaluated = cur.fetchone()["evaluated"]
+        cur.execute(f"SELECT COUNT(*) as empty FROM shadow_volatility_forecasts WHERE status = 'WINDOW_EMPTY' {'AND cohort = ?' if params else ''};", params)
+        empty = cur.fetchone()["empty"]
+        cur.execute(f"SELECT COUNT(DISTINCT market) as mandis FROM shadow_volatility_forecasts {cohort_filter};", params)
+        mandis = cur.fetchone()["mandis"]
+
+    return {
+        "status": "ok",
+        "shadow_volatility_enabled": is_volatility_shadow_enabled(),
+        "model_version": "rice_volatility_v3_14d_v1",
+        "production_default": "Calendar Persistence (14D)",
+        "cohort": c_upper,
+        "counts": {
+            "total_forecasts": total,
+            "pending_forecasts": pending,
+            "evaluated_forecasts": evaluated,
+            "window_empty_forecasts": empty,
+            "participating_mandis": mandis,
+        },
+    }
+
+@app.get("/shadow/volatility/metrics")
+async def shadow_volatility_metrics(cohort: Optional[str] = "PROSPECTIVE", margin: Optional[float] = 0.01):
+    """Comprehensive performance benchmarks and governance check for Volatility V3 shadow monitoring."""
+    if cohort is not None and cohort.upper() not in ("RETROSPECTIVE", "PROSPECTIVE", "ALL"):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Unsupported cohort: {cohort}. Expected RETROSPECTIVE, PROSPECTIVE, or ALL."
+        )
+    cohort_filter = None if (cohort is None or cohort.upper() == "ALL") else cohort.upper()
+    return compute_volatility_shadow_metrics(cohort=cohort_filter, non_inferiority_margin=margin or 0.01)
+
+@app.post("/shadow/volatility/evaluate")
+async def shadow_volatility_evaluate(as_of_date: Optional[str] = None):
+    """Triggers delayed outcome evaluation for closed 14-day calendar windows."""
+    evaluator = VolatilityShadowEvaluator()
+    res = evaluator.evaluate_pending_forecasts(as_of_date=as_of_date)
+    return {
+        "status": "success",
+        "result": res,
+    }
+
 @app.post("/predict", response_model=PredictResponse)
 async def predict(request: PredictRequest):
     if pipeline_instance is None:
@@ -248,6 +315,20 @@ async def predict(request: PredictRequest):
             prediction_date=request.prediction_date,
             volatility_version=request.volatility_version,
         )
+
+        # Isolated background shadow prediction if enabled (never interrupts production advisory)
+        if is_volatility_shadow_enabled():
+            try:
+                from volatility_shadow import process_volatility_shadow_ingestion
+                process_volatility_shadow_ingestion(
+                    history_df=df,
+                    origin_date=request.prediction_date,
+                    cohort="PROSPECTIVE",
+                    force_enabled=True,
+                )
+            except Exception as shadow_err:
+                logger.debug("Shadow volatility prediction skipped or failed (non-blocking): %s", shadow_err)
+
         return PredictResponse(**result)
         
     except InsufficientHistoryError as e:

@@ -1,0 +1,47 @@
+<svg width="480" height="370" xmlns="http://www.w3.org/2000/svg" style="background:#ffffff; font-family:sans-serif;">
+<text x="240.0" y="35" text-anchor="middle" font-size="16" font-weight="bold" fill="#1e293b">Holdout Confusion Matrix: V3 XGBoost Balanced (7D)</text>
+<text x="270.0" y="65" text-anchor="middle" font-size="13" font-weight="600" fill="#475569">Predicted Class</text>
+<text x="25" y="185.0" text-anchor="middle" font-size="13" font-weight="600" fill="#475569" transform="rotate(-90 25 185.0)">Actual Class</text>
+<text x="170.0" y="72" text-anchor="middle" font-size="12" font-weight="bold" fill="#334155">LOW</text>
+<text x="270.0" y="72" text-anchor="middle" font-size="12" font-weight="bold" fill="#334155">MEDIUM</text>
+<text x="370.0" y="72" text-anchor="middle" font-size="12" font-weight="bold" fill="#334155">HIGH</text>
+<text x="105" y="120.0" text-anchor="end" font-size="12" font-weight="bold" fill="#334155">LOW</text>
+<rect x="120" y="80" width="100" height="70" fill="rgb(60,163,64)" stroke="#cbd5e1" stroke-width="1"/>
+<text x="170.0" y="110.0" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">8,009</text>
+<text x="170.0" y="130.0" text-anchor="middle" font-size="11" fill="#ffffff">(71.5% row)</text>
+<rect x="220" y="80" width="100" height="70" fill="rgb(240,225,225)" stroke="#cbd5e1" stroke-width="1"/>
+<text x="270.0" y="110.0" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e293b">961</text>
+<text x="270.0" y="130.0" text-anchor="middle" font-size="11" fill="#1e293b">(8.6% row)</text>
+<rect x="320" y="80" width="100" height="70" fill="rgb(221,200,200)" stroke="#cbd5e1" stroke-width="1"/>
+<text x="370.0" y="110.0" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e293b">2,226</text>
+<text x="370.0" y="130.0" text-anchor="middle" font-size="11" fill="#1e293b">(19.9% row)</text>
+<text x="105" y="190.0" text-anchor="end" font-size="12" font-weight="bold" fill="#334155">MEDIUM</text>
+<rect x="120" y="150" width="100" height="70" fill="rgb(244,231,231)" stroke="#cbd5e1" stroke-width="1"/>
+<text x="170.0" y="180.0" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e293b">679</text>
+<text x="170.0" y="200.0" text-anchor="middle" font-size="11" fill="#1e293b">(20.6% row)</text>
+<rect x="220" y="150" width="100" height="70" fill="rgb(197,231,201)" stroke="#cbd5e1" stroke-width="1"/>
+<text x="270.0" y="180.0" text-anchor="middle" font-size="14" font-weight="bold" fill="#064e3b">1,883</text>
+<text x="270.0" y="200.0" text-anchor="middle" font-size="11" fill="#064e3b">(57.2% row)</text>
+<rect x="320" y="150" width="100" height="70" fill="rgb(244,230,230)" stroke="#cbd5e1" stroke-width="1"/>
+<text x="370.0" y="180.0" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e293b">732</text>
+<text x="370.0" y="200.0" text-anchor="middle" font-size="11" fill="#1e293b">(22.2% row)</text>
+<text x="105" y="260.0" text-anchor="end" font-size="12" font-weight="bold" fill="#334155">HIGH</text>
+<rect x="120" y="220" width="100" height="70" fill="rgb(229,210,210)" stroke="#cbd5e1" stroke-width="1"/>
+<text x="170.0" y="250.0" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e293b">1,724</text>
+<text x="170.0" y="270.0" text-anchor="middle" font-size="11" fill="#1e293b">(30.4% row)</text>
+<rect x="220" y="220" width="100" height="70" fill="rgb(245,231,231)" stroke="#cbd5e1" stroke-width="1"/>
+<text x="270.0" y="250.0" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e293b">651</text>
+<text x="270.0" y="270.0" text-anchor="middle" font-size="11" fill="#1e293b">(11.5% row)</text>
+<rect x="320" y="220" width="100" height="70" fill="rgb(165,215,169)" stroke="#cbd5e1" stroke-width="1"/>
+<text x="370.0" y="250.0" text-anchor="middle" font-size="14" font-weight="bold" fill="#064e3b">3,301</text>
+<text x="370.0" y="270.0" text-anchor="middle" font-size="11" fill="#064e3b">(58.2% row)</text>
+<text x="450" y="72" text-anchor="middle" font-size="11" font-weight="bold" fill="#64748b">Total</text>
+<text x="450" y="120.0" text-anchor="middle" font-size="12" fill="#64748b">11,196</text>
+<text x="450" y="190.0" text-anchor="middle" font-size="12" fill="#64748b">3,294</text>
+<text x="450" y="260.0" text-anchor="middle" font-size="12" fill="#64748b">5,676</text>
+<text x="105" y="315" text-anchor="end" font-size="11" font-weight="bold" fill="#64748b">Total</text>
+<text x="170.0" y="315" text-anchor="middle" font-size="12" fill="#64748b">10,412</text>
+<text x="270.0" y="315" text-anchor="middle" font-size="12" fill="#64748b">3,495</text>
+<text x="370.0" y="315" text-anchor="middle" font-size="12" fill="#64748b">6,259</text>
+<text x="450" y="315" text-anchor="middle" font-size="12" font-weight="bold" fill="#0f172a">20,166</text>
+</svg>

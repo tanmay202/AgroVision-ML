@@ -1,0 +1,3778 @@
+[
+  {
+    "model": "Majority Baseline",
+    "period": "Fold 1 (2017-2018)",
+    "horizon": "7D",
+    "n_samples": 44163,
+    "accuracy": 0.5567,
+    "balanced_accuracy": 0.3333,
+    "macro_f1": 0.2384,
+    "weighted_f1": 0.3981,
+    "high_recall": 0.0,
+    "high_precision": 0.0,
+    "high_f1": 0.0,
+    "high_false_alarm_rate": 0.0,
+    "high_to_low_confusion": 7999,
+    "low_to_high_confusion": 0,
+    "medium_recall": 0.0,
+    "medium_precision": 0.0,
+    "medium_f1": 0.0,
+    "low_recall": 1.0,
+    "low_precision": 0.5567,
+    "low_f1": 0.7152,
+    "confusion_matrix": [
+      [
+        24584,
+        0,
+        0
+      ],
+      [
+        11580,
+        0,
+        0
+      ],
+      [
+        7999,
+        0,
+        0
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.5566650816294183,
+        "recall": 1.0,
+        "f1": 0.7152021179105997,
+        "support": 24584
+      },
+      "MEDIUM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 11580
+      },
+      "HIGH": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 7999
+      }
+    }
+  },
+  {
+    "model": "Calendar Persistence (7D)",
+    "period": "Fold 1 (2017-2018)",
+    "horizon": "7D",
+    "n_samples": 44163,
+    "accuracy": 0.6194,
+    "balanced_accuracy": 0.5574,
+    "macro_f1": 0.557,
+    "weighted_f1": 0.6198,
+    "high_recall": 0.3843,
+    "high_precision": 0.3812,
+    "high_f1": 0.3827,
+    "high_false_alarm_rate": 0.6188,
+    "high_to_low_confusion": 3364,
+    "low_to_high_confusion": 3371,
+    "medium_recall": 0.5677,
+    "medium_precision": 0.5647,
+    "medium_f1": 0.5662,
+    "low_recall": 0.7203,
+    "low_precision": 0.724,
+    "low_f1": 0.7221,
+    "confusion_matrix": [
+      [
+        17707,
+        3506,
+        3371
+      ],
+      [
+        3386,
+        6574,
+        1620
+      ],
+      [
+        3364,
+        1561,
+        3074
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.7240053972277876,
+        "recall": 0.7202652131467622,
+        "f1": 0.722130462266267,
+        "support": 24584
+      },
+      "MEDIUM": {
+        "precision": 0.564728116141225,
+        "recall": 0.5677029360967185,
+        "f1": 0.5662116187933336,
+        "support": 11580
+      },
+      "HIGH": {
+        "precision": 0.3811531308121513,
+        "recall": 0.38429803725465683,
+        "f1": 0.3827191235059761,
+        "support": 7999
+      }
+    }
+  },
+  {
+    "model": "5-Obs Persistence Baseline",
+    "period": "Fold 1 (2017-2018)",
+    "horizon": "7D",
+    "n_samples": 44163,
+    "accuracy": 0.629,
+    "balanced_accuracy": 0.5402,
+    "macro_f1": 0.548,
+    "weighted_f1": 0.6189,
+    "high_recall": 0.3209,
+    "high_precision": 0.4131,
+    "high_f1": 0.3612,
+    "high_false_alarm_rate": 0.5869,
+    "high_to_low_confusion": 3922,
+    "low_to_high_confusion": 2457,
+    "medium_recall": 0.5184,
+    "medium_precision": 0.5754,
+    "medium_f1": 0.5454,
+    "low_recall": 0.7813,
+    "low_precision": 0.698,
+    "low_f1": 0.7373,
+    "confusion_matrix": [
+      [
+        19208,
+        2919,
+        2457
+      ],
+      [
+        4387,
+        6003,
+        1190
+      ],
+      [
+        3922,
+        1510,
+        2567
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.6980412108878148,
+        "recall": 0.7813211845102506,
+        "f1": 0.7373370952572887,
+        "support": 24584
+      },
+      "MEDIUM": {
+        "precision": 0.5754409509202454,
+        "recall": 0.5183937823834197,
+        "f1": 0.5454297655824096,
+        "support": 11580
+      },
+      "HIGH": {
+        "precision": 0.4130994528484068,
+        "recall": 0.32091511438929865,
+        "f1": 0.3612186026876803,
+        "support": 7999
+      }
+    }
+  },
+  {
+    "model": "XGBoost (Unweighted)",
+    "period": "Fold 1 (2017-2018)",
+    "horizon": "7D",
+    "n_samples": 44163,
+    "accuracy": 0.6608,
+    "balanced_accuracy": 0.5206,
+    "macro_f1": 0.5335,
+    "weighted_f1": 0.6232,
+    "high_recall": 0.1934,
+    "high_precision": 0.5673,
+    "high_f1": 0.2885,
+    "high_false_alarm_rate": 0.4327,
+    "high_to_low_confusion": 5298,
+    "low_to_high_confusion": 626,
+    "medium_recall": 0.4617,
+    "medium_precision": 0.6544,
+    "medium_f1": 0.5414,
+    "low_recall": 0.9066,
+    "low_precision": 0.67,
+    "low_f1": 0.7706,
+    "confusion_matrix": [
+      [
+        22288,
+        1670,
+        626
+      ],
+      [
+        5679,
+        5347,
+        554
+      ],
+      [
+        5298,
+        1154,
+        1547
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.6700135277318503,
+        "recall": 0.9066059225512528,
+        "f1": 0.7705578315960518,
+        "support": 24584
+      },
+      "MEDIUM": {
+        "precision": 0.6543874678741892,
+        "recall": 0.46174438687392055,
+        "f1": 0.5414409396992558,
+        "support": 11580
+      },
+      "HIGH": {
+        "precision": 0.5672900623395672,
+        "recall": 0.19339917489686212,
+        "f1": 0.28845795263844864,
+        "support": 7999
+      }
+    }
+  },
+  {
+    "model": "XGBoost (Balanced)",
+    "period": "Fold 1 (2017-2018)",
+    "horizon": "7D",
+    "n_samples": 44163,
+    "accuracy": 0.6327,
+    "balanced_accuracy": 0.5668,
+    "macro_f1": 0.5631,
+    "weighted_f1": 0.6269,
+    "high_recall": 0.3108,
+    "high_precision": 0.4351,
+    "high_f1": 0.3626,
+    "high_false_alarm_rate": 0.5649,
+    "high_to_low_confusion": 3613,
+    "low_to_high_confusion": 2356,
+    "medium_recall": 0.6699,
+    "medium_precision": 0.5467,
+    "medium_f1": 0.6021,
+    "low_recall": 0.7199,
+    "low_precision": 0.7294,
+    "low_f1": 0.7246,
+    "confusion_matrix": [
+      [
+        17697,
+        4531,
+        2356
+      ],
+      [
+        2951,
+        7757,
+        872
+      ],
+      [
+        3613,
+        1900,
+        2486
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.7294423148262644,
+        "recall": 0.7198584445167588,
+        "f1": 0.7246186917801208,
+        "support": 24584
+      },
+      "MEDIUM": {
+        "precision": 0.5467296306738089,
+        "recall": 0.6698618307426597,
+        "f1": 0.6020645762185657,
+        "support": 11580
+      },
+      "HIGH": {
+        "precision": 0.4350717535876794,
+        "recall": 0.31078884860607575,
+        "f1": 0.3625756581346168,
+        "support": 7999
+      }
+    }
+  },
+  {
+    "model": "XGBoost (Mild Sqrt)",
+    "period": "Fold 1 (2017-2018)",
+    "horizon": "7D",
+    "n_samples": 44163,
+    "accuracy": 0.6569,
+    "balanced_accuracy": 0.546,
+    "macro_f1": 0.5565,
+    "weighted_f1": 0.6349,
+    "high_recall": 0.2465,
+    "high_precision": 0.4995,
+    "high_f1": 0.3301,
+    "high_false_alarm_rate": 0.5005,
+    "high_to_low_confusion": 4600,
+    "low_to_high_confusion": 1279,
+    "medium_recall": 0.5511,
+    "medium_precision": 0.6103,
+    "medium_f1": 0.5792,
+    "low_recall": 0.8402,
+    "low_precision": 0.6942,
+    "low_f1": 0.7602,
+    "confusion_matrix": [
+      [
+        20656,
+        2649,
+        1279
+      ],
+      [
+        4501,
+        6382,
+        697
+      ],
+      [
+        4600,
+        1427,
+        1972
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.6941559969082904,
+        "recall": 0.8402212821347218,
+        "f1": 0.7602362856774811,
+        "support": 24584
+      },
+      "MEDIUM": {
+        "precision": 0.6102505259131765,
+        "recall": 0.5511226252158895,
+        "f1": 0.5791814139214084,
+        "support": 11580
+      },
+      "HIGH": {
+        "precision": 0.49949341438703143,
+        "recall": 0.24653081635204402,
+        "f1": 0.3301247175023018,
+        "support": 7999
+      }
+    }
+  },
+  {
+    "model": "Random Forest (Balanced)",
+    "period": "Fold 1 (2017-2018)",
+    "horizon": "7D",
+    "n_samples": 44163,
+    "accuracy": 0.638,
+    "balanced_accuracy": 0.5693,
+    "macro_f1": 0.5662,
+    "weighted_f1": 0.6321,
+    "high_recall": 0.3114,
+    "high_precision": 0.433,
+    "high_f1": 0.3623,
+    "high_false_alarm_rate": 0.567,
+    "high_to_low_confusion": 3505,
+    "low_to_high_confusion": 2331,
+    "medium_recall": 0.6649,
+    "medium_precision": 0.5511,
+    "medium_f1": 0.6027,
+    "low_recall": 0.7316,
+    "low_precision": 0.7359,
+    "low_f1": 0.7337,
+    "confusion_matrix": [
+      [
+        17985,
+        4268,
+        2331
+      ],
+      [
+        2950,
+        7699,
+        931
+      ],
+      [
+        3505,
+        2003,
+        2491
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.7358837970540099,
+        "recall": 0.7315733810608526,
+        "f1": 0.7337222584856397,
+        "support": 24584
+      },
+      "MEDIUM": {
+        "precision": 0.551109520400859,
+        "recall": 0.664853195164076,
+        "f1": 0.6026614481409002,
+        "support": 11580
+      },
+      "HIGH": {
+        "precision": 0.4329914827046758,
+        "recall": 0.3114139267408426,
+        "f1": 0.3622745782431646,
+        "support": 7999
+      }
+    }
+  },
+  {
+    "model": "Majority Baseline",
+    "period": "Fold 2 (2019-2020)",
+    "horizon": "7D",
+    "n_samples": 37499,
+    "accuracy": 0.5607,
+    "balanced_accuracy": 0.3333,
+    "macro_f1": 0.2395,
+    "weighted_f1": 0.4029,
+    "high_recall": 0.0,
+    "high_precision": 0.0,
+    "high_f1": 0.0,
+    "high_false_alarm_rate": 0.0,
+    "high_to_low_confusion": 8491,
+    "low_to_high_confusion": 0,
+    "medium_recall": 0.0,
+    "medium_precision": 0.0,
+    "medium_f1": 0.0,
+    "low_recall": 1.0,
+    "low_precision": 0.5607,
+    "low_f1": 0.7185,
+    "confusion_matrix": [
+      [
+        21026,
+        0,
+        0
+      ],
+      [
+        7982,
+        0,
+        0
+      ],
+      [
+        8491,
+        0,
+        0
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.5607082855542814,
+        "recall": 1.0,
+        "f1": 0.7185305425032038,
+        "support": 21026
+      },
+      "MEDIUM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 7982
+      },
+      "HIGH": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 8491
+      }
+    }
+  },
+  {
+    "model": "Calendar Persistence (7D)",
+    "period": "Fold 2 (2019-2020)",
+    "horizon": "7D",
+    "n_samples": 37499,
+    "accuracy": 0.653,
+    "balanced_accuracy": 0.6028,
+    "macro_f1": 0.6023,
+    "weighted_f1": 0.6533,
+    "high_recall": 0.5193,
+    "high_precision": 0.5154,
+    "high_f1": 0.5173,
+    "high_false_alarm_rate": 0.4846,
+    "high_to_low_confusion": 2801,
+    "low_to_high_confusion": 2813,
+    "medium_recall": 0.5387,
+    "medium_precision": 0.5364,
+    "medium_f1": 0.5376,
+    "low_recall": 0.7504,
+    "low_precision": 0.7539,
+    "low_f1": 0.7522,
+    "confusion_matrix": [
+      [
+        15778,
+        2435,
+        2813
+      ],
+      [
+        2349,
+        4300,
+        1333
+      ],
+      [
+        2801,
+        1281,
+        4409
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.7539181957186545,
+        "recall": 0.7504042613906592,
+        "f1": 0.7521571244696572,
+        "support": 21026
+      },
+      "MEDIUM": {
+        "precision": 0.5364271457085829,
+        "recall": 0.5387121022300175,
+        "f1": 0.5375671958994874,
+        "support": 7982
+      },
+      "HIGH": {
+        "precision": 0.5153711279953244,
+        "recall": 0.5192556824873396,
+        "f1": 0.5173061128710548,
+        "support": 8491
+      }
+    }
+  },
+  {
+    "model": "5-Obs Persistence Baseline",
+    "period": "Fold 2 (2019-2020)",
+    "horizon": "7D",
+    "n_samples": 37499,
+    "accuracy": 0.6619,
+    "balanced_accuracy": 0.5917,
+    "macro_f1": 0.5996,
+    "weighted_f1": 0.6555,
+    "high_recall": 0.4626,
+    "high_precision": 0.5529,
+    "high_f1": 0.5037,
+    "high_false_alarm_rate": 0.4471,
+    "high_to_low_confusion": 3223,
+    "low_to_high_confusion": 2206,
+    "medium_recall": 0.5138,
+    "medium_precision": 0.5491,
+    "medium_f1": 0.5308,
+    "low_recall": 0.7986,
+    "low_precision": 0.7325,
+    "low_f1": 0.7641,
+    "confusion_matrix": [
+      [
+        16792,
+        2028,
+        2206
+      ],
+      [
+        2910,
+        4101,
+        971
+      ],
+      [
+        3223,
+        1340,
+        3928
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.7324754634678299,
+        "recall": 0.7986302672881195,
+        "f1": 0.7641236831926463,
+        "support": 21026
+      },
+      "MEDIUM": {
+        "precision": 0.5490694872138171,
+        "recall": 0.5137810072663492,
+        "f1": 0.5308394278687464,
+        "support": 7982
+      },
+      "HIGH": {
+        "precision": 0.5528501055594651,
+        "recall": 0.4626074667294783,
+        "f1": 0.5037189022826366,
+        "support": 8491
+      }
+    }
+  },
+  {
+    "model": "XGBoost (Unweighted)",
+    "period": "Fold 2 (2019-2020)",
+    "horizon": "7D",
+    "n_samples": 37499,
+    "accuracy": 0.6985,
+    "balanced_accuracy": 0.5891,
+    "macro_f1": 0.6117,
+    "weighted_f1": 0.6748,
+    "high_recall": 0.3603,
+    "high_precision": 0.7066,
+    "high_f1": 0.4772,
+    "high_false_alarm_rate": 0.2934,
+    "high_to_low_confusion": 4315,
+    "low_to_high_confusion": 773,
+    "medium_recall": 0.4947,
+    "medium_precision": 0.6437,
+    "medium_f1": 0.5595,
+    "low_recall": 0.9124,
+    "low_precision": 0.7096,
+    "low_f1": 0.7983,
+    "confusion_matrix": [
+      [
+        19184,
+        1069,
+        773
+      ],
+      [
+        3536,
+        3949,
+        497
+      ],
+      [
+        4315,
+        1117,
+        3059
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.7095986683928242,
+        "recall": 0.9123941786359745,
+        "f1": 0.7983188031876157,
+        "support": 21026
+      },
+      "MEDIUM": {
+        "precision": 0.6436837815810921,
+        "recall": 0.4947381608619394,
+        "f1": 0.5594673089183254,
+        "support": 7982
+      },
+      "HIGH": {
+        "precision": 0.7066297066297066,
+        "recall": 0.3602638087386645,
+        "f1": 0.4772230889235569,
+        "support": 8491
+      }
+    }
+  },
+  {
+    "model": "XGBoost (Balanced)",
+    "period": "Fold 2 (2019-2020)",
+    "horizon": "7D",
+    "n_samples": 37499,
+    "accuracy": 0.6595,
+    "balanced_accuracy": 0.6305,
+    "macro_f1": 0.619,
+    "weighted_f1": 0.6619,
+    "high_recall": 0.493,
+    "high_precision": 0.5628,
+    "high_f1": 0.5256,
+    "high_false_alarm_rate": 0.4372,
+    "high_to_low_confusion": 2636,
+    "low_to_high_confusion": 2450,
+    "medium_recall": 0.6793,
+    "medium_precision": 0.5143,
+    "medium_f1": 0.5854,
+    "low_recall": 0.7193,
+    "low_precision": 0.7749,
+    "low_f1": 0.7461,
+    "confusion_matrix": [
+      [
+        15124,
+        3452,
+        2450
+      ],
+      [
+        1758,
+        5422,
+        802
+      ],
+      [
+        2636,
+        1669,
+        4186
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.774874474843734,
+        "recall": 0.7192999143917055,
+        "f1": 0.7460536700868192,
+        "support": 21026
+      },
+      "MEDIUM": {
+        "precision": 0.5142748743241962,
+        "recall": 0.6792783763467802,
+        "f1": 0.5853711201079622,
+        "support": 7982
+      },
+      "HIGH": {
+        "precision": 0.5627856950793224,
+        "recall": 0.49299258037922505,
+        "f1": 0.5255822713290226,
+        "support": 8491
+      }
+    }
+  },
+  {
+    "model": "XGBoost (Mild Sqrt)",
+    "period": "Fold 2 (2019-2020)",
+    "horizon": "7D",
+    "n_samples": 37499,
+    "accuracy": 0.689,
+    "balanced_accuracy": 0.6123,
+    "macro_f1": 0.6232,
+    "weighted_f1": 0.6782,
+    "high_recall": 0.4207,
+    "high_precision": 0.6429,
+    "high_f1": 0.5086,
+    "high_false_alarm_rate": 0.3571,
+    "high_to_low_confusion": 3534,
+    "low_to_high_confusion": 1348,
+    "medium_recall": 0.5758,
+    "medium_precision": 0.5752,
+    "medium_f1": 0.5755,
+    "low_recall": 0.8403,
+    "low_precision": 0.7377,
+    "low_f1": 0.7857,
+    "confusion_matrix": [
+      [
+        17669,
+        2009,
+        1348
+      ],
+      [
+        2750,
+        4596,
+        636
+      ],
+      [
+        3534,
+        1385,
+        3572
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.737652903602889,
+        "recall": 0.8403405307714259,
+        "f1": 0.785655528135352,
+        "support": 21026
+      },
+      "MEDIUM": {
+        "precision": 0.5752190237797247,
+        "recall": 0.575795539964921,
+        "f1": 0.5755071374906086,
+        "support": 7982
+      },
+      "HIGH": {
+        "precision": 0.6429085673146149,
+        "recall": 0.420680720763161,
+        "f1": 0.5085783441304194,
+        "support": 8491
+      }
+    }
+  },
+  {
+    "model": "Random Forest (Balanced)",
+    "period": "Fold 2 (2019-2020)",
+    "horizon": "7D",
+    "n_samples": 37499,
+    "accuracy": 0.6607,
+    "balanced_accuracy": 0.6305,
+    "macro_f1": 0.6195,
+    "weighted_f1": 0.6636,
+    "high_recall": 0.5006,
+    "high_precision": 0.559,
+    "high_f1": 0.5282,
+    "high_false_alarm_rate": 0.441,
+    "high_to_low_confusion": 2566,
+    "low_to_high_confusion": 2444,
+    "medium_recall": 0.6681,
+    "medium_precision": 0.513,
+    "medium_f1": 0.5804,
+    "low_recall": 0.7226,
+    "low_precision": 0.7792,
+    "low_f1": 0.7498,
+    "confusion_matrix": [
+      [
+        15193,
+        3389,
+        2444
+      ],
+      [
+        1740,
+        5333,
+        909
+      ],
+      [
+        2566,
+        1674,
+        4251
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.7791681624698702,
+        "recall": 0.722581565680586,
+        "f1": 0.7498087600246761,
+        "support": 21026
+      },
+      "MEDIUM": {
+        "precision": 0.5129857637552905,
+        "recall": 0.6681282886494613,
+        "f1": 0.5803678311024051,
+        "support": 7982
+      },
+      "HIGH": {
+        "precision": 0.5590478695423461,
+        "recall": 0.500647744670828,
+        "f1": 0.5282385834109972,
+        "support": 8491
+      }
+    }
+  },
+  {
+    "model": "Majority Baseline",
+    "period": "Fold 3 (2021-2022)",
+    "horizon": "7D",
+    "n_samples": 39396,
+    "accuracy": 0.5339,
+    "balanced_accuracy": 0.3333,
+    "macro_f1": 0.232,
+    "weighted_f1": 0.3717,
+    "high_recall": 0.0,
+    "high_precision": 0.0,
+    "high_f1": 0.0,
+    "high_false_alarm_rate": 0.0,
+    "high_to_low_confusion": 12153,
+    "low_to_high_confusion": 0,
+    "medium_recall": 0.0,
+    "medium_precision": 0.0,
+    "medium_f1": 0.0,
+    "low_recall": 1.0,
+    "low_precision": 0.5339,
+    "low_f1": 0.6961,
+    "confusion_matrix": [
+      [
+        21033,
+        0,
+        0
+      ],
+      [
+        6210,
+        0,
+        0
+      ],
+      [
+        12153,
+        0,
+        0
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.5338866890039597,
+        "recall": 1.0,
+        "f1": 0.6961227225338827,
+        "support": 21033
+      },
+      "MEDIUM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 6210
+      },
+      "HIGH": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 12153
+      }
+    }
+  },
+  {
+    "model": "Calendar Persistence (7D)",
+    "period": "Fold 3 (2021-2022)",
+    "horizon": "7D",
+    "n_samples": 39396,
+    "accuracy": 0.6484,
+    "balanced_accuracy": 0.614,
+    "macro_f1": 0.6134,
+    "weighted_f1": 0.6485,
+    "high_recall": 0.559,
+    "high_precision": 0.56,
+    "high_f1": 0.5595,
+    "high_false_alarm_rate": 0.44,
+    "high_to_low_confusion": 4120,
+    "low_to_high_confusion": 4143,
+    "medium_recall": 0.5557,
+    "medium_precision": 0.5494,
+    "medium_f1": 0.5526,
+    "low_recall": 0.7274,
+    "low_precision": 0.7291,
+    "low_f1": 0.7283,
+    "confusion_matrix": [
+      [
+        15300,
+        1590,
+        4143
+      ],
+      [
+        1564,
+        3451,
+        1195
+      ],
+      [
+        4120,
+        1240,
+        6793
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.7291269538696149,
+        "recall": 0.727428326914848,
+        "f1": 0.7282766499274104,
+        "support": 21033
+      },
+      "MEDIUM": {
+        "precision": 0.5494348033752587,
+        "recall": 0.5557165861513688,
+        "f1": 0.5525578416459851,
+        "support": 6210
+      },
+      "HIGH": {
+        "precision": 0.5599703239633995,
+        "recall": 0.558956636221509,
+        "f1": 0.5594630209191237,
+        "support": 12153
+      }
+    }
+  },
+  {
+    "model": "5-Obs Persistence Baseline",
+    "period": "Fold 3 (2021-2022)",
+    "horizon": "7D",
+    "n_samples": 39396,
+    "accuracy": 0.6576,
+    "balanced_accuracy": 0.6076,
+    "macro_f1": 0.6123,
+    "weighted_f1": 0.6526,
+    "high_recall": 0.5076,
+    "high_precision": 0.5947,
+    "high_f1": 0.5477,
+    "high_false_alarm_rate": 0.4053,
+    "high_to_low_confusion": 4628,
+    "low_to_high_confusion": 3287,
+    "medium_recall": 0.5348,
+    "medium_precision": 0.5529,
+    "medium_f1": 0.5437,
+    "low_recall": 0.7805,
+    "low_precision": 0.7133,
+    "low_f1": 0.7454,
+    "confusion_matrix": [
+      [
+        16417,
+        1329,
+        3287
+      ],
+      [
+        1972,
+        3321,
+        917
+      ],
+      [
+        4628,
+        1356,
+        6169
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.7132554199070252,
+        "recall": 0.7805353492131413,
+        "f1": 0.7453802497162315,
+        "support": 21033
+      },
+      "MEDIUM": {
+        "precision": 0.5529470529470529,
+        "recall": 0.5347826086956522,
+        "f1": 0.543713163064833,
+        "support": 6210
+      },
+      "HIGH": {
+        "precision": 0.5947170538899065,
+        "recall": 0.5076112893935654,
+        "f1": 0.547722631625677,
+        "support": 12153
+      }
+    }
+  },
+  {
+    "model": "XGBoost (Unweighted)",
+    "period": "Fold 3 (2021-2022)",
+    "horizon": "7D",
+    "n_samples": 39396,
+    "accuracy": 0.6899,
+    "balanced_accuracy": 0.5972,
+    "macro_f1": 0.6172,
+    "weighted_f1": 0.6684,
+    "high_recall": 0.4275,
+    "high_precision": 0.7114,
+    "high_f1": 0.534,
+    "high_false_alarm_rate": 0.2886,
+    "high_to_low_confusion": 5906,
+    "low_to_high_confusion": 1344,
+    "medium_recall": 0.4525,
+    "medium_precision": 0.642,
+    "medium_f1": 0.5308,
+    "low_recall": 0.9116,
+    "low_precision": 0.6918,
+    "low_f1": 0.7866,
+    "confusion_matrix": [
+      [
+        19174,
+        515,
+        1344
+      ],
+      [
+        2636,
+        2810,
+        764
+      ],
+      [
+        5906,
+        1052,
+        5195
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.6918025689132631,
+        "recall": 0.9116150810630913,
+        "f1": 0.786641777267226,
+        "support": 21033
+      },
+      "MEDIUM": {
+        "precision": 0.6419922321224583,
+        "recall": 0.4524959742351047,
+        "f1": 0.5308397090771702,
+        "support": 6210
+      },
+      "HIGH": {
+        "precision": 0.7113514993838149,
+        "recall": 0.4274664691845635,
+        "f1": 0.5340254934210527,
+        "support": 12153
+      }
+    }
+  },
+  {
+    "model": "XGBoost (Balanced)",
+    "period": "Fold 3 (2021-2022)",
+    "horizon": "7D",
+    "n_samples": 39396,
+    "accuracy": 0.6526,
+    "balanced_accuracy": 0.6364,
+    "macro_f1": 0.624,
+    "weighted_f1": 0.6551,
+    "high_recall": 0.5801,
+    "high_precision": 0.5808,
+    "high_f1": 0.5804,
+    "high_false_alarm_rate": 0.4192,
+    "high_to_low_confusion": 3672,
+    "low_to_high_confusion": 4079,
+    "medium_recall": 0.6272,
+    "medium_precision": 0.5182,
+    "medium_f1": 0.5675,
+    "low_recall": 0.7019,
+    "low_precision": 0.7479,
+    "low_f1": 0.7242,
+    "confusion_matrix": [
+      [
+        14763,
+        2191,
+        4079
+      ],
+      [
+        1305,
+        3895,
+        1010
+      ],
+      [
+        3672,
+        1431,
+        7050
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.747872340425532,
+        "recall": 0.7018970189701897,
+        "f1": 0.7241556912662791,
+        "support": 21033
+      },
+      "MEDIUM": {
+        "precision": 0.5181588399627511,
+        "recall": 0.6272141706924316,
+        "f1": 0.5674947184381146,
+        "support": 6210
+      },
+      "HIGH": {
+        "precision": 0.5807727160392124,
+        "recall": 0.5801036781041718,
+        "f1": 0.5804380042812448,
+        "support": 12153
+      }
+    }
+  },
+  {
+    "model": "XGBoost (Mild Sqrt)",
+    "period": "Fold 3 (2021-2022)",
+    "horizon": "7D",
+    "n_samples": 39396,
+    "accuracy": 0.6817,
+    "balanced_accuracy": 0.6174,
+    "macro_f1": 0.6284,
+    "weighted_f1": 0.6718,
+    "high_recall": 0.4916,
+    "high_precision": 0.6509,
+    "high_f1": 0.5602,
+    "high_false_alarm_rate": 0.3491,
+    "high_to_low_confusion": 5013,
+    "low_to_high_confusion": 2308,
+    "medium_recall": 0.5217,
+    "medium_precision": 0.5903,
+    "medium_f1": 0.5539,
+    "low_recall": 0.8387,
+    "low_precision": 0.7134,
+    "low_f1": 0.771,
+    "confusion_matrix": [
+      [
+        17641,
+        1084,
+        2308
+      ],
+      [
+        2073,
+        3240,
+        897
+      ],
+      [
+        5013,
+        1165,
+        5975
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.7134306628381931,
+        "recall": 0.8387296153663291,
+        "f1": 0.7710227272727272,
+        "support": 21033
+      },
+      "MEDIUM": {
+        "precision": 0.5902714519948989,
+        "recall": 0.5217391304347826,
+        "f1": 0.5538934951705274,
+        "support": 6210
+      },
+      "HIGH": {
+        "precision": 0.650871459694989,
+        "recall": 0.49164815271949314,
+        "f1": 0.5601650025781653,
+        "support": 12153
+      }
+    }
+  },
+  {
+    "model": "Random Forest (Balanced)",
+    "period": "Fold 3 (2021-2022)",
+    "horizon": "7D",
+    "n_samples": 39396,
+    "accuracy": 0.6546,
+    "balanced_accuracy": 0.6365,
+    "macro_f1": 0.6256,
+    "weighted_f1": 0.6567,
+    "high_recall": 0.5749,
+    "high_precision": 0.5778,
+    "high_f1": 0.5764,
+    "high_false_alarm_rate": 0.4222,
+    "high_to_low_confusion": 3713,
+    "low_to_high_confusion": 4097,
+    "medium_recall": 0.6256,
+    "medium_precision": 0.5279,
+    "medium_f1": 0.5726,
+    "low_recall": 0.7091,
+    "low_precision": 0.7478,
+    "low_f1": 0.728,
+    "confusion_matrix": [
+      [
+        14915,
+        2021,
+        4097
+      ],
+      [
+        1317,
+        3885,
+        1008
+      ],
+      [
+        3713,
+        1453,
+        6987
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.7478064677864127,
+        "recall": 0.7091237579042458,
+        "f1": 0.7279515837766607,
+        "support": 21033
+      },
+      "MEDIUM": {
+        "precision": 0.5279249898083979,
+        "recall": 0.6256038647342995,
+        "f1": 0.572628786203847,
+        "support": 6210
+      },
+      "HIGH": {
+        "precision": 0.577820046311611,
+        "recall": 0.5749197728955814,
+        "f1": 0.5763662610847597,
+        "support": 12153
+      }
+    }
+  },
+  {
+    "model": "Majority Baseline",
+    "period": "Holdout (2023-2024)",
+    "horizon": "7D",
+    "n_samples": 20166,
+    "accuracy": 0.5552,
+    "balanced_accuracy": 0.3333,
+    "macro_f1": 0.238,
+    "weighted_f1": 0.3964,
+    "high_recall": 0.0,
+    "high_precision": 0.0,
+    "high_f1": 0.0,
+    "high_false_alarm_rate": 0.0,
+    "high_to_low_confusion": 5676,
+    "low_to_high_confusion": 0,
+    "medium_recall": 0.0,
+    "medium_precision": 0.0,
+    "medium_f1": 0.0,
+    "low_recall": 1.0,
+    "low_precision": 0.5552,
+    "low_f1": 0.714,
+    "confusion_matrix": [
+      [
+        11196,
+        0,
+        0
+      ],
+      [
+        3294,
+        0,
+        0
+      ],
+      [
+        5676,
+        0,
+        0
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.5551919071704849,
+        "recall": 1.0,
+        "f1": 0.7139850774823034,
+        "support": 11196
+      },
+      "MEDIUM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 3294
+      },
+      "HIGH": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 5676
+      }
+    }
+  },
+  {
+    "model": "Calendar Persistence (7D)",
+    "period": "Holdout (2023-2024)",
+    "horizon": "7D",
+    "n_samples": 20166,
+    "accuracy": 0.6607,
+    "balanced_accuracy": 0.618,
+    "macro_f1": 0.6177,
+    "weighted_f1": 0.6609,
+    "high_recall": 0.5442,
+    "high_precision": 0.5396,
+    "high_f1": 0.5419,
+    "high_false_alarm_rate": 0.4604,
+    "high_to_low_confusion": 1966,
+    "low_to_high_confusion": 1981,
+    "medium_recall": 0.5607,
+    "medium_precision": 0.5604,
+    "medium_f1": 0.5605,
+    "low_recall": 0.7491,
+    "low_precision": 0.7525,
+    "low_f1": 0.7508,
+    "confusion_matrix": [
+      [
+        8387,
+        828,
+        1981
+      ],
+      [
+        792,
+        1847,
+        655
+      ],
+      [
+        1966,
+        621,
+        3089
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.7525347689546882,
+        "recall": 0.7491068238656663,
+        "f1": 0.7508168837563225,
+        "support": 11196
+      },
+      "MEDIUM": {
+        "precision": 0.560376213592233,
+        "recall": 0.5607164541590771,
+        "f1": 0.560546282245827,
+        "support": 3294
+      },
+      "HIGH": {
+        "precision": 0.5395633187772926,
+        "recall": 0.5442212825933757,
+        "f1": 0.5418822910271028,
+        "support": 5676
+      }
+    }
+  },
+  {
+    "model": "5-Obs Persistence Baseline",
+    "period": "Holdout (2023-2024)",
+    "horizon": "7D",
+    "n_samples": 20166,
+    "accuracy": 0.6666,
+    "balanced_accuracy": 0.6063,
+    "macro_f1": 0.6113,
+    "weighted_f1": 0.6614,
+    "high_recall": 0.4924,
+    "high_precision": 0.5718,
+    "high_f1": 0.5292,
+    "high_false_alarm_rate": 0.4282,
+    "high_to_low_confusion": 2147,
+    "low_to_high_confusion": 1600,
+    "medium_recall": 0.5319,
+    "medium_precision": 0.5499,
+    "medium_f1": 0.5407,
+    "low_recall": 0.7946,
+    "low_precision": 0.7357,
+    "low_f1": 0.764,
+    "confusion_matrix": [
+      [
+        8896,
+        700,
+        1600
+      ],
+      [
+        1049,
+        1752,
+        493
+      ],
+      [
+        2147,
+        734,
+        2795
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.7356930201786305,
+        "recall": 0.7945694891032512,
+        "f1": 0.7639986259017519,
+        "support": 11196
+      },
+      "MEDIUM": {
+        "precision": 0.5499058380414312,
+        "recall": 0.5318761384335154,
+        "f1": 0.5407407407407407,
+        "support": 3294
+      },
+      "HIGH": {
+        "precision": 0.5718085106382979,
+        "recall": 0.49242424242424243,
+        "f1": 0.529155622870125,
+        "support": 5676
+      }
+    }
+  },
+  {
+    "model": "Normalized V2 (Production XGBoost)",
+    "period": "Holdout (2023-2024)",
+    "horizon": "7D",
+    "n_samples": 20166,
+    "accuracy": 0.6631,
+    "balanced_accuracy": 0.6288,
+    "macro_f1": 0.6236,
+    "weighted_f1": 0.6644,
+    "high_recall": 0.5412,
+    "high_precision": 0.5419,
+    "high_f1": 0.5416,
+    "high_false_alarm_rate": 0.4581,
+    "high_to_low_confusion": 1859,
+    "low_to_high_confusion": 2022,
+    "medium_recall": 0.6023,
+    "medium_precision": 0.5533,
+    "medium_f1": 0.5767,
+    "low_recall": 0.7429,
+    "low_precision": 0.7623,
+    "low_f1": 0.7524,
+    "confusion_matrix": [
+      [
+        8317,
+        857,
+        2022
+      ],
+      [
+        735,
+        1984,
+        575
+      ],
+      [
+        1859,
+        745,
+        3072
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.7622582714691596,
+        "recall": 0.7428545909253305,
+        "f1": 0.7524313565838875,
+        "support": 11196
+      },
+      "MEDIUM": {
+        "precision": 0.5532626882320134,
+        "recall": 0.6023072252580449,
+        "f1": 0.5767441860465117,
+        "support": 3294
+      },
+      "HIGH": {
+        "precision": 0.5418945140236373,
+        "recall": 0.5412262156448203,
+        "f1": 0.5415601586602027,
+        "support": 5676
+      }
+    }
+  },
+  {
+    "model": "V3 XGBoost (Balanced, Default Thresholds)",
+    "period": "Holdout (2023-2024)",
+    "horizon": "7D",
+    "n_samples": 20166,
+    "accuracy": 0.6542,
+    "balanced_accuracy": 0.6229,
+    "macro_f1": 0.6164,
+    "weighted_f1": 0.6579,
+    "high_recall": 0.5816,
+    "high_precision": 0.5274,
+    "high_f1": 0.5532,
+    "high_false_alarm_rate": 0.4726,
+    "high_to_low_confusion": 1724,
+    "low_to_high_confusion": 2226,
+    "medium_recall": 0.5716,
+    "medium_precision": 0.5388,
+    "medium_f1": 0.5547,
+    "low_recall": 0.7153,
+    "low_precision": 0.7692,
+    "low_f1": 0.7413,
+    "confusion_matrix": [
+      [
+        8009,
+        961,
+        2226
+      ],
+      [
+        679,
+        1883,
+        732
+      ],
+      [
+        1724,
+        651,
+        3301
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.7692086054552439,
+        "recall": 0.7153447659878528,
+        "f1": 0.741299518696779,
+        "support": 11196
+      },
+      "MEDIUM": {
+        "precision": 0.5387696709585121,
+        "recall": 0.571645415907711,
+        "f1": 0.5547208719988216,
+        "support": 3294
+      },
+      "HIGH": {
+        "precision": 0.5274005432177664,
+        "recall": 0.5815715292459479,
+        "f1": 0.5531629660661919,
+        "support": 5676
+      }
+    }
+  },
+  {
+    "model": "V3 XGBoost (Balanced, Tuned Thresholds)",
+    "period": "Holdout (2023-2024)",
+    "horizon": "7D",
+    "n_samples": 20166,
+    "accuracy": 0.6494,
+    "balanced_accuracy": 0.6307,
+    "macro_f1": 0.6157,
+    "weighted_f1": 0.654,
+    "high_recall": 0.5678,
+    "high_precision": 0.5364,
+    "high_f1": 0.5516,
+    "high_false_alarm_rate": 0.4636,
+    "high_to_low_confusion": 1694,
+    "low_to_high_confusion": 2164,
+    "medium_recall": 0.6269,
+    "medium_precision": 0.51,
+    "medium_f1": 0.5624,
+    "low_recall": 0.6973,
+    "low_precision": 0.7724,
+    "low_f1": 0.7329,
+    "confusion_matrix": [
+      [
+        7807,
+        1225,
+        2164
+      ],
+      [
+        607,
+        2065,
+        622
+      ],
+      [
+        1694,
+        759,
+        3223
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.7723585278986941,
+        "recall": 0.6973026080743122,
+        "f1": 0.7329140067592941,
+        "support": 11196
+      },
+      "MEDIUM": {
+        "precision": 0.5100024697456162,
+        "recall": 0.6268973891924712,
+        "f1": 0.5624404194470924,
+        "support": 3294
+      },
+      "HIGH": {
+        "precision": 0.5363621234814445,
+        "recall": 0.5678294573643411,
+        "f1": 0.5516474112109542,
+        "support": 5676
+      }
+    }
+  },
+  {
+    "model": "V3 Random Forest (Balanced)",
+    "period": "Holdout (2023-2024)",
+    "horizon": "7D",
+    "n_samples": 20166,
+    "accuracy": 0.6598,
+    "balanced_accuracy": 0.6312,
+    "macro_f1": 0.6222,
+    "weighted_f1": 0.6619,
+    "high_recall": 0.546,
+    "high_precision": 0.5463,
+    "high_f1": 0.5461,
+    "high_false_alarm_rate": 0.4537,
+    "high_to_low_confusion": 1862,
+    "low_to_high_confusion": 1979,
+    "medium_recall": 0.6175,
+    "medium_precision": 0.5363,
+    "medium_f1": 0.574,
+    "low_recall": 0.73,
+    "low_precision": 0.7638,
+    "low_f1": 0.7465,
+    "confusion_matrix": [
+      [
+        8173,
+        1044,
+        1979
+      ],
+      [
+        665,
+        2034,
+        595
+      ],
+      [
+        1862,
+        715,
+        3099
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.7638317757009346,
+        "recall": 0.7299928545909253,
+        "f1": 0.7465290464011691,
+        "support": 11196
+      },
+      "MEDIUM": {
+        "precision": 0.5362509886633272,
+        "recall": 0.6174863387978142,
+        "f1": 0.5740087484125864,
+        "support": 3294
+      },
+      "HIGH": {
+        "precision": 0.5462718138551031,
+        "recall": 0.5459830866807611,
+        "f1": 0.5461274121067935,
+        "support": 5676
+      }
+    }
+  },
+  {
+    "model": "V3 XGBoost (Seen Mandis)",
+    "period": "Holdout Seen Mandis",
+    "horizon": "7D",
+    "n_samples": 17538,
+    "accuracy": 0.6668,
+    "balanced_accuracy": 0.6311,
+    "macro_f1": 0.6273,
+    "weighted_f1": 0.6698,
+    "high_recall": 0.6097,
+    "high_precision": 0.5469,
+    "high_f1": 0.5766,
+    "high_false_alarm_rate": 0.4531,
+    "high_to_low_confusion": 1451,
+    "low_to_high_confusion": 1911,
+    "medium_recall": 0.5552,
+    "medium_precision": 0.5524,
+    "medium_f1": 0.5538,
+    "low_recall": 0.7285,
+    "low_precision": 0.776,
+    "low_f1": 0.7515,
+    "confusion_matrix": [
+      [
+        7069,
+        724,
+        1911
+      ],
+      [
+        589,
+        1540,
+        645
+      ],
+      [
+        1451,
+        524,
+        3085
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.7760456691184543,
+        "recall": 0.7284624896949712,
+        "f1": 0.7515016212193696,
+        "support": 9704
+      },
+      "MEDIUM": {
+        "precision": 0.5523672883787661,
+        "recall": 0.555155010814708,
+        "f1": 0.5537576411362819,
+        "support": 2774
+      },
+      "HIGH": {
+        "precision": 0.5468888494947705,
+        "recall": 0.6096837944664032,
+        "f1": 0.5765816278852444,
+        "support": 5060
+      }
+    }
+  },
+  {
+    "model": "Calendar Persistence (7D)",
+    "period": "Holdout Seen Mandis",
+    "horizon": "7D",
+    "n_samples": 17538,
+    "accuracy": 0.672,
+    "balanced_accuracy": 0.6298,
+    "macro_f1": 0.6295,
+    "weighted_f1": 0.6722,
+    "high_recall": 0.5704,
+    "high_precision": 0.5658,
+    "high_f1": 0.5681,
+    "high_false_alarm_rate": 0.4342,
+    "high_to_low_confusion": 1657,
+    "low_to_high_confusion": 1670,
+    "medium_recall": 0.5627,
+    "medium_precision": 0.5627,
+    "medium_f1": 0.5627,
+    "low_recall": 0.7562,
+    "low_precision": 0.7594,
+    "low_f1": 0.7578,
+    "confusion_matrix": [
+      [
+        7338,
+        696,
+        1670
+      ],
+      [
+        668,
+        1561,
+        545
+      ],
+      [
+        1657,
+        517,
+        2886
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.7593914933250543,
+        "recall": 0.7561830173124485,
+        "f1": 0.7577838591418392,
+        "support": 9704
+      },
+      "MEDIUM": {
+        "precision": 0.5627253064167268,
+        "recall": 0.5627253064167268,
+        "f1": 0.5627253064167268,
+        "support": 2774
+      },
+      "HIGH": {
+        "precision": 0.5657714173691433,
+        "recall": 0.5703557312252965,
+        "f1": 0.568054325361677,
+        "support": 5060
+      }
+    }
+  },
+  {
+    "model": "V3 XGBoost (Unseen Mandis Generalization)",
+    "period": "Holdout Unseen Mandis",
+    "horizon": "7D",
+    "n_samples": 2640,
+    "accuracy": 0.5894,
+    "balanced_accuracy": 0.5461,
+    "macro_f1": 0.5415,
+    "weighted_f1": 0.5937,
+    "high_recall": 0.3555,
+    "high_precision": 0.3283,
+    "high_f1": 0.3414,
+    "high_false_alarm_rate": 0.6717,
+    "high_to_low_confusion": 286,
+    "low_to_high_confusion": 349,
+    "medium_recall": 0.6019,
+    "medium_precision": 0.564,
+    "medium_f1": 0.5823,
+    "low_recall": 0.6809,
+    "low_precision": 0.7221,
+    "low_f1": 0.7009,
+    "confusion_matrix": [
+      [
+        1024,
+        131,
+        349
+      ],
+      [
+        108,
+        313,
+        99
+      ],
+      [
+        286,
+        111,
+        219
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.7221438645980254,
+        "recall": 0.6808510638297872,
+        "f1": 0.7008898015058179,
+        "support": 1504
+      },
+      "MEDIUM": {
+        "precision": 0.563963963963964,
+        "recall": 0.6019230769230769,
+        "f1": 0.5823255813953488,
+        "support": 520
+      },
+      "HIGH": {
+        "precision": 0.328335832083958,
+        "recall": 0.3555194805194805,
+        "f1": 0.34138737334372565,
+        "support": 616
+      }
+    }
+  },
+  {
+    "model": "Calendar Persistence (7D)",
+    "period": "Holdout Unseen Mandis",
+    "horizon": "7D",
+    "n_samples": 2640,
+    "accuracy": 0.5871,
+    "balanced_accuracy": 0.5283,
+    "macro_f1": 0.5281,
+    "weighted_f1": 0.5878,
+    "high_recall": 0.3295,
+    "high_precision": 0.3253,
+    "high_f1": 0.3274,
+    "high_false_alarm_rate": 0.6747,
+    "high_to_low_confusion": 309,
+    "low_to_high_confusion": 311,
+    "medium_recall": 0.55,
+    "medium_precision": 0.5479,
+    "medium_f1": 0.5489,
+    "low_recall": 0.7055,
+    "low_precision": 0.7102,
+    "low_f1": 0.7078,
+    "confusion_matrix": [
+      [
+        1061,
+        132,
+        311
+      ],
+      [
+        124,
+        286,
+        110
+      ],
+      [
+        309,
+        104,
+        203
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.7101740294511378,
+        "recall": 0.7054521276595744,
+        "f1": 0.7078052034689793,
+        "support": 1504
+      },
+      "MEDIUM": {
+        "precision": 0.5478927203065134,
+        "recall": 0.55,
+        "f1": 0.5489443378119002,
+        "support": 520
+      },
+      "HIGH": {
+        "precision": 0.32532051282051283,
+        "recall": 0.32954545454545453,
+        "f1": 0.32741935483870965,
+        "support": 616
+      }
+    }
+  },
+  {
+    "model": "Majority Baseline",
+    "period": "Fold 1 (2017-2018)",
+    "horizon": "14D",
+    "n_samples": 44361,
+    "accuracy": 0.3268,
+    "balanced_accuracy": 0.3333,
+    "macro_f1": 0.1642,
+    "weighted_f1": 0.161,
+    "high_recall": 0.0,
+    "high_precision": 0.0,
+    "high_f1": 0.0,
+    "high_false_alarm_rate": 0.0,
+    "high_to_low_confusion": 0,
+    "low_to_high_confusion": 0,
+    "medium_recall": 1.0,
+    "medium_precision": 0.3268,
+    "medium_f1": 0.4927,
+    "low_recall": 0.0,
+    "low_precision": 0.0,
+    "low_f1": 0.0,
+    "confusion_matrix": [
+      [
+        0,
+        17936,
+        0
+      ],
+      [
+        0,
+        14499,
+        0
+      ],
+      [
+        0,
+        11926,
+        0
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 17936
+      },
+      "MEDIUM": {
+        "precision": 0.3268411442483262,
+        "recall": 1.0,
+        "f1": 0.4926605504587156,
+        "support": 14499
+      },
+      "HIGH": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 11926
+      }
+    }
+  },
+  {
+    "model": "Calendar Persistence (14D)",
+    "period": "Fold 1 (2017-2018)",
+    "horizon": "14D",
+    "n_samples": 44361,
+    "accuracy": 0.5796,
+    "balanced_accuracy": 0.5667,
+    "macro_f1": 0.5667,
+    "weighted_f1": 0.58,
+    "high_recall": 0.4641,
+    "high_precision": 0.4581,
+    "high_f1": 0.4611,
+    "high_false_alarm_rate": 0.5419,
+    "high_to_low_confusion": 3184,
+    "low_to_high_confusion": 3318,
+    "medium_recall": 0.58,
+    "medium_precision": 0.5813,
+    "medium_f1": 0.5807,
+    "low_recall": 0.6562,
+    "low_precision": 0.6607,
+    "low_f1": 0.6584,
+    "confusion_matrix": [
+      [
+        11769,
+        2849,
+        3318
+      ],
+      [
+        2860,
+        8409,
+        3230
+      ],
+      [
+        3184,
+        3207,
+        5535
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.6606972435861449,
+        "recall": 0.6561663693131133,
+        "f1": 0.6584240118604716,
+        "support": 17936
+      },
+      "MEDIUM": {
+        "precision": 0.5813342550985137,
+        "recall": 0.5799710324849989,
+        "f1": 0.5806518436680017,
+        "support": 14499
+      },
+      "HIGH": {
+        "precision": 0.45808160225109656,
+        "recall": 0.46411202414891833,
+        "f1": 0.46107709608896663,
+        "support": 11926
+      }
+    }
+  },
+  {
+    "model": "5-Obs Persistence Baseline",
+    "period": "Fold 1 (2017-2018)",
+    "horizon": "14D",
+    "n_samples": 44361,
+    "accuracy": 0.5581,
+    "balanced_accuracy": 0.5166,
+    "macro_f1": 0.5052,
+    "weighted_f1": 0.5278,
+    "high_recall": 0.2239,
+    "high_precision": 0.5501,
+    "high_f1": 0.3182,
+    "high_false_alarm_rate": 0.4499,
+    "high_to_low_confusion": 6266,
+    "low_to_high_confusion": 1226,
+    "medium_recall": 0.4924,
+    "medium_precision": 0.6004,
+    "medium_f1": 0.5411,
+    "low_recall": 0.8335,
+    "low_precision": 0.5413,
+    "low_f1": 0.6563,
+    "confusion_matrix": [
+      [
+        14949,
+        1761,
+        1226
+      ],
+      [
+        6402,
+        7139,
+        958
+      ],
+      [
+        6266,
+        2990,
+        2670
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.5412970271933953,
+        "recall": 0.8334634255129348,
+        "f1": 0.6563343797334973,
+        "support": 17936
+      },
+      "MEDIUM": {
+        "precision": 0.6004205214465937,
+        "recall": 0.49237878474377544,
+        "f1": 0.5410587744893706,
+        "support": 14499
+      },
+      "HIGH": {
+        "precision": 0.5500618046971569,
+        "recall": 0.22388059701492538,
+        "f1": 0.3182359952324195,
+        "support": 11926
+      }
+    }
+  },
+  {
+    "model": "XGBoost (Unweighted)",
+    "period": "Fold 1 (2017-2018)",
+    "horizon": "14D",
+    "n_samples": 44361,
+    "accuracy": 0.5876,
+    "balanced_accuracy": 0.5535,
+    "macro_f1": 0.543,
+    "weighted_f1": 0.5649,
+    "high_recall": 0.2514,
+    "high_precision": 0.5292,
+    "high_f1": 0.3409,
+    "high_false_alarm_rate": 0.4708,
+    "high_to_low_confusion": 5346,
+    "low_to_high_confusion": 1227,
+    "medium_recall": 0.6414,
+    "medium_precision": 0.5878,
+    "medium_f1": 0.6134,
+    "low_recall": 0.7676,
+    "low_precision": 0.6019,
+    "low_f1": 0.6748,
+    "confusion_matrix": [
+      [
+        13768,
+        2941,
+        1227
+      ],
+      [
+        3759,
+        9300,
+        1440
+      ],
+      [
+        5346,
+        3582,
+        2998
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.601932409390985,
+        "recall": 0.7676181980374666,
+        "f1": 0.6747531181847142,
+        "support": 17936
+      },
+      "MEDIUM": {
+        "precision": 0.5877520065727107,
+        "recall": 0.6414235464514794,
+        "f1": 0.613416001583009,
+        "support": 14499
+      },
+      "HIGH": {
+        "precision": 0.5292144748455428,
+        "recall": 0.2513835317793057,
+        "f1": 0.34085611960661705,
+        "support": 11926
+      }
+    }
+  },
+  {
+    "model": "XGBoost (Balanced)",
+    "period": "Fold 1 (2017-2018)",
+    "horizon": "14D",
+    "n_samples": 44361,
+    "accuracy": 0.5827,
+    "balanced_accuracy": 0.5469,
+    "macro_f1": 0.5387,
+    "weighted_f1": 0.5603,
+    "high_recall": 0.2588,
+    "high_precision": 0.5167,
+    "high_f1": 0.3448,
+    "high_false_alarm_rate": 0.4833,
+    "high_to_low_confusion": 5776,
+    "low_to_high_confusion": 1277,
+    "medium_recall": 0.5889,
+    "medium_precision": 0.6083,
+    "medium_f1": 0.5985,
+    "low_recall": 0.793,
+    "low_precision": 0.5841,
+    "low_f1": 0.6728,
+    "confusion_matrix": [
+      [
+        14224,
+        2435,
+        1277
+      ],
+      [
+        4350,
+        8539,
+        1610
+      ],
+      [
+        5776,
+        3064,
+        3086
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.5841478439425052,
+        "recall": 0.7930419268510259,
+        "f1": 0.6727522111337085,
+        "support": 17936
+      },
+      "MEDIUM": {
+        "precision": 0.6082775324120245,
+        "recall": 0.5889371680805573,
+        "f1": 0.5984511336160073,
+        "support": 14499
+      },
+      "HIGH": {
+        "precision": 0.5166582956638205,
+        "recall": 0.25876236793560287,
+        "f1": 0.3448237331694508,
+        "support": 11926
+      }
+    }
+  },
+  {
+    "model": "XGBoost (Mild Sqrt)",
+    "period": "Fold 1 (2017-2018)",
+    "horizon": "14D",
+    "n_samples": 44361,
+    "accuracy": 0.585,
+    "balanced_accuracy": 0.5497,
+    "macro_f1": 0.5402,
+    "weighted_f1": 0.5621,
+    "high_recall": 0.2526,
+    "high_precision": 0.5235,
+    "high_f1": 0.3407,
+    "high_false_alarm_rate": 0.4765,
+    "high_to_low_confusion": 5599,
+    "low_to_high_confusion": 1240,
+    "medium_recall": 0.6139,
+    "medium_precision": 0.5985,
+    "medium_f1": 0.6061,
+    "low_recall": 0.7827,
+    "low_precision": 0.5915,
+    "low_f1": 0.6738,
+    "confusion_matrix": [
+      [
+        14039,
+        2657,
+        1240
+      ],
+      [
+        4096,
+        8901,
+        1502
+      ],
+      [
+        5599,
+        3315,
+        3012
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.5915142833066487,
+        "recall": 0.7827274754683319,
+        "f1": 0.6738180945524358,
+        "support": 17936
+      },
+      "MEDIUM": {
+        "precision": 0.5984670207759026,
+        "recall": 0.6139044072004965,
+        "f1": 0.606087430205638,
+        "support": 14499
+      },
+      "HIGH": {
+        "precision": 0.5234619395203337,
+        "recall": 0.2525574375314439,
+        "f1": 0.3407239819004525,
+        "support": 11926
+      }
+    }
+  },
+  {
+    "model": "Random Forest (Balanced)",
+    "period": "Fold 1 (2017-2018)",
+    "horizon": "14D",
+    "n_samples": 44361,
+    "accuracy": 0.5895,
+    "balanced_accuracy": 0.555,
+    "macro_f1": 0.5471,
+    "weighted_f1": 0.5684,
+    "high_recall": 0.2688,
+    "high_precision": 0.5259,
+    "high_f1": 0.3558,
+    "high_false_alarm_rate": 0.4741,
+    "high_to_low_confusion": 5337,
+    "low_to_high_confusion": 1361,
+    "medium_recall": 0.61,
+    "medium_precision": 0.6017,
+    "medium_f1": 0.6058,
+    "low_recall": 0.7862,
+    "low_precision": 0.5985,
+    "low_f1": 0.6796,
+    "confusion_matrix": [
+      [
+        14102,
+        2473,
+        1361
+      ],
+      [
+        4125,
+        8845,
+        1529
+      ],
+      [
+        5337,
+        3383,
+        3206
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.5984552707519946,
+        "recall": 0.7862399643175736,
+        "f1": 0.6796144578313253,
+        "support": 17936
+      },
+      "MEDIUM": {
+        "precision": 0.6016597510373444,
+        "recall": 0.6100420718670253,
+        "f1": 0.6058219178082191,
+        "support": 14499
+      },
+      "HIGH": {
+        "precision": 0.5259186351706037,
+        "recall": 0.26882441723964445,
+        "f1": 0.355787370991011,
+        "support": 11926
+      }
+    }
+  },
+  {
+    "model": "Majority Baseline",
+    "period": "Fold 2 (2019-2020)",
+    "horizon": "14D",
+    "n_samples": 37760,
+    "accuracy": 0.2748,
+    "balanced_accuracy": 0.3333,
+    "macro_f1": 0.1437,
+    "weighted_f1": 0.1185,
+    "high_recall": 0.0,
+    "high_precision": 0.0,
+    "high_f1": 0.0,
+    "high_false_alarm_rate": 0.0,
+    "high_to_low_confusion": 0,
+    "low_to_high_confusion": 0,
+    "medium_recall": 1.0,
+    "medium_precision": 0.2748,
+    "medium_f1": 0.4312,
+    "low_recall": 0.0,
+    "low_precision": 0.0,
+    "low_f1": 0.0,
+    "confusion_matrix": [
+      [
+        0,
+        16030,
+        0
+      ],
+      [
+        0,
+        10378,
+        0
+      ],
+      [
+        0,
+        11352,
+        0
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 16030
+      },
+      "MEDIUM": {
+        "precision": 0.27484110169491527,
+        "recall": 1.0,
+        "f1": 0.4311770326976609,
+        "support": 10378
+      },
+      "HIGH": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 11352
+      }
+    }
+  },
+  {
+    "model": "Calendar Persistence (14D)",
+    "period": "Fold 2 (2019-2020)",
+    "horizon": "14D",
+    "n_samples": 37760,
+    "accuracy": 0.6069,
+    "balanced_accuracy": 0.5946,
+    "macro_f1": 0.5945,
+    "weighted_f1": 0.6071,
+    "high_recall": 0.5541,
+    "high_precision": 0.5499,
+    "high_f1": 0.552,
+    "high_false_alarm_rate": 0.4501,
+    "high_to_low_confusion": 2712,
+    "low_to_high_confusion": 2708,
+    "medium_recall": 0.5463,
+    "medium_precision": 0.5459,
+    "medium_f1": 0.5461,
+    "low_recall": 0.6835,
+    "low_precision": 0.6875,
+    "low_f1": 0.6855,
+    "confusion_matrix": [
+      [
+        10956,
+        2366,
+        2708
+      ],
+      [
+        2268,
+        5670,
+        2440
+      ],
+      [
+        2712,
+        2350,
+        6290
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.6875,
+        "recall": 0.6834684965689333,
+        "f1": 0.6854783207157605,
+        "support": 16030
+      },
+      "MEDIUM": {
+        "precision": 0.5459272097053726,
+        "recall": 0.546348043939102,
+        "f1": 0.5461375457522636,
+        "support": 10378
+      },
+      "HIGH": {
+        "precision": 0.5499213149151949,
+        "recall": 0.5540873854827343,
+        "f1": 0.5519964896884598,
+        "support": 11352
+      }
+    }
+  },
+  {
+    "model": "5-Obs Persistence Baseline",
+    "period": "Fold 2 (2019-2020)",
+    "horizon": "14D",
+    "n_samples": 37760,
+    "accuracy": 0.5974,
+    "balanced_accuracy": 0.5597,
+    "macro_f1": 0.5595,
+    "weighted_f1": 0.5774,
+    "high_recall": 0.3567,
+    "high_precision": 0.68,
+    "high_f1": 0.4679,
+    "high_false_alarm_rate": 0.32,
+    "high_to_low_confusion": 4806,
+    "low_to_high_confusion": 1101,
+    "medium_recall": 0.4761,
+    "medium_precision": 0.5615,
+    "medium_f1": 0.5153,
+    "low_recall": 0.8464,
+    "low_precision": 0.5897,
+    "low_f1": 0.6951,
+    "confusion_matrix": [
+      [
+        13568,
+        1361,
+        1101
+      ],
+      [
+        4633,
+        4941,
+        804
+      ],
+      [
+        4806,
+        2497,
+        4049
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.5897335593515017,
+        "recall": 0.8464129756706176,
+        "f1": 0.6951353843789225,
+        "support": 16030
+      },
+      "MEDIUM": {
+        "precision": 0.5615410842141152,
+        "recall": 0.47610329543264596,
+        "f1": 0.5153047921989884,
+        "support": 10378
+      },
+      "HIGH": {
+        "precision": 0.6800470272085992,
+        "recall": 0.35667723749119096,
+        "f1": 0.46793019761932275,
+        "support": 11352
+      }
+    }
+  },
+  {
+    "model": "XGBoost (Unweighted)",
+    "period": "Fold 2 (2019-2020)",
+    "horizon": "14D",
+    "n_samples": 37760,
+    "accuracy": 0.6192,
+    "balanced_accuracy": 0.5988,
+    "macro_f1": 0.5996,
+    "weighted_f1": 0.6131,
+    "high_recall": 0.4611,
+    "high_precision": 0.6222,
+    "high_f1": 0.5296,
+    "high_false_alarm_rate": 0.3778,
+    "high_to_low_confusion": 3691,
+    "low_to_high_confusion": 1544,
+    "medium_recall": 0.5771,
+    "medium_precision": 0.5574,
+    "medium_f1": 0.5671,
+    "low_recall": 0.7584,
+    "low_precision": 0.6535,
+    "low_f1": 0.702,
+    "confusion_matrix": [
+      [
+        12157,
+        2329,
+        1544
+      ],
+      [
+        2755,
+        5989,
+        1634
+      ],
+      [
+        3691,
+        2427,
+        5234
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.6534967478363705,
+        "recall": 0.7583905177791641,
+        "f1": 0.7020471804348454,
+        "support": 16030
+      },
+      "MEDIUM": {
+        "precision": 0.557375523499302,
+        "recall": 0.5770861437656581,
+        "f1": 0.5670596032760498,
+        "support": 10378
+      },
+      "HIGH": {
+        "precision": 0.6222063718497385,
+        "recall": 0.46106412966878085,
+        "f1": 0.5296498684476827,
+        "support": 11352
+      }
+    }
+  },
+  {
+    "model": "XGBoost (Balanced)",
+    "period": "Fold 2 (2019-2020)",
+    "horizon": "14D",
+    "n_samples": 37760,
+    "accuracy": 0.6201,
+    "balanced_accuracy": 0.5992,
+    "macro_f1": 0.6012,
+    "weighted_f1": 0.6148,
+    "high_recall": 0.4899,
+    "high_precision": 0.6006,
+    "high_f1": 0.5396,
+    "high_false_alarm_rate": 0.3994,
+    "high_to_low_confusion": 3586,
+    "low_to_high_confusion": 1828,
+    "medium_recall": 0.5502,
+    "medium_precision": 0.5725,
+    "medium_f1": 0.5611,
+    "low_recall": 0.7575,
+    "low_precision": 0.6554,
+    "low_f1": 0.7028,
+    "confusion_matrix": [
+      [
+        12143,
+        2059,
+        1828
+      ],
+      [
+        2798,
+        5710,
+        1870
+      ],
+      [
+        3586,
+        2205,
+        5561
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.655421816807902,
+        "recall": 0.7575171553337492,
+        "f1": 0.7027809126949678,
+        "support": 16030
+      },
+      "MEDIUM": {
+        "precision": 0.5724884700220574,
+        "recall": 0.5502023511273848,
+        "f1": 0.561124213836478,
+        "support": 10378
+      },
+      "HIGH": {
+        "precision": 0.6006048169348742,
+        "recall": 0.48986962649753346,
+        "f1": 0.5396147688127699,
+        "support": 11352
+      }
+    }
+  },
+  {
+    "model": "XGBoost (Mild Sqrt)",
+    "period": "Fold 2 (2019-2020)",
+    "horizon": "14D",
+    "n_samples": 37760,
+    "accuracy": 0.6202,
+    "balanced_accuracy": 0.5992,
+    "macro_f1": 0.6007,
+    "weighted_f1": 0.6143,
+    "high_recall": 0.4741,
+    "high_precision": 0.6106,
+    "high_f1": 0.5338,
+    "high_false_alarm_rate": 0.3894,
+    "high_to_low_confusion": 3663,
+    "low_to_high_confusion": 1684,
+    "medium_recall": 0.5625,
+    "medium_precision": 0.5671,
+    "medium_f1": 0.5648,
+    "low_recall": 0.7609,
+    "low_precision": 0.6539,
+    "low_f1": 0.7034,
+    "confusion_matrix": [
+      [
+        12197,
+        2149,
+        1684
+      ],
+      [
+        2792,
+        5838,
+        1748
+      ],
+      [
+        3663,
+        2307,
+        5382
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.6539245121166631,
+        "recall": 0.7608858390517779,
+        "f1": 0.7033619745112739,
+        "support": 16030
+      },
+      "MEDIUM": {
+        "precision": 0.5671264814455023,
+        "recall": 0.5625361341298901,
+        "f1": 0.5648219814241486,
+        "support": 10378
+      },
+      "HIGH": {
+        "precision": 0.6106194690265486,
+        "recall": 0.4741014799154334,
+        "f1": 0.5337697113954181,
+        "support": 11352
+      }
+    }
+  },
+  {
+    "model": "Random Forest (Balanced)",
+    "period": "Fold 2 (2019-2020)",
+    "horizon": "14D",
+    "n_samples": 37760,
+    "accuracy": 0.6227,
+    "balanced_accuracy": 0.6023,
+    "macro_f1": 0.6038,
+    "weighted_f1": 0.6176,
+    "high_recall": 0.488,
+    "high_precision": 0.6086,
+    "high_f1": 0.5417,
+    "high_false_alarm_rate": 0.3914,
+    "high_to_low_confusion": 3443,
+    "low_to_high_confusion": 1791,
+    "medium_recall": 0.5602,
+    "medium_precision": 0.5666,
+    "medium_f1": 0.5634,
+    "low_recall": 0.7586,
+    "low_precision": 0.661,
+    "low_f1": 0.7065,
+    "confusion_matrix": [
+      [
+        12160,
+        2079,
+        1791
+      ],
+      [
+        2792,
+        5814,
+        1772
+      ],
+      [
+        3443,
+        2369,
+        5540
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.6610491981516716,
+        "recall": 0.7585776668746101,
+        "f1": 0.7064633260711692,
+        "support": 16030
+      },
+      "MEDIUM": {
+        "precision": 0.5665562268563633,
+        "recall": 0.5602235498169205,
+        "f1": 0.5633720930232559,
+        "support": 10378
+      },
+      "HIGH": {
+        "precision": 0.6085905745358673,
+        "recall": 0.4880197322057787,
+        "f1": 0.5416768516255195,
+        "support": 11352
+      }
+    }
+  },
+  {
+    "model": "Majority Baseline",
+    "period": "Fold 3 (2021-2022)",
+    "horizon": "14D",
+    "n_samples": 39726,
+    "accuracy": 0.3918,
+    "balanced_accuracy": 0.3333,
+    "macro_f1": 0.1877,
+    "weighted_f1": 0.2206,
+    "high_recall": 0.0,
+    "high_precision": 0.0,
+    "high_f1": 0.0,
+    "high_false_alarm_rate": 0.0,
+    "high_to_low_confusion": 15578,
+    "low_to_high_confusion": 0,
+    "medium_recall": 0.0,
+    "medium_precision": 0.0,
+    "medium_f1": 0.0,
+    "low_recall": 1.0,
+    "low_precision": 0.3918,
+    "low_f1": 0.563,
+    "confusion_matrix": [
+      [
+        15566,
+        0,
+        0
+      ],
+      [
+        8582,
+        0,
+        0
+      ],
+      [
+        15578,
+        0,
+        0
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.3918340633338368,
+        "recall": 1.0,
+        "f1": 0.5630470954206757,
+        "support": 15566
+      },
+      "MEDIUM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 8582
+      },
+      "HIGH": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 15578
+      }
+    }
+  },
+  {
+    "model": "Calendar Persistence (14D)",
+    "period": "Fold 3 (2021-2022)",
+    "horizon": "14D",
+    "n_samples": 39726,
+    "accuracy": 0.5842,
+    "balanced_accuracy": 0.5736,
+    "macro_f1": 0.5731,
+    "weighted_f1": 0.5844,
+    "high_recall": 0.5932,
+    "high_precision": 0.5915,
+    "high_f1": 0.5924,
+    "high_false_alarm_rate": 0.4085,
+    "high_to_low_confusion": 3978,
+    "low_to_high_confusion": 4035,
+    "medium_recall": 0.5134,
+    "medium_precision": 0.5043,
+    "medium_f1": 0.5088,
+    "low_recall": 0.6141,
+    "low_precision": 0.6221,
+    "low_f1": 0.6181,
+    "confusion_matrix": [
+      [
+        9559,
+        1972,
+        4035
+      ],
+      [
+        1829,
+        4406,
+        2347
+      ],
+      [
+        3978,
+        2359,
+        9241
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.6220877261486398,
+        "recall": 0.6140948220480534,
+        "f1": 0.6180654338549075,
+        "support": 15566
+      },
+      "MEDIUM": {
+        "precision": 0.5042920911067872,
+        "recall": 0.5134001398275461,
+        "f1": 0.5088053582770368,
+        "support": 8582
+      },
+      "HIGH": {
+        "precision": 0.5914997119631313,
+        "recall": 0.5932083707793041,
+        "f1": 0.5923528092048331,
+        "support": 15578
+      }
+    }
+  },
+  {
+    "model": "5-Obs Persistence Baseline",
+    "period": "Fold 3 (2021-2022)",
+    "horizon": "14D",
+    "n_samples": 39726,
+    "accuracy": 0.5695,
+    "balanced_accuracy": 0.5546,
+    "macro_f1": 0.543,
+    "weighted_f1": 0.5535,
+    "high_recall": 0.3777,
+    "high_precision": 0.6936,
+    "high_f1": 0.4891,
+    "high_false_alarm_rate": 0.3064,
+    "high_to_low_confusion": 6736,
+    "low_to_high_confusion": 1749,
+    "medium_recall": 0.4697,
+    "medium_precision": 0.4979,
+    "medium_f1": 0.4834,
+    "low_recall": 0.8165,
+    "low_precision": 0.5491,
+    "low_f1": 0.6566,
+    "confusion_matrix": [
+      [
+        12710,
+        1107,
+        1749
+      ],
+      [
+        3701,
+        4031,
+        850
+      ],
+      [
+        6736,
+        2958,
+        5884
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.5490992353220719,
+        "recall": 0.8165231915713735,
+        "f1": 0.656626972851497,
+        "support": 15566
+      },
+      "MEDIUM": {
+        "precision": 0.4979001976284585,
+        "recall": 0.46970403169424374,
+        "f1": 0.4833912939201343,
+        "support": 8582
+      },
+      "HIGH": {
+        "precision": 0.6936225391960391,
+        "recall": 0.3777121581717807,
+        "f1": 0.4890902290012884,
+        "support": 15578
+      }
+    }
+  },
+  {
+    "model": "XGBoost (Unweighted)",
+    "period": "Fold 3 (2021-2022)",
+    "horizon": "14D",
+    "n_samples": 39726,
+    "accuracy": 0.6003,
+    "balanced_accuracy": 0.5822,
+    "macro_f1": 0.5815,
+    "weighted_f1": 0.5953,
+    "high_recall": 0.5179,
+    "high_precision": 0.6621,
+    "high_f1": 0.5812,
+    "high_false_alarm_rate": 0.3379,
+    "high_to_low_confusion": 5411,
+    "low_to_high_confusion": 2354,
+    "medium_recall": 0.4788,
+    "medium_precision": 0.5303,
+    "medium_f1": 0.5032,
+    "low_recall": 0.7498,
+    "low_precision": 0.5897,
+    "low_f1": 0.6602,
+    "confusion_matrix": [
+      [
+        11671,
+        1541,
+        2354
+      ],
+      [
+        2709,
+        4109,
+        1764
+      ],
+      [
+        5411,
+        2099,
+        8068
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.5897124955787985,
+        "recall": 0.749775150970063,
+        "f1": 0.6601804451735158,
+        "support": 15566
+      },
+      "MEDIUM": {
+        "precision": 0.5302619692863595,
+        "recall": 0.47879282218597063,
+        "f1": 0.5032147449635662,
+        "support": 8582
+      },
+      "HIGH": {
+        "precision": 0.662071229279501,
+        "recall": 0.5179098728976762,
+        "f1": 0.5811842673966288,
+        "support": 15578
+      }
+    }
+  },
+  {
+    "model": "XGBoost (Balanced)",
+    "period": "Fold 3 (2021-2022)",
+    "horizon": "14D",
+    "n_samples": 39726,
+    "accuracy": 0.6022,
+    "balanced_accuracy": 0.5821,
+    "macro_f1": 0.5837,
+    "weighted_f1": 0.5983,
+    "high_recall": 0.5521,
+    "high_precision": 0.6436,
+    "high_f1": 0.5944,
+    "high_false_alarm_rate": 0.3564,
+    "high_to_low_confusion": 5035,
+    "low_to_high_confusion": 2769,
+    "medium_recall": 0.4678,
+    "medium_precision": 0.5391,
+    "medium_f1": 0.5009,
+    "low_recall": 0.7263,
+    "low_precision": 0.5977,
+    "low_f1": 0.6558,
+    "confusion_matrix": [
+      [
+        11306,
+        1491,
+        2769
+      ],
+      [
+        2574,
+        4015,
+        1993
+      ],
+      [
+        5035,
+        1942,
+        8601
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.5977266719534761,
+        "recall": 0.7263266092766285,
+        "f1": 0.6557814448536875,
+        "support": 15566
+      },
+      "MEDIUM": {
+        "precision": 0.5390708915145005,
+        "recall": 0.4678396644138895,
+        "f1": 0.5009357454772302,
+        "support": 8582
+      },
+      "HIGH": {
+        "precision": 0.6436428945596049,
+        "recall": 0.5521247913724483,
+        "f1": 0.594381673058982,
+        "support": 15578
+      }
+    }
+  },
+  {
+    "model": "XGBoost (Mild Sqrt)",
+    "period": "Fold 3 (2021-2022)",
+    "horizon": "14D",
+    "n_samples": 39726,
+    "accuracy": 0.6008,
+    "balanced_accuracy": 0.5819,
+    "macro_f1": 0.5823,
+    "weighted_f1": 0.5963,
+    "high_recall": 0.5319,
+    "high_precision": 0.6523,
+    "high_f1": 0.586,
+    "high_false_alarm_rate": 0.3477,
+    "high_to_low_confusion": 5249,
+    "low_to_high_confusion": 2556,
+    "medium_recall": 0.4742,
+    "medium_precision": 0.5348,
+    "medium_f1": 0.5027,
+    "low_recall": 0.7396,
+    "low_precision": 0.593,
+    "low_f1": 0.6582,
+    "confusion_matrix": [
+      [
+        11512,
+        1498,
+        2556
+      ],
+      [
+        2651,
+        4070,
+        1861
+      ],
+      [
+        5249,
+        2043,
+        8286
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.5930352359365341,
+        "recall": 0.7395605807529231,
+        "f1": 0.6582423237463548,
+        "support": 15566
+      },
+      "MEDIUM": {
+        "precision": 0.5347523321508343,
+        "recall": 0.4742484269401072,
+        "f1": 0.5026863459519545,
+        "support": 8582
+      },
+      "HIGH": {
+        "precision": 0.6522868613713296,
+        "recall": 0.5319039671331365,
+        "f1": 0.5859764506205579,
+        "support": 15578
+      }
+    }
+  },
+  {
+    "model": "Random Forest (Balanced)",
+    "period": "Fold 3 (2021-2022)",
+    "horizon": "14D",
+    "n_samples": 39726,
+    "accuracy": 0.5999,
+    "balanced_accuracy": 0.5812,
+    "macro_f1": 0.5818,
+    "weighted_f1": 0.5963,
+    "high_recall": 0.546,
+    "high_precision": 0.6422,
+    "high_f1": 0.5902,
+    "high_false_alarm_rate": 0.3578,
+    "high_to_low_confusion": 4959,
+    "low_to_high_confusion": 2763,
+    "medium_recall": 0.4745,
+    "medium_precision": 0.5265,
+    "medium_f1": 0.4991,
+    "low_recall": 0.723,
+    "low_precision": 0.6003,
+    "low_f1": 0.656,
+    "confusion_matrix": [
+      [
+        11254,
+        1549,
+        2763
+      ],
+      [
+        2533,
+        4072,
+        1977
+      ],
+      [
+        4959,
+        2113,
+        8506
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.6003414061666489,
+        "recall": 0.7229859951175639,
+        "f1": 0.655980415015155,
+        "support": 15566
+      },
+      "MEDIUM": {
+        "precision": 0.5265063356607189,
+        "recall": 0.47448147285015146,
+        "f1": 0.4991419465555283,
+        "support": 8582
+      },
+      "HIGH": {
+        "precision": 0.64215612260305,
+        "recall": 0.5460264475542431,
+        "f1": 0.5902026089369969,
+        "support": 15578
+      }
+    }
+  },
+  {
+    "model": "Majority Baseline",
+    "period": "Holdout (2023-2024)",
+    "horizon": "14D",
+    "n_samples": 20329,
+    "accuracy": 0.4179,
+    "balanced_accuracy": 0.3333,
+    "macro_f1": 0.1965,
+    "weighted_f1": 0.2463,
+    "high_recall": 0.0,
+    "high_precision": 0.0,
+    "high_f1": 0.0,
+    "high_false_alarm_rate": 0.0,
+    "high_to_low_confusion": 7316,
+    "low_to_high_confusion": 0,
+    "medium_recall": 0.0,
+    "medium_precision": 0.0,
+    "medium_f1": 0.0,
+    "low_recall": 1.0,
+    "low_precision": 0.4179,
+    "low_f1": 0.5894,
+    "confusion_matrix": [
+      [
+        8495,
+        0,
+        0
+      ],
+      [
+        4518,
+        0,
+        0
+      ],
+      [
+        7316,
+        0,
+        0
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.4178759407742634,
+        "recall": 1.0,
+        "f1": 0.5894393560921455,
+        "support": 8495
+      },
+      "MEDIUM": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 4518
+      },
+      "HIGH": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 7316
+      }
+    }
+  },
+  {
+    "model": "Calendar Persistence (14D)",
+    "period": "Holdout (2023-2024)",
+    "horizon": "14D",
+    "n_samples": 20329,
+    "accuracy": 0.576,
+    "balanced_accuracy": 0.565,
+    "macro_f1": 0.5655,
+    "weighted_f1": 0.576,
+    "high_recall": 0.5571,
+    "high_precision": 0.5483,
+    "high_f1": 0.5527,
+    "high_false_alarm_rate": 0.4517,
+    "high_to_low_confusion": 2141,
+    "low_to_high_confusion": 2134,
+    "medium_recall": 0.5113,
+    "medium_precision": 0.5196,
+    "medium_f1": 0.5154,
+    "low_recall": 0.6267,
+    "low_precision": 0.6301,
+    "low_f1": 0.6284,
+    "confusion_matrix": [
+      [
+        5324,
+        1037,
+        2134
+      ],
+      [
+        984,
+        2310,
+        1224
+      ],
+      [
+        2141,
+        1099,
+        4076
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.6301337436383004,
+        "recall": 0.6267216009417305,
+        "f1": 0.6284230406043437,
+        "support": 8495
+      },
+      "MEDIUM": {
+        "precision": 0.5195681511470985,
+        "recall": 0.5112881806108898,
+        "f1": 0.5153949129852744,
+        "support": 4518
+      },
+      "HIGH": {
+        "precision": 0.5482916330373957,
+        "recall": 0.5571350464734828,
+        "f1": 0.552677966101695,
+        "support": 7316
+      }
+    }
+  },
+  {
+    "model": "5-Obs Persistence Baseline",
+    "period": "Holdout (2023-2024)",
+    "horizon": "14D",
+    "n_samples": 20329,
+    "accuracy": 0.5803,
+    "balanced_accuracy": 0.5564,
+    "macro_f1": 0.5485,
+    "weighted_f1": 0.5612,
+    "high_recall": 0.3533,
+    "high_precision": 0.6584,
+    "high_f1": 0.4599,
+    "high_false_alarm_rate": 0.3416,
+    "high_to_low_confusion": 3323,
+    "low_to_high_confusion": 914,
+    "medium_recall": 0.4942,
+    "medium_precision": 0.5263,
+    "medium_f1": 0.5098,
+    "low_recall": 0.8215,
+    "low_precision": 0.5739,
+    "low_f1": 0.6758,
+    "confusion_matrix": [
+      [
+        6979,
+        602,
+        914
+      ],
+      [
+        1858,
+        2233,
+        427
+      ],
+      [
+        3323,
+        1408,
+        2585
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.5739309210526315,
+        "recall": 0.8215420835785756,
+        "f1": 0.6757685790365529,
+        "support": 8495
+      },
+      "MEDIUM": {
+        "precision": 0.5262785764789064,
+        "recall": 0.49424524125719344,
+        "f1": 0.5097591599132519,
+        "support": 4518
+      },
+      "HIGH": {
+        "precision": 0.6584309730005095,
+        "recall": 0.353335155822854,
+        "f1": 0.4598825831702544,
+        "support": 7316
+      }
+    }
+  },
+  {
+    "model": "Normalized V2 (Production XGBoost)",
+    "period": "Holdout (2023-2024)",
+    "horizon": "14D",
+    "n_samples": 20329,
+    "accuracy": 0.5835,
+    "balanced_accuracy": 0.5553,
+    "macro_f1": 0.5567,
+    "weighted_f1": 0.5725,
+    "high_recall": 0.4457,
+    "high_precision": 0.5663,
+    "high_f1": 0.4989,
+    "high_false_alarm_rate": 0.4337,
+    "high_to_low_confusion": 2908,
+    "low_to_high_confusion": 1440,
+    "medium_recall": 0.4436,
+    "medium_precision": 0.5551,
+    "medium_f1": 0.4931,
+    "low_recall": 0.7765,
+    "low_precision": 0.6018,
+    "low_f1": 0.678,
+    "confusion_matrix": [
+      [
+        6596,
+        459,
+        1440
+      ],
+      [
+        1457,
+        2004,
+        1057
+      ],
+      [
+        2908,
+        1147,
+        3261
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.6017699115044248,
+        "recall": 0.7764567392583873,
+        "f1": 0.6780427631578947,
+        "support": 8495
+      },
+      "MEDIUM": {
+        "precision": 0.5551246537396122,
+        "recall": 0.4435590969455511,
+        "f1": 0.49311023622047245,
+        "support": 4518
+      },
+      "HIGH": {
+        "precision": 0.5663424800277874,
+        "recall": 0.4457353745215965,
+        "f1": 0.49885268471776045,
+        "support": 7316
+      }
+    }
+  },
+  {
+    "model": "V3 XGBoost (Balanced, Default Thresholds)",
+    "period": "Holdout (2023-2024)",
+    "horizon": "14D",
+    "n_samples": 20329,
+    "accuracy": 0.5957,
+    "balanced_accuracy": 0.5752,
+    "macro_f1": 0.5799,
+    "weighted_f1": 0.5931,
+    "high_recall": 0.5668,
+    "high_precision": 0.5635,
+    "high_f1": 0.5652,
+    "high_false_alarm_rate": 0.4365,
+    "high_to_low_confusion": 2291,
+    "low_to_high_confusion": 1929,
+    "medium_recall": 0.4728,
+    "medium_precision": 0.5691,
+    "medium_f1": 0.5165,
+    "low_recall": 0.6859,
+    "low_precision": 0.6322,
+    "low_f1": 0.658,
+    "confusion_matrix": [
+      [
+        5827,
+        739,
+        1929
+      ],
+      [
+        1099,
+        2136,
+        1283
+      ],
+      [
+        2291,
+        878,
+        4147
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.6322013670391667,
+        "recall": 0.6859329017068864,
+        "f1": 0.6579719963866305,
+        "support": 8495
+      },
+      "MEDIUM": {
+        "precision": 0.5691446842525979,
+        "recall": 0.47277556440903057,
+        "f1": 0.5165034457743924,
+        "support": 4518
+      },
+      "HIGH": {
+        "precision": 0.5635276532137519,
+        "recall": 0.5668398031711318,
+        "f1": 0.5651788756388416,
+        "support": 7316
+      }
+    }
+  },
+  {
+    "model": "V3 XGBoost (Balanced, Tuned Thresholds)",
+    "period": "Holdout (2023-2024)",
+    "horizon": "14D",
+    "n_samples": 20329,
+    "accuracy": 0.5779,
+    "balanced_accuracy": 0.5827,
+    "macro_f1": 0.574,
+    "weighted_f1": 0.5794,
+    "high_recall": 0.5558,
+    "high_precision": 0.5609,
+    "high_f1": 0.5583,
+    "high_false_alarm_rate": 0.4391,
+    "high_to_low_confusion": 1872,
+    "low_to_high_confusion": 2174,
+    "medium_recall": 0.6151,
+    "medium_precision": 0.4985,
+    "medium_f1": 0.5507,
+    "low_recall": 0.5772,
+    "low_precision": 0.6533,
+    "low_f1": 0.6129,
+    "confusion_matrix": [
+      [
+        4903,
+        1418,
+        2174
+      ],
+      [
+        730,
+        2779,
+        1009
+      ],
+      [
+        1872,
+        1378,
+        4066
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.6532978014656895,
+        "recall": 0.5771630370806357,
+        "f1": 0.612875,
+        "support": 8495
+      },
+      "MEDIUM": {
+        "precision": 0.49847533632286994,
+        "recall": 0.6150951748561311,
+        "f1": 0.5506786881997424,
+        "support": 4518
+      },
+      "HIGH": {
+        "precision": 0.5609049524072286,
+        "recall": 0.5557681793329688,
+        "f1": 0.5583247511156882,
+        "support": 7316
+      }
+    }
+  },
+  {
+    "model": "V3 Random Forest (Balanced)",
+    "period": "Holdout (2023-2024)",
+    "horizon": "14D",
+    "n_samples": 20329,
+    "accuracy": 0.5916,
+    "balanced_accuracy": 0.5729,
+    "macro_f1": 0.5755,
+    "weighted_f1": 0.5883,
+    "high_recall": 0.5262,
+    "high_precision": 0.5751,
+    "high_f1": 0.5496,
+    "high_false_alarm_rate": 0.4249,
+    "high_to_low_confusion": 2424,
+    "low_to_high_confusion": 1743,
+    "medium_recall": 0.4914,
+    "medium_precision": 0.5471,
+    "medium_f1": 0.5177,
+    "low_recall": 0.7011,
+    "low_precision": 0.6219,
+    "low_f1": 0.6591,
+    "confusion_matrix": [
+      [
+        5956,
+        796,
+        1743
+      ],
+      [
+        1197,
+        2220,
+        1101
+      ],
+      [
+        2424,
+        1042,
+        3850
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.621906651352198,
+        "recall": 0.7011183048852266,
+        "f1": 0.6591412129260735,
+        "support": 8495
+      },
+      "MEDIUM": {
+        "precision": 0.547067520946279,
+        "recall": 0.4913678618857902,
+        "f1": 0.5177238805970149,
+        "support": 4518
+      },
+      "HIGH": {
+        "precision": 0.5751419181356439,
+        "recall": 0.5262438490978677,
+        "f1": 0.5496074232690935,
+        "support": 7316
+      }
+    }
+  },
+  {
+    "model": "V3 XGBoost (Seen Mandis)",
+    "period": "Holdout Seen Mandis",
+    "horizon": "14D",
+    "n_samples": 17685,
+    "accuracy": 0.6,
+    "balanced_accuracy": 0.5738,
+    "macro_f1": 0.579,
+    "weighted_f1": 0.5958,
+    "high_recall": 0.5717,
+    "high_precision": 0.5742,
+    "high_f1": 0.5729,
+    "high_false_alarm_rate": 0.4258,
+    "high_to_low_confusion": 1979,
+    "low_to_high_confusion": 1559,
+    "medium_recall": 0.4428,
+    "medium_precision": 0.5645,
+    "medium_f1": 0.4963,
+    "low_recall": 0.7071,
+    "low_precision": 0.6326,
+    "low_f1": 0.6678,
+    "confusion_matrix": [
+      [
+        5264,
+        622,
+        1559
+      ],
+      [
+        1078,
+        1742,
+        1114
+      ],
+      [
+        1979,
+        722,
+        3605
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.6326162720826823,
+        "recall": 0.7070517125587643,
+        "f1": 0.6677660789039706,
+        "support": 7445
+      },
+      "MEDIUM": {
+        "precision": 0.5644847699287103,
+        "recall": 0.4428063040162684,
+        "f1": 0.4962962962962963,
+        "support": 3934
+      },
+      "HIGH": {
+        "precision": 0.5742274609748328,
+        "recall": 0.5716777672058357,
+        "f1": 0.572949777495232,
+        "support": 6306
+      }
+    }
+  },
+  {
+    "model": "Calendar Persistence (14D)",
+    "period": "Holdout Seen Mandis",
+    "horizon": "14D",
+    "n_samples": 17685,
+    "accuracy": 0.5813,
+    "balanced_accuracy": 0.569,
+    "macro_f1": 0.5693,
+    "weighted_f1": 0.5813,
+    "high_recall": 0.569,
+    "high_precision": 0.5612,
+    "high_f1": 0.5651,
+    "high_false_alarm_rate": 0.4388,
+    "high_to_low_confusion": 1780,
+    "low_to_high_confusion": 1792,
+    "medium_recall": 0.5071,
+    "medium_precision": 0.5131,
+    "medium_f1": 0.5101,
+    "low_recall": 0.631,
+    "low_precision": 0.6345,
+    "low_f1": 0.6328,
+    "confusion_matrix": [
+      [
+        4698,
+        955,
+        1792
+      ],
+      [
+        926,
+        1995,
+        1013
+      ],
+      [
+        1780,
+        938,
+        3588
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.6345218800648298,
+        "recall": 0.6310275352585628,
+        "f1": 0.632769883493838,
+        "support": 7445
+      },
+      "MEDIUM": {
+        "precision": 0.5131172839506173,
+        "recall": 0.5071174377224199,
+        "f1": 0.5100997187420098,
+        "support": 3934
+      },
+      "HIGH": {
+        "precision": 0.5612388549976537,
+        "recall": 0.5689819219790676,
+        "f1": 0.5650838648712497,
+        "support": 6306
+      }
+    }
+  },
+  {
+    "model": "V3 XGBoost (Unseen Mandis Generalization)",
+    "period": "Holdout Unseen Mandis",
+    "horizon": "14D",
+    "n_samples": 2656,
+    "accuracy": 0.5621,
+    "balanced_accuracy": 0.5543,
+    "macro_f1": 0.5645,
+    "weighted_f1": 0.5618,
+    "high_recall": 0.5015,
+    "high_precision": 0.4942,
+    "high_f1": 0.4978,
+    "high_false_alarm_rate": 0.5058,
+    "high_to_low_confusion": 406,
+    "low_to_high_confusion": 332,
+    "medium_recall": 0.5154,
+    "medium_precision": 0.6795,
+    "medium_f1": 0.5862,
+    "low_recall": 0.6459,
+    "low_precision": 0.5772,
+    "low_f1": 0.6096,
+    "confusion_matrix": [
+      [
+        684,
+        43,
+        332
+      ],
+      [
+        95,
+        301,
+        188
+      ],
+      [
+        406,
+        99,
+        508
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.5772151898734177,
+        "recall": 0.6458923512747875,
+        "f1": 0.6096256684491979,
+        "support": 1059
+      },
+      "MEDIUM": {
+        "precision": 0.6794582392776524,
+        "recall": 0.5154109589041096,
+        "f1": 0.5861733203505355,
+        "support": 584
+      },
+      "HIGH": {
+        "precision": 0.49416342412451364,
+        "recall": 0.5014807502467917,
+        "f1": 0.4977951984321411,
+        "support": 1013
+      }
+    }
+  },
+  {
+    "model": "Calendar Persistence (14D)",
+    "period": "Holdout Unseen Mandis",
+    "horizon": "14D",
+    "n_samples": 2656,
+    "accuracy": 0.5414,
+    "balanced_accuracy": 0.5402,
+    "macro_f1": 0.5423,
+    "weighted_f1": 0.5418,
+    "high_recall": 0.4817,
+    "high_precision": 0.4688,
+    "high_f1": 0.4752,
+    "high_false_alarm_rate": 0.5312,
+    "high_to_low_confusion": 364,
+    "low_to_high_confusion": 342,
+    "medium_recall": 0.5394,
+    "medium_precision": 0.5645,
+    "medium_f1": 0.5517,
+    "low_recall": 0.5996,
+    "low_precision": 0.6008,
+    "low_f1": 0.6002,
+    "confusion_matrix": [
+      [
+        635,
+        82,
+        342
+      ],
+      [
+        58,
+        315,
+        211
+      ],
+      [
+        364,
+        161,
+        488
+      ]
+    ],
+    "per_class_details": {
+      "LOW": {
+        "precision": 0.6007568590350048,
+        "recall": 0.5996222851746931,
+        "f1": 0.6001890359168242,
+        "support": 1059
+      },
+      "MEDIUM": {
+        "precision": 0.5645161290322581,
+        "recall": 0.5393835616438356,
+        "f1": 0.5516637478108581,
+        "support": 584
+      },
+      "HIGH": {
+        "precision": 0.4687800192122959,
+        "recall": 0.4817374136229023,
+        "f1": 0.47517039922103216,
+        "support": 1013
+      }
+    }
+  }
+]

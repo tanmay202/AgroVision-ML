@@ -357,6 +357,51 @@ _HORIZON_FORECASTING_ENABLED_OVERRIDE = None
 _HORIZON_14D_ENABLED_OVERRIDE = None
 _HORIZON_30D_ENABLED_OVERRIDE = None
 _SHADOW_EVALUATION_ENABLED_OVERRIDE = None
+_VOLATILITY_SHADOW_ENABLED_OVERRIDE = None
+
+
+def is_volatility_shadow_enabled() -> bool:
+    """
+    Operational switch for isolated background shadow monitoring of V3 14-day volatility classifier.
+
+    Disabled by default ('false').
+    Controlled by AGROVISION_ENABLE_VOLATILITY_SHADOW or AGROVISION_SHADOW_VOLATILITY_ONLY.
+    """
+    if _VOLATILITY_SHADOW_ENABLED_OVERRIDE is not None:
+        return _VOLATILITY_SHADOW_ENABLED_OVERRIDE
+    val = os.environ.get("AGROVISION_ENABLE_VOLATILITY_SHADOW", "").strip().lower()
+    if val:
+        return val in ("true", "1", "yes", "on")
+    val_only = os.environ.get("AGROVISION_SHADOW_VOLATILITY_ONLY", "false").strip().lower()
+    return val_only in ("true", "1", "yes", "on")
+
+
+def set_volatility_shadow_enabled(enabled: bool) -> None:
+    """Programmatically override volatility shadow monitoring switch."""
+    global _VOLATILITY_SHADOW_ENABLED_OVERRIDE
+    _VOLATILITY_SHADOW_ENABLED_OVERRIDE = bool(enabled)
+
+
+def get_volatility_v3_14d_model_path() -> Path:
+    """Return path to frozen V3 14-day volatility model artifact."""
+    p = get_artifacts_dir() / "v3" / "rice_volatility_v3_14d_model.pkl"
+    if p.exists():
+        return p
+    default_p = PROCESSED_DATA_DIR.parent / "artifacts" / "v3" / "rice_volatility_v3_14d_model.pkl"
+    if default_p.exists():
+        return default_p
+    return p
+
+
+def get_volatility_v3_14d_config_path() -> Path:
+    """Return path to frozen V3 14-day volatility configuration artifact."""
+    p = get_artifacts_dir() / "v3" / "rice_volatility_v3_14d_config.json"
+    if p.exists():
+        return p
+    default_p = PROCESSED_DATA_DIR.parent / "artifacts" / "v3" / "rice_volatility_v3_14d_config.json"
+    if default_p.exists():
+        return default_p
+    return p
 
 
 def is_horizon_forecasting_enabled() -> bool:
@@ -438,11 +483,12 @@ def set_shadow_evaluation_enabled(enabled: bool) -> None:
 
 def reset_horizon_forecasting_switches() -> None:
     """Reset programmatic overrides to defer to environment variables."""
-    global _HORIZON_FORECASTING_ENABLED_OVERRIDE, _HORIZON_14D_ENABLED_OVERRIDE, _HORIZON_30D_ENABLED_OVERRIDE, _SHADOW_EVALUATION_ENABLED_OVERRIDE
+    global _HORIZON_FORECASTING_ENABLED_OVERRIDE, _HORIZON_14D_ENABLED_OVERRIDE, _HORIZON_30D_ENABLED_OVERRIDE, _SHADOW_EVALUATION_ENABLED_OVERRIDE, _VOLATILITY_SHADOW_ENABLED_OVERRIDE
     _HORIZON_FORECASTING_ENABLED_OVERRIDE = None
     _HORIZON_14D_ENABLED_OVERRIDE = None
     _HORIZON_30D_ENABLED_OVERRIDE = None
     _SHADOW_EVALUATION_ENABLED_OVERRIDE = None
+    _VOLATILITY_SHADOW_ENABLED_OVERRIDE = None
 
 
 def get_shadow_db_path() -> Path:

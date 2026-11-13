@@ -1,0 +1,134 @@
+{
+  "7D": {
+    "total_mandis_evaluated": 56,
+    "win_loss_summary": {
+      "ml_wins": 17,
+      "base_wins": 39,
+      "ties": 0,
+      "ml_win_rate_pct": 30.4,
+      "base_win_rate_pct": 69.6
+    },
+    "mandi_volume_tiers": {
+      "small_mandis": {
+        "mandi_count": 14,
+        "mean_samples": 208.8,
+        "mean_ml_macro_f1": 0.4021,
+        "mean_base_macro_f1": 0.4251,
+        "mean_delta_macro_f1": -0.023,
+        "ml_wins": 5,
+        "base_wins": 9,
+        "ml_win_rate": 35.7
+      },
+      "medium_mandis": {
+        "mandi_count": 28,
+        "mean_samples": 328.7,
+        "mean_ml_macro_f1": 0.3957,
+        "mean_base_macro_f1": 0.422,
+        "mean_delta_macro_f1": -0.0264,
+        "ml_wins": 10,
+        "base_wins": 18,
+        "ml_win_rate": 35.7
+      },
+      "large_mandis": {
+        "mandi_count": 14,
+        "mean_samples": 574.3,
+        "mean_ml_macro_f1": 0.3998,
+        "mean_base_macro_f1": 0.4357,
+        "mean_delta_macro_f1": -0.0358,
+        "ml_wins": 2,
+        "base_wins": 12,
+        "ml_win_rate": 14.3
+      }
+    },
+    "clustered_significance_tests": {
+      "mean_macro_f1_difference": -0.0279,
+      "cluster_robust_se": 0.0064,
+      "paired_cluster_t_stat": -4.3263,
+      "paired_cluster_t_pvalue": 6e-05,
+      "wilcoxon_signed_rank_stat": 341.0,
+      "wilcoxon_pvalue": 0.0001931086892375706,
+      "clustered_bootstrap_95_ci": [
+        -0.0398,
+        -0.0152
+      ],
+      "clustered_bootstrap_pvalue": 0.0,
+      "ml_advantage_statistically_significant_at_05": false,
+      "base_advantage_statistically_significant_at_05": true,
+      "statistically_significant_at_05": true,
+      "significance_winner": "Persistence"
+    },
+    "pooled_mcnemar_diagnostic": {
+      "b_ml_correct_base_wrong": 1241,
+      "c_base_correct_ml_wrong": 1371,
+      "mcnemar_chi2": 6.371,
+      "mcnemar_pvalue": 0.011600151080038867,
+      "caveat": "Standard McNemar assumes observation independence. Since observations within mandis are temporally correlated, cluster-robust tests above must be preferred."
+    }
+  },
+  "14D": {
+    "total_mandis_evaluated": 56,
+    "win_loss_summary": {
+      "ml_wins": 23,
+      "base_wins": 33,
+      "ties": 0,
+      "ml_win_rate_pct": 41.1,
+      "base_win_rate_pct": 58.9
+    },
+    "mandi_volume_tiers": {
+      "small_mandis": {
+        "mandi_count": 14,
+        "mean_samples": 211.6,
+        "mean_ml_macro_f1": 0.3655,
+        "mean_base_macro_f1": 0.3831,
+        "mean_delta_macro_f1": -0.0176,
+        "ml_wins": 4,
+        "base_wins": 10,
+        "ml_win_rate": 28.6
+      },
+      "medium_mandis": {
+        "mandi_count": 28,
+        "mean_samples": 331.8,
+        "mean_ml_macro_f1": 0.4079,
+        "mean_base_macro_f1": 0.4217,
+        "mean_delta_macro_f1": -0.0138,
+        "ml_wins": 12,
+        "base_wins": 16,
+        "ml_win_rate": 42.9
+      },
+      "large_mandis": {
+        "mandi_count": 14,
+        "mean_samples": 577.0,
+        "mean_ml_macro_f1": 0.3925,
+        "mean_base_macro_f1": 0.399,
+        "mean_delta_macro_f1": -0.0066,
+        "ml_wins": 7,
+        "base_wins": 7,
+        "ml_win_rate": 50.0
+      }
+    },
+    "clustered_significance_tests": {
+      "mean_macro_f1_difference": -0.013,
+      "cluster_robust_se": 0.0059,
+      "paired_cluster_t_stat": -2.2105,
+      "paired_cluster_t_pvalue": 0.03125,
+      "wilcoxon_signed_rank_stat": 572.0,
+      "wilcoxon_pvalue": 0.06525588383612371,
+      "clustered_bootstrap_95_ci": [
+        -0.0252,
+        -0.002
+      ],
+      "clustered_bootstrap_pvalue": 0.019,
+      "ml_advantage_statistically_significant_at_05": false,
+      "base_advantage_statistically_significant_at_05": true,
+      "statistically_significant_at_05": true,
+      "significance_winner": "Persistence"
+    },
+    "pooled_mcnemar_diagnostic": {
+      "b_ml_correct_base_wrong": 1250,
+      "c_base_correct_ml_wrong": 850,
+      "mcnemar_chi2": 75.81,
+      "mcnemar_pvalue": 0.0,
+      "caveat": "Standard McNemar assumes observation independence. Since observations within mandis are temporally correlated, cluster-robust tests above must be preferred."
+    }
+  }
+}
