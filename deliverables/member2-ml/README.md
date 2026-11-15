@@ -17,7 +17,9 @@ It requires **no web frameworks, no FastAPI, and no uvicorn**. Member 3 can impo
 - **Short-Term Price Forecasting (1–7 Days):** Verified production 48-feature XGBoost regressor.
 - **14-Day Calendar Horizon Forecasting:** Opt-in 48-feature XGBoost regressor forecasting the first eligible observation in $[t + 14, t + 17]$ calendar days.
 - **30-Day Calendar Horizon Forecasting:** Experimental 48-feature XGBoost regressor forecasting the first eligible observation in $[t + 30, t + 33]$ calendar days.
-- **Price-Normalized Volatility Classification (`v2_normalized`):** 35-feature XGBoost classifier predicting 5-day volatility categories (`LOW`, `MEDIUM`, `HIGH`).
+- **Price-Normalized Volatility Classification (`v2_normalized`):** 35-feature XGBoost classifier predicting 5-day volatility categories (`LOW`, `MEDIUM`, `HIGH`) alongside `v1` persistence baseline. *(Note: Experimental Volatility V3 14D remains strictly quarantined in prospective shadow monitoring within `member2-price-volatility/` and is deliberately excluded from this production package to ensure zero farmer-facing exposure).*
+- **Empirical Uncertainty & Residual Quantiles:** Bundles holdout prediction residuals (`rice_holdout_residuals*.json`) enabling Member 3 to construct conformal error intervals and confidence bands.
+- **Mandi Group Mappings:** Provides exact Agmarknet canonical strings (`rice_group_mappings.json` for 87 mandis, `tea_group_mappings.json` for 13 mandis) to prevent spelling and case mismatches.
 - **Flexible Data Ingestion:** Accepts either pandas DataFrames or lists of Python dictionaries, with automatic column alias mapping.
 
 ---
@@ -129,7 +131,18 @@ To verify package installation and numerical parity:
 pytest deliverables/member2-ml/tests/ -v
 ```
 
-All 10 tests should pass, covering initialization, short-term prediction, 14d/30d horizons, schema tolerance, error handling, leakage prevention, and mathematical parity.
+All 11 tests should pass (100%), covering:
+1. Predictor initialization & 48-feature verification
+2. Short-term forecasting using DataFrame input
+3. Short-term forecasting using list-of-dicts with snake_case aliases
+4. 14-day calendar horizon forecasting
+5. 30-day calendar horizon forecasting
+6. Unified `predict()` dispatch
+7. Insufficient history error validation (< 30 observations)
+8. Unsupported horizon rejection
+9. Zero-lookahead leakage prevention (future poisoning test)
+10. Exact numerical parity with Member 2 inference pipeline
+11. Verification of all deliverable residual files and group mapping JSONs
 
 ---
 

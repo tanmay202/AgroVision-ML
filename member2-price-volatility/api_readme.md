@@ -27,15 +27,16 @@ Verifies that the API is running and that the model has successfully loaded.
 Returns the expected future modal price and 5-day volatility classification.
 
 **Request Schema:**
-- `market`: (string) The market name
-- `variety`: (string) The variety name
+- `market`: (string) The market name (e.g. `"Burdwan"`)
+- `variety`: (string) The variety name (e.g. `"Common"`)
 - `prediction_date`: (string) ISO date (`YYYY-MM-DD`)
+- `volatility_version`: (string, optional) `"v1"` (default persistence baseline) or `"v2_normalized"` (opt-in 35-feature XGBoost classifier)
 - `history`: (array) A chronological list of `HistoricalObservation` objects covering at least 30 valid prior dates.
   - `reported_date` (string)
   - `modal_price` (float)
   - `arrivals` (float)
 
-**Example Request:**
+**Example Request (Default `v1` Persistence):**
 ```bash
 curl -X 'POST' \
   'http://127.0.0.1:8000/predict' \
@@ -60,7 +61,7 @@ curl -X 'POST' \
 }'
 ```
 
-**Example Response:**
+**Example Response (`v1` Default):**
 ```json
 {
   "market": "Burdwan",
@@ -68,7 +69,46 @@ curl -X 'POST' \
   "prediction_date": "2023-10-31",
   "predicted_modal_price": 2445.67,
   "predicted_volatility_range": 40.0,
-  "predicted_volatility_class": "MEDIUM"
+  "predicted_volatility_class": "MEDIUM",
+  "volatility_version": "v1"
+}
+```
+
+**Example Request (`v2_normalized` Opt-in ML Classifier):**
+```bash
+curl -X 'POST' \
+  'http://127.0.0.1:8000/predict' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "market": "Burdwan",
+  "variety": "Common",
+  "prediction_date": "2023-10-31",
+  "volatility_version": "v2_normalized",
+  "history": [ ... 30+ records ... ]
+}'
+```
+
+**Example Response (`v2_normalized`):**
+```json
+{
+  "market": "Burdwan",
+  "variety": "Common",
+  "prediction_date": "2023-10-31",
+  "predicted_modal_price": 2445.67,
+  "predicted_volatility_range": 40.0,
+  "predicted_volatility_class": "MEDIUM",
+  "volatility_version": "v2_normalized",
+  "normalized_volatility_class": "MEDIUM",
+  "normalized_volatility_probabilities": {
+    "LOW": 0.1245,
+    "MEDIUM": 0.6512,
+    "HIGH": 0.2243
+  },
+  "historical_pct_range_5": 1.67,
+  "thresholds": {
+    "low_medium_threshold": 0.014286,
+    "medium_high_threshold": 1.960784
+  }
 }
 ```
 
@@ -141,23 +181,45 @@ curl -X 'POST' \
 
 ---
 
-### Observability Endpoints
+### Observability & Shadow Monitoring Endpoints
 
 #### `GET /health/horizons`
-Reports artifact existence, switch statuses, and readiness for 14d and 30d models.
+Reports artifact existence, switch statuses, and readiness for 14d and 30d price models.
 
 #### `GET /metrics/horizons`
 Reports request counts, success rates, average latencies (ms), and error categories for horizon forecasting.
 
+#### `GET /shadow/status`
+Reports operational status of the direct price horizon shadow pipeline, active database path, and counts of pending, evaluated, and unavailable forecasts.
+
+#### `GET /shadow/metrics?horizon_days=14&cohort=PROSPECTIVE`
+Returns comparative accuracy benchmarks (MAE, RMSE, $R^2$, MAPE, tolerance bounds) between direct horizon models and the persistence baseline.
+
+#### `POST /shadow/evaluate`
+Triggers delayed outcome resolution for closed price horizon forecasting windows.
+
+#### `GET /shadow/volatility/status?cohort=PROSPECTIVE`
+Reports operational health, active database path, and forecast status counts (`PENDING`, `EVALUATED`, `WINDOW_EMPTY`) for the isolated Volatility V3 prospective shadow pipeline.
+
+#### `GET /shadow/volatility/metrics?cohort=PROSPECTIVE&margin=0.01`
+Computes comparative classification performance (Macro F1, Balanced Accuracy, HIGH recall/precision, ECE, paired cluster non-inferiority test) between Volatility V3 and 14D Calendar Persistence.
+
+#### `POST /shadow/volatility/evaluate`
+Triggers delayed outcome resolution for all pending Volatility V3 forecasts where the full 14-calendar-day window has definitively closed.
+
 ---
 
 ## Operational Deployment Switches
-By default, 14-day and 30-day endpoints are disabled in fresh installations to enforce safe opt-in semantics. To enable them:
-```bash
-# Master switch
-export AGROVISION_ENABLE_HORIZON_FORECASTING=true
+By default, 14-day and 30-day endpoints and shadow monitoring are safely disabled in fresh installations to enforce strict opt-in semantics and protect client systems. To configure:
 
-# Horizon switches
-export AGROVISION_ENABLE_HORIZON_14D=true
-export AGROVISION_ENABLE_HORIZON_30D=true  # Experimental
+```bash
+# ─── 1. Price Horizon Forecasting Switches ───
+export AGROVISION_ENABLE_HORIZON_FORECASTING=true  # Master switch
+export AGROVISION_ENABLE_HORIZON_14D=true          # 14-day opt-in model
+export AGROVISION_ENABLE_HORIZON_30D=true          # 30-day experimental model
+
+# ─── 2. Shadow Evaluation Switches ───
+export AGROVISION_ENABLE_SHADOW_EVALUATION=true    # Price horizon shadow engine
+export AGROVISION_ENABLE_VOLATILITY_SHADOW=true    # Volatility V3 shadow engine
+export AGROVISION_SHADOW_DB_PATH="data/processed/shadow_evaluation.db"  # Persistent SQLite store
 ```

@@ -8,10 +8,10 @@ Built as a 3-member team project using Indian Agmarknet and NASA POWER agricultu
 
 ## Team Responsibilities
 
-| Member | Role | Module | Output |
-|--------|------|--------|--------|
+| Member | Role | Module | Primary Outputs & Artifacts |
+|--------|------|--------|-----------------------------|
 | **Member 1** | Crop Yield ML (tonnes/ha, kg/ha) | `member1-yield-model/` | `m1_improved_delta_ridge.pkl` |
-| **Member 2** | Price & Volatility ML | `member2-price-volatility/` | `{commodity}_price_model.pkl`, `{commodity}_volatility_model.pkl` |
+| **Member 2** | Price & Volatility ML | `member2-price-volatility/`<br>`deliverables/member2-ml/` | **Short-Term (1–7d):** `rice_price_model.pkl`<br>**Horizons:** `rice_price_model_14d.pkl`, `rice_price_model_30d.pkl`<br>**Volatility:** `rice_volatility_normalized_model.pkl` (v2), `rice_volatility_v3_14d_model.pkl` (V3 shadow)<br>**Deliverable Package:** `RicePricePredictor` (pure Python) |
 | **Member 3** | Engineering & API | FastAPI service (separate repo) | REST API, Dashboard |
 
 ---
@@ -42,15 +42,20 @@ python run_all.py --member 1
 python run_all.py --member 2
 ```
 
-### 4. Run Members Individually
+### 4. Run & Test Members Individually
 ```bash
-# Member 1
+# ─── Member 1 ───
 cd member1-yield-model
 python main.py --no-tune
+pytest tests/ -v
 
-# Member 2
+# ─── Member 2 ───
 cd member2-price-volatility
 python run.py --commodity tea
+pytest tests/ -v  # 146 tests passing across 14 test files
+
+# ─── Member 2 Standalone Deliverable Package ───
+pytest deliverables/member2-ml/tests/ -v  # 11 tests passing
 ```
 
 ---
@@ -71,16 +76,30 @@ AgroVision-ML/
 │   ├── paths.py                     ← Centralized dynamic path manager
 │   └── predict_bridge.py            ← Unified prediction bridge for Member 3
 │
+├── deliverables/
+│   └── member2-ml/                  ← Standalone pure-Python ML deliverable for Member 3
+│       ├── artifacts/               ← Bit-for-bit models, configs, residuals & mappings
+│       ├── src/predictor.py         ← Standalone RicePricePredictor class
+│       └── tests/test_predictor.py  ← Standalone regression test suite (11 tests)
+│
 ├── member1-yield-model/             ← MEMBER 1: Rice Crop Yield Model
 │   ├── scripts/                     ← Ingest, aggregate, train & inference scripts
 │   ├── models/                      ← Candidate models (m1_improved_delta_ridge.pkl)
 │   ├── data/                        ← Raw and processed district-seasonal datasets
-│   └── tests/                       ← Comprehensive regression test suite
+│   └── tests/                       ← Comprehensive regression test suite (139 tests)
 │
 └── member2-price-volatility/        ← MEMBER 2: Mandi Price & Volatility Model
-    ├── run.py                       ← Entry point
-    ├── artifacts/                   ← Trained models (XGBoost 48-feature)
-    └── src/                         ← Pipeline source code
+    ├── run.py                       ← Entry point CLI
+    ├── artifacts/                   ← Frozen price & volatility models, residuals
+    │   └── v3/                      ← Prospective shadow candidate models (14d/7d)
+    ├── src/                         ← Pipeline source code & shadow evaluation engines
+    │   ├── api.py                   ← FastAPI service with shadow observability
+    │   ├── data_connector.py        ← Agmarknet API connector & drift detector
+    │   ├── inference.py             ← Point-in-time RiceInferencePipeline
+    │   ├── shadow_evaluation.py     ← Price horizon shadow evaluation engine
+    │   └── volatility_shadow.py     ← Volatility V3 prospective shadow pipeline
+    ├── tests/                       ← Full automated test suite (146 tests)
+    └── OPERATIONAL_SHADOW_MONITORING.md ← Runbook for prospective shadow pipelines
 ```
 
 ---
