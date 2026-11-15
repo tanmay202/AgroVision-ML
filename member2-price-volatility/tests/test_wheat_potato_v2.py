@@ -49,11 +49,15 @@ def test_v2_artifacts_exist(comm):
     
     expected_files = [
         f"{comm}_price_model.pkl",
+        f"{comm}_price_model_v2.pkl",
         f"{comm}_price_14d_model.pkl",
         f"{comm}_price_30d_model.pkl",
         f"{comm}_volatility_model.pkl",
+        f"{comm}_volatility_model_v2.pkl",
         f"{comm}_feature_config.json",
+        f"{comm}_price_model_v2_config.json",
         f"{comm}_volatility_config.json",
+        f"{comm}_volatility_model_v2_config.json",
         f"{comm}_residual_distributions.json",
         f"{comm}_v2_metrics.json",
         "manifest.json"
@@ -205,3 +209,83 @@ def test_shared_bridge_v2_price_and_horizons(comm):
     assert res_30["horizon_days"] == 30
     assert res_30["predicted_price_rs_quintal"] > 0
     assert "prediction_interval" in res_30
+
+
+# ============================================================
+# 4. Section 15 Unified Commodity-Aware Interface Tests
+# ============================================================
+
+def test_section15_unified_predictor_interface():
+    """Verify predictor.predict(commodity=..., history=..., horizon=...) contract."""
+    pkg_dir = REPO_ROOT / "deliverables" / "member2-ml"
+    if str(pkg_dir) not in sys.path:
+        sys.path.insert(0, str(pkg_dir))
+    from src.predictor import MultiCommodityPricePredictor
+
+    m_pred = MultiCommodityPricePredictor()
+    bridge = AgroVisionPredictor()
+
+    rice_df = make_sample_history("wheat", 35)
+    rice_df["Market Name"] = "Burdwan"
+    rice_df["Variety"] = "Common"
+    wheat_df = make_sample_history("wheat", 35)
+    potato_df = make_sample_history("potato", 35)
+
+    for predictor in [m_pred, bridge]:
+        # Rice
+        r_rice = predictor.predict(commodity="rice", history=rice_df, horizon="short")
+        assert (r_rice.get("predicted_modal_price") or r_rice.get("predicted_price_rs_quintal")) > 0
+
+        # Wheat
+        r_wheat = predictor.predict(commodity="wheat", history=wheat_df, horizon="short")
+        assert (r_wheat.get("predicted_price") or r_wheat.get("predicted_price_rs_quintal")) > 0
+
+        # Potato
+        r_pot = predictor.predict(commodity="potato", history=potato_df, horizon="short")
+        assert (r_pot.get("predicted_price") or r_pot.get("predicted_price_rs_quintal")) > 0
+
+        # Horizons
+        r_w14 = predictor.predict(commodity="wheat", history=wheat_df, horizon=14)
+        assert (r_w14.get("predicted_price") or r_w14.get("predicted_price_rs_quintal")) > 0
+
+        r_p30 = predictor.predict(commodity="potato", history=potato_df, horizon=30)
+        assert (r_p30.get("predicted_price") or r_p30.get("predicted_price_rs_quintal")) > 0
+
+
+def test_section15_unsupported_commodity_error():
+    """Ensure unsupported commodities raise explicit ValueError without silent fallback."""
+    pkg_dir = REPO_ROOT / "deliverables" / "member2-ml"
+    if str(pkg_dir) not in sys.path:
+        sys.path.insert(0, str(pkg_dir))
+    from src.predictor import MultiCommodityPricePredictor, RicePricePredictor
+
+    m_pred = MultiCommodityPricePredictor()
+    bridge = AgroVisionPredictor()
+    rice_pred = RicePricePredictor()
+    df = make_sample_history("wheat", 5)
+
+    with pytest.raises(ValueError, match="Unsupported commodity"):
+        m_pred.predict(commodity="mango", history=df)
+
+    with pytest.raises(ValueError, match="Unsupported commodity"):
+        bridge.predict(commodity="avocado", history=df)
+
+    with pytest.raises(ValueError, match="RicePricePredictor only supports commodity='rice'"):
+        rice_pred.predict(commodity="wheat", history=df)
+
+
+def test_edge_cases_string_inputs_and_negative_arrivals():
+    """Ensure string numeric values, negative arrivals, and disordered dates work safely."""
+    df_messy = pd.DataFrame([
+        {"Reported Date": "2024-01-05", "Modal Price": "2100.5", "Arrivals": "-15.0"},
+        {"Reported Date": "2024-01-01", "Modal Price": "2050", "Arrivals": "5.0"},
+        {"Reported Date": "2024-01-03", "Modal Price": "2080.0", "Arrivals": "0.0"},
+    ])
+    res_wheat = predict(commodity="wheat", history=df_messy, horizon="short")
+    assert res_wheat["predicted_price"] > 0
+    assert res_wheat["volatility"] in ["LOW", "MEDIUM", "HIGH"]
+
+    res_pot = predict(commodity="potato", history=df_messy, horizon="short")
+    assert res_pot["predicted_price"] > 0
+    assert res_pot["volatility"] in ["LOW", "MEDIUM", "HIGH"]
+

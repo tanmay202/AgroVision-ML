@@ -26,15 +26,19 @@ All production artifacts reside exclusively in `member2-price-volatility/artifac
 
 | Artifact File Name | Purpose / Model Family | Size (Bytes) | SHA-256 Digest |
 | :--- | :--- | :---: | :--- |
-| `potato_price_model.pkl` | XGBoost Pseudo-Huber Champion ($\epsilon=5.0$) | 584,465 | `3fa4e1cffdb870c40e53a992bc93d62ea75fcce06b2520638575a7c296568285` |
-| `potato_price_14d_model.pkl`| Direct 14-day CatBoost Regressor | 460,590 | `5ca64a2e55883ea54fe9a1286b5c3080ff559f2010834316238b97d264421b92` |
-| `potato_price_30d_model.pkl`| Direct 30-day CatBoost Regressor | 460,694 | `6cb803ba97e937d53086eb2d69956d49ca71752b04c86bf4157d6e676104fa20` |
-| `potato_volatility_model.pkl`| Sigmoid Calibrated XGBoost Classifier | 2,031,230 | `d0dd4eb005527a0505cefa875e5332fbc1be2b36997d9fc0888981440785fffc` |
-| `potato_feature_config.json` | 81-feature runtime definition | 4,621 | `d12be4078832a8ba32448375e2ecb568770c0c70e28f3a8b273b5a7698cbfa2d` |
-| `potato_volatility_config.json`| Volatility percentage thresholds & config| 444 | `a739d48b1aa6e20ddbe980a3a4131b790d97033bbcc498fe87968dd4892cfa71` |
-| `potato_residual_distributions.json`| Non-parametric error quantiles (p05-p95)| 1,416 | `7f794713ea7970897f1bb653be161c02e1c9fe341e3a6a9be71e612cb353272d` |
-| `potato_v2_metrics.json` | Full holdout & sub-population metrics | 5,958 | `42927289ef32a0d783109a9ea0a1c7201c13bc5a932d8816c87bb3cbeeb06745` |
-| `manifest.json` | Master cryptographic registry | 1,376 | `b783d7373fef40df5f0962dc2d1ce2b9183d3b7623a9d94921b7ba94b9aa1ef4` |
+| `potato_price_model.pkl` | XGBoost Pseudo-Huber Champion ($\epsilon=5.0$) | 584,465 | `f88323ac8aac1fac0278cbeca9463eec0d75e35fa4e5758fe74e15c75fe6e3a8` |
+| `potato_price_model_v2.pkl` | Standardized V2 model binary alias | 584,465 | `f88323ac8aac1fac0278cbeca9463eec0d75e35fa4e5758fe74e15c75fe6e3a8` |
+| `potato_price_14d_model.pkl`| Direct 14-day CatBoost Regressor | 460,590 | `6088ac503bbfae7789c7166ca850c69c11113bf98aa9f572cefad7fd94114f17` |
+| `potato_price_30d_model.pkl`| Direct 30-day CatBoost Regressor | 460,694 | `de169b0211e03d036265ba4c73fe2df166532dd900ed5452ea339d13e25e992f` |
+| `potato_volatility_model.pkl`| Sigmoid Calibrated XGBoost Classifier | 2,031,230 | `6aa4beae4eb4a6a7f33a2e9b11f44c95292cd576b7816a1d8d797c3c4c289b31` |
+| `potato_volatility_model_v2.pkl`| Standardized V2 volatility binary alias | 2,031,230 | `6aa4beae4eb4a6a7f33a2e9b11f44c95292cd576b7816a1d8d797c3c4c289b31` |
+| `potato_feature_config.json` | 81-feature runtime definition | 4,621 | `f5cf139d37ebc8988a2257da72bbc3422abdcc6fe0562b12ed2ae73a096d4b53` |
+| `potato_price_model_v2_config.json` | Standardized V2 price config alias | 4,621 | `f5cf139d37ebc8988a2257da72bbc3422abdcc6fe0562b12ed2ae73a096d4b53` |
+| `potato_volatility_config.json`| Volatility percentage thresholds & config| 444 | `18fcf076a400adf5f44bb15303a4f056102900951754c18c3cdc61cd77642ddb` |
+| `potato_volatility_model_v2_config.json`| Standardized V2 volatility config alias | 444 | `18fcf076a400adf5f44bb15303a4f056102900951754c18c3cdc61cd77642ddb` |
+| `potato_residual_distributions.json`| Non-parametric error quantiles (p05-p95)| 1,416 | `5d8595ec7dd51932f71ce13681870afd55d78a519011bd7288990bd264c8d877` |
+| `potato_v2_metrics.json` | Full holdout & sub-population metrics | 5,958 | `69dbbe597e26568206e62d89f7d9512c0fa872bd6fc87d1c769984028ffea11a` |
+| `manifest.json` | Master cryptographic registry | 2,026 | `d8f7aad6b8a1d5d6c3d30e754bdd804dcff6f8db22e899f3b930f951fbad2eef` |
 
 ---
 

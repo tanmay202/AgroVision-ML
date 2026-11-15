@@ -26,15 +26,19 @@ All production artifacts reside exclusively in `member2-price-volatility/artifac
 
 | Artifact File Name | Purpose / Model Family | Size (Bytes) | SHA-256 Digest |
 | :--- | :--- | :---: | :--- |
-| `wheat_price_model.pkl` | CatBoost MAE Champion ($\epsilon=3.0$) | 460,901 | `d280b080f55fb3beee73809ee59990b7952fb58f629c4aa0292fe8db1ff18d6e` |
-| `wheat_price_14d_model.pkl`| Direct 14-day CatBoost Regressor | 461,814 | `1bc19df770519fbb11470cefeee0028292850ae35741f2a36b32c0216ae9cbbe` |
-| `wheat_price_30d_model.pkl`| Direct 30-day CatBoost Regressor | 461,318 | `15e98547ca79b4fe247594d2dfd87b92789f2cfbc4c405a2feff98eb820a44cb` |
-| `wheat_volatility_model.pkl`| Isotonic Calibrated CatBoost Classifier| 355,504 | `86f675661b3b24f5933fffa8eb3cc7efda3ba17f739665f8c634625b1ae950a2` |
-| `wheat_feature_config.json` | 81-feature runtime definition | 4,631 | `beeead23eb811634b07cf0fba8c9197fe8a3ba081fe7248f72a441dfdfd0a1b8` |
-| `wheat_volatility_config.json`| Volatility percentage thresholds & config| 444 | `9d554a9c379bfbe2d6a543f49747514a3e29f3ffbfaf713583cae44a499313db` |
-| `wheat_residual_distributions.json`| Non-parametric error quantiles (p05-p95)| 1,430 | `ca0cb18fc80ff43bb3aa84f50f2fb6e54ee0d55e08b688d011fbe244da026e63` |
-| `wheat_v2_metrics.json` | Full holdout & sub-population metrics | 5,877 | `26b89694e99f57d6928e3b5e4aa3417387b9b03943fcf09600e12d4d5a99905b` |
-| `manifest.json` | Master cryptographic registry | 1,366 | `668702b8bbcb75a898b3687c4f4ca5cb3bf441b804da2f8547e24749f506e001` |
+| `wheat_price_model.pkl` | CatBoost MAE Champion ($\epsilon=3.0$) | 460,901 | `f7d388b3bae30e158de2e5513cbc756b2722026faea18fa5da9e650d56b1450c` |
+| `wheat_price_model_v2.pkl` | Standardized V2 model binary alias | 460,901 | `f7d388b3bae30e158de2e5513cbc756b2722026faea18fa5da9e650d56b1450c` |
+| `wheat_price_14d_model.pkl`| Direct 14-day CatBoost Regressor | 461,814 | `5a98a46eca598de1ff59aee6b14290dce76127b6449bc871e2e11f80d5fe555a` |
+| `wheat_price_30d_model.pkl`| Direct 30-day CatBoost Regressor | 461,318 | `93e3dbdc6c64a8298d1102b0154d56a7746cd27d1fc8ded1ac843577dd8f3892` |
+| `wheat_volatility_model.pkl`| Isotonic Calibrated CatBoost Classifier| 355,504 | `b1ffea4abff19e17f8065e8711e78262e77643249c3131d4f92431f9f9b38348` |
+| `wheat_volatility_model_v2.pkl`| Standardized V2 volatility binary alias | 355,504 | `b1ffea4abff19e17f8065e8711e78262e77643249c3131d4f92431f9f9b38348` |
+| `wheat_feature_config.json` | 81-feature runtime definition | 4,631 | `2f17e848a86b0bcde532420616f789cf5d54efe7765e66058394ae5d60b88b06` |
+| `wheat_price_model_v2_config.json` | Standardized V2 price config alias | 4,631 | `2f17e848a86b0bcde532420616f789cf5d54efe7765e66058394ae5d60b88b06` |
+| `wheat_volatility_config.json`| Volatility percentage thresholds & config| 444 | `c2c3a75ae1aa0732c9208c52164776bd01f8ac640908c00b1bf00c0840045d85` |
+| `wheat_volatility_model_v2_config.json`| Standardized V2 volatility config alias | 444 | `c2c3a75ae1aa0732c9208c52164776bd01f8ac640908c00b1bf00c0840045d85` |
+| `wheat_residual_distributions.json`| Non-parametric error quantiles (p05-p95)| 1,430 | `1e0e857282d6bee6befd995f3b08151a82ab32e577ecd6e7711eda8f1839f4c0` |
+| `wheat_v2_metrics.json` | Full holdout & sub-population metrics | 5,877 | `7828526e8ab7d76c78b31147788aa607525079c88b11d44ccacbdb648e6200e5` |
+| `manifest.json` | Master cryptographic registry | 2,011 | `9431f48c5843d230434de84e2e49989c13d2eb46c622d763d07fa95967b5b6c7` |
 
 ---
 

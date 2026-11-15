@@ -33,6 +33,14 @@ def generate_candidate_price_features(df: pd.DataFrame) -> pd.DataFrame:
         raise ValueError(f"Required group columns {GROUP_COLUMNS} not found.")
 
     df[DATE_COLUMN] = pd.to_datetime(df[DATE_COLUMN], errors="coerce")
+    df[PRICE_COLUMN] = pd.to_numeric(df[PRICE_COLUMN], errors="coerce")
+    if ARRIVAL_COLUMN in df.columns:
+        df[ARRIVAL_COLUMN] = pd.to_numeric(df[ARRIVAL_COLUMN], errors="coerce").fillna(0.0).clip(lower=0.0)
+    if MIN_PRICE_COLUMN in df.columns:
+        df[MIN_PRICE_COLUMN] = pd.to_numeric(df[MIN_PRICE_COLUMN], errors="coerce")
+    if MAX_PRICE_COLUMN in df.columns:
+        df[MAX_PRICE_COLUMN] = pd.to_numeric(df[MAX_PRICE_COLUMN], errors="coerce")
+
     df = df.sort_values(group_cols + [DATE_COLUMN]).reset_index(drop=True)
 
     grouped_p = df.groupby(group_cols)[PRICE_COLUMN]
@@ -181,5 +189,7 @@ def generate_candidate_price_features(df: pd.DataFrame) -> pd.DataFrame:
     last_move = df["price_change_1"].replace(0, np.nan)
     df["last_non_zero_move"] = last_move.groupby(group_keys).ffill().fillna(0)
     df["last_move_abs"] = df["last_non_zero_move"].abs()
+
+    df = df.replace([np.inf, -np.inf], 0.0)
 
     return df

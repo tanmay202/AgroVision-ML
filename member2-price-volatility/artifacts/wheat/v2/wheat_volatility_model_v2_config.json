@@ -1,0 +1,18 @@
+{
+  "commodity": "wheat",
+  "version": "2.0.0",
+  "volatility_definition": "5-observation percentage price range ((max - min) / current_modal_price * 100)",
+  "low_medium_threshold_pct": 0.05,
+  "medium_high_threshold_pct": 1.818,
+  "classes": [
+    "LOW",
+    "MEDIUM",
+    "HIGH"
+  ],
+  "calibrator": "isotonic",
+  "class_weights": {
+    "0": 0.7865355972594579,
+    "1": 1.1859504132231404,
+    "2": 1.1294379330994953
+  }
+}

@@ -40,13 +40,19 @@ def _artifacts(commodity, artifacts_dir=None, version="v2", horizon_days=1):
 
         if is_v2 and v2_dir.exists():
             cfg_path = v2_dir / f"{commodity}_feature_config.json"
+            if not cfg_path.exists():
+                cfg_path = v2_dir / f"{commodity}_price_model_v2_config.json"
             if horizon_days == 14:
                 p_path = v2_dir / f"{commodity}_price_14d_model.pkl"
             elif horizon_days == 30:
                 p_path = v2_dir / f"{commodity}_price_30d_model.pkl"
             else:
-                p_path = v2_dir / f"{commodity}_price_model.pkl"
-            v_path = v2_dir / f"{commodity}_volatility_model.pkl"
+                p_path = v2_dir / f"{commodity}_price_model_v2.pkl"
+                if not p_path.exists():
+                    p_path = v2_dir / f"{commodity}_price_model.pkl"
+            v_path = v2_dir / f"{commodity}_volatility_model_v2.pkl"
+            if not v_path.exists():
+                v_path = v2_dir / f"{commodity}_volatility_model.pkl"
             res_path = v2_dir / f"{commodity}_residual_distributions.json"
         else:
             # V1 or fallback path
@@ -194,8 +200,16 @@ def _extract_v2_features_from_history(df, feature_names):
             col_map[c] = "Variety"
 
     work = df.rename(columns=col_map).copy()
+    p_col = "Modal Price (Rs./Quintal)"
+    if p_col not in work.columns:
+        raise ValueError(f"Missing required price column '{p_col}' in history.")
+
+    work[p_col] = pd.to_numeric(work[p_col], errors="coerce")
     if "Arrivals (Tonnes)" not in work.columns:
         work["Arrivals (Tonnes)"] = 0.0
+    else:
+        work["Arrivals (Tonnes)"] = pd.to_numeric(work["Arrivals (Tonnes)"], errors="coerce").fillna(0.0).clip(lower=0.0)
+
     if "Reported Date" not in work.columns:
         work["Reported Date"] = pd.date_range(end=pd.Timestamp.now(), periods=len(work)).strftime("%Y-%m-%d")
     if "Market Name" not in work.columns:
@@ -203,11 +217,15 @@ def _extract_v2_features_from_history(df, feature_names):
     if "Variety" not in work.columns:
         work["Variety"] = "DefaultVariety"
 
-    p_col = "Modal Price (Rs./Quintal)"
     if "Min Price (Rs./Quintal)" not in work.columns:
         work["Min Price (Rs./Quintal)"] = work[p_col]
+    else:
+        work["Min Price (Rs./Quintal)"] = pd.to_numeric(work["Min Price (Rs./Quintal)"], errors="coerce").fillna(work[p_col])
+
     if "Max Price (Rs./Quintal)" not in work.columns:
         work["Max Price (Rs./Quintal)"] = work[p_col]
+    else:
+        work["Max Price (Rs./Quintal)"] = pd.to_numeric(work["Max Price (Rs./Quintal)"], errors="coerce").fillna(work[p_col])
 
     feats = generate_candidate_price_features(work)
 
@@ -229,22 +247,53 @@ def _extract_v2_features_from_history(df, feature_names):
 
 
 def predict(
-    data,
+    data=None,
     commodity="rice",
     artifacts_dir=None,
     version=None,
-    horizon_days=1,
+    horizon_days=None,
     return_intervals=False,
+    history=None,
+    horizon="short",
     **kwargs
 ):
     """Return an actual future modal price and a volatility class.
 
-    The price model predicts a change internally.  This API reconstructs the
+    The price model predicts a change internally. This API reconstructs the
     actual Rs./Quintal price by adding it to the supplied current modal price.
     Supports multi-commodity V1/V2 routing, direct horizons (14d, 30d), and empirical intervals.
+    Accepts history as either 'data' or 'history', and horizon as 'short', 14, 30.
     """
+    if data is None and history is not None:
+        data = history
+    if data is None:
+        raise ValueError("Prediction data/history is required.")
+
     frame = _frame(data)
     commodity = str(commodity).strip().lower()
+
+    supported_commodities = {"rice", "wheat", "potato", "tea"}
+    if commodity not in supported_commodities:
+        raise ValueError(
+            f"Unsupported commodity: '{commodity}'. Supported commodities are: {', '.join(sorted(supported_commodities))}."
+        )
+
+    # Resolve horizon / horizon_days
+    if horizon_days is None:
+        if horizon is not None:
+            h_str = str(horizon).strip().lower()
+            if h_str in ("short", "1-7", "1", "1d", "short_term"):
+                horizon_days = 1
+            elif h_str in ("14", "14d"):
+                horizon_days = 14
+            elif h_str in ("30", "30d"):
+                horizon_days = 30
+            elif isinstance(horizon, (int, float)):
+                horizon_days = int(horizon)
+            else:
+                raise ValueError(f"Unsupported horizon '{horizon}'. Valid options: 'short', 14, 30.")
+        else:
+            horizon_days = 1
 
     # Route Rice through production RiceInferencePipeline when history or 48-feature format is present
     if commodity == "rice":

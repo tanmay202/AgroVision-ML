@@ -171,7 +171,7 @@ All V2 artifacts are isolated in `member2-price-volatility/artifacts/wheat/v2/` 
 
 | Artifact File | Size (Bytes) | SHA-256 Checksum |
 | :--- | :---: | :--- |
-| `wheat_price_model.pkl` | 460,901 | `d280b080f55fb3beee73809ee59990b7952fb58f629c4aa0292fe8db1ff18d6e` |
+| `wheat_price_model.pkl` | 460,901 | `f7d388b3bae30e158de2e5513cbc756b2722026faea18fa5da9e650d56b1450c` |
 | `wheat_price_14d_model.pkl` | 461,814 | `1bc19df770519fbb11470cefeee0028292850ae35741f2a36b32c0216ae9cbbe` |
 | `wheat_price_30d_model.pkl` | 461,318 | `15e98547ca79b4fe247594d2dfd87b92789f2cfbc4c405a2feff98eb820a44cb` |
 | `wheat_feature_config.json` | 4,631 | `beeead23eb811634b07cf0fba8c9197fe8a3ba081fe7248f72a441dfdfd0a1b8` |

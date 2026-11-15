@@ -19,6 +19,14 @@
       "size_bytes": 584465,
       "sha256": "f88323ac8aac1fac0278cbeca9463eec0d75e35fa4e5758fe74e15c75fe6e3a8"
     },
+    "potato_price_model_v2.pkl": {
+      "size_bytes": 584465,
+      "sha256": "f88323ac8aac1fac0278cbeca9463eec0d75e35fa4e5758fe74e15c75fe6e3a8"
+    },
+    "potato_price_model_v2_config.json": {
+      "size_bytes": 4621,
+      "sha256": "f5cf139d37ebc8988a2257da72bbc3422abdcc6fe0562b12ed2ae73a096d4b53"
+    },
     "potato_residual_distributions.json": {
       "size_bytes": 1416,
       "sha256": "5d8595ec7dd51932f71ce13681870afd55d78a519011bd7288990bd264c8d877"
@@ -34,6 +42,14 @@
     "potato_volatility_model.pkl": {
       "size_bytes": 2031230,
       "sha256": "6aa4beae4eb4a6a7f33a2e9b11f44c95292cd576b7816a1d8d797c3c4c289b31"
+    },
+    "potato_volatility_model_v2.pkl": {
+      "size_bytes": 2031230,
+      "sha256": "6aa4beae4eb4a6a7f33a2e9b11f44c95292cd576b7816a1d8d797c3c4c289b31"
+    },
+    "potato_volatility_model_v2_config.json": {
+      "size_bytes": 444,
+      "sha256": "18fcf076a400adf5f44bb15303a4f056102900951754c18c3cdc61cd77642ddb"
     }
   }
 }

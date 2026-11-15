@@ -412,7 +412,7 @@ class RicePricePredictor:
         **kwargs,
     ) -> Dict[str, Any]:
         """
-        Unified prediction entry point across all three horizons.
+        Unified prediction entry point across all three horizons for Rice.
 
         Parameters:
         -----------
@@ -423,6 +423,14 @@ class RicePricePredictor:
             - 14: 14-day calendar horizon forecast.
             - 30: 30-day calendar horizon forecast.
         """
+        comm = kwargs.pop("commodity", "rice")
+        if comm and str(comm).strip().lower() != "rice":
+            raise ValueError(
+                f"RicePricePredictor only supports commodity='rice'. "
+                f"Received commodity='{comm}'. For multi-commodity forecasting, "
+                f"use MultiCommodityPricePredictor."
+            )
+
         if horizon in ("short", "1-7", 1, "1"):
             return self.predict_short_term(
                 history=history,
@@ -452,3 +460,72 @@ class RicePricePredictor:
             raise ValueError(
                 f"Unsupported horizon: '{horizon}'. Valid options are 'short' (1-7 days), 14, or 30."
             )
+
+
+class MultiCommodityPricePredictor:
+    """
+    Unified multi-commodity price forecasting and volatility classification engine (Section 15).
+    Provides consistent predict(commodity=..., history=..., horizon=...) interface across
+    Rice (Production Reference), Wheat (V2 Champion), and Potato (V2 Champion).
+    """
+
+    def __init__(self, artifacts_dir: Optional[Union[str, Path]] = None):
+        self.artifacts_dir = artifacts_dir
+        self._rice_predictor = RicePricePredictor(artifacts_dir=artifacts_dir)
+        self._m2_predict_fn = None
+
+    def _get_m2_predict_fn(self):
+        if self._m2_predict_fn is None:
+            import sys
+            root = Path(__file__).resolve().parent.parent.parent.parent
+            m2_src = root / "member2-price-volatility" / "src"
+            if str(m2_src) not in sys.path:
+                sys.path.insert(0, str(m2_src))
+            from models.predict import predict as m2_predict
+            self._m2_predict_fn = m2_predict
+        return self._m2_predict_fn
+
+    def predict(
+        self,
+        history: Union[pd.DataFrame, List[Dict]],
+        commodity: str = "rice",
+        horizon: Union[int, str] = "short",
+        **kwargs
+    ) -> Dict[str, Any]:
+        """
+        Unified multi-commodity prediction entry point (Section 15).
+
+        Parameters:
+        -----------
+        history : DataFrame or list of dicts
+            Historical mandi observations.
+        commodity : str, default 'rice'
+            Target commodity ('rice', 'wheat', 'potato').
+        horizon : int or str, default 'short'
+            'short', 14, or 30.
+
+        Returns:
+        --------
+        dict containing predicted price, volatility, and metadata.
+        """
+        comm = str(commodity).strip().lower()
+        supported = {"rice", "wheat", "potato"}
+        if comm not in supported:
+            raise ValueError(
+                f"Unsupported commodity: '{comm}'. Supported commodities are: {', '.join(sorted(supported))}."
+            )
+
+        if comm == "rice":
+            return self._rice_predictor.predict(history=history, horizon=horizon, **kwargs)
+
+        # Wheat or Potato V2
+        m2_predict = self._get_m2_predict_fn()
+        return m2_predict(
+            data=history,
+            commodity=comm,
+            artifacts_dir=self.artifacts_dir,
+            version="v2",
+            horizon=horizon,
+            return_intervals=True,
+            **kwargs
+        )

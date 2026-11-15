@@ -19,6 +19,14 @@
       "size_bytes": 460901,
       "sha256": "f7d388b3bae30e158de2e5513cbc756b2722026faea18fa5da9e650d56b1450c"
     },
+    "wheat_price_model_v2.pkl": {
+      "size_bytes": 460901,
+      "sha256": "f7d388b3bae30e158de2e5513cbc756b2722026faea18fa5da9e650d56b1450c"
+    },
+    "wheat_price_model_v2_config.json": {
+      "size_bytes": 4631,
+      "sha256": "2f17e848a86b0bcde532420616f789cf5d54efe7765e66058394ae5d60b88b06"
+    },
     "wheat_residual_distributions.json": {
       "size_bytes": 1430,
       "sha256": "1e0e857282d6bee6befd995f3b08151a82ab32e577ecd6e7711eda8f1839f4c0"
@@ -34,6 +42,14 @@
     "wheat_volatility_model.pkl": {
       "size_bytes": 355504,
       "sha256": "b1ffea4abff19e17f8065e8711e78262e77643249c3131d4f92431f9f9b38348"
+    },
+    "wheat_volatility_model_v2.pkl": {
+      "size_bytes": 355504,
+      "sha256": "b1ffea4abff19e17f8065e8711e78262e77643249c3131d4f92431f9f9b38348"
+    },
+    "wheat_volatility_model_v2_config.json": {
+      "size_bytes": 444,
+      "sha256": "c2c3a75ae1aa0732c9208c52164776bd01f8ac640908c00b1bf00c0840045d85"
     }
   }
 }

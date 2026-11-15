@@ -2,7 +2,7 @@
 AgroVision-ML Member 2: Price Prediction and Volatility Machine Learning Deliverables.
 """
 
-from .predictor import RicePricePredictor, InsufficientHistoryError
+from .predictor import RicePricePredictor, MultiCommodityPricePredictor, InsufficientHistoryError
 from .config import (
     DATE_COLUMN,
     PRICE_COLUMN,
@@ -15,6 +15,7 @@ from .config import (
 
 __all__ = [
     "RicePricePredictor",
+    "MultiCommodityPricePredictor",
     "InsufficientHistoryError",
     "DATE_COLUMN",
     "PRICE_COLUMN",

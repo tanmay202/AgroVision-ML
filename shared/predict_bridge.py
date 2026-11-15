@@ -513,6 +513,60 @@ class AgroVisionPredictor:
         else:
             raise NotImplementedError(f"Horizon forecasting supported for 'rice', 'wheat', 'potato', received '{comm}'")
 
+    def predict(
+        self,
+        history=None,
+        commodity: str = "rice",
+        horizon: Union[int, str] = "short",
+        data=None,
+        **kwargs
+    ) -> dict:
+        """
+        Unified commodity-aware price & volatility prediction interface (Section 15).
+
+        Parameters
+        ----------
+        history : pandas.DataFrame or list of dicts
+            Historical mandi time-series observations.
+        commodity : str, default 'rice'
+            Target commodity ('rice', 'wheat', 'potato', 'tea').
+        horizon : int or str, default 'short'
+            'short' (1-7 days), 14, or 30 days.
+
+        Returns
+        -------
+        dict containing predicted price, volatility, commodity, and horizon metadata.
+        """
+        df = history if history is not None else data
+        if df is None:
+            raise ValueError("Historical observations (history or data) are required.")
+        if not isinstance(df, pd.DataFrame):
+            df = pd.DataFrame(df)
+
+        comm = str(commodity).strip().lower()
+        supported = {"rice", "wheat", "potato", "tea"}
+        if comm not in supported:
+            raise ValueError(f"Unsupported commodity: '{comm}'. Supported commodities are: {', '.join(sorted(supported))}.")
+
+        # Parse horizon
+        h_str = str(horizon).strip().lower()
+        if h_str in ("short", "1-7", "1", "1d", "short_term"):
+            h_days = 1
+        elif h_str in ("14", "14d"):
+            h_days = 14
+        elif h_str in ("30", "30d"):
+            h_days = 30
+        elif isinstance(horizon, (int, float)):
+            h_days = int(horizon)
+        else:
+            raise ValueError(f"Unsupported horizon: '{horizon}'. Valid options are 'short', 14, 30.")
+
+        if h_days in (14, 30):
+            return self.predict_price_horizon(df, horizon_days=h_days, commodity=comm, **kwargs)
+
+        # Short-term forecast
+        return self.predict_price(df, commodity=comm, **kwargs)
+
     def predict_all(
         self,
         data_df,

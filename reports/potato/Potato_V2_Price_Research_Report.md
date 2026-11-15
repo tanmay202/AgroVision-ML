@@ -141,7 +141,7 @@ All V2 artifacts are isolated in `member2-price-volatility/artifacts/potato/v2/`
 
 | Artifact File | Size (Bytes) | SHA-256 Checksum |
 | :--- | :---: | :--- |
-| `potato_price_model.pkl` | 584,465 | `3fa4e1cffdb870c40e53a992bc93d62ea75fcce06b2520638575a7c296568285` |
+| `potato_price_model.pkl` | 584,465 | `f88323ac8aac1fac0278cbeca9463eec0d75e35fa4e5758fe74e15c75fe6e3a8` |
 | `potato_price_14d_model.pkl`| 460,590 | `5ca64a2e55883ea54fe9a1286b5c3080ff559f2010834316238b97d264421b92` |
 | `potato_price_30d_model.pkl`| 460,694 | `6cb803ba97e937d53086eb2d69956d49ca71752b04c86bf4157d6e676104fa20` |
 | `potato_feature_config.json` | 4,621 | `d12be4078832a8ba32448375e2ecb568770c0c70e28f3a8b273b5a7698cbfa2d` |
