@@ -86,18 +86,21 @@ def save_models(train_df=None, vol_train_df=None, vol_test_df=None, artifacts_di
     target_cfg_path = target_dir / f"{commodity}_feature_config.json"
 
     # Safeguard: Never overwrite frozen 48-feature production model
-    if commodity == "rice" and target_price_path.exists():
-        try:
-            existing_obj = joblib.load(target_price_path)
-            m = existing_obj["model"] if isinstance(existing_obj, dict) and "model" in existing_obj else existing_obj
-            if getattr(m, "n_features_in_", None) == 48:
-                target_price_path = target_dir / f"{commodity}_price_model_pipeline_run.pkl"
-                target_vol_path = target_dir / f"{commodity}_volatility_model_pipeline_run.pkl"
-                target_cfg_path = target_dir / f"{commodity}_feature_config_pipeline_run.json"
-                print(f"\n[PROTECTION ACTIVE] Frozen 48-feature production model detected at {target_dir / f'{commodity}_price_model.pkl'}.")
-                print(f"[PROTECTION ACTIVE] Preserving production artifact! Saving pipeline run model to: {target_price_path}")
-        except Exception:
-            pass
+    if commodity == "rice":
+        for check_path in [target_price_path, target_dir / commodity / f"{commodity}_price_model.pkl"]:
+            if check_path.exists():
+                try:
+                    existing_obj = joblib.load(check_path)
+                    m = existing_obj["model"] if isinstance(existing_obj, dict) and "model" in existing_obj else existing_obj
+                    if getattr(m, "n_features_in_", None) == 48:
+                        target_price_path = target_dir / f"{commodity}_price_model_pipeline_run.pkl"
+                        target_vol_path = target_dir / f"{commodity}_volatility_model_pipeline_run.pkl"
+                        target_cfg_path = target_dir / f"{commodity}_feature_config_pipeline_run.json"
+                        print(f"\n[PROTECTION ACTIVE] Frozen 48-feature production model detected at {check_path}.")
+                        print(f"[PROTECTION ACTIVE] Preserving production artifact! Saving pipeline run model to: {target_price_path}")
+                        break
+                except Exception:
+                    pass
 
     if train_df is None:
         train_df = pd.read_csv(train_path())
@@ -113,7 +116,7 @@ def save_models(train_df=None, vol_train_df=None, vol_test_df=None, artifacts_di
     price_model = make_price_model()
     price_model.fit(price_df[PRICE_FEATURES], y_price)
     joblib.dump(price_model, target_price_path)
-    print(f"Saved Rice price-change model: {target_price_path} ({len(price_df)} rows; no target clipping)")
+    print(f"Saved {commodity.capitalize()} price-change model: {target_price_path} ({len(price_df)} rows; no target clipping)")
 
     required_vol = VOLATILITY_FEATURES + [VOLATILITY_TARGET]
     missing = [c for c in required_vol if c not in vol_train_df.columns]
@@ -125,7 +128,7 @@ def save_models(train_df=None, vol_train_df=None, vol_test_df=None, artifacts_di
     vol_model.fit(vol_train_df[VOLATILITY_FEATURES], y_vol,
                   sample_weight=compute_sample_weight("balanced", y_vol))
     joblib.dump(vol_model, target_vol_path)
-    print(f"Saved Rice volatility model: {target_vol_path} ({len(vol_train_df)} rows; balanced classes)")
+    print(f"Saved {commodity.capitalize()} volatility model: {target_vol_path} ({len(vol_train_df)} rows; balanced classes)")
 
     volatility_metrics = None
     if vol_test_df is not None:
@@ -163,6 +166,21 @@ def save_models(train_df=None, vol_train_df=None, vol_test_df=None, artifacts_di
     with open(target_cfg_path, "w", encoding="utf-8") as handle:
         json.dump(feature_config, handle, indent=2)
     print(f"Saved feature configuration: {target_cfg_path}")
+
+    # Synchronize to commodity subfolder
+    try:
+        import shutil
+        sub_dir = target_dir / commodity
+        sub_dir.mkdir(parents=True, exist_ok=True)
+        if target_price_path.exists():
+            shutil.copy2(target_price_path, sub_dir / target_price_path.name)
+        if target_vol_path.exists():
+            shutil.copy2(target_vol_path, sub_dir / target_vol_path.name)
+        if target_cfg_path.exists():
+            shutil.copy2(target_cfg_path, sub_dir / target_cfg_path.name)
+    except Exception:
+        pass
+
     return {"volatility_metrics": volatility_metrics}
 
 

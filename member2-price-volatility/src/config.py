@@ -76,78 +76,262 @@ def _commodity():
     return _COMMODITY
 
 
+def commodity_raw_dir(commodity=None):
+    """Return raw data subfolder for the selected commodity."""
+    comm = (commodity or _commodity()).strip().lower()
+    return RAW_DATA_DIR / comm
+
+
+def commodity_processed_dir(commodity=None):
+    """Return processed data subfolder for the selected commodity."""
+    comm = (commodity or _commodity()).strip().lower()
+    p = PROCESSED_DATA_DIR / comm
+    p.mkdir(parents=True, exist_ok=True)
+    return p
+
+
+def commodity_artifacts_dir(commodity=None):
+    """Return dedicated artifacts subfolder for the selected commodity."""
+    comm = (commodity or _commodity()).strip().lower()
+    p = get_artifacts_dir() / comm
+    p.mkdir(parents=True, exist_ok=True)
+    return p
+
+
 def raw_data_path():
-    return RAW_DATA_DIR / f"{_commodity()}.csv"
+    comm = _commodity()
+    candidates = [
+        RAW_DATA_DIR / comm / f"{comm}.csv",
+        RAW_DATA_DIR / comm / f"{comm.capitalize()}.csv",
+        RAW_DATA_DIR / comm / f"{comm.upper()}.csv",
+        RAW_DATA_DIR / f"{comm}.csv",
+        RAW_DATA_DIR / f"{comm.capitalize()}.csv",
+        RAW_DATA_DIR / f"{comm.upper()}.csv",
+    ]
+    for c in candidates:
+        if c.exists():
+            return c
+    return RAW_DATA_DIR / comm / f"{comm}.csv"
 
 
 def cleaned_data_path():
-    return PROCESSED_DATA_DIR / f"{_commodity()}_cleaned.csv"
+    comm = _commodity()
+    sub = PROCESSED_DATA_DIR / comm / f"{comm}_cleaned.csv"
+    if sub.exists():
+        return sub
+    flat = PROCESSED_DATA_DIR / f"{comm}_cleaned.csv"
+    if flat.exists():
+        return flat
+    sub.parent.mkdir(parents=True, exist_ok=True)
+    return sub
 
 
 def timeseries_path():
-    return PROCESSED_DATA_DIR / f"{_commodity()}_timeseries.csv"
+    comm = _commodity()
+    sub = PROCESSED_DATA_DIR / comm / f"{comm}_timeseries.csv"
+    if sub.exists():
+        return sub
+    flat = PROCESSED_DATA_DIR / f"{comm}_timeseries.csv"
+    if flat.exists():
+        return flat
+    sub.parent.mkdir(parents=True, exist_ok=True)
+    return sub
 
 
 def lag_features_path():
-    return PROCESSED_DATA_DIR / f"{_commodity()}_lag_features.csv"
+    comm = _commodity()
+    sub = PROCESSED_DATA_DIR / comm / f"{comm}_lag_features.csv"
+    if sub.exists():
+        return sub
+    flat = PROCESSED_DATA_DIR / f"{comm}_lag_features.csv"
+    if flat.exists():
+        return flat
+    sub.parent.mkdir(parents=True, exist_ok=True)
+    return sub
 
 
 def rolling_features_path():
-    return PROCESSED_DATA_DIR / f"{_commodity()}_rolling_features.csv"
+    comm = _commodity()
+    sub = PROCESSED_DATA_DIR / comm / f"{comm}_rolling_features.csv"
+    if sub.exists():
+        return sub
+    flat = PROCESSED_DATA_DIR / f"{comm}_rolling_features.csv"
+    if flat.exists():
+        return flat
+    sub.parent.mkdir(parents=True, exist_ok=True)
+    return sub
 
 
 def date_features_path():
-    return PROCESSED_DATA_DIR / f"{_commodity()}_date_features.csv"
+    comm = _commodity()
+    sub = PROCESSED_DATA_DIR / comm / f"{comm}_date_features.csv"
+    if sub.exists():
+        return sub
+    flat = PROCESSED_DATA_DIR / f"{comm}_date_features.csv"
+    if flat.exists():
+        return flat
+    sub.parent.mkdir(parents=True, exist_ok=True)
+    return sub
 
 
 def arrival_features_path():
-    return PROCESSED_DATA_DIR / f"{_commodity()}_arrival_features.csv"
+    comm = _commodity()
+    sub = PROCESSED_DATA_DIR / comm / f"{comm}_arrival_features.csv"
+    if sub.exists():
+        return sub
+    flat = PROCESSED_DATA_DIR / f"{comm}_arrival_features.csv"
+    if flat.exists():
+        return flat
+    sub.parent.mkdir(parents=True, exist_ok=True)
+    return sub
 
 
 def features_final_path():
-    return PROCESSED_DATA_DIR / f"{_commodity()}_features_final.csv"
+    comm = _commodity()
+    sub = PROCESSED_DATA_DIR / comm / f"{comm}_features_final.csv"
+    if sub.exists():
+        return sub
+    flat = PROCESSED_DATA_DIR / f"{comm}_features_final.csv"
+    if flat.exists():
+        return flat
+    sub.parent.mkdir(parents=True, exist_ok=True)
+    return sub
 
 
 def train_path():
-    return PROCESSED_DATA_DIR / f"{_commodity()}_train.csv"
+    comm = _commodity()
+    sub = PROCESSED_DATA_DIR / comm / f"{comm}_train.csv"
+    if sub.exists():
+        return sub
+    flat = PROCESSED_DATA_DIR / f"{comm}_train.csv"
+    if flat.exists():
+        return flat
+    sub.parent.mkdir(parents=True, exist_ok=True)
+    return sub
 
 
 def test_path():
-    return PROCESSED_DATA_DIR / f"{_commodity()}_test.csv"
+    comm = _commodity()
+    sub = PROCESSED_DATA_DIR / comm / f"{comm}_test.csv"
+    if sub.exists():
+        return sub
+    flat = PROCESSED_DATA_DIR / f"{comm}_test.csv"
+    if flat.exists():
+        return flat
+    sub.parent.mkdir(parents=True, exist_ok=True)
+    return sub
 
 
 def volatility_train_path():
-    return PROCESSED_DATA_DIR / f"{_commodity()}_volatility_train.csv"
+    comm = _commodity()
+    sub = PROCESSED_DATA_DIR / comm / f"{comm}_volatility_train.csv"
+    if sub.exists():
+        return sub
+    flat = PROCESSED_DATA_DIR / f"{comm}_volatility_train.csv"
+    if flat.exists():
+        return flat
+    sub.parent.mkdir(parents=True, exist_ok=True)
+    return sub
 
 
 def volatility_dataset_train_path():
-    return PROCESSED_DATA_DIR / f"{_commodity()}_volatility_dataset_train.csv"
+    comm = _commodity()
+    sub = PROCESSED_DATA_DIR / comm / f"{comm}_volatility_dataset_train.csv"
+    if sub.exists():
+        return sub
+    flat = PROCESSED_DATA_DIR / f"{comm}_volatility_dataset_train.csv"
+    if flat.exists():
+        return flat
+    sub.parent.mkdir(parents=True, exist_ok=True)
+    return sub
 
 
 def volatility_dataset_test_path():
-    return PROCESSED_DATA_DIR / f"{_commodity()}_volatility_dataset_test.csv"
+    comm = _commodity()
+    sub = PROCESSED_DATA_DIR / comm / f"{comm}_volatility_dataset_test.csv"
+    if sub.exists():
+        return sub
+    flat = PROCESSED_DATA_DIR / f"{comm}_volatility_dataset_test.csv"
+    if flat.exists():
+        return flat
+    sub.parent.mkdir(parents=True, exist_ok=True)
+    return sub
 
 
 def error_analysis_path():
-    return PROCESSED_DATA_DIR / f"{_commodity()}_price_error_analysis.csv"
+    comm = _commodity()
+    sub = PROCESSED_DATA_DIR / comm / f"{comm}_price_error_analysis.csv"
+    if sub.exists():
+        return sub
+    flat = PROCESSED_DATA_DIR / f"{comm}_price_error_analysis.csv"
+    if flat.exists():
+        return flat
+    sub.parent.mkdir(parents=True, exist_ok=True)
+    return sub
 
 
 # --- Artifact paths (commodity-specific models) ---
 
 def price_model_path():
-    return get_artifacts_dir() / f"{_commodity()}_price_model.pkl"
+    comm = _commodity()
+    sub = get_artifacts_dir() / comm / f"{comm}_price_model.pkl"
+    if sub.exists():
+        return sub
+    flat = get_artifacts_dir() / f"{comm}_price_model.pkl"
+    if flat.exists():
+        return flat
+    sub.parent.mkdir(parents=True, exist_ok=True)
+    return sub
 
 
 def volatility_model_path():
-    return get_artifacts_dir() / f"{_commodity()}_volatility_model.pkl"
+    comm = _commodity()
+    sub = get_artifacts_dir() / comm / f"{comm}_volatility_model.pkl"
+    if sub.exists():
+        return sub
+    flat = get_artifacts_dir() / f"{comm}_volatility_model.pkl"
+    if flat.exists():
+        return flat
+    sub.parent.mkdir(parents=True, exist_ok=True)
+    return sub
 
 
 def feature_config_path():
-    return get_artifacts_dir() / f"{_commodity()}_feature_config.json"
+    comm = _commodity()
+    sub = get_artifacts_dir() / comm / f"{comm}_feature_config.json"
+    if sub.exists():
+        return sub
+    flat = get_artifacts_dir() / f"{comm}_feature_config.json"
+    if flat.exists():
+        return flat
+    sub.parent.mkdir(parents=True, exist_ok=True)
+    return sub
 
 
 def volatility_config_path():
-    return get_artifacts_dir() / f"{_commodity()}_volatility_config.json"
+    comm = _commodity()
+    sub = get_artifacts_dir() / comm / f"{comm}_volatility_config.json"
+    if sub.exists():
+        return sub
+    flat = get_artifacts_dir() / f"{comm}_volatility_config.json"
+    if flat.exists():
+        return flat
+    sub.parent.mkdir(parents=True, exist_ok=True)
+    return sub
+
+
+def group_mappings_path(commodity=None):
+    comm = (commodity or _commodity()).strip().lower()
+    candidates = [
+        get_artifacts_dir() / comm / f"{comm}_group_mappings.json",
+        get_artifacts_dir() / f"{comm}_group_mappings.json",
+    ]
+    for c in candidates:
+        if c.exists():
+            return c
+    sub = get_artifacts_dir() / comm / f"{comm}_group_mappings.json"
+    sub.parent.mkdir(parents=True, exist_ok=True)
+    return sub
 
 
 # ============================================================

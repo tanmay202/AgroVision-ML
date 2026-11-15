@@ -191,15 +191,19 @@ def run_pipeline(commodity=None, skip_volatility=False, artifacts_dir=None):
 
 
 def discover_commodities():
-    """Find all commodity CSV files in data/raw/."""
+    """Find all commodity datasets in data/raw/."""
     raw_dir = RAW_DATA_DIR
     if not raw_dir.exists():
         return []
-    return [
-        f.stem
-        for f in raw_dir.glob("*.csv")
-        if not f.name.startswith(".")
-    ]
+    commodities = set()
+    for f in raw_dir.glob("*.csv"):
+        if not f.name.startswith("."):
+            commodities.add(f.stem.lower())
+    for d in raw_dir.iterdir():
+        if d.is_dir() and not d.name.startswith("."):
+            if any(d.glob("*.csv")):
+                commodities.add(d.name.lower())
+    return sorted(list(commodities))
 
 
 def run_all():

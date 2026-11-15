@@ -27,9 +27,9 @@ def main():
     parser.add_argument(
         "--commodity", "-c",
         type=str,
-        default="tea",
-        help="Commodity name (e.g., tea, onion, potato) or 'all' for batch processing. "
-             "Must match filename in data/raw/{commodity}.csv"
+        default="rice",
+        help="Commodity name (e.g., rice, wheat, potato, tea) or 'all' for batch processing. "
+             "Discovers raw data in data/raw/{commodity}.csv or data/raw/{commodity}/"
     )
     parser.add_argument(
         "--skip-volatility",

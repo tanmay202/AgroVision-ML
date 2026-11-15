@@ -11,7 +11,7 @@ Built as a 3-member team project using Indian Agmarknet and NASA POWER agricultu
 | Member | Role | Module | Primary Outputs & Artifacts |
 |--------|------|--------|-----------------------------|
 | **Member 1** | Crop Yield ML (tonnes/ha, kg/ha) | `member1-yield-model/` | `m1_improved_delta_ridge.pkl` |
-| **Member 2** | Price & Volatility ML | `member2-price-volatility/`<br>`deliverables/member2-ml/` | **Short-Term (1–7d):** `rice_price_model.pkl`<br>**Horizons:** `rice_price_model_14d.pkl`, `rice_price_model_30d.pkl`<br>**Volatility:** `rice_volatility_normalized_model.pkl` (v2), `rice_volatility_v3_14d_model.pkl` (V3 shadow)<br>**Deliverable Package:** `RicePricePredictor` (pure Python) |
+| **Member 2** | Price & Volatility ML | `member2-price-volatility/`<br>`deliverables/member2-ml/` | **Multi-Commodity Support (Rice, Wheat, Potato, Tea):**<br>• [🌾 Rice](member2-price-volatility/commodities/rice/README.md): 48-feat XGBoost (`rice_price_model.pkl`), 14D & 30D horizons, V2 normalized volatility (`rice_volatility_normalized_model.pkl`), V3 shadow<br>• [🌾 Wheat](member2-price-volatility/commodities/wheat/README.md): 20-feat XGBoost (`wheat_price_model.pkl`), balanced classifier (`wheat_volatility_model.pkl`)<br>• [🥔 Potato](member2-price-volatility/commodities/potato/README.md): 20-feat XGBoost (`potato_price_model.pkl`), balanced classifier (`potato_volatility_model.pkl`)<br>• [🍵 Tea](member2-price-volatility/commodities/tea/README.md): Baseline models<br>• **Deliverable Package:** `RicePricePredictor` (pure Python) |
 | **Member 3** | Engineering & API | FastAPI service (separate repo) | REST API, Dashboard |
 
 ---
@@ -49,10 +49,13 @@ cd member1-yield-model
 python main.py --no-tune
 pytest tests/ -v
 
-# ─── Member 2 ───
+# ─── Member 2 (Multi-Commodity Price & Volatility) ───
 cd member2-price-volatility
-python run.py --commodity tea
-pytest tests/ -v  # 146 tests passing across 14 test files
+python run.py --commodity rice    # Train Rice pipeline
+python run.py --commodity wheat   # Train Wheat pipeline
+python run.py --commodity potato  # Train Potato pipeline
+python run.py --commodity all     # Train ALL commodities
+pytest tests/ -v  # 166 tests passing across 15 test files
 
 # ─── Member 2 Standalone Deliverable Package ───
 pytest deliverables/member2-ml/tests/ -v  # 11 tests passing
@@ -88,16 +91,31 @@ AgroVision-ML/
 │   ├── data/                        ← Raw and processed district-seasonal datasets
 │   └── tests/                       ← Comprehensive regression test suite (139 tests)
 │
-└── member2-price-volatility/        ← MEMBER 2: Mandi Price & Volatility Model
-    ├── run.py                       ← Entry point CLI
-    ├── artifacts/                   ← Frozen price & volatility models, residuals
+└── member2-price-volatility/        ← MEMBER 2: Multi-Commodity Price & Volatility Engine
+    ├── run.py                       ← Entry point CLI (`--commodity rice|wheat|potato|all`)
+    ├── commodities/                 ← Separated commodity guides (Rice, Wheat, Potato, Tea)
+    │   ├── rice/README.md           ← Complete Rice architecture & operational guide
+    │   ├── wheat/README.md          ← Complete Wheat architecture & operational guide
+    │   ├── potato/README.md         ← Complete Potato architecture & operational guide
+    │   └── tea/README.md            ← Complete Tea reference baseline guide
+    ├── artifacts/                   ← Model weights, configs, residuals & mappings
+    │   ├── rice/                    ← Separated Rice models (48-feat price, 14d/30d, V2 norm)
+    │   ├── wheat/                   ← Separated Wheat models (20-feat price, balanced vol)
+    │   ├── potato/                  ← Separated Potato models (20-feat price, balanced vol)
+    │   ├── tea/                     ← Separated Tea baseline models
     │   └── v3/                      ← Prospective shadow candidate models (14d/7d)
+    ├── data/
+    │   ├── raw/                     ← Source raw CSVs (rice/, wheat/, potato/, tea/)
+    │   └── processed/               ← Cleaned features & splits (rice/, wheat/, potato/, tea/)
     ├── src/                         ← Pipeline source code & shadow evaluation engines
     │   ├── api.py                   ← FastAPI service with shadow observability
+    │   ├── config.py                ← Dynamic multi-commodity path manager
     │   ├── data_connector.py        ← Agmarknet API connector & drift detector
     │   ├── inference.py             ← Point-in-time RiceInferencePipeline
+    │   ├── pipeline.py              ← Unified multi-commodity training pipeline
     │   ├── shadow_evaluation.py     ← Price horizon shadow evaluation engine
-    │   └── volatility_shadow.py     ← Volatility V3 prospective shadow pipeline
+    │   ├── volatility_shadow.py     ← Volatility V3 prospective shadow pipeline
+    │   └── models/predict.py        ← Multi-commodity prediction API (Rice, Wheat, Potato)
     ├── tests/                       ← Full automated test suite (146 tests)
     └── OPERATIONAL_SHADOW_MONITORING.md ← Runbook for prospective shadow pipelines
 ```
@@ -150,6 +168,13 @@ data_history = pd.DataFrame([...])  # 35+ days of Agmarknet price history
 result = predictor.predict_all(data_history, commodity="rice", yield_input=yield_input)
 print(result["crop_yield"])    # Isolated Member 1 crop productivity
 print(result["market_price"])  # Isolated Member 2 mandi price + volatility
+
+# ─── 3. Multi-Commodity Price Forecasting ────────────────────────────
+# Supports commodity="wheat", "potato", or "rice"
+wheat_res = predictor.predict_price(data_history, commodity="wheat")
+potato_res = predictor.predict_price(data_history, commodity="potato")
+print("Wheat Price:", wheat_res["predicted_price_rs_quintal"], wheat_res["volatility"])
+print("Potato Price:", potato_res["predicted_price_rs_quintal"], potato_res["volatility"])
 ```
 
 See [`complete_guide.md`](complete_guide.md) for the full technical reference.

@@ -2,6 +2,8 @@
 
 A robust, production-ready FastAPI web service providing point-in-time predictions for Rice modal price and volatility in West Bengal. The underlying pipeline uses a heavily validated XGBoost 48-feature price model and a deterministic persistence baseline for volatility classification.
 
+> **Multi-Commodity Note:** For direct Python prediction and bridge integration across all agricultural commodities (**Rice**, **Wheat**, **Potato**, and **Tea**), use `src.models.predict.predict()` or `shared.predict_bridge.AgroVisionPredictor`. See [`commodities/README.md`](commodities/README.md) for complete multi-commodity documentation.
+
 ## Setup & Running
 
 Start the FastAPI server:

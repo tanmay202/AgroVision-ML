@@ -1,0 +1,202 @@
+{
+  "crop": "tea",
+  "source_dataset": "member2-price-volatility/data/processed/tea_cleaned.csv",
+  "training_date_range": {
+    "start": "2002-02-14",
+    "end": "2013-08-07"
+  },
+  "total_training_records": 5181,
+  "columns": {
+    "State Name": [
+      "Arunachal Pradesh",
+      "Jharkhand",
+      "Kerala",
+      "Meghalaya",
+      "Nagaland",
+      "Odisha",
+      "Tamil Nadu",
+      "Tripura"
+    ],
+    "District Name": [
+      "Alappuzha",
+      "Deogarh",
+      "Dhanbad",
+      "Dharmapuri",
+      "Dimapur",
+      "Kollam",
+      "Malappuram",
+      "Papum Pore",
+      "Puri",
+      "Sepahijala",
+      "West Jaintia Hills"
+    ],
+    "Market Name": [
+      "4th Mile Dimapur",
+      "Bishalgarh",
+      "Dhanbad",
+      "Dharampuri",
+      "Harippad",
+      "Jowai",
+      "Kollam",
+      "Madhupur",
+      "Manjeri",
+      "Naharlagun",
+      "Parappanangadi",
+      "Sakhigopal",
+      "Thirurrangadi"
+    ],
+    "Variety": [
+      "All Dust",
+      "Assam C.T.C. Dust",
+      "Assam C.T.C. Leaf",
+      "C.T.C. Dust",
+      "Other"
+    ],
+    "Group": [
+      "Beverages"
+    ]
+  },
+  "missing_value_counts": {
+    "State Name": 0,
+    "District Name": 0,
+    "Market Name": 0,
+    "Variety": 0,
+    "Group": 0
+  },
+  "observed_combinations_count": 19,
+  "observed_combinations": [
+    {
+      "State Name": "Arunachal Pradesh",
+      "District Name": "Papum Pore",
+      "Market Name": "Naharlagun",
+      "Variety": "Other",
+      "Group": "Beverages"
+    },
+    {
+      "State Name": "Jharkhand",
+      "District Name": "Deogarh",
+      "Market Name": "Madhupur",
+      "Variety": "Assam C.T.C. Dust",
+      "Group": "Beverages"
+    },
+    {
+      "State Name": "Jharkhand",
+      "District Name": "Deogarh",
+      "Market Name": "Madhupur",
+      "Variety": "Assam C.T.C. Leaf",
+      "Group": "Beverages"
+    },
+    {
+      "State Name": "Jharkhand",
+      "District Name": "Deogarh",
+      "Market Name": "Madhupur",
+      "Variety": "C.T.C. Dust",
+      "Group": "Beverages"
+    },
+    {
+      "State Name": "Jharkhand",
+      "District Name": "Dhanbad",
+      "Market Name": "Dhanbad",
+      "Variety": "Other",
+      "Group": "Beverages"
+    },
+    {
+      "State Name": "Kerala",
+      "District Name": "Alappuzha",
+      "Market Name": "Harippad",
+      "Variety": "Other",
+      "Group": "Beverages"
+    },
+    {
+      "State Name": "Kerala",
+      "District Name": "Kollam",
+      "Market Name": "Kollam",
+      "Variety": "Other",
+      "Group": "Beverages"
+    },
+    {
+      "State Name": "Kerala",
+      "District Name": "Malappuram",
+      "Market Name": "Manjeri",
+      "Variety": "All Dust",
+      "Group": "Beverages"
+    },
+    {
+      "State Name": "Kerala",
+      "District Name": "Malappuram",
+      "Market Name": "Manjeri",
+      "Variety": "Other",
+      "Group": "Beverages"
+    },
+    {
+      "State Name": "Kerala",
+      "District Name": "Malappuram",
+      "Market Name": "Parappanangadi",
+      "Variety": "Other",
+      "Group": "Beverages"
+    },
+    {
+      "State Name": "Kerala",
+      "District Name": "Malappuram",
+      "Market Name": "Thirurrangadi",
+      "Variety": "Other",
+      "Group": "Beverages"
+    },
+    {
+      "State Name": "Meghalaya",
+      "District Name": "West Jaintia Hills",
+      "Market Name": "Jowai",
+      "Variety": "Assam C.T.C. Leaf",
+      "Group": "Beverages"
+    },
+    {
+      "State Name": "Meghalaya",
+      "District Name": "West Jaintia Hills",
+      "Market Name": "Jowai",
+      "Variety": "Other",
+      "Group": "Beverages"
+    },
+    {
+      "State Name": "Nagaland",
+      "District Name": "Dimapur",
+      "Market Name": "4th Mile Dimapur",
+      "Variety": "Other",
+      "Group": "Beverages"
+    },
+    {
+      "State Name": "Odisha",
+      "District Name": "Puri",
+      "Market Name": "Sakhigopal",
+      "Variety": "All Dust",
+      "Group": "Beverages"
+    },
+    {
+      "State Name": "Odisha",
+      "District Name": "Puri",
+      "Market Name": "Sakhigopal",
+      "Variety": "Assam C.T.C. Dust",
+      "Group": "Beverages"
+    },
+    {
+      "State Name": "Tamil Nadu",
+      "District Name": "Dharmapuri",
+      "Market Name": "Dharampuri",
+      "Variety": "Other",
+      "Group": "Beverages"
+    },
+    {
+      "State Name": "Tripura",
+      "District Name": "Sepahijala",
+      "Market Name": "Bishalgarh",
+      "Variety": "Assam C.T.C. Leaf",
+      "Group": "Beverages"
+    },
+    {
+      "State Name": "Tripura",
+      "District Name": "Sepahijala",
+      "Market Name": "Bishalgarh",
+      "Variety": "Other",
+      "Group": "Beverages"
+    }
+  ]
+}
