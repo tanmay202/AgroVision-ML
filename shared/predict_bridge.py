@@ -493,13 +493,25 @@ class AgroVisionPredictor:
         **kwargs
     ) -> dict:
         """
-        Direct calendar-horizon price forecasting (14 or 30 days) for rice.
+        Direct calendar-horizon price forecasting (14 or 30 days) for rice, wheat, and potato.
         """
         comm = str(commodity).strip().lower()
-        if comm != "rice":
-            raise NotImplementedError(f"Horizon forecasting currently supported for 'rice', received '{comm}'")
-        self._load_rice()
-        return self._rice_pipeline.predict_horizon(data_df, horizon_days=horizon_days, **kwargs)
+        if comm == "rice":
+            self._load_rice()
+            return self._rice_pipeline.predict_horizon(data_df, horizon_days=horizon_days, **kwargs)
+        elif comm in ["wheat", "potato"]:
+            self._load_m2()
+            raw = self._m2_predict_fn(data_df, commodity=comm, horizon_days=horizon_days, version="v2")
+            return {
+                "predicted_price_rs_quintal": raw["predicted_price"],
+                "volatility": raw["volatility"],
+                "commodity": raw["commodity"],
+                "horizon_days": horizon_days,
+                "prediction_interval": raw.get("prediction_interval"),
+                "model_version": "2.0.0",
+            }
+        else:
+            raise NotImplementedError(f"Horizon forecasting supported for 'rice', 'wheat', 'potato', received '{comm}'")
 
     def predict_all(
         self,

@@ -1,0 +1,39 @@
+{
+  "commodity": "wheat",
+  "version": "2.0.0",
+  "created_at": "2026-11-15T20:30:00Z",
+  "artifacts": {
+    "wheat_feature_config.json": {
+      "size_bytes": 4631,
+      "sha256": "2f17e848a86b0bcde532420616f789cf5d54efe7765e66058394ae5d60b88b06"
+    },
+    "wheat_price_14d_model.pkl": {
+      "size_bytes": 461814,
+      "sha256": "5a98a46eca598de1ff59aee6b14290dce76127b6449bc871e2e11f80d5fe555a"
+    },
+    "wheat_price_30d_model.pkl": {
+      "size_bytes": 461318,
+      "sha256": "93e3dbdc6c64a8298d1102b0154d56a7746cd27d1fc8ded1ac843577dd8f3892"
+    },
+    "wheat_price_model.pkl": {
+      "size_bytes": 460901,
+      "sha256": "f7d388b3bae30e158de2e5513cbc756b2722026faea18fa5da9e650d56b1450c"
+    },
+    "wheat_residual_distributions.json": {
+      "size_bytes": 1430,
+      "sha256": "1e0e857282d6bee6befd995f3b08151a82ab32e577ecd6e7711eda8f1839f4c0"
+    },
+    "wheat_v2_metrics.json": {
+      "size_bytes": 5877,
+      "sha256": "7828526e8ab7d76c78b31147788aa607525079c88b11d44ccacbdb648e6200e5"
+    },
+    "wheat_volatility_config.json": {
+      "size_bytes": 444,
+      "sha256": "c2c3a75ae1aa0732c9208c52164776bd01f8ac640908c00b1bf00c0840045d85"
+    },
+    "wheat_volatility_model.pkl": {
+      "size_bytes": 355504,
+      "sha256": "b1ffea4abff19e17f8065e8711e78262e77643249c3131d4f92431f9f9b38348"
+    }
+  }
+}

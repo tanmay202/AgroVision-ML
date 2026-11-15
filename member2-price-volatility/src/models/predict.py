@@ -1,84 +1,106 @@
-"""Public commodity-specific prediction API."""
+"""Public commodity-specific prediction API with Multi-Commodity V1/V2 Runtime."""
 
 import json
+import os
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 import joblib
+import numpy as np
 import pandas as pd
 
-from config import (VOLATILITY_REVERSE_LABEL_MAP, feature_config_path,
-                    price_model_path, set_commodity, volatility_model_path)
+from config import (
+    VOLATILITY_REVERSE_LABEL_MAP,
+    feature_config_path,
+    price_model_path,
+    set_commodity,
+    volatility_model_path,
+    get_artifacts_dir,
+)
 
 _cache = {}
 
 
-def _artifacts(commodity, artifacts_dir=None):
+def _artifacts(commodity, artifacts_dir=None, version="v2", horizon_days=1):
     """Load exactly the selected commodity's artifacts; never fall back."""
     commodity = str(commodity).strip().lower()
     if not commodity:
         raise ValueError("A commodity is required for prediction.")
-    cache_key = (commodity, str(artifacts_dir) if artifacts_dir else None)
+
+    cache_key = (commodity, str(artifacts_dir) if artifacts_dir else None, version, horizon_days)
     if cache_key not in _cache:
         set_commodity(commodity)
-        if artifacts_dir:
-            base_dir = Path(artifacts_dir)
-            sub_paths = (
-                base_dir / commodity / f"{commodity}_feature_config.json",
-                base_dir / commodity / f"{commodity}_price_model.pkl",
-                base_dir / commodity / f"{commodity}_volatility_model.pkl"
-            )
-            flat_paths = (
-                base_dir / f"{commodity}_feature_config.json",
-                base_dir / f"{commodity}_price_model.pkl",
-                base_dir / f"{commodity}_volatility_model.pkl"
-            )
-            if sub_paths[0].exists() and sub_paths[1].exists():
-                paths = sub_paths
+        base_dir = Path(artifacts_dir) if artifacts_dir else get_artifacts_dir()
+
+        # Check for V2 artifacts if requested and available
+        is_v2 = (version == "v2") and (commodity in ["wheat", "potato"])
+        v2_dir = base_dir / commodity / "v2"
+
+        if is_v2 and v2_dir.exists():
+            cfg_path = v2_dir / f"{commodity}_feature_config.json"
+            if horizon_days == 14:
+                p_path = v2_dir / f"{commodity}_price_14d_model.pkl"
+            elif horizon_days == 30:
+                p_path = v2_dir / f"{commodity}_price_30d_model.pkl"
             else:
-                paths = flat_paths
+                p_path = v2_dir / f"{commodity}_price_model.pkl"
+            v_path = v2_dir / f"{commodity}_volatility_model.pkl"
+            res_path = v2_dir / f"{commodity}_residual_distributions.json"
         else:
-            paths = (feature_config_path(), price_model_path(), volatility_model_path())
-        missing = [str(path) for path in paths if not path.exists()]
-        if missing:
-            raise FileNotFoundError("Missing artifacts for commodity "
-                                f"'{commodity}': {', '.join(missing)}")
-        with open(paths[0], encoding="utf-8") as handle:
+            # V1 or fallback path
+            cfg_path = base_dir / commodity / f"{commodity}_feature_config.json"
+            if not cfg_path.exists():
+                cfg_path = base_dir / f"{commodity}_feature_config.json"
+            p_path = base_dir / commodity / f"{commodity}_price_model.pkl"
+            if not p_path.exists():
+                p_path = base_dir / f"{commodity}_price_model.pkl"
+            v_path = base_dir / commodity / f"{commodity}_volatility_model.pkl"
+            if not v_path.exists():
+                v_path = base_dir / f"{commodity}_volatility_model.pkl"
+            res_path = None
+
+        if not cfg_path.exists() or not p_path.exists() or not v_path.exists():
+            # Fall back to config helpers if paths don't exist
+            cfg_path = feature_config_path()
+            p_path = price_model_path()
+            v_path = volatility_model_path()
+
+        if not cfg_path.exists() or not p_path.exists() or not v_path.exists():
+            missing = [str(p) for p in [cfg_path, p_path, v_path] if not p.exists()]
+            raise FileNotFoundError(f"Missing artifacts for commodity '{commodity}': {', '.join(missing)}")
+
+        with open(cfg_path, encoding="utf-8") as handle:
             configuration = json.load(handle)
+
         if configuration.get("commodity") != commodity:
             raise ValueError(f"Artifact config commodity does not match '{commodity}'.")
 
-        # Load price model (handles dict wrappers from frozen production models)
-        p_obj = joblib.load(paths[1])
+        # Load price model
+        p_obj = joblib.load(p_path)
+        deadband_eps = 0.0
         if isinstance(p_obj, dict) and "model" in p_obj:
             price_model = p_obj["model"]
+            deadband_eps = float(p_obj.get("deadband_eps", 0.0))
         else:
             price_model = p_obj
 
-        # If config expects 20 features but loaded model has 48 features, check for legacy model
-        exp_features = configuration.get("price_model", {}).get("features", [])
-        if commodity == "rice" and len(exp_features) == 20 and getattr(price_model, "n_features_in_", None) == 48:
-            legacy_candidates = [
-                Path(paths[1]).parent / "legacy" / "rice_price_model_20feat.pkl",
-                get_artifacts_dir() / "rice" / "legacy" / "rice_price_model_20feat.pkl",
-                get_artifacts_dir() / "legacy" / "rice_price_model_20feat.pkl",
-            ]
-            for legacy_path in legacy_candidates:
-                if legacy_path.exists():
-                    p_legacy = joblib.load(legacy_path)
-                    price_model = p_legacy.get("model", p_legacy) if isinstance(p_legacy, dict) else p_legacy
-                    break
-
-        # Load volatility model (handles dict wrappers)
-        v_obj = joblib.load(paths[2])
+        # Load volatility model
+        v_obj = joblib.load(v_path)
         if isinstance(v_obj, dict) and "model" in v_obj:
             volatility_model = v_obj["model"]
         else:
             volatility_model = v_obj
 
-        _cache[cache_key] = (configuration, price_model, volatility_model)
+        # Load residual distribution if present
+        residuals_info = None
+        if res_path and res_path.exists():
+            with open(res_path, encoding="utf-8") as f:
+                residuals_info = json.load(f)
+
+        _cache[cache_key] = (configuration, price_model, volatility_model, deadband_eps, residuals_info)
+
     return _cache[cache_key]
 
 
@@ -93,7 +115,7 @@ def _frame(data):
 
 
 def _extract_20_features_from_history(df):
-    """Compute 20 price and volatility features from historical time series observations."""
+    """Compute 20 price and volatility features from historical time series observations (V1)."""
     col_map = {}
     for c in df.columns:
         clow = c.lower().replace(" ", "_")
@@ -154,11 +176,72 @@ def _extract_20_features_from_history(df):
     return pd.DataFrame([row_feat])
 
 
-def predict(data, commodity="rice", artifacts_dir=None, **kwargs):
+def _extract_v2_features_from_history(df, feature_names):
+    """Compute V2 candidate features from history for Wheat and Potato."""
+    from features_v2 import generate_candidate_price_features
+    col_map = {}
+    for c in df.columns:
+        clow = c.lower().replace(" ", "_")
+        if "modal" in clow or clow in ("price", "modal_price"):
+            col_map[c] = "Modal Price (Rs./Quintal)"
+        elif "arrival" in clow:
+            col_map[c] = "Arrivals (Tonnes)"
+        elif "date" in clow:
+            col_map[c] = "Reported Date"
+        elif "market" in clow:
+            col_map[c] = "Market Name"
+        elif "variety" in clow:
+            col_map[c] = "Variety"
+
+    work = df.rename(columns=col_map).copy()
+    if "Arrivals (Tonnes)" not in work.columns:
+        work["Arrivals (Tonnes)"] = 0.0
+    if "Reported Date" not in work.columns:
+        work["Reported Date"] = pd.date_range(end=pd.Timestamp.now(), periods=len(work)).strftime("%Y-%m-%d")
+    if "Market Name" not in work.columns:
+        work["Market Name"] = "DefaultMarket"
+    if "Variety" not in work.columns:
+        work["Variety"] = "DefaultVariety"
+
+    p_col = "Modal Price (Rs./Quintal)"
+    if "Min Price (Rs./Quintal)" not in work.columns:
+        work["Min Price (Rs./Quintal)"] = work[p_col]
+    if "Max Price (Rs./Quintal)" not in work.columns:
+        work["Max Price (Rs./Quintal)"] = work[p_col]
+
+    feats = generate_candidate_price_features(work)
+
+    # Extra volatility-specific features
+    feats["rolling_range_7"] = feats["rolling_max_7"] - feats["rolling_min_7"]
+    feats["rolling_pct_range_7"] = (feats["rolling_range_7"] / (feats[p_col] + 1e-4)) * 100.0
+    feats["rolling_pct_std_7"] = (feats["rolling_std_7"] / (feats[p_col] + 1e-4)) * 100.0
+    feats["rolling_pct_std_14"] = (feats["rolling_std_14"] / (feats[p_col] + 1e-4)) * 100.0
+    feats["rolling_pct_std_30"] = (feats["rolling_std_30"] / (feats[p_col] + 1e-4)) * 100.0
+    feats["price_to_rolling_mean_30"] = feats[p_col] / (feats["rolling_mean_30"] + 1e-4)
+
+    last_row = feats.iloc[[-1]].copy().reset_index(drop=True)
+    # Ensure all feature_names exist
+    for f in feature_names:
+        if f not in last_row.columns:
+            last_row[f] = np.nan
+
+    return last_row
+
+
+def predict(
+    data,
+    commodity="rice",
+    artifacts_dir=None,
+    version=None,
+    horizon_days=1,
+    return_intervals=False,
+    **kwargs
+):
     """Return an actual future modal price and a volatility class.
 
     The price model predicts a change internally.  This API reconstructs the
     actual Rs./Quintal price by adding it to the supplied current modal price.
+    Supports multi-commodity V1/V2 routing, direct horizons (14d, 30d), and empirical intervals.
     """
     frame = _frame(data)
     commodity = str(commodity).strip().lower()
@@ -181,32 +264,89 @@ def predict(data, commodity="rice", artifacts_dir=None, **kwargs):
             except Exception:
                 pass
 
-    config, price_model, volatility_model = _artifacts(commodity, artifacts_dir=artifacts_dir)
+    # Determine Version (defaults to 'v2' for wheat and potato when available, 'v1' otherwise)
+    if version is None:
+        if commodity in ["wheat", "potato"]:
+            base = Path(artifacts_dir) if artifacts_dir else get_artifacts_dir()
+            v2_exists = (base / commodity / "v2" / f"{commodity}_price_model.pkl").exists()
+            version = "v2" if v2_exists else "v1"
+        else:
+            version = "v1"
+
+    config, price_model, volatility_model, deadband_eps, res_dist = _artifacts(
+        commodity, artifacts_dir=artifacts_dir, version=version, horizon_days=horizon_days
+    )
     price_config = config["price_model"]
     price_features = price_config["features"]
     volatility_features = config["volatility_model"]["features"]
     reconstruction_column = price_config.get("reconstruction_column", "Modal Price (Rs./Quintal)")
-    required = price_features + volatility_features + [reconstruction_column]
-    missing = list(dict.fromkeys(c for c in required if c not in frame.columns))
+    required = list(dict.fromkeys(price_features + volatility_features + [reconstruction_column]))
+    missing = [c for c in required if c not in frame.columns]
 
-    if missing and len(frame) >= 1 and any(c.lower().replace(" ", "_") in ("modal_price", "price", "modal_price_(rs./quintal)") for c in frame.columns):
-        frame = _extract_20_features_from_history(frame)
-        missing = list(dict.fromkeys(c for c in required if c not in frame.columns))
+    if missing:
+        # Check if history is provided
+        has_price_col = any(c.lower().replace(" ", "_") in ("modal_price", "price", "modal_price_(rs./quintal)") for c in frame.columns)
+        if has_price_col and len(frame) >= 1:
+            if version == "v2" and commodity in ["wheat", "potato"]:
+                frame = _extract_v2_features_from_history(frame, required)
+            else:
+                frame = _extract_20_features_from_history(frame)
+            missing = [c for c in required if c not in frame.columns]
 
     if missing:
         raise ValueError("Missing required prediction columns: " + ", ".join(missing))
 
-    predicted_change = float(price_model.predict(frame[price_features])[0])
     current_price = pd.to_numeric(frame.iloc[0][reconstruction_column], errors="coerce")
     if pd.isna(current_price) or current_price <= 0:
         raise ValueError(f"'{reconstruction_column}' must be a positive numeric current price.")
+
+    # Predict price change
+    predicted_change = float(price_model.predict(frame[price_features])[0])
+    if deadband_eps > 0 and abs(predicted_change) < deadband_eps:
+        predicted_change = 0.0
+
     predicted_price = float(current_price + predicted_change)
     if predicted_price <= 0:
         raise ValueError("Reconstructed predicted price is not positive.")
 
-    predicted_code = int(volatility_model.predict(frame[volatility_features])[0])
-    if predicted_code not in VOLATILITY_REVERSE_LABEL_MAP:
-        raise ValueError(f"Unknown volatility class code: {predicted_code}")
-    return {"predicted_price": round(predicted_price, 2),
-            "volatility": VOLATILITY_REVERSE_LABEL_MAP[predicted_code],
-            "commodity": commodity}
+    # Predict volatility
+    vol_classes = ["LOW", "MEDIUM", "HIGH"]
+    vol_probs = None
+    if hasattr(volatility_model, "predict_proba"):
+        probs = volatility_model.predict_proba(frame[volatility_features])[0]
+        class_idx = int(np.argmax(probs))
+        volatility_str = vol_classes[class_idx]
+        vol_probs = {cls: round(float(probs[i]), 4) for i, cls in enumerate(vol_classes)}
+    else:
+        predicted_code = int(volatility_model.predict(frame[volatility_features])[0])
+        if predicted_code in VOLATILITY_REVERSE_LABEL_MAP:
+            volatility_str = VOLATILITY_REVERSE_LABEL_MAP[predicted_code]
+        elif 0 <= predicted_code < len(vol_classes):
+            volatility_str = vol_classes[predicted_code]
+        else:
+            raise ValueError(f"Unknown volatility class code: {predicted_code}")
+
+    out = {
+        "predicted_price": round(predicted_price, 2),
+        "volatility": volatility_str,
+        "commodity": commodity,
+        "version": version,
+    }
+    if horizon_days > 1:
+        out["horizon_days"] = horizon_days
+    if vol_probs is not None:
+        out["volatility_probabilities"] = vol_probs
+
+    # Empirical residual prediction intervals
+    if (return_intervals or horizon_days > 1) and res_dist is not None:
+        h_key = "short_term" if horizon_days <= 7 else (f"{horizon_days}d" if f"{horizon_days}d" in res_dist else "short_term")
+        if h_key in res_dist:
+            q = res_dist[h_key].get("quantiles", {})
+            if "p10" in q and "p90" in q:
+                out["prediction_interval"] = {
+                    "p10": round(predicted_price + q["p10"], 2),
+                    "p90": round(predicted_price + q["p90"], 2),
+                    "coverage": "80% empirical holdout"
+                }
+
+    return out

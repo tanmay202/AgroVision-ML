@@ -1,0 +1,172 @@
+{
+  "commodity": "potato",
+  "version": "2.0.0",
+  "price_eval": {
+    "overall": {
+      "n_samples": 51243,
+      "mae": 27.173895359793043,
+      "rmse": 80.78601266813273,
+      "r2": 0.9746408581324671,
+      "mape": 2.0619626878254254,
+      "persistence_mae": 27.16806197919716,
+      "persistence_rmse": 81.8377460668536,
+      "persistence_r2": 0.9739762710939815,
+      "persistence_mape": 2.064535491841425,
+      "movement_mae": 60.817254358937994,
+      "movement_rmse": 121.02461668289347,
+      "persistence_movement_mae": 61.00135833844536,
+      "persistence_movement_rmse": 122.62925305293346,
+      "pct_within_25": 73.8364264387331,
+      "persistence_pct_within_25": 73.90082547860194
+    },
+    "seen_groups": {
+      "n_samples": 50564,
+      "mae": 27.119302045034367,
+      "rmse": 77.0038703643477,
+      "r2": 0.9770142554624951,
+      "mape": 2.059582051547231,
+      "persistence_mae": 27.109069693853336,
+      "persistence_rmse": 77.96239539749797,
+      "persistence_r2": 0.9764384522351912,
+      "persistence_mape": 2.0618486257889654,
+      "movement_mae": 60.42019989092003,
+      "movement_rmse": 115.09663553884336,
+      "persistence_movement_mae": 60.596039078732154,
+      "persistence_movement_rmse": 116.5601199858103,
+      "pct_within_25": 73.81140732536983,
+      "persistence_pct_within_25": 73.8786488410727
+    },
+    "unseen_groups": {
+      "n_samples": 679,
+      "mae": 31.23936865501797,
+      "rmse": 225.76066007586473,
+      "r2": 0.651598000558028,
+      "mape": 2.2392447095789163,
+      "persistence_mae": 31.561119293078058,
+      "persistence_rmse": 229.813589054881,
+      "persistence_r2": 0.638976462886409,
+      "persistence_mape": 2.264621935253143,
+      "movement_mae": 105.50267287154696,
+      "movement_rmse": 414.9396489914034,
+      "persistence_movement_mae": 106.61691542288557,
+      "persistence_movement_rmse": 422.38896506767935,
+      "pct_within_25": 75.69955817378498,
+      "persistence_pct_within_25": 75.55228276877762
+    },
+    "high_volume_mandis": {
+      "n_samples": 13202,
+      "mae": 24.42465993184571,
+      "rmse": 58.501326515837945,
+      "r2": 0.9876974605677359,
+      "mape": 1.7589296857488446,
+      "persistence_mae": 24.405771852749584,
+      "persistence_rmse": 58.591684840897656,
+      "persistence_r2": 0.9876594274011856,
+      "persistence_mape": 1.7585110538506044,
+      "movement_mae": 61.86439701987588,
+      "movement_rmse": 93.20455263235358,
+      "persistence_movement_mae": 61.97441815733795,
+      "persistence_movement_rmse": 93.36754552527815,
+      "pct_within_25": 74.9204665959703,
+      "persistence_pct_within_25": 75.03408574458416
+    }
+  },
+  "horizon_eval": {
+    "14d": {
+      "n_samples": 47441,
+      "mae": 143.15973723277395,
+      "rmse": 213.70639938654446,
+      "r2": 0.8187628731016975,
+      "mape": 10.42451576683886,
+      "persistence_mae": 119.83400434223562,
+      "persistence_rmse": 190.36278198479948,
+      "persistence_r2": 0.8561942668940457,
+      "persistence_mape": 9.245780371223237,
+      "movement_mae": 152.67462415619244,
+      "movement_rmse": 221.90868877384798,
+      "persistence_movement_mae": 143.00560949841525,
+      "persistence_movement_rmse": 207.9546058670573,
+      "pct_within_25": 16.072595434328957,
+      "persistence_pct_within_25": 27.417212959254655
+    },
+    "30d": {
+      "n_samples": 44794,
+      "mae": 210.79537491991715,
+      "rmse": 306.86420807236004,
+      "r2": 0.6218040099680577,
+      "mape": 14.734300559442273,
+      "persistence_mae": 194.09621824351476,
+      "persistence_rmse": 280.922255381772,
+      "persistence_r2": 0.683045632782681,
+      "persistence_mape": 14.968750047301565,
+      "movement_mae": 214.84343369426807,
+      "movement_rmse": 309.8949455156688,
+      "persistence_movement_mae": 215.78343095403554,
+      "persistence_movement_rmse": 296.2010929445245,
+      "pct_within_25": 9.981247488502925,
+      "persistence_pct_within_25": 16.504442559271332
+    }
+  },
+  "volatility_eval": {
+    "overall": {
+      "n_samples": 51228,
+      "accuracy": 0.5934840321699071,
+      "balanced_accuracy": 0.5657170553954375,
+      "macro_f1": 0.570760885822001,
+      "per_class_f1": [
+        0.470771210983589,
+        0.6225666314429964,
+        0.6189448150394178
+      ],
+      "mcc": 0.359915395265094,
+      "high_pr_auc": 0.6284707384362139,
+      "brier_score": 0.5248361224562749,
+      "ece": 0.018640985111112507
+    },
+    "seen_groups": {
+      "n_samples": 50569,
+      "accuracy": 0.5934861278648975,
+      "balanced_accuracy": 0.5644059249510781,
+      "macro_f1": 0.5695543212978081,
+      "per_class_f1": [
+        0.4660236979884266,
+        0.6231167663962537,
+        0.6195224995087444
+      ],
+      "mcc": 0.3587671733954442,
+      "high_pr_auc": 0.6294666182106364,
+      "brier_score": 0.5245085318029986,
+      "ece": 0.018768478267055515
+    },
+    "unseen_groups": {
+      "n_samples": 659,
+      "accuracy": 0.5933232169954477,
+      "balanced_accuracy": 0.5833191978961209,
+      "macro_f1": 0.587288872547303,
+      "per_class_f1": [
+        0.6427145708582834,
+        0.5460526315789473,
+        0.5730994152046783
+      ],
+      "mcc": 0.37730153324483884,
+      "high_pr_auc": 0.5473212975008221,
+      "brier_score": 0.5499741068956221,
+      "ece": 0.04703333647573151
+    },
+    "high_volume_mandis": {
+      "n_samples": 13169,
+      "accuracy": 0.5809097122029008,
+      "balanced_accuracy": 0.5769722874678225,
+      "macro_f1": 0.5801714760204068,
+      "per_class_f1": [
+        0.5740072202166066,
+        0.5829096597575284,
+        0.5835975480870852
+      ],
+      "mcc": 0.36388006458578454,
+      "high_pr_auc": 0.5950583052040962,
+      "brier_score": 0.5381450948764104,
+      "ece": 0.016244447945669076
+    }
+  }
+}

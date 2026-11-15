@@ -1,0 +1,172 @@
+{
+  "commodity": "wheat",
+  "version": "2.0.0",
+  "price_eval": {
+    "overall": {
+      "n_samples": 12281,
+      "mae": 18.386354205794824,
+      "rmse": 74.72702901033864,
+      "r2": 0.9575670598700992,
+      "mape": 0.7699678037570915,
+      "persistence_mae": 18.575034606302417,
+      "persistence_rmse": 89.34262449551501,
+      "persistence_r2": 0.9393452098329501,
+      "persistence_mape": 0.7853515428581443,
+      "movement_mae": 48.16405123813307,
+      "movement_rmse": 124.10970308705697,
+      "persistence_movement_mae": 52.44137931034483,
+      "persistence_movement_rmse": 150.1173686413937,
+      "pct_within_25": 79.63520885921342,
+      "persistence_pct_within_25": 80.52275873300219
+    },
+    "seen_groups": {
+      "n_samples": 12266,
+      "mae": 18.396609815862238,
+      "rmse": 74.77101659843784,
+      "r2": 0.9575196603469871,
+      "mape": 0.7702544732131499,
+      "persistence_mae": 18.585520952225664,
+      "persistence_rmse": 89.39582247956362,
+      "persistence_r2": 0.9392766310253229,
+      "persistence_mape": 0.7856570249741176,
+      "movement_mae": 48.21824571300756,
+      "movement_rmse": 124.2211109057009,
+      "persistence_movement_mae": 52.503454629203134,
+      "persistence_movement_rmse": 150.25322246579012,
+      "pct_within_25": 79.61845752486548,
+      "persistence_pct_within_25": 80.50709277678135
+    },
+    "unseen_groups": {
+      "n_samples": 15,
+      "mae": 10.0,
+      "rmse": 14.375905768565216,
+      "r2": 0.08102766798418937,
+      "mape": 0.5355486338894772,
+      "persistence_mae": 10.0,
+      "persistence_rmse": 14.375905768565216,
+      "persistence_r2": 0.08102766798418937,
+      "persistence_mape": 0.5355486338894772,
+      "movement_mae": 18.75,
+      "movement_rmse": 19.685019685029527,
+      "persistence_movement_mae": 18.75,
+      "persistence_movement_rmse": 19.685019685029527,
+      "pct_within_25": 93.33333333333333,
+      "persistence_pct_within_25": 93.33333333333333
+    },
+    "high_volume_mandis": {
+      "n_samples": 4362,
+      "mae": 19.769022679627472,
+      "rmse": 94.64162222853558,
+      "r2": 0.915087828619165,
+      "mape": 0.7950438684643442,
+      "persistence_mae": 18.775790921595597,
+      "persistence_rmse": 111.6938999277209,
+      "persistence_r2": 0.8817327481177548,
+      "persistence_mape": 0.7650074673126116,
+      "movement_mae": 56.418222703299634,
+      "movement_rmse": 168.31200463218192,
+      "persistence_movement_mae": 61.53268219383922,
+      "persistence_movement_rmse": 202.20098086844754,
+      "pct_within_25": 75.42411737734984,
+      "persistence_pct_within_25": 77.07473635946813
+    }
+  },
+  "horizon_eval": {
+    "14d": {
+      "n_samples": 11515,
+      "mae": 52.223782971671014,
+      "rmse": 116.7611578206144,
+      "r2": 0.8967717551910863,
+      "mape": 2.1950956152854086,
+      "persistence_mae": 44.07060356057317,
+      "persistence_rmse": 123.9348914412065,
+      "persistence_r2": 0.8836975298669599,
+      "persistence_mape": 1.8689258009841794,
+      "movement_mae": 83.51626854444375,
+      "movement_rmse": 158.7353087892574,
+      "persistence_movement_mae": 86.94072297413055,
+      "persistence_movement_rmse": 174.07271987307175,
+      "pct_within_25": 54.4159791576205,
+      "persistence_pct_within_25": 64.1684759009987
+    },
+    "30d": {
+      "n_samples": 11173,
+      "mae": 88.06978727193065,
+      "rmse": 157.0107114582969,
+      "r2": 0.8149527393507239,
+      "mape": 3.6766423462648725,
+      "persistence_mae": 68.04278170589815,
+      "persistence_rmse": 153.57804257624252,
+      "persistence_r2": 0.8229555351765222,
+      "persistence_mape": 2.888954291492056,
+      "movement_mae": 116.57073881520107,
+      "movement_rmse": 193.23814752062546,
+      "persistence_movement_mae": 112.01443936938264,
+      "persistence_movement_rmse": 197.04939363830908,
+      "pct_within_25": 33.82260807303321,
+      "persistence_pct_within_25": 52.68951937706973
+    }
+  },
+  "volatility_eval": {
+    "overall": {
+      "n_samples": 12320,
+      "accuracy": 0.6443181818181818,
+      "balanced_accuracy": 0.6342302688576054,
+      "macro_f1": 0.6303051620932713,
+      "per_class_f1": [
+        0.7072184461842898,
+        0.613619541080681,
+        0.5700774990148431
+      ],
+      "mcc": 0.46472528244918815,
+      "high_pr_auc": 0.6468401159345237,
+      "brier_score": 0.49126733706137665,
+      "ece": 0.05713898187976137
+    },
+    "seen_groups": {
+      "n_samples": 12309,
+      "accuracy": 0.644325290437891,
+      "balanced_accuracy": 0.6340950078121813,
+      "macro_f1": 0.6301951514269194,
+      "per_class_f1": [
+        0.7074010327022375,
+        0.6129571189901615,
+        0.570227302588359
+      ],
+      "mcc": 0.46454962762439783,
+      "high_pr_auc": 0.6469341771976838,
+      "brier_score": 0.49125328084245085,
+      "ece": 0.057012143406425075
+    },
+    "unseen_groups": {
+      "n_samples": 11,
+      "accuracy": 0.6363636363636364,
+      "balanced_accuracy": 0.3888888888888889,
+      "macro_f1": 0.2745098039215686,
+      "per_class_f1": [
+        0.0,
+        0.8235294117647058,
+        0.0
+      ],
+      "mcc": 0.12028130608117203,
+      "high_pr_auc": 0.3333333333333333,
+      "brier_score": 0.5069962460393324,
+      "ece": 0.1990712335430611
+    },
+    "high_volume_mandis": {
+      "n_samples": 4356,
+      "accuracy": 0.700872359963269,
+      "balanced_accuracy": 0.6045161812274228,
+      "macro_f1": 0.6164481893737417,
+      "per_class_f1": [
+        0.7714893617021277,
+        0.3951165371809101,
+        0.682738669238187
+      ],
+      "mcc": 0.4914243144095545,
+      "high_pr_auc": 0.7057007649018248,
+      "brier_score": 0.4605820330195534,
+      "ece": 0.11413563070261983
+    }
+  }
+}

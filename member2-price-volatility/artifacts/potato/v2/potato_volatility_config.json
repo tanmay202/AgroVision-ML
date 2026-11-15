@@ -1,0 +1,18 @@
+{
+  "commodity": "potato",
+  "version": "2.0.0",
+  "volatility_definition": "5-observation percentage price range ((max - min) / current_modal_price * 100)",
+  "low_medium_threshold_pct": 0.05,
+  "medium_high_threshold_pct": 5.556,
+  "classes": [
+    "LOW",
+    "MEDIUM",
+    "HIGH"
+  ],
+  "calibrator": "sigmoid",
+  "class_weights": {
+    "0": 1.5639421307437502,
+    "1": 0.8306392192833406,
+    "2": 0.8645298610241643
+  }
+}
