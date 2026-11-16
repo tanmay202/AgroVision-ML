@@ -1,0 +1,127 @@
+{
+  "rice": {
+    "commodity": "rice",
+    "health_status": "degraded",
+    "model_version": "1.0.0",
+    "model_load_status": "healthy",
+    "ingestion": {
+      "last_successful_timestamp": "2026-11-16T05:43:54.199907+00:00",
+      "success_rate_pct": 100.0,
+      "total_runs": 1,
+      "delayed_reports_count": 1,
+      "last_rows_ingested": 0,
+      "total_observations": 2
+    },
+    "predictions": {
+      "total_requests": 2,
+      "total_errors": 1,
+      "error_rate_pct": 50.0,
+      "latency_p50_ms": 157.4,
+      "latency_p95_ms": 157.4,
+      "last_error": "Insufficient history (<30 rows)"
+    },
+    "data_quality": {
+      "feature_drift_detected": false,
+      "drift_details": {
+        "commodity": "rice",
+        "status": "active",
+        "reference_date": "2026-11-16",
+        "latest_observation_date": "2024-02-06",
+        "reporting_lag_days": 1014,
+        "is_stale": true,
+        "max_allowable_lag_days": 14,
+        "batch_sample_size": 2,
+        "price_distribution": {
+          "mean": 2255.0,
+          "std": 7.07,
+          "median": 2255.0,
+          "iqr": 5.0
+        },
+        "baseline_comparison": {
+          "baseline_mean": 2420.5,
+          "baseline_std": 620.3,
+          "mean_delta": -165.5,
+          "drift_detected": false
+        }
+      }
+    }
+  },
+  "wheat": {
+    "commodity": "wheat",
+    "health_status": "healthy",
+    "model_version": "2.0.0",
+    "model_load_status": "healthy",
+    "ingestion": {
+      "last_successful_timestamp": null,
+      "success_rate_pct": 100.0,
+      "total_runs": 0,
+      "delayed_reports_count": 0,
+      "last_rows_ingested": 0,
+      "total_observations": 0
+    },
+    "predictions": {
+      "total_requests": 2,
+      "total_errors": 0,
+      "error_rate_pct": 0.0,
+      "latency_p50_ms": 163.64,
+      "latency_p95_ms": 163.64,
+      "last_error": null
+    },
+    "data_quality": {
+      "feature_drift_detected": false,
+      "drift_details": null
+    }
+  },
+  "potato": {
+    "commodity": "potato",
+    "health_status": "healthy",
+    "model_version": "2.0.0",
+    "model_load_status": "healthy",
+    "ingestion": {
+      "last_successful_timestamp": null,
+      "success_rate_pct": 100.0,
+      "total_runs": 0,
+      "delayed_reports_count": 0,
+      "last_rows_ingested": 0,
+      "total_observations": 0
+    },
+    "predictions": {
+      "total_requests": 1,
+      "total_errors": 0,
+      "error_rate_pct": 0.0,
+      "latency_p50_ms": 142.5,
+      "latency_p95_ms": 142.5,
+      "last_error": null
+    },
+    "data_quality": {
+      "feature_drift_detected": false,
+      "drift_details": null
+    }
+  },
+  "tea": {
+    "commodity": "tea",
+    "health_status": "healthy",
+    "model_version": "1.0.0",
+    "model_load_status": "healthy",
+    "ingestion": {
+      "last_successful_timestamp": null,
+      "success_rate_pct": 100.0,
+      "total_runs": 0,
+      "delayed_reports_count": 0,
+      "last_rows_ingested": 0,
+      "total_observations": 0
+    },
+    "predictions": {
+      "total_requests": 1,
+      "total_errors": 0,
+      "error_rate_pct": 0.0,
+      "latency_p50_ms": 21.6,
+      "latency_p95_ms": 21.6,
+      "last_error": null
+    },
+    "data_quality": {
+      "feature_drift_detected": false,
+      "drift_details": null
+    }
+  }
+}

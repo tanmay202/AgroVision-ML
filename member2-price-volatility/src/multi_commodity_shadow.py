@@ -56,6 +56,8 @@ from models.predict import predict as m2_predict
 _COMMODITY_SHADOW_SWITCHES: Dict[str, Optional[bool]] = {
     "wheat": None,
     "potato": None,
+    "tea": None,
+    "rice": None,
 }
 
 
@@ -104,8 +106,8 @@ def init_commodity_shadow_db(commodity: str, db_path: Optional[Union[str, Path]]
     Initializes isolated SQLite schema for tracking commodity shadow forecasts and mandi observations.
     """
     comm = str(commodity).strip().lower()
-    if comm not in ("wheat", "potato", "rice"):
-        raise ValueError(f"Unsupported shadow commodity: '{comm}'. Supported: 'wheat', 'potato', 'rice'.")
+    if comm not in ("wheat", "potato", "rice", "tea"):
+        raise ValueError(f"Unsupported shadow commodity: '{comm}'. Supported: 'wheat', 'potato', 'rice', 'tea'.")
 
     resolved_path = Path(db_path) if db_path else get_default_commodity_shadow_db_path(comm)
     resolved_path.parent.mkdir(parents=True, exist_ok=True)
@@ -152,6 +154,8 @@ def init_commodity_shadow_db(commodity: str, db_path: Optional[Union[str, Path]]
                 matched_observation_date TEXT,
                 matched_actual_price REAL,
                 actual_horizon_offset INTEGER,
+                prediction_residual REAL,
+                actual_volatility_outcome TEXT,
                 absolute_error REAL,
                 percentage_error REAL,
                 persistence_absolute_error REAL,
@@ -161,6 +165,15 @@ def init_commodity_shadow_db(commodity: str, db_path: Optional[Union[str, Path]]
                 cohort TEXT DEFAULT 'PROSPECTIVE'
             );
         """)
+
+        # Check for column existence and migrate existing tables if needed
+        cursor = conn.cursor()
+        cursor.execute("PRAGMA table_info(shadow_forecasts);")
+        existing_cols = {row[1] for row in cursor.fetchall()}
+        if "prediction_residual" not in existing_cols:
+            conn.execute("ALTER TABLE shadow_forecasts ADD COLUMN prediction_residual REAL;")
+        if "actual_volatility_outcome" not in existing_cols:
+            conn.execute("ALTER TABLE shadow_forecasts ADD COLUMN actual_volatility_outcome TEXT;")
 
         conn.execute("""
             CREATE INDEX IF NOT EXISTS idx_shadow_comm_lookup 
@@ -309,27 +322,30 @@ def make_commodity_forecast_id(
 def generate_commodity_shadow_forecasts(
     commodity: str,
     history_df: pd.DataFrame,
-    horizons: Tuple[int, ...] = (14, 30),
+    horizons: Optional[Union[Tuple[int, ...], List[int]]] = None,
     origin_date: Optional[str] = None,
     db_path: Optional[Union[str, Path]] = None,
     force_enabled: bool = False,
     cohort: str = "PROSPECTIVE",
 ) -> Dict[str, Union[int, str, list]]:
     """
-    Generates point-in-time shadow forecasts for Wheat or Potato across 14d and 30d horizons.
+    Generates point-in-time shadow forecasts for Wheat, Potato, Tea, or Rice.
 
     Idempotent: Skips forecasts that already exist in the database for the given
     (commodity, market, variety, origin_date, horizon, model_version).
     """
     comm = str(commodity).strip().lower()
-    if comm not in ("wheat", "potato"):
-        raise ValueError(f"generate_commodity_shadow_forecasts only supports 'wheat' or 'potato', got '{comm}'")
+    if comm not in ("wheat", "potato", "tea", "rice"):
+        raise ValueError(f"generate_commodity_shadow_forecasts only supports 'wheat', 'potato', 'tea', 'rice', got '{comm}'")
 
     if not force_enabled and not is_commodity_shadow_enabled(comm):
         raise RuntimeError(
             f"Shadow evaluation is currently disabled for {comm}. "
             f"Set AGROVISION_ENABLE_{comm.upper()}_SHADOW=true or pass force_enabled=True."
         )
+
+    if horizons is None:
+        horizons = (1,) if comm == "tea" else (14, 30)
 
     clean_df = history_df.copy()
     col_map = {}
@@ -382,7 +398,12 @@ def generate_commodity_shadow_forecasts(
     try:
         for h in horizons:
             h_int = int(h)
-            model_ver = "2.0.0"
+            if comm == "tea":
+                model_ver = "1.0.0"
+            elif comm == "rice":
+                model_ver = "1.0.0"
+            else:
+                model_ver = "2.0.0"
             f_id = make_commodity_forecast_id(comm, mkt, var, origin_str, h_int, model_ver)
 
             # Check for existing forecast
@@ -393,19 +414,32 @@ def generate_commodity_shadow_forecasts(
                 skipped_count += 1
                 continue
 
-            # Run V2 direct horizon prediction
+            # Run prediction
             try:
-                pred_res = m2_predict(
-                    data=history_at_origin,
-                    commodity=comm,
-                    horizon_days=h_int,
-                    version="v2",
-                    return_intervals=True,
-                )
+                if comm == "tea":
+                    pred_res = m2_predict(
+                        data=history_at_origin,
+                        commodity="tea",
+                    )
+                elif comm == "rice":
+                    pred_res = m2_predict(
+                        data=history_at_origin,
+                        commodity="rice",
+                        horizon_days=h_int,
+                        return_intervals=True,
+                    )
+                else:
+                    pred_res = m2_predict(
+                        data=history_at_origin,
+                        commodity=comm,
+                        horizon_days=h_int,
+                        version="v2",
+                        return_intervals=True,
+                    )
                 pred_price = float(pred_res["predicted_price"])
-                pred_change = float(pred_price - origin_price)
-                model_name = str(pred_res.get("model_name", f"{comm}-price-{h_int}d-catboost"))
-                vol_class = str(pred_res.get("volatility", "MEDIUM"))
+                pred_change = float(pred_res.get("predicted_price_change", pred_price - origin_price))
+                model_name = str(pred_res.get("model_name", f"{comm}-price-{h_int}d-catboost" if h_int > 1 else f"{comm}-price-xgb"))
+                vol_class = str(pred_res.get("volatility", pred_res.get("predicted_volatility_class", "MEDIUM")))
                 vol_probs_json = json.dumps(pred_res.get("volatility_probabilities", {}))
             except Exception as e:
                 # Log error and skip horizon
@@ -510,7 +544,17 @@ def evaluate_pending_commodity_shadow_forecasts(
             if match_row:
                 matched_date = match_row["reported_date"]
                 actual_price = float(match_row["modal_price"])
+                origin_price = float(row["origin_modal_price"])
                 actual_offset = int((pd.to_datetime(matched_date) - origin_dt).days)
+
+                pred_residual = round(actual_price - pred_price, 2)
+                pct_movement = (abs(actual_price - origin_price) / (origin_price + 1e-4)) * 100.0
+                if pct_movement <= 2.0:
+                    actual_vol = "LOW"
+                elif pct_movement <= 6.0:
+                    actual_vol = "MEDIUM"
+                else:
+                    actual_vol = "HIGH"
 
                 abs_err = abs(pred_price - actual_price)
                 pct_err = (abs_err / actual_price) * 100.0 if actual_price > 0 else 0.0
@@ -524,6 +568,8 @@ def evaluate_pending_commodity_shadow_forecasts(
                         matched_observation_date = ?,
                         matched_actual_price = ?,
                         actual_horizon_offset = ?,
+                        prediction_residual = ?,
+                        actual_volatility_outcome = ?,
                         absolute_error = ?,
                         percentage_error = ?,
                         persistence_absolute_error = ?,
@@ -533,6 +579,7 @@ def evaluate_pending_commodity_shadow_forecasts(
                     WHERE forecast_id = ?;
                 """, (
                     matched_date, actual_price, actual_offset,
+                    pred_residual, actual_vol,
                     abs_err, pct_err, p_abs_err, p_pct_err,
                     now_ts, f_id
                 ))
@@ -589,7 +636,10 @@ def compute_commodity_shadow_metrics(
         "horizons": {},
     }
 
-    horizons_to_eval = [14, 30] if horizon_days is None else [int(horizon_days)]
+    if horizon_days is None:
+        horizons_to_eval = [1] if comm == "tea" else [14, 30]
+    else:
+        horizons_to_eval = [int(horizon_days)]
 
     try:
         for h in horizons_to_eval:

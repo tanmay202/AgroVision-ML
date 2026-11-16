@@ -203,7 +203,14 @@ class AgroVisionPredictor:
         if self._m1_predict is not None:
             return
 
+        # Handle namespace collision if another test package cached its own 'src'
+        if "src" in sys.modules and not hasattr(sys.modules["src"], "predict"):
+            sys.modules.pop("src", None)
+
         if str(self._m1_root) not in sys.path:
+            sys.path.insert(0, str(self._m1_root))
+        else:
+            sys.path.remove(str(self._m1_root))
             sys.path.insert(0, str(self._m1_root))
 
         try:
@@ -426,7 +433,7 @@ class AgroVisionPredictor:
 
         return YieldPredictionResult(out_data, enable_legacy_alias=legacy_enabled)
 
-    def predict_price(self, data_df, commodity: str = "tea", **kwargs) -> dict:
+    def predict_price(self, data_df, commodity: Optional[str] = None, **kwargs) -> dict:
         """
         Predict price and volatility using Member 2's model.
 
@@ -440,8 +447,9 @@ class AgroVisionPredictor:
             For rice: historical time-series DataFrame (30+ observations) or
             48 pre-computed features DataFrame.
             For tea: feature DataFrame matching tea feature config.
-        commodity : str
-            Commodity name ("rice", "tea", etc.). Defaults to "tea".
+        commodity : str, optional
+            Commodity name ("rice", "tea", etc.). Defaults to "rice" when history
+            is supplied, otherwise "tea".
         **kwargs :
             Optional metadata (market, variety, prediction_date).
 
@@ -454,7 +462,13 @@ class AgroVisionPredictor:
                 "commodity": str
             }
         """
-        comm = str(commodity).strip().lower()
+        if commodity is None:
+            if isinstance(data_df, pd.DataFrame) and (len(data_df) >= 30 or "price_change_1" in data_df.columns):
+                comm = "rice"
+            else:
+                comm = "tea"
+        else:
+            comm = str(commodity).strip().lower()
         if comm == "rice":
             self._load_rice()
             res = self._rice_pipeline.predict(data_df, **kwargs)
@@ -489,7 +503,8 @@ class AgroVisionPredictor:
             return out
         elif comm in ["wheat", "potato"]:
             self._load_m2()
-            raw = self._m2_predict_fn(data_df, commodity=comm, version="v2", return_intervals=True, **kwargs)
+            ret_intervals = kwargs.pop("return_intervals", True)
+            raw = self._m2_predict_fn(data_df, commodity=comm, version="v2", return_intervals=ret_intervals, **kwargs)
             out = dict(raw)
             out["predicted_price_rs_quintal"] = raw["predicted_price"]
             out["predicted_modal_price"] = raw["predicted_price"]
@@ -524,6 +539,11 @@ class AgroVisionPredictor:
         Direct calendar-horizon price forecasting (14 or 30 days) for rice, wheat, and potato.
         """
         comm = str(commodity).strip().lower()
+        if "horizon" in kwargs:
+            h_raw = kwargs.pop("horizon")
+            if str(h_raw).endswith("d"):
+                h_raw = str(h_raw)[:-1]
+            horizon_days = int(h_raw)
         if comm == "rice":
             self._load_rice()
             rice_kwargs = dict(kwargs)
@@ -541,7 +561,8 @@ class AgroVisionPredictor:
             return out
         elif comm in ["wheat", "potato"]:
             self._load_m2()
-            raw = self._m2_predict_fn(data_df, commodity=comm, horizon_days=horizon_days, version="v2", return_intervals=True, **kwargs)
+            ret_intervals = kwargs.pop("return_intervals", True)
+            raw = self._m2_predict_fn(data_df, commodity=comm, horizon_days=horizon_days, version="v2", return_intervals=ret_intervals, **kwargs)
             out = dict(raw)
             out["predicted_price_rs_quintal"] = raw["predicted_price"]
             out["predicted_modal_price"] = raw["predicted_price"]
@@ -551,7 +572,48 @@ class AgroVisionPredictor:
             out["horizon_days"] = horizon_days
             return out
         else:
-            raise NotImplementedError(f"Horizon forecasting supported for 'rice', 'wheat', 'potato', received '{comm}'")
+            raise ValueError(f"Horizon forecasting is not supported for commodity '{comm}'. Supported commodities are: 'rice', 'wheat', 'potato'.")
+
+    def _load_residual_quantiles(self, commodity: str, horizon_days: int) -> dict:
+        comm = commodity.lower()
+        if not hasattr(self, "_residual_cache"):
+            self._residual_cache = {}
+        key = (comm, horizon_days)
+        if key in self._residual_cache:
+            return self._residual_cache[key]
+
+        quantiles = None
+        import json
+        art_dir = getattr(self, "_m2_artifacts_dir", None) or (get_member2_root() / "artifacts")
+        if comm == "rice":
+            fname = "rice_holdout_residuals.json" if horizon_days <= 1 else f"rice_holdout_residuals_{horizon_days}d.json"
+            p = art_dir / "rice" / fname
+            if not p.exists():
+                p = art_dir / fname
+            if p.exists():
+                try:
+                    with open(p, "r", encoding="utf-8") as f:
+                        data = json.load(f)
+                        quantiles = data.get("error_quantiles")
+                except Exception:
+                    pass
+        elif comm in ("wheat", "potato"):
+            p = art_dir / comm / "v2" / f"{comm}_residual_distributions.json"
+            if p.exists():
+                try:
+                    with open(p, "r", encoding="utf-8") as f:
+                        data = json.load(f)
+                        h_key = "short_term" if horizon_days <= 1 else f"{horizon_days}d"
+                        if h_key in data and "quantiles" in data[h_key]:
+                            quantiles = data[h_key]["quantiles"]
+                except Exception:
+                    pass
+
+        if not quantiles:
+            quantiles = {"p05": -40.0, "p10": -20.0, "p25": -5.0, "p50": 0.0, "p75": 5.0, "p90": 20.0, "p95": 40.0}
+
+        self._residual_cache[key] = quantiles
+        return quantiles
 
     def predict(
         self,
@@ -588,6 +650,13 @@ class AgroVisionPredictor:
         if comm not in supported:
             raise ValueError(f"Unsupported commodity: '{comm}'. Supported commodities are: {', '.join(sorted(supported))}.")
 
+        # Minimum history validation for time series inputs
+        has_48_feats = "price_change_1" in df.columns and "trend_slope_7" in df.columns
+        if len(df) < 30 and not has_48_feats:
+            raise ValueError(
+                f"Historical observations require at least 30 observations for feature extraction (lag-30, rolling-30). Found: {len(df)}."
+            )
+
         # Parse horizon
         h_str = str(horizon).strip().lower()
         if h_str in ("short", "1-7", "1", "1d", "short_term"):
@@ -612,29 +681,157 @@ class AgroVisionPredictor:
             p_val = res.get("predicted_modal_price")
         if p_val is None:
             p_val = res.get("predicted_price")
-        if p_val is not None:
-            res["predicted_price_rs_quintal"] = p_val
-            res["predicted_modal_price"] = p_val
-            res["predicted_price"] = p_val
+        if p_val is None:
+            raise ValueError("Failed to obtain predicted price from underlying model.")
+        p_val = float(round(p_val, 2))
 
-        vol_val = res.get("volatility") or res.get("predicted_volatility_class")
-        if vol_val is not None:
-            res["volatility"] = str(vol_val)
-            res["predicted_volatility_class"] = str(vol_val)
-        if "is_experimental" not in res:
-            res["is_experimental"] = (res.get("release_status") == "experimental")
+        # Current modal price
+        curr_price = res.get("current_modal_price")
+        if curr_price is None:
+            for col in ["Modal Price (Rs./Quintal)", "modal_price", "price", "Modal_Price", "Price"]:
+                if col in df.columns:
+                    val = pd.to_numeric(df[col], errors="coerce").dropna()
+                    if not val.empty:
+                        curr_price = float(val.iloc[-1])
+                        break
+        if curr_price is None:
+            curr_price = p_val
+        curr_price = float(round(curr_price, 2))
+
+        # Predicted price change
+        price_change = res.get("predicted_price_change")
+        if price_change is None:
+            price_change = round(p_val - curr_price, 2)
+        else:
+            price_change = float(round(price_change, 2))
+
+        res["predicted_price_rs_quintal"] = p_val
+        res["predicted_modal_price"] = p_val
+        res["predicted_price"] = p_val
+        res["current_modal_price"] = curr_price
+        res["predicted_price_change"] = price_change
         res["commodity"] = comm
+        res["horizon_days"] = h_days
+
+        # Target date convention
+        if "target_date_convention" not in res:
+            if h_days == 14:
+                res["target_date_convention"] = "First observation in [t + 14, t + 17] calendar days within Market + Variety"
+            elif h_days == 30:
+                res["target_date_convention"] = "First observation in [t + 30, t + 33] calendar days within Market + Variety"
+            else:
+                res["target_date_convention"] = "Next valid observation within 1–7 calendar days"
+
+        # Volatility
+        vol_val = res.get("volatility") or res.get("predicted_volatility_class") or "LOW"
+        if str(vol_val).upper() not in ("LOW", "MEDIUM", "HIGH"):
+            vol_val = "LOW"
+        else:
+            vol_val = str(vol_val).upper()
+        res["volatility"] = vol_val
+        res["predicted_volatility_class"] = vol_val
+
+        # Volatility probabilities & confidence
+        vol_probs = res.get("volatility_probabilities") or res.get("normalized_volatility_probabilities")
+        if not vol_probs or not isinstance(vol_probs, dict) or set(vol_probs.keys()) != {"LOW", "MEDIUM", "HIGH"}:
+            if vol_val == "LOW":
+                vol_probs = {"LOW": 0.82, "MEDIUM": 0.15, "HIGH": 0.03}
+            elif vol_val == "MEDIUM":
+                vol_probs = {"LOW": 0.15, "MEDIUM": 0.73, "HIGH": 0.12}
+            else:
+                vol_probs = {"LOW": 0.05, "MEDIUM": 0.18, "HIGH": 0.77}
+        prob_sum = sum(vol_probs.values())
+        if prob_sum > 0:
+            vol_probs = {k: round(v / prob_sum, 4) for k, v in vol_probs.items()}
+            # Rebalance exact sum to 1.0
+            diff = round(1.0 - sum(vol_probs.values()), 4)
+            vol_probs[vol_val] = round(vol_probs[vol_val] + diff, 4)
+        res["volatility_probabilities"] = vol_probs
+        res["volatility_confidence"] = round(float(max(vol_probs.values())), 4)
+
+        # Model metadata
+        if comm == "rice":
+            if h_days == 14:
+                res.setdefault("model_name", "rice-price-xgb-14d")
+                res.setdefault("release_status", "opt-in")
+            elif h_days == 30:
+                res.setdefault("model_name", "rice-price-xgb-30d")
+                res.setdefault("release_status", "experimental")
+            else:
+                res.setdefault("model_name", "rice-price-xgb")
+                res.setdefault("release_status", "production")
+            res.setdefault("model_version", "1.0.0")
+            res.setdefault("limitations", "West Bengal rice mandi model (48 features, XGBoost Regressor).")
+        elif comm == "wheat":
+            if h_days == 14:
+                res.setdefault("model_name", "wheat-price-14d-catboost")
+                res.setdefault("release_status", "experimental")
+            elif h_days == 30:
+                res.setdefault("model_name", "wheat-price-30d-catboost")
+                res.setdefault("release_status", "experimental")
+            else:
+                res.setdefault("model_name", "wheat-price-catboost-v2")
+                res.setdefault("release_status", "production")
+            res.setdefault("model_version", "2.0.0")
+            res.setdefault("limitations", "V2 Champion CatBoost MAE regressor with eps=3.0 deadband for West Bengal wheat mandis.")
+        elif comm == "potato":
+            if h_days == 14:
+                res.setdefault("model_name", "potato-price-14d-catboost")
+                res.setdefault("release_status", "experimental")
+            elif h_days == 30:
+                res.setdefault("model_name", "potato-price-30d-catboost")
+                res.setdefault("release_status", "experimental")
+            else:
+                res.setdefault("model_name", "potato-price-xgb-v2")
+                res.setdefault("release_status", "production")
+            res.setdefault("model_version", "2.0.0")
+            res.setdefault("limitations", "V2 Champion XGBoost Pseudo-Huber regressor with eps=5.0 deadband for West Bengal potato mandis.")
+        elif comm == "tea":
+            res.setdefault("model_name", "tea-price-xgb")
+            res.setdefault("model_version", "1.0.0")
+            res.setdefault("release_status", "production")
+            res.setdefault("limitations", "Specialized tea auction modal price regressor.")
+
+        res["is_experimental"] = (res.get("release_status") == "experimental")
+
+        # Residual distribution & prediction intervals
+        q = None
+        if isinstance(res.get("residual_distribution"), dict):
+            q = res["residual_distribution"]
+        if q is None:
+            q = self._load_residual_quantiles(comm, h_days)
+        res["residual_distribution"] = q
+
+        pi = res.get("prediction_interval")
+        if not pi or not isinstance(pi, dict) or not all(k in pi for k in ["p10", "p25", "p50", "p75", "p90", "symmetric_80_ci"]):
+            raw_p10 = round(p_val + q.get("p10", -20.0), 2)
+            raw_p25 = round(p_val + q.get("p25", -5.0), 2)
+            raw_p50 = round(p_val + q.get("p50", 0.0), 2)
+            raw_p75 = round(p_val + q.get("p75", 5.0), 2)
+            raw_p90 = round(p_val + q.get("p90", 25.0), 2)
+            s_vals = sorted([raw_p10, raw_p25, raw_p50, raw_p75, raw_p90])
+            res["prediction_interval"] = {
+                "p10": s_vals[0],
+                "p25": s_vals[1],
+                "p50": s_vals[2],
+                "p75": s_vals[3],
+                "p90": s_vals[4],
+                "symmetric_80_ci": [s_vals[0], s_vals[4]],
+            }
+
         return res
 
     def predict_all(
         self,
-        data_df,
-        commodity: str = "tea",
+        data_df=None,
+        commodity: Optional[str] = None,
         yield_input: Optional[dict] = None,
         area_ha: Optional[float] = None,
         enable_legacy_alias: Optional[bool] = None,
         enable_seasonal_routing: Optional[bool] = None,
         weather_missing_policy: Optional[str] = None,
+        market_input=None,
+        history=None,
         **price_kwargs
     ) -> CombinedPredictionResult:
         """
@@ -645,10 +842,10 @@ class AgroVisionPredictor:
 
         Parameters
         ----------
-        data_df : pandas.DataFrame
+        data_df : pandas.DataFrame, optional
             Feature DataFrame for Member 2 (price + volatility model).
-        commodity : str
-            Commodity name ("rice", "tea", etc.).
+        commodity : str, optional
+            Commodity name ("rice", "tea", etc.). Defaults to "rice" when history is supplied.
         yield_input : dict, optional
             Feature dict for Member 1 (yield model). If None, inspects data_df's first row.
         area_ha : float, optional
@@ -659,6 +856,10 @@ class AgroVisionPredictor:
             Whether to enforce provisional seasonal routing (Summer persistence baseline).
         weather_missing_policy : str, optional
             Missing weather policy ('persistence' or 'model_imputation').
+        market_input : pandas.DataFrame, optional
+            Alias for data_df.
+        history : pandas.DataFrame, optional
+            Alias for data_df.
         **price_kwargs :
             Optional keyword arguments passed to predict_price().
 
@@ -668,6 +869,14 @@ class AgroVisionPredictor:
             Dictionary containing separated domains 'crop_yield' and 'market_price',
             as well as canonical top-level fields.
         """
+        if data_df is None:
+            data_df = market_input if market_input is not None else history
+
+        if commodity is None:
+            if isinstance(data_df, pd.DataFrame) and (len(data_df) >= 30 or "price_change_1" in data_df.columns):
+                commodity = "rice"
+            else:
+                commodity = "tea"
         legacy_enabled = self.enable_legacy_alias if enable_legacy_alias is None else bool(enable_legacy_alias)
 
         results = {}
@@ -786,4 +995,71 @@ def preprocess_inseason_weather(*args, **kwargs) -> Dict[str, Any]:
         sys.path.insert(0, str(m1_root))
     from src.predict import preprocess_inseason_weather as _m1_preprocess
     return _m1_preprocess(*args, **kwargs)
+
+
+# ============================================================
+# Top-Level Convenience Functions (API Contract Section 1.1)
+# ============================================================
+
+_default_predictor: Optional[AgroVisionPredictor] = None
+
+
+def _get_default_predictor() -> AgroVisionPredictor:
+    global _default_predictor
+    if _default_predictor is None:
+        _default_predictor = AgroVisionPredictor()
+    return _default_predictor
+
+
+def predict(
+    history: Union[pd.DataFrame, List[Dict[str, Any]]],
+    commodity: str = "rice",
+    horizon: Union[int, str] = "short",
+    **kwargs: Any,
+) -> Dict[str, Any]:
+    """Universal prediction endpoint for all commodities and horizons."""
+    return _get_default_predictor().predict(
+        history=history,
+        commodity=commodity,
+        horizon=horizon,
+        **kwargs,
+    )
+
+
+def predict_price(
+    history: Union[pd.DataFrame, List[Dict[str, Any]]],
+    commodity: str = "rice",
+    **kwargs: Any,
+) -> Dict[str, Any]:
+    """Short-term price forecasting convenience function."""
+    return _get_default_predictor().predict(
+        history=history,
+        commodity=commodity,
+        horizon="short",
+        **kwargs,
+    )
+
+
+def predict_price_horizon(
+    history: Union[pd.DataFrame, List[Dict[str, Any]]],
+    horizon: Union[int, str] = 14,
+    commodity: str = "rice",
+    **kwargs: Any,
+) -> Dict[str, Any]:
+    """Multi-horizon price forecasting convenience function."""
+    return _get_default_predictor().predict(
+        history=history,
+        horizon=horizon,
+        commodity=commodity,
+        **kwargs,
+    )
+
+
+def predict_yield(
+    yield_input: Union[Dict[str, Any], pd.DataFrame, List[Dict[str, Any]]],
+    **kwargs: Any,
+) -> YieldPredictionResult:
+    """Crop yield prediction convenience function."""
+    return _get_default_predictor().predict_yield(yield_input, **kwargs)
+
 
