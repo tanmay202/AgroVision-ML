@@ -576,6 +576,7 @@ def run_daily_prospective_workflow(
 
 def main():
     parser = argparse.ArgumentParser(description="AgroVision-ML Shadow Evaluation CLI")
+    parser.add_argument("--commodity", type=str, choices=["rice", "wheat", "potato"], default="rice", help="Target commodity for shadow monitoring (default: rice)")
     parser.add_argument("--ingest", type=str, help="Path to CSV containing newly arrived mandi observations")
     parser.add_argument("--generate", action="store_true", help="Generate shadow forecasts for available data")
     parser.add_argument("--origin-date", type=str, default=None, help="Forecast origin date (YYYY-MM-DD)")
@@ -605,6 +606,51 @@ def main():
 
     db_path = Path(args.db_path) if args.db_path else get_shadow_db_path()
     init_shadow_db(db_path)
+
+    # Multi-Commodity routing (Wheat & Potato)
+    comm = args.commodity.lower()
+    if comm in ("wheat", "potato"):
+        from multi_commodity_shadow import (
+            get_default_commodity_shadow_db_path,
+            init_commodity_shadow_db,
+            ingest_commodity_mandi_observations,
+            generate_commodity_shadow_forecasts,
+            evaluate_pending_commodity_shadow_forecasts,
+            compute_commodity_shadow_metrics,
+            get_commodity_shadow_status,
+        )
+        comm_db = Path(args.db_path) if args.db_path else get_default_commodity_shadow_db_path(comm)
+        init_commodity_shadow_db(comm, comm_db)
+        if args.ingest:
+            print(f"Ingesting {comm} observations from {args.ingest}...")
+            count = ingest_commodity_mandi_observations(comm, args.ingest, db_path=comm_db)
+            print(f"Ingested {count} records into {comm_db.name}.")
+        if args.generate:
+            print(f"Generating {comm} shadow forecasts...")
+            src_csv = Path(args.data_path) if args.data_path else MEMBER2_DIR / "data" / "processed" / comm / f"{comm}_cleaned.csv"
+            if not src_csv.exists():
+                src_csv = MEMBER2_DIR / "data" / "processed" / f"{comm}_cleaned.csv"
+            if src_csv.exists():
+                df = pd.read_csv(src_csv)
+                res = generate_commodity_shadow_forecasts(
+                    comm,
+                    df,
+                    origin_date=args.origin_date,
+                    db_path=comm_db,
+                    force_enabled=True,
+                    cohort=args.cohort if args.cohort != "ALL" else "PROSPECTIVE",
+                )
+                print(f"Forecast generation complete: {res}")
+            else:
+                print(f"Data source {src_csv} not found.")
+        if args.evaluate:
+            print(f"Evaluating pending {comm} forecasts...")
+            res = evaluate_pending_commodity_shadow_forecasts(comm, db_path=comm_db)
+            print(f"Evaluation complete: {res}")
+        if args.report:
+            metrics = compute_commodity_shadow_metrics(comm, db_path=comm_db, cohort=args.cohort)
+            print(json.dumps(metrics, indent=2))
+        sys.exit(0)
 
     if args.backup:
         print("Creating online database backup snapshot...")

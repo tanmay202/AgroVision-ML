@@ -273,13 +273,40 @@ class RicePricePredictor:
             "requested_target_date": (pd.to_datetime(resolved_date) + pd.Timedelta(days=1)).strftime("%Y-%m-%d"),
             "current_modal_price": round(current_price, 2),
             "predicted_modal_price": round(predicted_price, 2),
+            "predicted_price_rs_quintal": round(predicted_price, 2),
+            "predicted_price": round(predicted_price, 2),
             "predicted_price_change": round(predicted_change, 2),
             "target_date_convention": TARGET_CONVENTIONS[1],
             "model_name": MODEL_NAMES[1],
             "model_version": "1.0.0",
             "release_status": RELEASE_STATUSES[1],
+            "is_experimental": (RELEASE_STATUSES[1] == "experimental"),
             "limitations": MODEL_LIMITATIONS[1],
+            "commodity": "rice",
         }
+
+        # Check for empirical short-term residual quantiles
+        res_file = self.artifacts_dir / "rice_holdout_residuals_7d.json"
+        if not res_file.exists():
+            res_file = self.artifacts_dir / "rice_holdout_residuals.json"
+        if res_file.exists():
+            try:
+                with open(res_file, "r", encoding="utf-8") as rf:
+                    res_json = json.load(rf)
+                eq = res_json.get("error_quantiles", {})
+                if "p10" in eq and "p90" in eq:
+                    response["residual_distribution"] = eq
+                    response["prediction_interval"] = {
+                        "p10": round(predicted_price + eq["p10"], 2),
+                        "p90": round(predicted_price + eq["p90"], 2),
+                        "coverage": "80% empirical holdout",
+                    }
+                    if "p05" in eq:
+                        response["prediction_interval"]["p05"] = round(predicted_price + eq["p05"], 2)
+                    if "p95" in eq:
+                        response["prediction_interval"]["p95"] = round(predicted_price + eq["p95"], 2)
+            except Exception:
+                pass
 
         if include_volatility:
             # Baseline rolling range
@@ -380,7 +407,7 @@ class RicePricePredictor:
         current_price = float(feat_df.iloc[-1][PRICE_COLUMN])
         predicted_price = current_price + predicted_change
 
-        return {
+        ret_horizon = {
             "market": resolved_market,
             "variety": resolved_variety,
             "prediction_date": resolved_date,
@@ -389,18 +416,47 @@ class RicePricePredictor:
             "requested_target_date": req_target_dt,
             "current_modal_price": round(current_price, 2),
             "predicted_modal_price": round(predicted_price, 2),
+            "predicted_price_rs_quintal": round(predicted_price, 2),
+            "predicted_price": round(predicted_price, 2),
             "predicted_price_change": round(predicted_change, 2),
             "target_date_convention": TARGET_CONVENTIONS[h],
             "model_name": MODEL_NAMES[h],
             "model_version": "1.0.0",
             "release_status": RELEASE_STATUSES[h],
+            "is_experimental": (RELEASE_STATUSES[h] == "experimental"),
             "limitations": MODEL_LIMITATIONS[h],
+            "commodity": "rice",
             "horizon_metadata": {
                 "max_tolerance_days": cfg.get("max_tolerance_days", 3),
                 "train_period": cfg.get("train_period"),
                 "holdout_benchmark": cfg.get("holdout_benchmark"),
             }
         }
+
+        # Check for empirical horizon residual quantiles
+        res_file = self.artifacts_dir / f"rice_holdout_residuals_{h}d.json"
+        if not res_file.exists():
+            res_file = self.artifacts_dir / "rice_holdout_residuals.json"
+        if res_file.exists():
+            try:
+                with open(res_file, "r", encoding="utf-8") as rf:
+                    res_json = json.load(rf)
+                eq = res_json.get("error_quantiles", {})
+                if "p10" in eq and "p90" in eq:
+                    ret_horizon["residual_distribution"] = eq
+                    ret_horizon["prediction_interval"] = {
+                        "p10": round(predicted_price + eq["p10"], 2),
+                        "p90": round(predicted_price + eq["p90"], 2),
+                        "coverage": "80% empirical holdout",
+                    }
+                    if "p05" in eq:
+                        ret_horizon["prediction_interval"]["p05"] = round(predicted_price + eq["p05"], 2)
+                    if "p95" in eq:
+                        ret_horizon["prediction_interval"]["p95"] = round(predicted_price + eq["p95"], 2)
+            except Exception:
+                pass
+
+        return ret_horizon
 
     def predict(
         self,
@@ -516,16 +572,105 @@ class MultiCommodityPricePredictor:
             )
 
         if comm == "rice":
-            return self._rice_predictor.predict(history=history, horizon=horizon, **kwargs)
+            res = self._rice_predictor.predict(history=history, horizon=horizon, **kwargs)
+            res["commodity"] = "rice"
+            p_val = res.get("predicted_modal_price") or res.get("predicted_price_rs_quintal") or res.get("predicted_price")
+            res["predicted_modal_price"] = p_val
+            res["predicted_price_rs_quintal"] = p_val
+            res["predicted_price"] = p_val
+            vol_val = res.get("volatility") or res.get("predicted_volatility_class")
+            if vol_val:
+                res["volatility"] = str(vol_val)
+                res["predicted_volatility_class"] = str(vol_val)
+            return res
 
         # Wheat or Potato V2
+        art_dir = self.artifacts_dir
+        if art_dir is not None:
+            p_art = Path(art_dir)
+            if not ((p_art / comm).exists() or (p_art / f"{comm}_price_model.pkl").exists()):
+                art_dir = None
+
         m2_predict = self._get_m2_predict_fn()
-        return m2_predict(
+        raw = m2_predict(
             data=history,
             commodity=comm,
-            artifacts_dir=self.artifacts_dir,
+            artifacts_dir=art_dir,
             version="v2",
             horizon=horizon,
             return_intervals=True,
             **kwargs
         )
+        out = dict(raw)
+        out["predicted_price_rs_quintal"] = raw["predicted_price"]
+        out["predicted_modal_price"] = raw["predicted_price"]
+        out["commodity"] = comm
+        out["volatility"] = raw["volatility"]
+        out["predicted_volatility_class"] = raw["volatility"]
+        return out
+
+    def get_model_info(self, commodity: Optional[str] = None) -> Dict[str, Any]:
+        """Returns structured metadata on all registered multi-commodity models."""
+        info = {
+            "rice": self._rice_predictor.get_model_info(),
+            "wheat": {
+                "commodity": "wheat",
+                "horizons": {
+                    "short_term": {
+                        "horizon_days": 1,
+                        "status": "production",
+                        "model_name": "wheat-price-catboost-v2",
+                        "features_count": 81,
+                    },
+                    "14d": {
+                        "horizon_days": 14,
+                        "status": "experimental",
+                        "model_name": "wheat-price-14d-catboost",
+                        "features_count": 81,
+                    },
+                    "30d": {
+                        "horizon_days": 30,
+                        "status": "experimental",
+                        "model_name": "wheat-price-30d-catboost",
+                        "features_count": 81,
+                    },
+                },
+                "volatility": {
+                    "v2_calibrated": "CatBoost classifier with Isotonic calibration (LOW, MEDIUM, HIGH)",
+                    "v1": "persistence baseline",
+                }
+            },
+            "potato": {
+                "commodity": "potato",
+                "horizons": {
+                    "short_term": {
+                        "horizon_days": 1,
+                        "status": "production",
+                        "model_name": "potato-price-xgb-v2",
+                        "features_count": 81,
+                    },
+                    "14d": {
+                        "horizon_days": 14,
+                        "status": "experimental",
+                        "model_name": "potato-price-14d-catboost",
+                        "features_count": 81,
+                    },
+                    "30d": {
+                        "horizon_days": 30,
+                        "status": "experimental",
+                        "model_name": "potato-price-30d-catboost",
+                        "features_count": 81,
+                    },
+                },
+                "volatility": {
+                    "v2_calibrated": "XGBoost classifier with Platt Sigmoid calibration (LOW, MEDIUM, HIGH)",
+                    "v1": "persistence baseline",
+                }
+            }
+        }
+        if commodity:
+            comm = str(commodity).strip().lower()
+            if comm in info:
+                return info[comm]
+            raise ValueError(f"Unknown commodity: '{comm}'")
+        return info

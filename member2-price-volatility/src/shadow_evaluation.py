@@ -55,6 +55,20 @@ from config import (
 )
 from inference import RiceInferencePipeline, InsufficientHistoryError
 
+try:
+    from multi_commodity_shadow import (
+        init_commodity_shadow_db,
+        ingest_commodity_mandi_observations,
+        generate_commodity_shadow_forecasts,
+        evaluate_pending_commodity_shadow_forecasts,
+        compute_commodity_shadow_metrics,
+        get_commodity_shadow_status,
+        is_commodity_shadow_enabled,
+        set_commodity_shadow_enabled,
+    )
+except ImportError:
+    pass
+
 
 # ============================================================
 # 1. DATABASE SCHEMA & INITIALIZATION
@@ -330,6 +344,7 @@ def generate_shadow_forecasts(
     pipeline: Optional[RiceInferencePipeline] = None,
     force_enabled: bool = False,
     cohort: str = "RETROSPECTIVE",
+    commodity: str = "rice",
 ) -> Dict[str, Union[int, str, list]]:
     """
     Generates point-in-time shadow forecasts for 14-day and 30-day horizons.
@@ -337,6 +352,18 @@ def generate_shadow_forecasts(
     Idempotent: Skips forecasts that already exist in the database for the given
     (market, variety, origin_date, horizon, model_version).
     """
+    comm = str(commodity).strip().lower()
+    if comm in ("wheat", "potato"):
+        from multi_commodity_shadow import generate_commodity_shadow_forecasts
+        return generate_commodity_shadow_forecasts(
+            commodity=comm,
+            history_df=history_df,
+            horizons=horizons,
+            origin_date=origin_date,
+            db_path=db_path,
+            force_enabled=force_enabled,
+            cohort=cohort,
+        )
     if not force_enabled and not is_shadow_evaluation_enabled():
         raise RuntimeError(
             "Shadow evaluation is currently disabled. Set AGROVISION_ENABLE_SHADOW_EVALUATION=true to enable."
@@ -476,6 +503,9 @@ def generate_shadow_forecasts(
 def evaluate_pending_shadow_forecasts(
     db_path: Optional[Union[str, Path]] = None,
     recheck_unavailable: bool = False,
+    commodity: str = "rice",
+    as_of_date: Optional[str] = None,
+    max_tolerance_days: int = 3,
 ) -> Dict[str, int]:
     """
     Evaluates pending shadow forecasts against subsequently arrived observations.
@@ -495,7 +525,19 @@ def evaluate_pending_shadow_forecasts(
     recheck_unavailable : bool, default False
         If True, re-evaluates forecasts previously marked TARGET_UNAVAILABLE in case
         late-arriving observation backfills cover the target window.
+    commodity : str, default 'rice'
+        Target commodity ('rice', 'wheat', 'potato').
     """
+    comm = str(commodity).strip().lower()
+    if comm in ("wheat", "potato"):
+        from multi_commodity_shadow import evaluate_pending_commodity_shadow_forecasts
+        return evaluate_pending_commodity_shadow_forecasts(
+            commodity=comm,
+            as_of_date=as_of_date,
+            db_path=db_path,
+            max_tolerance_days=max_tolerance_days,
+        )
+
     conn = get_db_connection(db_path)
     cursor = conn.cursor()
 
@@ -649,6 +691,7 @@ def compute_shadow_evaluation_metrics(
     db_path: Optional[Union[str, Path]] = None,
     horizon_days: Optional[int] = None,
     cohort: Optional[str] = None,
+    commodity: str = "rice",
 ) -> Dict[str, Union[dict, str]]:
     """
     Computes rigorous live evaluation metrics comparing XGBoost vs Persistence baseline.
@@ -663,6 +706,15 @@ def compute_shadow_evaluation_metrics(
     - Breakdown by top markets and varieties.
     - Optional cohort filtering ('PROSPECTIVE' vs 'RETROSPECTIVE').
     """
+    comm = str(commodity).strip().lower()
+    if comm in ("wheat", "potato"):
+        from multi_commodity_shadow import compute_commodity_shadow_metrics
+        return compute_commodity_shadow_metrics(
+            commodity=comm,
+            db_path=db_path,
+            horizon_days=horizon_days,
+            cohort=cohort or "PROSPECTIVE",
+        )
     conn = get_db_connection(db_path)
     
     query = "SELECT * FROM shadow_forecasts"
@@ -866,8 +918,16 @@ def compute_shadow_evaluation_metrics(
 # 6. SHADOW STATUS & HEALTH
 # ============================================================
 
-def get_shadow_status(db_path: Optional[Union[str, Path]] = None) -> dict:
+def get_shadow_status(
+    db_path: Optional[Union[str, Path]] = None,
+    commodity: str = "rice",
+) -> dict:
     """Returns operational status, database readiness, and count summaries."""
+    comm = str(commodity).strip().lower()
+    if comm in ("wheat", "potato"):
+        from multi_commodity_shadow import get_commodity_shadow_status
+        return get_commodity_shadow_status(commodity=comm, db_path=db_path)
+
     resolved_path = Path(db_path) if db_path else get_shadow_db_path()
     db_exists = resolved_path.exists()
 

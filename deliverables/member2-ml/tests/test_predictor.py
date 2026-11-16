@@ -20,7 +20,12 @@ import pandas as pd
 
 TEST_DIR = Path(__file__).resolve().parent
 PACKAGE_DIR = TEST_DIR.parent
-sys.path.insert(0, str(PACKAGE_DIR))
+if str(PACKAGE_DIR) not in sys.path:
+    sys.path.insert(0, str(PACKAGE_DIR))
+
+# If another package imported a different 'src', pop it to load local deliverable 'src'
+if "src" in sys.modules and not hasattr(sys.modules["src"], "predictor"):
+    sys.modules.pop("src", None)
 
 from src.predictor import RicePricePredictor, InsufficientHistoryError
 from src.config import SUPPORTED_HORIZONS, TARGET_CONVENTIONS, RELEASE_STATUSES

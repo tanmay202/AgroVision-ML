@@ -460,9 +460,18 @@ class AgroVisionPredictor:
             res = self._rice_pipeline.predict(data_df, **kwargs)
             out = {
                 "predicted_price_rs_quintal": float(res["predicted_modal_price"]),
+                "predicted_modal_price": float(res["predicted_modal_price"]),
+                "predicted_price": float(res["predicted_modal_price"]),
                 "volatility": str(res["predicted_volatility_class"]),
+                "predicted_volatility_class": str(res["predicted_volatility_class"]),
                 "commodity": "rice",
                 "predicted_volatility_range": float(res.get("predicted_volatility_range", 0.0)),
+                "horizon_days": 1,
+                "release_status": "production",
+                "is_experimental": False,
+                "model_name": "rice-price-xgb",
+                "model_version": "1.0.0",
+                "target_date_convention": "Next valid observation within 1–7 calendar days",
             }
             for k in (
                 "market", "variety", "prediction_date",
@@ -471,19 +480,38 @@ class AgroVisionPredictor:
                 "horizon_days", "current_modal_price", "predicted_price_change",
                 "target_date_convention", "model_name", "horizon_metadata",
                 "forecast_origin_date", "requested_target_date", "model_version",
-                "release_status", "limitations",
+                "release_status", "limitations", "prediction_interval", "residual_distribution",
             ):
                 if k in res:
                     out[k] = res[k]
+            if "normalized_volatility_probabilities" in out and "volatility_probabilities" not in out:
+                out["volatility_probabilities"] = out["normalized_volatility_probabilities"]
             return out
-        else:
+        elif comm in ["wheat", "potato"]:
             self._load_m2()
-            raw = self._m2_predict_fn(data_df, commodity=comm)
+            raw = self._m2_predict_fn(data_df, commodity=comm, version="v2", return_intervals=True, **kwargs)
+            out = dict(raw)
+            out["predicted_price_rs_quintal"] = raw["predicted_price"]
+            out["predicted_modal_price"] = raw["predicted_price"]
+            out["commodity"] = comm
+            out["volatility"] = raw["volatility"]
+            out["predicted_volatility_class"] = raw["volatility"]
+            return out
+        elif comm == "tea":
+            self._load_m2()
+            raw = self._m2_predict_fn(data_df, commodity=comm, **kwargs)
             return {
                 "predicted_price_rs_quintal": raw["predicted_price"],
+                "predicted_modal_price": raw["predicted_price"],
+                "predicted_price": raw["predicted_price"],
                 "volatility": raw["volatility"],
+                "predicted_volatility_class": raw["volatility"],
                 "commodity": raw["commodity"],
+                "model_version": "1.0.0",
+                "release_status": "production",
             }
+        else:
+            raise ValueError(f"Unsupported commodity: '{comm}'. Supported commodities are: 'rice', 'wheat', 'potato', 'tea'.")
 
     def predict_price_horizon(
         self,
@@ -498,18 +526,30 @@ class AgroVisionPredictor:
         comm = str(commodity).strip().lower()
         if comm == "rice":
             self._load_rice()
-            return self._rice_pipeline.predict_horizon(data_df, horizon_days=horizon_days, **kwargs)
+            rice_kwargs = dict(kwargs)
+            rice_kwargs.setdefault("bypass_switches", True)
+            res = self._rice_pipeline.predict_horizon(data_df, horizon_days=horizon_days, **rice_kwargs)
+            out = dict(res)
+            if "predicted_modal_price" in out:
+                out["predicted_price_rs_quintal"] = out["predicted_modal_price"]
+                out["predicted_price"] = out["predicted_modal_price"]
+            out["commodity"] = "rice"
+            if "is_experimental" not in out:
+                out["is_experimental"] = (out.get("release_status") == "experimental")
+            if "predicted_volatility_class" in out and "volatility" not in out:
+                out["volatility"] = out["predicted_volatility_class"]
+            return out
         elif comm in ["wheat", "potato"]:
             self._load_m2()
-            raw = self._m2_predict_fn(data_df, commodity=comm, horizon_days=horizon_days, version="v2")
-            return {
-                "predicted_price_rs_quintal": raw["predicted_price"],
-                "volatility": raw["volatility"],
-                "commodity": raw["commodity"],
-                "horizon_days": horizon_days,
-                "prediction_interval": raw.get("prediction_interval"),
-                "model_version": "2.0.0",
-            }
+            raw = self._m2_predict_fn(data_df, commodity=comm, horizon_days=horizon_days, version="v2", return_intervals=True, **kwargs)
+            out = dict(raw)
+            out["predicted_price_rs_quintal"] = raw["predicted_price"]
+            out["predicted_modal_price"] = raw["predicted_price"]
+            out["commodity"] = comm
+            out["volatility"] = raw["volatility"]
+            out["predicted_volatility_class"] = raw["volatility"]
+            out["horizon_days"] = horizon_days
+            return out
         else:
             raise NotImplementedError(f"Horizon forecasting supported for 'rice', 'wheat', 'potato', received '{comm}'")
 
@@ -562,10 +602,29 @@ class AgroVisionPredictor:
             raise ValueError(f"Unsupported horizon: '{horizon}'. Valid options are 'short', 14, 30.")
 
         if h_days in (14, 30):
-            return self.predict_price_horizon(df, horizon_days=h_days, commodity=comm, **kwargs)
+            res = self.predict_price_horizon(df, horizon_days=h_days, commodity=comm, **kwargs)
+        else:
+            res = self.predict_price(df, commodity=comm, **kwargs)
 
-        # Short-term forecast
-        return self.predict_price(df, commodity=comm, **kwargs)
+        # Standardize aliases across all responses
+        p_val = res.get("predicted_price_rs_quintal")
+        if p_val is None:
+            p_val = res.get("predicted_modal_price")
+        if p_val is None:
+            p_val = res.get("predicted_price")
+        if p_val is not None:
+            res["predicted_price_rs_quintal"] = p_val
+            res["predicted_modal_price"] = p_val
+            res["predicted_price"] = p_val
+
+        vol_val = res.get("volatility") or res.get("predicted_volatility_class")
+        if vol_val is not None:
+            res["volatility"] = str(vol_val)
+            res["predicted_volatility_class"] = str(vol_val)
+        if "is_experimental" not in res:
+            res["is_experimental"] = (res.get("release_status") == "experimental")
+        res["commodity"] = comm
+        return res
 
     def predict_all(
         self,

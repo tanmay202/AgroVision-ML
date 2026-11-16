@@ -67,7 +67,11 @@ def _artifacts(commodity, artifacts_dir=None, version="v2", horizon_days=1):
                 v_path = base_dir / f"{commodity}_volatility_model.pkl"
             res_path = None
 
-        if not cfg_path.exists() or not p_path.exists() or not v_path.exists():
+        if artifacts_dir is not None:
+            missing = [str(p) for p in [cfg_path, p_path, v_path] if not p.exists()]
+            if missing:
+                raise FileNotFoundError(f"Missing artifacts for commodity '{commodity}' in '{artifacts_dir}': {', '.join(missing)}")
+        elif not cfg_path.exists() or not p_path.exists() or not v_path.exists():
             # Fall back to config helpers if paths don't exist
             cfg_path = feature_config_path()
             p_path = price_model_path()
@@ -303,13 +307,24 @@ def predict(
             try:
                 from inference import RiceInferencePipeline
                 pipeline = RiceInferencePipeline(artifacts_dir=artifacts_dir)
-                res = pipeline.predict(frame, **kwargs)
-                return {
-                    "predicted_price": res["predicted_modal_price"],
-                    "volatility": res["predicted_volatility_class"],
+                if horizon_days > 1:
+                    res = pipeline.predict_horizon(frame, horizon_days=horizon_days, **kwargs)
+                else:
+                    res = pipeline.predict(frame, **kwargs)
+                pred_price_val = float(res.get("predicted_modal_price", 0.0))
+                ret_rice = {
+                    "predicted_price": pred_price_val,
+                    "predicted_price_rs_quintal": pred_price_val,
+                    "predicted_modal_price": pred_price_val,
+                    "volatility": str(res.get("predicted_volatility_class", "LOW")),
+                    "predicted_volatility_class": str(res.get("predicted_volatility_class", "LOW")),
                     "commodity": "rice",
-                    "predicted_volatility_range": res.get("predicted_volatility_range", 0.0),
+                    "predicted_volatility_range": float(res.get("predicted_volatility_range", 0.0)),
                 }
+                for k, v in res.items():
+                    if k not in ret_rice:
+                        ret_rice[k] = v
+                return ret_rice
             except Exception:
                 pass
 
@@ -375,27 +390,108 @@ def predict(
         else:
             raise ValueError(f"Unknown volatility class code: {predicted_code}")
 
+    # Determine horizon conventions, metadata, and release status
+    if horizon_days == 14:
+        target_convention = "First observation in [t + 14, t + 17] calendar days within Market + Variety"
+    elif horizon_days == 30:
+        target_convention = "First observation in [t + 30, t + 33] calendar days within Market + Variety"
+    else:
+        target_convention = "Next valid observation within 1–7 calendar days"
+
+    if commodity == "wheat":
+        if horizon_days == 14:
+            model_name = "wheat-price-14d-catboost"
+            release_status = "experimental"
+            limitations = "Experimental release. Purged holdout validation showed deficit vs persistence (+Rs.8.15/q MAE deficit). Advisory only."
+        elif horizon_days == 30:
+            model_name = "wheat-price-30d-catboost"
+            release_status = "experimental"
+            limitations = "Experimental release. Purged holdout validation showed deficit across MAE/RMSE/R2 vs persistence (+Rs.20.03/q MAE deficit). Advisory only."
+        else:
+            model_name = "wheat-price-catboost-v2" if version == "v2" else "wheat-price-xgb-v1"
+            release_status = "production" if version == "v2" else "retain_v1"
+            limitations = "V2 Champion CatBoost MAE regressor with eps=3.0 deadband for West Bengal wheat mandis." if version == "v2" else "V1 baseline."
+    elif commodity == "potato":
+        if horizon_days == 14:
+            model_name = "potato-price-14d-catboost"
+            release_status = "experimental"
+            limitations = "Experimental release. Purged holdout validation showed deficit vs persistence (+Rs.23.33/q MAE deficit). Advisory only."
+        elif horizon_days == 30:
+            model_name = "potato-price-30d-catboost"
+            release_status = "experimental"
+            limitations = "Experimental release. Purged holdout validation showed deficit across MAE/RMSE/R2 vs persistence (+Rs.16.70/q MAE deficit). Advisory only."
+        else:
+            model_name = "potato-price-xgb-v2" if version == "v2" else "potato-price-xgb-v1"
+            release_status = "production" if version == "v2" else "retain_v1"
+            limitations = "V2 Champion XGBoost Pseudo-Huber regressor with eps=5.0 deadband for West Bengal potato mandis." if version == "v2" else "V1 baseline."
+    elif commodity == "tea":
+        model_name = "tea-price-xgb"
+        release_status = "production"
+        limitations = "Specialized tea auction modal price regressor."
+    else:
+        model_name = f"{commodity}-price-model"
+        release_status = "production"
+        limitations = f"Model for {commodity}."
+
     out = {
         "predicted_price": round(predicted_price, 2),
+        "predicted_price_rs_quintal": round(predicted_price, 2),
+        "predicted_modal_price": round(predicted_price, 2),
+        "current_modal_price": round(float(current_price), 2),
+        "predicted_price_change": round(float(predicted_change), 2),
         "volatility": volatility_str,
+        "predicted_volatility_class": volatility_str,
         "commodity": commodity,
         "version": version,
+        "model_version": "2.0.0" if version == "v2" else "1.0.0",
+        "model_name": model_name,
+        "release_status": release_status,
+        "is_experimental": (release_status == "experimental"),
+        "limitations": limitations,
+        "target_date_convention": target_convention,
+        "horizon_days": horizon_days,
     }
-    if horizon_days > 1:
-        out["horizon_days"] = horizon_days
+
+    # Extract date and market/variety if available
+    date_val = str(frame.iloc[0]["Reported Date"]) if "Reported Date" in frame.columns else None
+    if date_val and "T" in date_val:
+        date_val = date_val.split("T")[0]
+    mkt_val = str(frame.iloc[0]["Market Name"]) if "Market Name" in frame.columns else None
+    var_val = str(frame.iloc[0]["Variety"]) if "Variety" in frame.columns else None
+
+    if date_val:
+        out["prediction_date"] = date_val
+        out["forecast_origin_date"] = date_val
+        try:
+            out["requested_target_date"] = (pd.to_datetime(date_val) + pd.Timedelta(days=horizon_days)).strftime("%Y-%m-%d")
+        except Exception:
+            pass
+    if mkt_val:
+        out["market"] = mkt_val
+    if var_val:
+        out["variety"] = var_val
+
     if vol_probs is not None:
         out["volatility_probabilities"] = vol_probs
+        out["volatility_confidence"] = round(float(max(vol_probs.values())), 4)
+        out["volatility_version"] = "v2_calibrated" if version == "v2" else "v1"
 
-    # Empirical residual prediction intervals
+    # Empirical residual prediction intervals and quantiles
     if (return_intervals or horizon_days > 1) and res_dist is not None:
         h_key = "short_term" if horizon_days <= 7 else (f"{horizon_days}d" if f"{horizon_days}d" in res_dist else "short_term")
         if h_key in res_dist:
             q = res_dist[h_key].get("quantiles", {})
+            out["residual_distribution"] = q
             if "p10" in q and "p90" in q:
-                out["prediction_interval"] = {
+                interval_dict = {
                     "p10": round(predicted_price + q["p10"], 2),
                     "p90": round(predicted_price + q["p90"], 2),
                     "coverage": "80% empirical holdout"
                 }
+                if "p05" in q:
+                    interval_dict["p05"] = round(predicted_price + q["p05"], 2)
+                if "p95" in q:
+                    interval_dict["p95"] = round(predicted_price + q["p95"], 2)
+                out["prediction_interval"] = interval_dict
 
     return out
