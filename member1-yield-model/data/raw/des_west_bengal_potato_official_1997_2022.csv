@@ -1,0 +1,520 @@
+State,District,Crop,Season,Crop_Year_Raw,Area_Raw,Production_Raw,Yield_Raw
+West Bengal,24 paraganas north,Potato,Rabi,2009 - 2010,"7,593.00","254,965.00",33.58
+West Bengal,24 paraganas north,Potato,Rabi,2010 - 2011,"9,164.00","331,334.00",36.16
+West Bengal,24 paraganas north,Potato,Rabi,2011 - 2012,"7,031.00","205,602.00",29.24
+West Bengal,24 paraganas north,Potato,Rabi,2012 - 2013,"6,442.00","205,185.00",31.85
+West Bengal,24 paraganas north,Potato,Rabi,2013 - 2014,"8,646.00","277,973.00",32.15
+West Bengal,24 paraganas north,Potato,Rabi,2014 - 2015,"9,776.00","323,514.00",33.09
+West Bengal,24 paraganas north,Potato,Rabi,2015 - 2016,"9,303.00","309,381.00",33.26
+West Bengal,24 paraganas north,Potato,Rabi,2016 - 2017,"8,602.00","343,178.00",39.90
+West Bengal,24 paraganas north,Potato,Rabi,2017 - 2018,"8,072.00","271,245.00",33.60
+West Bengal,24 paraganas north,Potato,Rabi,2018 - 2019,"8,550.00","259,793.00",30.39
+West Bengal,24 paraganas north,Potato,Rabi,2019 - 2020,"8,250.00","269,584.00",32.68
+West Bengal,24 paraganas north,Potato,Rabi,2020 - 2021,"7,920.00","262,961.00",33.20
+West Bengal,24 paraganas north,Potato,Rabi,2021 - 2022,"8,669.00","266,210.00",30.71
+West Bengal,24 paraganas north,Potato,Rabi,2022 - 2023,"8,188.00","257,852.00",31.49
+West Bengal,24 paraganas south,Potato,Rabi,2009 - 2010,"3,008.00","63,657.00",21.16
+West Bengal,24 paraganas south,Potato,Rabi,2010 - 2011,"7,274.00","185,908.00",25.56
+West Bengal,24 paraganas south,Potato,Rabi,2011 - 2012,"7,969.00","188,767.00",23.69
+West Bengal,24 paraganas south,Potato,Rabi,2012 - 2013,"3,344.00","80,025.00",23.93
+West Bengal,24 paraganas south,Potato,Rabi,2013 - 2014,"2,939.00","85,489.00",29.09
+West Bengal,24 paraganas south,Potato,Rabi,2014 - 2015,"1,596.00","39,015.00",24.45
+West Bengal,24 paraganas south,Potato,Rabi,2015 - 2016,"3,258.00","67,529.00",20.73
+West Bengal,24 paraganas south,Potato,Rabi,2016 - 2017,"3,941.00","89,655.00",22.75
+West Bengal,24 paraganas south,Potato,Rabi,2017 - 2018,"2,443.00","57,890.00",23.70
+West Bengal,24 paraganas south,Potato,Rabi,2018 - 2019,"4,441.00","122,964.00",27.69
+West Bengal,24 paraganas south,Potato,Rabi,2019 - 2020,"2,778.00","52,728.00",18.98
+West Bengal,24 paraganas south,Potato,Rabi,2020 - 2021,"3,349.00","92,974.00",27.76
+West Bengal,24 paraganas south,Potato,Rabi,2021 - 2022,"3,476.00","91,897.00",26.44
+West Bengal,24 paraganas south,Potato,Rabi,2022 - 2023,"3,374.00","88,023.00",26.09
+West Bengal,Alipurduar,Potato,Rabi,2016 - 2017,"13,796.00","414,293.00",30.03
+West Bengal,Alipurduar,Potato,Rabi,2017 - 2018,"14,262.00","456,352.00",32.00
+West Bengal,Alipurduar,Potato,Rabi,2018 - 2019,"14,346.00","426,343.00",29.72
+West Bengal,Alipurduar,Potato,Rabi,2019 - 2020,"14,989.00","545,682.00",36.41
+West Bengal,Alipurduar,Potato,Rabi,2020 - 2021,"16,339.00","513,902.00",31.45
+West Bengal,Alipurduar,Potato,Rabi,2021 - 2022,"19,374.00","642,917.00",33.18
+West Bengal,Alipurduar,Potato,Rabi,2022 - 2023,"21,696.00","689,942.00",31.80
+West Bengal,Bankura,Potato,Rabi,2009 - 2010,"32,814.00","1,350,135.00",41.15
+West Bengal,Bankura,Potato,Rabi,2010 - 2011,"30,294.00","1,190,404.00",39.30
+West Bengal,Bankura,Potato,Rabi,2011 - 2012,"29,499.00","900,622.00",30.53
+West Bengal,Bankura,Potato,Rabi,2012 - 2013,"26,281.00","691,914.00",26.33
+West Bengal,Bankura,Potato,Rabi,2013 - 2014,"29,725.00","479,024.00",16.12
+West Bengal,Bankura,Potato,Rabi,2014 - 2015,"30,592.00","1,140,544.00",37.28
+West Bengal,Bankura,Potato,Rabi,2015 - 2016,"39,629.00","576,364.00",14.54
+West Bengal,Bankura,Potato,Rabi,2016 - 2017,"31,081.00","1,274,174.00",41.00
+West Bengal,Bankura,Potato,Rabi,2017 - 2018,"30,801.00","1,254,730.00",40.74
+West Bengal,Bankura,Potato,Rabi,2018 - 2019,"34,474.00","1,551,522.00",45.01
+West Bengal,Bankura,Potato,Rabi,2019 - 2020,"34,989.00","598,099.00",17.09
+West Bengal,Bankura,Potato,Rabi,2020 - 2021,"37,552.00","1,269,319.00",33.80
+West Bengal,Bankura,Potato,Rabi,2021 - 2022,"40,147.00","888,002.00",22.12
+West Bengal,Bankura,Potato,Rabi,2022 - 2023,"49,690.00","1,762,023.00",35.46
+West Bengal,Birbhum,Potato,Rabi,2009 - 2010,"17,671.00","613,243.00",34.70
+West Bengal,Birbhum,Potato,Rabi,2010 - 2011,"18,044.00","506,707.00",28.08
+West Bengal,Birbhum,Potato,Rabi,2011 - 2012,"17,918.00","537,775.00",30.01
+West Bengal,Birbhum,Potato,Rabi,2012 - 2013,"17,854.00","551,797.00",30.91
+West Bengal,Birbhum,Potato,Rabi,2013 - 2014,"18,197.00","445,071.00",24.46
+West Bengal,Birbhum,Potato,Rabi,2014 - 2015,"16,153.00","492,552.00",30.49
+West Bengal,Birbhum,Potato,Rabi,2015 - 2016,"16,899.00","485,728.00",28.74
+West Bengal,Birbhum,Potato,Rabi,2016 - 2017,"15,499.00","499,325.00",32.22
+West Bengal,Birbhum,Potato,Rabi,2017 - 2018,"15,423.00","534,819.00",34.68
+West Bengal,Birbhum,Potato,Rabi,2018 - 2019,"16,094.00","522,399.00",32.46
+West Bengal,Birbhum,Potato,Rabi,2019 - 2020,"16,656.00","469,457.00",28.19
+West Bengal,Birbhum,Potato,Rabi,2020 - 2021,"18,181.00","577,614.00",31.77
+West Bengal,Birbhum,Potato,Rabi,2021 - 2022,"19,712.00","578,915.00",29.37
+West Bengal,Birbhum,Potato,Rabi,2022 - 2023,"20,593.00","552,479.00",26.83
+West Bengal,Coochbehar,Potato,Rabi,2009 - 2010,"27,877.00","845,019.00",30.31
+West Bengal,Coochbehar,Potato,Rabi,2010 - 2011,"29,979.00","650,760.00",21.71
+West Bengal,Coochbehar,Potato,Rabi,2011 - 2012,"23,711.00","604,827.00",25.51
+West Bengal,Coochbehar,Potato,Rabi,2012 - 2013,"24,573.00","744,341.00",30.29
+West Bengal,Coochbehar,Potato,Rabi,2013 - 2014,"35,064.00","597,989.00",17.05
+West Bengal,Coochbehar,Potato,Rabi,2014 - 2015,"36,600.00","1,211,720.00",33.11
+West Bengal,Coochbehar,Potato,Rabi,2015 - 2016,"36,806.00","885,147.00",24.05
+West Bengal,Coochbehar,Potato,Rabi,2016 - 2017,"35,089.00","1,006,231.00",28.68
+West Bengal,Coochbehar,Potato,Rabi,2017 - 2018,"32,328.00","1,055,533.00",32.65
+West Bengal,Coochbehar,Potato,Rabi,2018 - 2019,"33,220.00","1,132,948.00",34.10
+West Bengal,Coochbehar,Potato,Rabi,2019 - 2020,"32,832.00","1,103,893.00",33.62
+West Bengal,Coochbehar,Potato,Rabi,2020 - 2021,"32,854.00","924,267.00",28.13
+West Bengal,Coochbehar,Potato,Rabi,2021 - 2022,"32,855.00","1,198,869.00",36.49
+West Bengal,Coochbehar,Potato,Rabi,2022 - 2023,"35,328.00","1,126,090.00",31.88
+West Bengal,Darjeeling,Potato,Rabi,2009 - 2010,"5,170.00","119,242.00",23.06
+West Bengal,Darjeeling,Potato,Rabi,2010 - 2011,"5,017.00","96,939.00",19.32
+West Bengal,Darjeeling,Potato,Rabi,2011 - 2012,"4,974.00","86,647.00",17.42
+West Bengal,Darjeeling,Potato,Rabi,2012 - 2013,"4,953.00","89,953.00",18.16
+West Bengal,Darjeeling,Potato,Rabi,2013 - 2014,"4,980.00","92,690.00",18.61
+West Bengal,Darjeeling,Potato,Rabi,2014 - 2015,"4,781.00","92,970.00",19.45
+West Bengal,Darjeeling,Potato,Rabi,2015 - 2016,"5,181.00","89,709.00",17.31
+West Bengal,Darjeeling,Potato,Rabi,2016 - 2017,"3,884.00","63,569.00",16.37
+West Bengal,Darjeeling,Potato,Rabi,2017 - 2018,"2,810.00","64,456.00",22.94
+West Bengal,Darjeeling,Potato,Rabi,2018 - 2019,"3,224.00","79,886.00",24.78
+West Bengal,Darjeeling,Potato,Rabi,2019 - 2020,"2,520.00","61,402.00",24.37
+West Bengal,Darjeeling,Potato,Rabi,2020 - 2021,"2,541.00","63,087.00",24.83
+West Bengal,Darjeeling,Potato,Rabi,2021 - 2022,"1,229.00","30,894.00",25.14
+West Bengal,Darjeeling,Potato,Rabi,2022 - 2023,"1,321.00","33,272.00",25.19
+West Bengal,Dinajpur dakshin,Potato,Rabi,2009 - 2010,"5,379.00","151,092.00",28.09
+West Bengal,Dinajpur dakshin,Potato,Rabi,2010 - 2011,"6,344.00","169,628.00",26.74
+West Bengal,Dinajpur dakshin,Potato,Rabi,2011 - 2012,"5,883.00","154,921.00",26.33
+West Bengal,Dinajpur dakshin,Potato,Rabi,2012 - 2013,"5,601.00","163,035.00",29.11
+West Bengal,Dinajpur dakshin,Potato,Rabi,2013 - 2014,"4,956.00","129,965.00",26.22
+West Bengal,Dinajpur dakshin,Potato,Rabi,2014 - 2015,"4,936.00","123,348.00",24.99
+West Bengal,Dinajpur dakshin,Potato,Rabi,2015 - 2016,"5,351.00","117,064.00",21.88
+West Bengal,Dinajpur dakshin,Potato,Rabi,2016 - 2017,"5,263.00","120,991.00",22.99
+West Bengal,Dinajpur dakshin,Potato,Rabi,2017 - 2018,"5,269.00","171,245.00",32.50
+West Bengal,Dinajpur dakshin,Potato,Rabi,2018 - 2019,"7,642.00","245,272.00",32.10
+West Bengal,Dinajpur dakshin,Potato,Rabi,2019 - 2020,"7,698.00","216,843.00",28.17
+West Bengal,Dinajpur dakshin,Potato,Rabi,2020 - 2021,"11,211.00","317,723.00",28.34
+West Bengal,Dinajpur dakshin,Potato,Rabi,2021 - 2022,"19,048.00","521,699.00",27.39
+West Bengal,Dinajpur dakshin,Potato,Rabi,2022 - 2023,"21,153.00","555,112.00",26.24
+West Bengal,Dinajpur uttar,Potato,Rabi,2009 - 2010,"9,693.00","282,039.00",29.10
+West Bengal,Dinajpur uttar,Potato,Rabi,2010 - 2011,"11,304.00","338,750.00",29.97
+West Bengal,Dinajpur uttar,Potato,Rabi,2011 - 2012,"10,694.00","314,957.00",29.45
+West Bengal,Dinajpur uttar,Potato,Rabi,2012 - 2013,"11,693.00","357,711.00",30.59
+West Bengal,Dinajpur uttar,Potato,Rabi,2013 - 2014,"9,804.00","307,757.00",31.39
+West Bengal,Dinajpur uttar,Potato,Rabi,2014 - 2015,"8,338.00","222,183.00",26.65
+West Bengal,Dinajpur uttar,Potato,Rabi,2015 - 2016,"9,506.00","210,026.00",22.09
+West Bengal,Dinajpur uttar,Potato,Rabi,2016 - 2017,"9,390.00","282,888.00",30.13
+West Bengal,Dinajpur uttar,Potato,Rabi,2017 - 2018,"11,290.00","353,936.00",31.35
+West Bengal,Dinajpur uttar,Potato,Rabi,2018 - 2019,"14,486.00","391,309.00",27.01
+West Bengal,Dinajpur uttar,Potato,Rabi,2019 - 2020,"11,837.00","364,943.00",30.83
+West Bengal,Dinajpur uttar,Potato,Rabi,2020 - 2021,"13,458.00","397,960.00",29.57
+West Bengal,Dinajpur uttar,Potato,Rabi,2021 - 2022,"25,171.00","768,509.00",30.53
+West Bengal,Dinajpur uttar,Potato,Rabi,2022 - 2023,"28,052.00","788,223.00",28.10
+West Bengal,Hooghly,Potato,Rabi,2009 - 2010,"91,290.00","3,434,459.00",37.62
+West Bengal,Hooghly,Potato,Rabi,2010 - 2011,"100,409.00","3,530,571.00",35.16
+West Bengal,Hooghly,Potato,Rabi,2011 - 2012,"94,435.00","2,439,938.00",25.84
+West Bengal,Hooghly,Potato,Rabi,2012 - 2013,"100,155.00","3,246,422.00",32.41
+West Bengal,Hooghly,Potato,Rabi,2013 - 2014,"99,830.00","2,077,513.00",20.81
+West Bengal,Hooghly,Potato,Rabi,2014 - 2015,"100,745.00","3,506,137.00",34.80
+West Bengal,Hooghly,Potato,Rabi,2015 - 2016,"111,614.00","1,413,256.00",12.66
+West Bengal,Hooghly,Potato,Rabi,2016 - 2017,"100,127.00","3,664,079.00",36.59
+West Bengal,Hooghly,Potato,Rabi,2017 - 2018,"103,860.00","3,629,312.00",34.94
+West Bengal,Hooghly,Potato,Rabi,2018 - 2019,"95,165.00","943,350.00",9.91
+West Bengal,Hooghly,Potato,Rabi,2019 - 2020,"95,724.00","3,161,176.00",33.02
+West Bengal,Hooghly,Potato,Rabi,2020 - 2021,"92,696.00","3,451,769.00",37.24
+West Bengal,Hooghly,Potato,Rabi,2021 - 2022,"72,540.00","1,897,825.00",26.16
+West Bengal,Hooghly,Potato,Rabi,2022 - 2023,"91,981.00","2,699,031.00",29.34
+West Bengal,Howrah,Potato,Rabi,2009 - 2010,"6,715.00","242,614.00",36.13
+West Bengal,Howrah,Potato,Rabi,2010 - 2011,"8,885.00","323,929.00",36.46
+West Bengal,Howrah,Potato,Rabi,2011 - 2012,"8,102.00","178,125.00",21.99
+West Bengal,Howrah,Potato,Rabi,2012 - 2013,"7,780.00","247,916.00",31.87
+West Bengal,Howrah,Potato,Rabi,2013 - 2014,"7,587.00","247,444.00",32.61
+West Bengal,Howrah,Potato,Rabi,2014 - 2015,"8,648.00","293,313.00",33.92
+West Bengal,Howrah,Potato,Rabi,2015 - 2016,"9,309.00","208,484.00",22.40
+West Bengal,Howrah,Potato,Rabi,2016 - 2017,"6,530.00","220,561.00",33.78
+West Bengal,Howrah,Potato,Rabi,2017 - 2018,"5,824.00","157,967.00",27.12
+West Bengal,Howrah,Potato,Rabi,2018 - 2019,"6,990.00","86,990.00",12.44
+West Bengal,Howrah,Potato,Rabi,2019 - 2020,"6,985.00","217,752.00",31.17
+West Bengal,Howrah,Potato,Rabi,2020 - 2021,"6,781.00","241,054.00",35.55
+West Bengal,Howrah,Potato,Rabi,2021 - 2022,"3,656.00","106,148.00",29.03
+West Bengal,Howrah,Potato,Rabi,2022 - 2023,"5,753.00","181,730.00",31.59
+West Bengal,Jalpaiguri,Potato,Rabi,2009 - 2010,"32,326.00","904,993.00",28.00
+West Bengal,Jalpaiguri,Potato,Rabi,2010 - 2011,"31,698.00","733,521.00",23.14
+West Bengal,Jalpaiguri,Potato,Rabi,2011 - 2012,"31,883.00","845,880.00",26.53
+West Bengal,Jalpaiguri,Potato,Rabi,2012 - 2013,"33,646.00","1,050,220.00",31.21
+West Bengal,Jalpaiguri,Potato,Rabi,2013 - 2014,"40,076.00","990,276.00",24.71
+West Bengal,Jalpaiguri,Potato,Rabi,2014 - 2015,"38,063.00","1,199,861.00",31.52
+West Bengal,Jalpaiguri,Potato,Rabi,2015 - 2016,"58,364.00","1,738,080.00",29.78
+West Bengal,Jalpaiguri,Potato,Rabi,2016 - 2017,"26,826.00","826,836.00",30.82
+West Bengal,Jalpaiguri,Potato,Rabi,2017 - 2018,"31,607.00","1,074,789.00",34.00
+West Bengal,Jalpaiguri,Potato,Rabi,2018 - 2019,"30,742.00","979,185.00",31.85
+West Bengal,Jalpaiguri,Potato,Rabi,2019 - 2020,"30,012.00","1,100,770.00",36.68
+West Bengal,Jalpaiguri,Potato,Rabi,2020 - 2021,"30,293.00","990,453.00",32.70
+West Bengal,Jalpaiguri,Potato,Rabi,2021 - 2022,"30,411.00","1,078,548.00",35.47
+West Bengal,Jalpaiguri,Potato,Rabi,2022 - 2023,"33,692.00","1,063,560.00",31.57
+West Bengal,Jhargram,Potato,Rabi,2016 - 2017,"1,840.00","61,363.00",33.35
+West Bengal,Jhargram,Potato,Rabi,2017 - 2018,"1,876.00","59,080.00",31.49
+West Bengal,Jhargram,Potato,Rabi,2018 - 2019,"3,572.00","60,427.00",16.92
+West Bengal,Jhargram,Potato,Rabi,2019 - 2020,"3,605.00","94,070.00",26.09
+West Bengal,Jhargram,Potato,Rabi,2020 - 2021,"4,214.00","160,624.00",38.12
+West Bengal,Jhargram,Potato,Rabi,2021 - 2022,"4,442.00","136,387.00",30.70
+West Bengal,Jhargram,Potato,Rabi,2022 - 2023,"5,174.00","148,164.00",28.64
+West Bengal,Kalimpong,Potato,Rabi,2016 - 2017,"1,180.00","10,838.00",9.18
+West Bengal,Kalimpong,Potato,Rabi,2017 - 2018,302.00,"3,018.00",9.99
+West Bengal,Kalimpong,Potato,Rabi,2018 - 2019,855.00,"15,831.00",18.52
+West Bengal,Kalimpong,Potato,Rabi,2019 - 2020,750.00,"15,989.00",21.32
+West Bengal,Kalimpong,Potato,Rabi,2020 - 2021,"1,285.00","25,336.00",19.72
+West Bengal,Kalimpong,Potato,Rabi,2021 - 2022,"1,198.00","22,947.00",19.15
+West Bengal,Kalimpong,Potato,Rabi,2022 - 2023,913.00,"16,237.00",17.78
+West Bengal,Maldah,Potato,Rabi,2009 - 2010,"4,416.00","151,832.00",34.38
+West Bengal,Maldah,Potato,Rabi,2010 - 2011,"5,034.00","146,754.00",29.15
+West Bengal,Maldah,Potato,Rabi,2011 - 2012,"3,862.00","146,943.00",38.05
+West Bengal,Maldah,Potato,Rabi,2012 - 2013,"4,900.00","176,778.00",36.08
+West Bengal,Maldah,Potato,Rabi,2013 - 2014,"5,120.00","164,736.00",32.18
+West Bengal,Maldah,Potato,Rabi,2014 - 2015,"5,491.00","202,644.00",36.90
+West Bengal,Maldah,Potato,Rabi,2015 - 2016,"4,921.00","166,827.00",33.90
+West Bengal,Maldah,Potato,Rabi,2016 - 2017,"5,400.00","210,093.00",38.91
+West Bengal,Maldah,Potato,Rabi,2017 - 2018,"8,941.00","390,671.00",43.69
+West Bengal,Maldah,Potato,Rabi,2018 - 2019,"7,567.00","321,781.00",42.52
+West Bengal,Maldah,Potato,Rabi,2019 - 2020,"7,787.00","159,870.00",20.53
+West Bengal,Maldah,Potato,Rabi,2020 - 2021,"9,212.00","328,687.00",35.68
+West Bengal,Maldah,Potato,Rabi,2021 - 2022,"10,140.00","366,235.00",36.12
+West Bengal,Maldah,Potato,Rabi,2022 - 2023,"10,027.00","338,281.00",33.74
+West Bengal,Medinipur east,Potato,Rabi,2009 - 2010,"4,560.00","129,110.00",28.31
+West Bengal,Medinipur east,Potato,Rabi,2010 - 2011,"4,872.00","129,602.00",26.60
+West Bengal,Medinipur east,Potato,Rabi,2011 - 2012,"4,438.00","111,703.00",25.17
+West Bengal,Medinipur east,Potato,Rabi,2012 - 2013,"4,312.00","108,759.00",25.22
+West Bengal,Medinipur east,Potato,Rabi,2013 - 2014,"3,751.00","112,425.00",29.97
+West Bengal,Medinipur east,Potato,Rabi,2014 - 2015,"2,836.00","74,363.00",26.22
+West Bengal,Medinipur east,Potato,Rabi,2015 - 2016,"2,763.00","34,104.00",12.34
+West Bengal,Medinipur east,Potato,Rabi,2016 - 2017,"2,798.00","44,488.00",15.90
+West Bengal,Medinipur east,Potato,Rabi,2017 - 2018,"2,880.00","61,010.00",21.18
+West Bengal,Medinipur east,Potato,Rabi,2018 - 2019,"3,006.00","47,470.00",15.79
+West Bengal,Medinipur east,Potato,Rabi,2019 - 2020,"3,003.00","53,990.00",17.98
+West Bengal,Medinipur east,Potato,Rabi,2020 - 2021,"3,708.00","85,422.00",23.04
+West Bengal,Medinipur east,Potato,Rabi,2021 - 2022,"3,642.00","83,654.00",22.97
+West Bengal,Medinipur east,Potato,Rabi,2022 - 2023,"3,580.00","85,561.00",23.90
+West Bengal,Medinipur west,Potato,Rabi,2009 - 2010,"62,679.00","2,448,136.00",39.06
+West Bengal,Medinipur west,Potato,Rabi,2010 - 2011,"64,683.00","2,482,395.00",38.38
+West Bengal,Medinipur west,Potato,Rabi,2011 - 2012,"59,960.00","1,148,623.00",19.16
+West Bengal,Medinipur west,Potato,Rabi,2012 - 2013,"58,607.00","1,463,580.00",24.97
+West Bengal,Medinipur west,Potato,Rabi,2013 - 2014,"61,301.00","1,224,122.00",19.97
+West Bengal,Medinipur west,Potato,Rabi,2014 - 2015,"63,519.00","2,413,485.00",38.00
+West Bengal,Medinipur west,Potato,Rabi,2015 - 2016,"86,196.00","1,548,253.00",17.96
+West Bengal,Medinipur west,Potato,Rabi,2016 - 2017,"63,317.00","2,566,565.00",40.54
+West Bengal,Medinipur west,Potato,Rabi,2017 - 2018,"70,335.00","2,434,435.00",34.61
+West Bengal,Medinipur west,Potato,Rabi,2018 - 2019,"70,004.00","1,543,443.00",22.05
+West Bengal,Medinipur west,Potato,Rabi,2019 - 2020,"70,788.00","1,613,446.00",22.79
+West Bengal,Medinipur west,Potato,Rabi,2020 - 2021,"72,645.00","2,454,380.00",33.79
+West Bengal,Medinipur west,Potato,Rabi,2021 - 2022,"65,019.00","1,629,722.00",25.07
+West Bengal,Medinipur west,Potato,Rabi,2022 - 2023,"71,974.00","1,927,186.00",26.78
+West Bengal,Murshidabad,Potato,Rabi,2009 - 2010,"11,899.00","370,671.00",31.15
+West Bengal,Murshidabad,Potato,Rabi,2010 - 2011,"12,249.00","367,960.00",30.04
+West Bengal,Murshidabad,Potato,Rabi,2011 - 2012,"11,052.00","291,666.00",26.39
+West Bengal,Murshidabad,Potato,Rabi,2012 - 2013,"13,073.00","364,716.00",27.90
+West Bengal,Murshidabad,Potato,Rabi,2013 - 2014,"13,191.00","298,857.00",22.66
+West Bengal,Murshidabad,Potato,Rabi,2014 - 2015,"11,769.00","392,480.00",33.35
+West Bengal,Murshidabad,Potato,Rabi,2015 - 2016,"10,465.00","243,793.00",23.30
+West Bengal,Murshidabad,Potato,Rabi,2016 - 2017,"10,723.00","350,337.00",32.67
+West Bengal,Murshidabad,Potato,Rabi,2017 - 2018,"11,930.00","420,724.00",35.27
+West Bengal,Murshidabad,Potato,Rabi,2018 - 2019,"11,696.00","404,317.00",34.57
+West Bengal,Murshidabad,Potato,Rabi,2019 - 2020,"11,789.00","355,452.00",30.15
+West Bengal,Murshidabad,Potato,Rabi,2020 - 2021,"13,466.00","445,266.00",33.07
+West Bengal,Murshidabad,Potato,Rabi,2021 - 2022,"13,004.00","421,244.00",32.39
+West Bengal,Murshidabad,Potato,Rabi,2022 - 2023,"14,169.00","432,640.00",30.53
+West Bengal,Nadia,Potato,Rabi,2009 - 2010,"5,008.00","153,624.00",30.68
+West Bengal,Nadia,Potato,Rabi,2010 - 2011,"7,073.00","193,100.00",27.30
+West Bengal,Nadia,Potato,Rabi,2011 - 2012,"5,241.00","162,258.00",30.96
+West Bengal,Nadia,Potato,Rabi,2012 - 2013,"5,566.00","177,584.00",31.91
+West Bengal,Nadia,Potato,Rabi,2013 - 2014,"5,034.00","153,990.00",30.59
+West Bengal,Nadia,Potato,Rabi,2014 - 2015,"5,357.00","218,442.00",40.78
+West Bengal,Nadia,Potato,Rabi,2015 - 2016,"3,633.00","91,711.00",25.24
+West Bengal,Nadia,Potato,Rabi,2016 - 2017,"5,655.00","178,538.00",31.57
+West Bengal,Nadia,Potato,Rabi,2017 - 2018,"4,496.00","171,083.00",38.05
+West Bengal,Nadia,Potato,Rabi,2018 - 2019,"4,717.00","170,012.00",36.04
+West Bengal,Nadia,Potato,Rabi,2019 - 2020,"4,808.00","167,361.00",34.81
+West Bengal,Nadia,Potato,Rabi,2020 - 2021,"5,245.00","196,348.00",37.44
+West Bengal,Nadia,Potato,Rabi,2021 - 2022,"5,803.00","186,030.00",32.06
+West Bengal,Nadia,Potato,Rabi,2022 - 2023,"5,228.00","169,688.00",32.46
+West Bengal,Paschim bardhaman,Potato,Rabi,2016 - 2017,396.00,"13,872.00",35.03
+West Bengal,Paschim bardhaman,Potato,Rabi,2017 - 2018,340.00,"12,186.00",35.84
+West Bengal,Paschim bardhaman,Potato,Rabi,2018 - 2019,468.00,"14,056.00",30.03
+West Bengal,Paschim bardhaman,Potato,Rabi,2019 - 2020,248.00,"8,329.00",33.58
+West Bengal,Paschim bardhaman,Potato,Rabi,2020 - 2021,264.00,"10,229.00",38.75
+West Bengal,Paschim bardhaman,Potato,Rabi,2021 - 2022,259.00,"9,422.00",36.38
+West Bengal,Paschim bardhaman,Potato,Rabi,2022 - 2023,272.00,"9,731.00",35.78
+West Bengal,Purba bardhaman,Potato,Rabi,2009 - 2010,"55,166.00","2,268,242.00",41.12
+West Bengal,Purba bardhaman,Potato,Rabi,2010 - 2011,"53,049.00","1,997,053.00",37.65
+West Bengal,Purba bardhaman,Potato,Rabi,2011 - 2012,"49,022.00","1,356,664.00",27.67
+West Bengal,Purba bardhaman,Potato,Rabi,2012 - 2013,"56,914.00","1,854,161.00",32.58
+West Bengal,Purba bardhaman,Potato,Rabi,2013 - 2014,"57,822.00","1,291,523.00",22.34
+West Bengal,Purba bardhaman,Potato,Rabi,2014 - 2015,"60,128.00","1,922,143.00",31.97
+West Bengal,Purba bardhaman,Potato,Rabi,2015 - 2016,"76,410.00","1,506,652.00",19.72
+West Bengal,Purba bardhaman,Potato,Rabi,2016 - 2017,"61,674.00","2,189,827.00",35.51
+West Bengal,Purba bardhaman,Potato,Rabi,2017 - 2018,"64,074.00","2,262,632.00",35.31
+West Bengal,Purba bardhaman,Potato,Rabi,2018 - 2019,"63,571.00","1,710,071.00",26.90
+West Bengal,Purba bardhaman,Potato,Rabi,2019 - 2020,"63,789.00","1,883,429.00",29.53
+West Bengal,Purba bardhaman,Potato,Rabi,2020 - 2021,"70,590.00","2,266,108.00",32.10
+West Bengal,Purba bardhaman,Potato,Rabi,2021 - 2022,"66,061.00","1,453,711.00",22.01
+West Bengal,Purba bardhaman,Potato,Rabi,2022 - 2023,"67,692.00","1,926,104.00",28.45
+West Bengal,Purulia,Potato,Rabi,2009 - 2010,"1,187.00","24,924.00",21.00
+West Bengal,Purulia,Potato,Rabi,2010 - 2011,977.00,"15,920.00",16.29
+West Bengal,Purulia,Potato,Rabi,2011 - 2012,"1,077.00","17,412.00",16.17
+West Bengal,Purulia,Potato,Rabi,2012 - 2013,913.00,"17,203.00",18.84
+West Bengal,Purulia,Potato,Rabi,2013 - 2014,"1,726.00","43,703.00",25.32
+West Bengal,Purulia,Potato,Rabi,2014 - 2015,477.00,"9,995.00",20.95
+West Bengal,Purulia,Potato,Rabi,2015 - 2016,351.00,"4,722.00",13.45
+West Bengal,Purulia,Potato,Rabi,2016 - 2017,"1,479.00","32,423.00",21.92
+West Bengal,Purulia,Potato,Rabi,2017 - 2018,"1,452.00","23,085.00",15.90
+West Bengal,Purulia,Potato,Rabi,2018 - 2019,"1,212.00","22,903.00",18.90
+West Bengal,Purulia,Potato,Rabi,2019 - 2020,"1,214.00","25,554.00",21.05
+West Bengal,Purulia,Potato,Rabi,2020 - 2021,"1,401.00","23,587.00",16.84
+West Bengal,Purulia,Potato,Rabi,2021 - 2022,"1,595.00","23,347.00",14.64
+West Bengal,Purulia,Potato,Rabi,2022 - 2023,"1,802.00","27,003.00",14.99
+West Bengal,24 paraganas north,Potato,Winter,1999 - 2000,"7,554.00","159,827.00",21.16
+West Bengal,24 paraganas north,Potato,Winter,2002 - 2003,"7,054.00","163,433.00",23.17
+West Bengal,24 paraganas south,Potato,Winter,1999 - 2000,"5,432.00","92,946.00",17.11
+West Bengal,24 paraganas south,Potato,Winter,2002 - 2003,"3,530.00","61,968.00",17.55
+West Bengal,Bankura,Potato,Winter,1999 - 2000,"25,994.00","637,808.00",24.54
+West Bengal,Bankura,Potato,Winter,2002 - 2003,"22,841.00","444,053.00",19.44
+West Bengal,Birbhum,Potato,Winter,1999 - 2000,"14,164.00","329,863.00",23.29
+West Bengal,Birbhum,Potato,Winter,2002 - 2003,"11,463.00","279,910.00",24.42
+West Bengal,Coochbehar,Potato,Winter,1999 - 2000,"14,272.00","336,188.00",23.56
+West Bengal,Coochbehar,Potato,Winter,2002 - 2003,"13,420.00","250,297.00",18.65
+West Bengal,Darjeeling,Potato,Winter,1999 - 2000,"4,621.00","57,279.00",12.40
+West Bengal,Darjeeling,Potato,Winter,2002 - 2003,"4,828.00","82,273.00",17.04
+West Bengal,Dinajpur dakshin,Potato,Winter,1999 - 2000,"3,384.00","46,914.00",13.86
+West Bengal,Dinajpur dakshin,Potato,Winter,2002 - 2003,"4,842.00","87,243.00",18.02
+West Bengal,Dinajpur uttar,Potato,Winter,1999 - 2000,"5,516.00","102,190.00",18.53
+West Bengal,Dinajpur uttar,Potato,Winter,2002 - 2003,"10,517.00","202,883.00",19.29
+West Bengal,Hooghly,Potato,Winter,1999 - 2000,"73,796.00","1,725,698.00",23.38
+West Bengal,Hooghly,Potato,Winter,2002 - 2003,"93,173.00","783,633.00",8.41
+West Bengal,Howrah,Potato,Winter,1999 - 2000,"9,620.00","219,297.00",22.80
+West Bengal,Howrah,Potato,Winter,2002 - 2003,"10,758.00","301,797.00",28.05
+West Bengal,Jalpaiguri,Potato,Winter,1999 - 2000,"14,490.00","329,191.00",22.72
+West Bengal,Jalpaiguri,Potato,Winter,2002 - 2003,"24,594.00","483,185.00",19.65
+West Bengal,Maldah,Potato,Winter,1999 - 2000,"2,495.00","45,009.00",18.04
+West Bengal,Maldah,Potato,Winter,2002 - 2003,"2,546.00","55,516.00",21.81
+West Bengal,Medinipur east,Potato,Winter,1999 - 2000,"22,767.00","530,201.00",23.29
+West Bengal,Medinipur east,Potato,Winter,2002 - 2003,"4,563.00","81,973.00",17.96
+West Bengal,Medinipur west,Potato,Winter,1999 - 2000,"50,314.00","1,332,062.00",26.47
+West Bengal,Medinipur west,Potato,Winter,2002 - 2003,"67,046.00","1,841,788.00",27.47
+West Bengal,Murshidabad,Potato,Winter,1999 - 2000,"8,674.00","178,339.00",20.56
+West Bengal,Murshidabad,Potato,Winter,2002 - 2003,"8,832.00","203,207.00",23.01
+West Bengal,Nadia,Potato,Winter,1999 - 2000,"3,709.00","65,943.00",17.78
+West Bengal,Nadia,Potato,Winter,2002 - 2003,"4,124.00","99,641.00",24.16
+West Bengal,Purba bardhaman,Potato,Winter,1999 - 2000,"45,192.00","1,242,083.00",27.48
+West Bengal,Purba bardhaman,Potato,Winter,2002 - 2003,"51,290.00","1,423,077.00",27.75
+West Bengal,Purulia,Potato,Winter,1999 - 2000,"1,379.00","18,265.00",13.25
+West Bengal,Purulia,Potato,Winter,2002 - 2003,"1,485.00","25,782.00",17.36
+West Bengal,24 paraganas north,Potato,Whole Year,1997 - 1998,"6,199.00","131,431.00",21.20
+West Bengal,24 paraganas north,Potato,Whole Year,1998 - 1999,"7,927.00","166,929.00",21.06
+West Bengal,24 paraganas north,Potato,Whole Year,2000 - 2001,"8,452.00","189,017.00",22.36
+West Bengal,24 paraganas north,Potato,Whole Year,2001 - 2002,"7,067.00","138,137.00",19.55
+West Bengal,24 paraganas north,Potato,Whole Year,2003 - 2004,"6,366.00","144,202.00",22.65
+West Bengal,24 paraganas north,Potato,Whole Year,2004 - 2005,"5,981.00","126,037.00",21.07
+West Bengal,24 paraganas north,Potato,Whole Year,2005 - 2006,"5,747.00","127,290.00",22.15
+West Bengal,24 paraganas north,Potato,Whole Year,2006 - 2007,"6,619.00","113,971.00",17.22
+West Bengal,24 paraganas north,Potato,Whole Year,2007 - 2008,"10,706.00","233,062.00",21.77
+West Bengal,24 paraganas north,Potato,Whole Year,2008 - 2009,"6,914.00","126,976.00",18.37
+West Bengal,24 paraganas south,Potato,Whole Year,1997 - 1998,"1,446.00","27,504.00",19.02
+West Bengal,24 paraganas south,Potato,Whole Year,1998 - 1999,"1,286.00","19,604.00",15.24
+West Bengal,24 paraganas south,Potato,Whole Year,2000 - 2001,"3,830.00","78,595.00",20.52
+West Bengal,24 paraganas south,Potato,Whole Year,2001 - 2002,"4,269.00","83,509.00",19.56
+West Bengal,24 paraganas south,Potato,Whole Year,2003 - 2004,"3,663.00","75,515.00",20.62
+West Bengal,24 paraganas south,Potato,Whole Year,2004 - 2005,"3,243.00","74,523.00",22.98
+West Bengal,24 paraganas south,Potato,Whole Year,2005 - 2006,"2,096.00","32,909.00",15.70
+West Bengal,24 paraganas south,Potato,Whole Year,2006 - 2007,"4,139.00","62,835.00",15.18
+West Bengal,24 paraganas south,Potato,Whole Year,2007 - 2008,"2,798.00","49,465.00",17.68
+West Bengal,24 paraganas south,Potato,Whole Year,2008 - 2009,"2,587.00","47,973.00",18.54
+West Bengal,Bankura,Potato,Whole Year,1997 - 1998,"18,942.00","387,721.00",20.47
+West Bengal,Bankura,Potato,Whole Year,1998 - 1999,"25,576.00","530,695.00",20.75
+West Bengal,Bankura,Potato,Whole Year,2000 - 2001,"21,458.00","571,263.00",26.62
+West Bengal,Bankura,Potato,Whole Year,2001 - 2002,"19,959.00","522,893.00",26.20
+West Bengal,Bankura,Potato,Whole Year,2003 - 2004,"15,673.00","370,718.00",23.65
+West Bengal,Bankura,Potato,Whole Year,2004 - 2005,"25,872.00","539,008.00",20.83
+West Bengal,Bankura,Potato,Whole Year,2005 - 2006,"28,054.00","650,235.00",23.18
+West Bengal,Bankura,Potato,Whole Year,2006 - 2007,"35,619.00","456,376.00",12.81
+West Bengal,Bankura,Potato,Whole Year,2007 - 2008,"41,900.00","941,729.00",22.48
+West Bengal,Bankura,Potato,Whole Year,2008 - 2009,"32,649.00","233,454.00",7.15
+West Bengal,Birbhum,Potato,Whole Year,1997 - 1998,"10,034.00","180,881.00",18.03
+West Bengal,Birbhum,Potato,Whole Year,1998 - 1999,"12,461.00","248,254.00",19.92
+West Bengal,Birbhum,Potato,Whole Year,2000 - 2001,"12,802.00","266,609.00",20.83
+West Bengal,Birbhum,Potato,Whole Year,2001 - 2002,"12,608.00","273,168.00",21.67
+West Bengal,Birbhum,Potato,Whole Year,2003 - 2004,"9,805.00","206,559.00",21.07
+West Bengal,Birbhum,Potato,Whole Year,2004 - 2005,"11,195.00","214,258.00",19.14
+West Bengal,Birbhum,Potato,Whole Year,2005 - 2006,"13,796.00","282,973.00",20.51
+West Bengal,Birbhum,Potato,Whole Year,2006 - 2007,"16,537.00","141,185.00",8.54
+West Bengal,Birbhum,Potato,Whole Year,2007 - 2008,"17,798.00","393,540.00",22.11
+West Bengal,Birbhum,Potato,Whole Year,2008 - 2009,"18,702.00","140,142.00",7.49
+West Bengal,Coochbehar,Potato,Whole Year,1997 - 1998,"14,158.00","257,728.00",18.20
+West Bengal,Coochbehar,Potato,Whole Year,1998 - 1999,"25,672.00","583,100.00",22.71
+West Bengal,Coochbehar,Potato,Whole Year,2000 - 2001,"12,231.00","281,697.00",23.03
+West Bengal,Coochbehar,Potato,Whole Year,2001 - 2002,"11,217.00","275,060.00",24.52
+West Bengal,Coochbehar,Potato,Whole Year,2003 - 2004,"10,673.00","262,101.00",24.56
+West Bengal,Coochbehar,Potato,Whole Year,2004 - 2005,"16,849.00","427,920.00",25.40
+West Bengal,Coochbehar,Potato,Whole Year,2005 - 2006,"24,068.00","242,966.00",10.09
+West Bengal,Coochbehar,Potato,Whole Year,2006 - 2007,"24,121.00","273,044.00",11.32
+West Bengal,Coochbehar,Potato,Whole Year,2007 - 2008,"18,639.00","478,949.00",25.70
+West Bengal,Coochbehar,Potato,Whole Year,2008 - 2009,"27,505.00","340,272.00",12.37
+West Bengal,Darjeeling,Potato,Whole Year,1997 - 1998,"6,868.00","98,644.00",14.36
+West Bengal,Darjeeling,Potato,Whole Year,1998 - 1999,"6,946.00","88,230.00",12.70
+West Bengal,Darjeeling,Potato,Whole Year,2000 - 2001,"7,067.00","97,235.00",13.76
+West Bengal,Darjeeling,Potato,Whole Year,2001 - 2002,"7,259.00","98,646.00",13.59
+West Bengal,Darjeeling,Potato,Whole Year,2003 - 2004,"6,823.00","102,687.00",15.05
+West Bengal,Darjeeling,Potato,Whole Year,2004 - 2005,"6,709.00","98,099.00",14.62
+West Bengal,Darjeeling,Potato,Whole Year,2005 - 2006,"6,642.00","108,476.00",16.33
+West Bengal,Darjeeling,Potato,Whole Year,2006 - 2007,"6,711.00","110,401.00",16.45
+West Bengal,Darjeeling,Potato,Whole Year,2007 - 2008,"7,174.00","109,189.00",15.22
+West Bengal,Darjeeling,Potato,Whole Year,2008 - 2009,"7,318.00","123,995.00",16.94
+West Bengal,Dinajpur dakshin,Potato,Whole Year,1997 - 1998,"2,897.00","40,766.00",14.07
+West Bengal,Dinajpur dakshin,Potato,Whole Year,1998 - 1999,"3,097.00","41,823.00",13.50
+West Bengal,Dinajpur dakshin,Potato,Whole Year,2000 - 2001,"4,796.00","87,780.00",18.30
+West Bengal,Dinajpur dakshin,Potato,Whole Year,2001 - 2002,"4,689.00","66,529.00",14.19
+West Bengal,Dinajpur dakshin,Potato,Whole Year,2003 - 2004,"3,460.00","65,034.00",18.80
+West Bengal,Dinajpur dakshin,Potato,Whole Year,2004 - 2005,"2,861.00","56,043.00",19.59
+West Bengal,Dinajpur dakshin,Potato,Whole Year,2005 - 2006,"3,004.00","59,252.00",19.72
+West Bengal,Dinajpur dakshin,Potato,Whole Year,2006 - 2007,"2,861.00","42,124.00",14.72
+West Bengal,Dinajpur dakshin,Potato,Whole Year,2007 - 2008,"3,884.00","92,451.00",23.80
+West Bengal,Dinajpur dakshin,Potato,Whole Year,2008 - 2009,"4,841.00","86,286.00",17.82
+West Bengal,Dinajpur uttar,Potato,Whole Year,1997 - 1998,"4,081.00","70,337.00",17.24
+West Bengal,Dinajpur uttar,Potato,Whole Year,1998 - 1999,"6,043.00","98,237.00",16.26
+West Bengal,Dinajpur uttar,Potato,Whole Year,2000 - 2001,"6,739.00","133,361.00",19.79
+West Bengal,Dinajpur uttar,Potato,Whole Year,2001 - 2002,"6,273.00","116,272.00",18.54
+West Bengal,Dinajpur uttar,Potato,Whole Year,2003 - 2004,"8,730.00","167,288.00",19.16
+West Bengal,Dinajpur uttar,Potato,Whole Year,2004 - 2005,"7,582.00","150,657.00",19.87
+West Bengal,Dinajpur uttar,Potato,Whole Year,2005 - 2006,"8,360.00","167,021.00",19.98
+West Bengal,Dinajpur uttar,Potato,Whole Year,2006 - 2007,"8,096.00","109,770.00",13.56
+West Bengal,Dinajpur uttar,Potato,Whole Year,2007 - 2008,"8,705.00","247,306.00",28.41
+West Bengal,Dinajpur uttar,Potato,Whole Year,2008 - 2009,"9,054.00","166,522.00",18.39
+West Bengal,Hooghly,Potato,Whole Year,1997 - 1998,"79,132.00","1,520,293.00",19.21
+West Bengal,Hooghly,Potato,Whole Year,1998 - 1999,"80,028.00","1,645,632.00",20.56
+West Bengal,Hooghly,Potato,Whole Year,2000 - 2001,"80,618.00","2,337,693.00",29.00
+West Bengal,Hooghly,Potato,Whole Year,2001 - 2002,"79,526.00","2,356,389.00",29.63
+West Bengal,Hooghly,Potato,Whole Year,2003 - 2004,"90,335.00","2,410,963.00",26.69
+West Bengal,Hooghly,Potato,Whole Year,2004 - 2005,"87,976.00","1,807,873.00",20.55
+West Bengal,Hooghly,Potato,Whole Year,2005 - 2006,"92,174.00","2,350,043.00",25.50
+West Bengal,Hooghly,Potato,Whole Year,2006 - 2007,"96,680.00","1,065,693.00",11.02
+West Bengal,Hooghly,Potato,Whole Year,2007 - 2008,"94,824.00","2,465,212.00",26.00
+West Bengal,Hooghly,Potato,Whole Year,2008 - 2009,"94,759.00","881,590.00",9.30
+West Bengal,Howrah,Potato,Whole Year,1997 - 1998,"8,669.00","194,873.00",22.48
+West Bengal,Howrah,Potato,Whole Year,1998 - 1999,"7,130.00","141,921.00",19.90
+West Bengal,Howrah,Potato,Whole Year,2000 - 2001,"9,173.00","246,927.00",26.92
+West Bengal,Howrah,Potato,Whole Year,2001 - 2002,"7,342.00","198,417.00",27.02
+West Bengal,Howrah,Potato,Whole Year,2003 - 2004,"6,733.00","177,332.00",26.34
+West Bengal,Howrah,Potato,Whole Year,2004 - 2005,"6,142.00","150,051.00",24.43
+West Bengal,Howrah,Potato,Whole Year,2005 - 2006,"7,336.00","214,027.00",29.17
+West Bengal,Howrah,Potato,Whole Year,2006 - 2007,"8,684.00","74,787.00",8.61
+West Bengal,Howrah,Potato,Whole Year,2007 - 2008,"8,032.00","231,271.00",28.79
+West Bengal,Howrah,Potato,Whole Year,2008 - 2009,"6,644.00","66,045.00",9.94
+West Bengal,Jalpaiguri,Potato,Whole Year,1997 - 1998,"12,558.00","238,866.00",19.02
+West Bengal,Jalpaiguri,Potato,Whole Year,1998 - 1999,"14,456.00","258,778.00",17.90
+West Bengal,Jalpaiguri,Potato,Whole Year,2000 - 2001,"14,278.00","308,946.00",21.64
+West Bengal,Jalpaiguri,Potato,Whole Year,2001 - 2002,"14,289.00","314,924.00",22.04
+West Bengal,Jalpaiguri,Potato,Whole Year,2003 - 2004,"20,928.00","459,292.00",21.95
+West Bengal,Jalpaiguri,Potato,Whole Year,2004 - 2005,"24,786.00","577,173.00",23.29
+West Bengal,Jalpaiguri,Potato,Whole Year,2005 - 2006,"25,602.00","348,555.00",13.61
+West Bengal,Jalpaiguri,Potato,Whole Year,2006 - 2007,"33,699.00","574,188.00",17.04
+West Bengal,Jalpaiguri,Potato,Whole Year,2007 - 2008,"32,507.00","905,789.00",27.86
+West Bengal,Jalpaiguri,Potato,Whole Year,2008 - 2009,"30,087.00","506,684.00",16.84
+West Bengal,Maldah,Potato,Whole Year,1997 - 1998,"2,254.00","41,768.00",18.53
+West Bengal,Maldah,Potato,Whole Year,1998 - 1999,"2,487.00","41,946.00",16.87
+West Bengal,Maldah,Potato,Whole Year,2000 - 2001,"2,429.00","42,852.00",17.64
+West Bengal,Maldah,Potato,Whole Year,2001 - 2002,"2,497.00","44,542.00",17.84
+West Bengal,Maldah,Potato,Whole Year,2003 - 2004,"2,554.00","52,203.00",20.44
+West Bengal,Maldah,Potato,Whole Year,2004 - 2005,"2,526.00","48,844.00",19.34
+West Bengal,Maldah,Potato,Whole Year,2005 - 2006,"2,524.00","38,474.00",15.24
+West Bengal,Maldah,Potato,Whole Year,2006 - 2007,"2,751.00","46,056.00",16.74
+West Bengal,Maldah,Potato,Whole Year,2007 - 2008,"2,877.00","75,975.00",26.41
+West Bengal,Maldah,Potato,Whole Year,2008 - 2009,"3,565.00","52,674.00",14.78
+West Bengal,Medinipur east,Potato,Whole Year,1997 - 1998,"18,011.00","40,868.00",2.27
+West Bengal,Medinipur east,Potato,Whole Year,1998 - 1999,"21,740.00","493,787.00",22.71
+West Bengal,Medinipur east,Potato,Whole Year,2000 - 2001,"20,617.00","441,696.00",21.42
+West Bengal,Medinipur east,Potato,Whole Year,2001 - 2002,"22,106.00","487,970.00",22.07
+West Bengal,Medinipur east,Potato,Whole Year,2003 - 2004,"2,792.00","48,528.00",17.38
+West Bengal,Medinipur east,Potato,Whole Year,2004 - 2005,"3,462.00","56,698.00",16.38
+West Bengal,Medinipur east,Potato,Whole Year,2005 - 2006,"3,253.00","56,901.00",17.49
+West Bengal,Medinipur east,Potato,Whole Year,2006 - 2007,"4,711.00","49,611.00",10.53
+West Bengal,Medinipur east,Potato,Whole Year,2007 - 2008,"4,568.00","76,242.00",16.69
+West Bengal,Medinipur east,Potato,Whole Year,2008 - 2009,"4,070.00","73,751.00",18.12
+West Bengal,Medinipur west,Potato,Whole Year,1997 - 1998,"44,109.00","1,165,840.00",26.43
+West Bengal,Medinipur west,Potato,Whole Year,1998 - 1999,"48,313.00","1,121,718.00",23.22
+West Bengal,Medinipur west,Potato,Whole Year,2000 - 2001,"39,842.00","1,154,904.00",28.99
+West Bengal,Medinipur west,Potato,Whole Year,2001 - 2002,"47,133.00","1,335,442.00",28.33
+West Bengal,Medinipur west,Potato,Whole Year,2003 - 2004,"61,080.00","1,547,504.00",25.34
+West Bengal,Medinipur west,Potato,Whole Year,2004 - 2005,"56,673.00","1,268,695.00",22.39
+West Bengal,Medinipur west,Potato,Whole Year,2005 - 2006,"71,334.00","1,519,588.00",21.30
+West Bengal,Medinipur west,Potato,Whole Year,2006 - 2007,"79,435.00","843,729.00",10.62
+West Bengal,Medinipur west,Potato,Whole Year,2007 - 2008,"70,653.00","1,874,358.00",26.53
+West Bengal,Medinipur west,Potato,Whole Year,2008 - 2009,"63,622.00","557,342.00",8.76
+West Bengal,Murshidabad,Potato,Whole Year,1997 - 1998,"6,964.00","141,500.00",20.32
+West Bengal,Murshidabad,Potato,Whole Year,1998 - 1999,"8,590.00","169,781.00",19.76
+West Bengal,Murshidabad,Potato,Whole Year,2000 - 2001,"8,869.00","213,689.00",24.09
+West Bengal,Murshidabad,Potato,Whole Year,2001 - 2002,"7,614.00","174,357.00",22.90
+West Bengal,Murshidabad,Potato,Whole Year,2003 - 2004,"7,405.00","170,658.00",23.05
+West Bengal,Murshidabad,Potato,Whole Year,2004 - 2005,"10,332.00","245,563.00",23.77
+West Bengal,Murshidabad,Potato,Whole Year,2005 - 2006,"10,341.00","178,617.00",17.27
+West Bengal,Murshidabad,Potato,Whole Year,2006 - 2007,"10,677.00","106,745.00",10.00
+West Bengal,Murshidabad,Potato,Whole Year,2007 - 2008,"14,667.00","269,918.00",18.40
+West Bengal,Murshidabad,Potato,Whole Year,2008 - 2009,"12,203.00","119,996.00",9.83
+West Bengal,Nadia,Potato,Whole Year,1997 - 1998,"5,337.00","112,885.00",21.15
+West Bengal,Nadia,Potato,Whole Year,1998 - 1999,"4,823.00","98,541.00",20.43
+West Bengal,Nadia,Potato,Whole Year,2000 - 2001,"3,450.00","93,148.00",27.00
+West Bengal,Nadia,Potato,Whole Year,2001 - 2002,"4,414.00","106,164.00",24.05
+West Bengal,Nadia,Potato,Whole Year,2003 - 2004,"3,867.00","95,731.00",24.76
+West Bengal,Nadia,Potato,Whole Year,2004 - 2005,"4,321.00","108,290.00",25.06
+West Bengal,Nadia,Potato,Whole Year,2005 - 2006,"5,495.00","147,513.00",26.84
+West Bengal,Nadia,Potato,Whole Year,2006 - 2007,"5,656.00","120,151.00",21.24
+West Bengal,Nadia,Potato,Whole Year,2007 - 2008,"5,572.00","114,188.00",20.49
+West Bengal,Nadia,Potato,Whole Year,2008 - 2009,"5,039.00","85,192.00",16.91
+West Bengal,Purba bardhaman,Potato,Whole Year,1997 - 1998,"40,940.00","909,752.00",22.22
+West Bengal,Purba bardhaman,Potato,Whole Year,1998 - 1999,"40,091.00","917,831.00",22.89
+West Bengal,Purba bardhaman,Potato,Whole Year,2000 - 2001,"42,147.00","1,114,960.00",26.45
+West Bengal,Purba bardhaman,Potato,Whole Year,2001 - 2002,"40,622.00","1,217,286.00",29.97
+West Bengal,Purba bardhaman,Potato,Whole Year,2003 - 2004,"45,513.00","1,235,003.00",27.14
+West Bengal,Purba bardhaman,Potato,Whole Year,2004 - 2005,"42,413.00","1,132,542.00",26.70
+West Bengal,Purba bardhaman,Potato,Whole Year,2005 - 2006,"43,351.00","921,168.00",21.25
+West Bengal,Purba bardhaman,Potato,Whole Year,2006 - 2007,"59,443.00","845,521.00",14.22
+West Bengal,Purba bardhaman,Potato,Whole Year,2007 - 2008,"54,359.00","1,332,880.00",24.52
+West Bengal,Purba bardhaman,Potato,Whole Year,2008 - 2009,"55,655.00","495,783.00",8.91
+West Bengal,Purulia,Potato,Whole Year,1997 - 1998,"1,416.00","19,896.00",14.05
+West Bengal,Purulia,Potato,Whole Year,1998 - 1999,"1,533.00","22,829.00",14.89
+West Bengal,Purulia,Potato,Whole Year,2000 - 2001,866.00,"12,758.00",14.73
+West Bengal,Purulia,Potato,Whole Year,2001 - 2002,937.00,"12,658.00",13.51
+West Bengal,Purulia,Potato,Whole Year,2003 - 2004,"2,025.00","30,317.00",14.97
+West Bengal,Purulia,Potato,Whole Year,2004 - 2005,"1,629.00","24,307.00",14.92
+West Bengal,Purulia,Potato,Whole Year,2005 - 2006,"1,278.00","16,456.00",12.88
+West Bengal,Purulia,Potato,Whole Year,2006 - 2007,"1,502.00","15,775.00",10.50
+West Bengal,Purulia,Potato,Whole Year,2007 - 2008,"1,123.00","9,322.00",8.30
+West Bengal,Purulia,Potato,Whole Year,2008 - 2009,767.00,"16,512.00",21.53
+West Bengal,Darjeeling,Potato,Summer,1999 - 2000,"2,478.00","33,214.00",13.40
+West Bengal,Darjeeling,Potato,Summer,2002 - 2003,"2,395.00","30,807.00",12.86
+West Bengal,Darjeeling,Potato,Summer,2009 - 2010,"2,430.00","30,132.00",12.40
+West Bengal,Darjeeling,Potato,Summer,2010 - 2011,"2,440.00","29,768.00",12.20
+West Bengal,Darjeeling,Potato,Summer,2011 - 2012,"2,455.00","29,706.00",12.10
+West Bengal,Darjeeling,Potato,Summer,2012 - 2013,"2,446.00","29,352.00",12.00
+West Bengal,Darjeeling,Potato,Summer,2013 - 2014,"2,446.00","29,352.00",12.00
+West Bengal,Darjeeling,Potato,Summer,2014 - 2015,"2,445.00","29,340.00",12.00
+West Bengal,Darjeeling,Potato,Summer,2015 - 2016,"2,445.00","29,462.00",12.05
+West Bengal,Darjeeling,Potato,Summer,2016 - 2017,"2,395.00","24,549.00",10.25
+West Bengal,Darjeeling,Potato,Summer,2017 - 2018,"1,100.00","12,320.00",11.20
+West Bengal,Darjeeling,Potato,Summer,2018 - 2019,"1,610.00","19,320.00",12.00
+West Bengal,Darjeeling,Potato,Summer,2019 - 2020,"1,610.00","19,320.00",12.00
+West Bengal,Darjeeling,Potato,Summer,2020 - 2021,"1,525.00","19,063.00",12.50
+West Bengal,Darjeeling,Potato,Summer,2021 - 2022,695.00,"8,340.00",12.00
+West Bengal,Darjeeling,Potato,Summer,2022 - 2023,"2,820.00","30,668.00",10.88
+West Bengal,Kalimpong,Potato,Summer,2016 - 2017,195.00,780.00,4.00
+West Bengal,Kalimpong,Potato,Summer,2017 - 2018,30.00,120.00,4.00
+West Bengal,Kalimpong,Potato,Summer,2018 - 2019,25.00,101.00,4.04
+West Bengal,Kalimpong,Potato,Summer,2019 - 2020,20.00,101.00,5.05
+West Bengal,Kalimpong,Potato,Summer,2020 - 2021,20.00,110.00,5.50
+West Bengal,Kalimpong,Potato,Summer,2021 - 2022,20.00,110.00,5.50
+West Bengal,Kalimpong,Potato,Summer,2022 - 2023,20.00,110.00,5.50

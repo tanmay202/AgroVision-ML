@@ -1,0 +1,50 @@
+{
+  "model_name": "m1_wheat_ridge",
+  "crop": "wheat",
+  "release_status": "EXPERIMENTAL",
+  "artifact_filename": "m1_wheat_ridge.pkl",
+  "artifact_sha256": "37755a521ef80b46e2884dc39159a350b4aab9f513136882684383a815a46376",
+  "architecture": "Ridge Regression (StandardScaler + Target Encoded District)",
+  "hyperparameters": {
+    "alpha": 10.0,
+    "random_state": 42
+  },
+  "target": "yield_kg_per_ha",
+  "season": "Rabi",
+  "season_start": "Nov 15",
+  "cutoff_date": "Jan 31",
+  "training_rows": 421,
+  "feature_cols": [
+    "yield_lag1",
+    "yield_lag2",
+    "yield_roll_mean3",
+    "log_area_lag1",
+    "dist_mean",
+    "precip_cum",
+    "precip_mean",
+    "precip_days",
+    "t2m_mean",
+    "t2m_min",
+    "t2m_max",
+    "t2m_range",
+    "solar_mean",
+    "rh2m_mean",
+    "ws2m_mean",
+    "gdd_base5",
+    "heat_stress_days_28",
+    "heat_stress_days_30"
+  ],
+  "evaluation_metrics": {
+    "p10": -572.96789334718,
+    "p25": -306.11911025880147,
+    "p50": 13.318387882221032,
+    "p75": 381.02468306195567,
+    "p90": 655.4409234752295,
+    "std": 506.76954082632506,
+    "mae": 405.37045838646037,
+    "rmse": 509.0440101940138,
+    "r2": 0.26075776266788475,
+    "n_holdout": 98
+  },
+  "created_at": "2026-11-17T04:20:46.091243+00:00"
+}

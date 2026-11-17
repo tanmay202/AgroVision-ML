@@ -1,0 +1,53 @@
+{
+  "model_name": "m1_potato_catboost",
+  "crop": "potato",
+  "release_status": "EXPERIMENTAL",
+  "artifact_filename": "m1_potato_catboost.pkl",
+  "artifact_sha256": "e21a28f270350ae4dd1527546e9c7722bf94eb02ae4248a1af70ae0174974b6f",
+  "architecture": "CatBoost Regressor (depth=4, lr=0.05, 100 iters)",
+  "hyperparameters": {
+    "iterations": 100,
+    "depth": 4,
+    "learning_rate": 0.05,
+    "random_seed": 42
+  },
+  "target": "yield_kg_per_ha",
+  "season": "Rabi",
+  "season_start": "Nov 1",
+  "cutoff_date": "Jan 31",
+  "training_rows": 426,
+  "feature_cols": [
+    "yield_lag1",
+    "yield_lag2",
+    "yield_roll_mean3",
+    "log_area_lag1",
+    "dist_mean",
+    "precip_cum",
+    "precip_mean",
+    "precip_days",
+    "t2m_mean",
+    "t2m_min",
+    "t2m_max",
+    "t2m_range",
+    "solar_mean",
+    "rh2m_mean",
+    "ws2m_mean",
+    "gdd_base5",
+    "cool_night_days_16",
+    "cool_night_days_14",
+    "late_blight_risk_days"
+  ],
+  "evaluation_metrics": {
+    "p10": -5783.427953441648,
+    "p25": -2770.065950711344,
+    "p50": 847.9627132490605,
+    "p75": 3693.977096852487,
+    "p90": 5641.866533000899,
+    "std": 4739.221230968661,
+    "mae": 3834.716078258277,
+    "rmse": 4746.2662996833615,
+    "r2": 0.6582897203622863,
+    "n_holdout": 102
+  },
+  "created_at": "2026-11-17T04:20:56.732634+00:00"
+}

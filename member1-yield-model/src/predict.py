@@ -31,11 +31,32 @@ from predict_rice_yield import (  # noqa: E402
     INSEASON_FEATURE_COLUMNS,
 )
 
+from weather_service import (  # noqa: E402
+    NASAWeatherService,
+    get_weather_service,
+)
+
+from wheat_predict import (  # noqa: E402
+    WheatYieldPredictor,
+    predict_wheat_yield,
+)
+
+from potato_predict import (  # noqa: E402
+    PotatoYieldPredictor,
+    predict_potato_yield,
+)
+
 __all__ = [
     "RiceYieldPredictor",
     "predict_rice_yield",
     "load_model",
     "predict_yield",
+    "WheatYieldPredictor",
+    "predict_wheat_yield",
+    "PotatoYieldPredictor",
+    "predict_potato_yield",
+    "NASAWeatherService",
+    "get_weather_service",
     "ALL_FEATURES",
     "NUMERICAL_FEATURES",
     "CATEGORICAL_FEATURES",

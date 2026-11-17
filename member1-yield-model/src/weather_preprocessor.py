@@ -42,6 +42,22 @@ INSEASON_FEATURE_COLUMNS = [
     'InSeason_Wind_Mean',
 ]
 
+# Canonical feature names for Wheat yield modeling
+WHEAT_FEATURE_COLUMNS = [
+    'precip_cum', 'precip_mean', 'precip_days',
+    't2m_mean', 't2m_min', 't2m_max', 't2m_range',
+    'solar_mean', 'rh2m_mean', 'ws2m_mean', 'gdd_base5',
+    'heat_stress_days_28', 'heat_stress_days_30'
+]
+
+# Canonical feature names for Potato yield modeling
+POTATO_FEATURE_COLUMNS = [
+    'precip_cum', 'precip_mean', 'precip_days',
+    't2m_mean', 't2m_min', 't2m_max', 't2m_range',
+    'solar_mean', 'rh2m_mean', 'ws2m_mean', 'gdd_base5',
+    'cool_night_days_16', 'cool_night_days_14', 'late_blight_risk_days'
+]
+
 # Season cutoff specifications for West Bengal rice (verified against build_inseason_features.py)
 SEASON_CONFIG = {
     'Autumn': {
@@ -179,14 +195,31 @@ def normalize_season_name(val: Any) -> str:
     return s.title()
 
 
-def get_season_window(year: int, season: str) -> Tuple[pd.Timestamp, pd.Timestamp, int]:
+def get_season_window(year: int, season: str, crop: str = "rice") -> Tuple[pd.Timestamp, pd.Timestamp, int]:
     """
     Returns (start_date, cutoff_date, expected_days) for a given crop year and season.
 
-    Autumn (Aus):  May 1, year to July 31, year (92 days)
-    Winter (Aman): June 1, year to Sep 30, year (122 days)
-    Summer (Boro): Nov 1, year-1 to Feb 28, year (120 days)
+    Rice:
+        Autumn (Aus):  May 1, year to July 31, year (92 days)
+        Winter (Aman): June 1, year to Sep 30, year (122 days)
+        Summer (Boro): Nov 1, year-1 to Feb 28, year (120 days)
+    Wheat:
+        Rabi: Nov 15, year-1 to Jan 31, year (78 days)
+    Potato:
+        Rabi: Nov 1, year-1 to Jan 31, year (92 days)
     """
+    c = str(crop).strip().lower() if crop else "rice"
+    if c == "wheat":
+        start_date = pd.Timestamp(datetime(year - 1, 11, 15))
+        cutoff_date = pd.Timestamp(datetime(year, 1, 31, 23, 59, 59))
+        expected_days = (cutoff_date.floor('D') - start_date.floor('D')).days + 1
+        return start_date, cutoff_date, expected_days
+    elif c == "potato":
+        start_date = pd.Timestamp(datetime(year - 1, 11, 1))
+        cutoff_date = pd.Timestamp(datetime(year, 1, 31, 23, 59, 59))
+        expected_days = (cutoff_date.floor('D') - start_date.floor('D')).days + 1
+        return start_date, cutoff_date, expected_days
+
     canon_season = normalize_season_name(season)
     if canon_season not in SEASON_CONFIG:
         raise ValueError(f"Unknown season '{season}'. Expected one of {list(SEASON_CONFIG.keys())}")
@@ -526,4 +559,244 @@ def preprocess_inseason_weather(
         "is_complete": is_complete,
         "metadata": metadata,
         "warnings": warnings,
+    }
+
+
+def preprocess_wheat_weather(
+    daily_weather: Union[pd.DataFrame, List[Dict[str, Any]]],
+    district: str,
+    year: int,
+    max_allowed_date: Optional[Union[str, pd.Timestamp]] = None,
+) -> Dict[str, Any]:
+    """
+    Preprocess daily weather for Rabi Wheat yield forecasting up to Jan 31 cutoff.
+    """
+    canon_district = normalize_district_name(district)
+    start_date, cutoff_date, expected_days = get_season_window(year, 'Rabi', crop='wheat')
+    effective_cutoff = cutoff_date
+    if max_allowed_date is not None:
+        m_dt = pd.to_datetime(max_allowed_date).normalize()
+        if m_dt < effective_cutoff:
+            effective_cutoff = m_dt
+
+    warnings = []
+    if isinstance(daily_weather, list):
+        df = pd.DataFrame(daily_weather)
+    elif isinstance(daily_weather, pd.DataFrame):
+        df = daily_weather.copy()
+    else:
+        return {
+            "features": {c: np.nan for c in WHEAT_FEATURE_COLUMNS},
+            "is_complete": False,
+            "metadata": {"district": canon_district, "year": year, "crop": "wheat"},
+            "warnings": ["daily_weather must be a DataFrame or list of dicts"]
+        }
+
+    date_col = None
+    for cand in ['Date', 'date', 'DATE', 'timestamp', 'datetime', 'Reported Date', 'observation_date']:
+        if cand in df.columns:
+            date_col = cand
+            break
+    if not date_col:
+        return {
+            "features": {c: np.nan for c in WHEAT_FEATURE_COLUMNS},
+            "is_complete": False,
+            "metadata": {"district": canon_district, "year": year, "crop": "wheat"},
+            "warnings": ["No date column found"]
+        }
+
+    df['Date'] = pd.to_datetime(df[date_col], errors='coerce').dt.normalize()
+    df = df.dropna(subset=['Date'])
+
+    # District filter if present
+    dist_col = None
+    for c in ['District', 'district', 'District_Name', 'district_name']:
+        if c in df.columns:
+            dist_col = c
+            break
+    if dist_col:
+        df_dist = df[df[dist_col].apply(normalize_district_name) == canon_district]
+        if not df_dist.empty:
+            df = df_dist
+
+    # Filter strictly within window
+    mask = (df['Date'] >= start_date) & (df['Date'] <= effective_cutoff)
+    df_sub = df.loc[mask].sort_values('Date').drop_duplicates(subset=['Date'], keep='last').copy()
+    observed_days = len(df_sub)
+
+    # Standardize params
+    param_map = {}
+    for p in ['PRECTOTCORR', 'T2M', 'T2M_MIN', 'T2M_MAX', 'RH2M', 'ALLSKY_SFC_SW_DWN', 'WS2M']:
+        col = _find_column(df.columns.tolist(), p)
+        if col:
+            param_map[p] = col
+
+    for p, c in param_map.items():
+        df_sub[p] = pd.to_numeric(df_sub[c], errors='coerce').replace(-999.0, np.nan)
+
+    t2m = df_sub.get('T2M', pd.Series(dtype=float))
+    tmax = df_sub.get('T2M_MAX', pd.Series(dtype=float))
+    tmin = df_sub.get('T2M_MIN', pd.Series(dtype=float))
+    precip = df_sub.get('PRECTOTCORR', pd.Series(dtype=float))
+    rh = df_sub.get('RH2M', pd.Series(dtype=float))
+    solar = df_sub.get('ALLSKY_SFC_SW_DWN', pd.Series(dtype=float))
+    ws = df_sub.get('WS2M', pd.Series(dtype=float))
+
+    def _val(x):
+        if pd.isna(x) or np.isinf(x):
+            return np.nan
+        return round(float(x), 4)
+
+    features = {
+        'precip_cum': _val(precip.sum()),
+        'precip_mean': _val(precip.mean()),
+        'precip_days': int((precip >= 1.0).sum()) if not precip.empty else 0,
+        't2m_mean': _val(t2m.mean()),
+        't2m_min': _val(tmin.mean()),
+        't2m_max': _val(tmax.mean()),
+        't2m_range': _val((tmax - tmin).mean()),
+        'solar_mean': _val(solar.mean()),
+        'rh2m_mean': _val(rh.mean()),
+        'ws2m_mean': _val(ws.mean()),
+        'gdd_base5': _val(np.maximum(0, t2m - 5.0).sum()),
+        'heat_stress_days_28': int((tmax >= 28.0).sum()) if not tmax.empty else 0,
+        'heat_stress_days_30': int((tmax >= 30.0).sum()) if not tmax.empty else 0,
+    }
+
+    missing_cols = [k for k, v in features.items() if pd.isna(v)]
+    is_complete = (len(missing_cols) == 0 and observed_days >= (expected_days * 0.7))
+
+    return {
+        "features": features,
+        "is_complete": is_complete,
+        "metadata": {
+            "crop": "wheat",
+            "district": canon_district,
+            "year": year,
+            "season": "Rabi",
+            "cutoff_date": cutoff_date.strftime("%Y-%m-%d"),
+            "expected_days": expected_days,
+            "observed_days": observed_days,
+            "missing_features": missing_cols
+        },
+        "warnings": warnings
+    }
+
+
+def preprocess_potato_weather(
+    daily_weather: Union[pd.DataFrame, List[Dict[str, Any]]],
+    district: str,
+    year: int,
+    max_allowed_date: Optional[Union[str, pd.Timestamp]] = None,
+) -> Dict[str, Any]:
+    """
+    Preprocess daily weather for Rabi Potato yield forecasting up to Jan 31 cutoff.
+    """
+    canon_district = normalize_district_name(district)
+    start_date, cutoff_date, expected_days = get_season_window(year, 'Rabi', crop='potato')
+    effective_cutoff = cutoff_date
+    if max_allowed_date is not None:
+        m_dt = pd.to_datetime(max_allowed_date).normalize()
+        if m_dt < effective_cutoff:
+            effective_cutoff = m_dt
+
+    warnings = []
+    if isinstance(daily_weather, list):
+        df = pd.DataFrame(daily_weather)
+    elif isinstance(daily_weather, pd.DataFrame):
+        df = daily_weather.copy()
+    else:
+        return {
+            "features": {c: np.nan for c in POTATO_FEATURE_COLUMNS},
+            "is_complete": False,
+            "metadata": {"district": canon_district, "year": year, "crop": "potato"},
+            "warnings": ["daily_weather must be a DataFrame or list of dicts"]
+        }
+
+    date_col = None
+    for cand in ['Date', 'date', 'DATE', 'timestamp', 'datetime', 'Reported Date', 'observation_date']:
+        if cand in df.columns:
+            date_col = cand
+            break
+    if not date_col:
+        return {
+            "features": {c: np.nan for c in POTATO_FEATURE_COLUMNS},
+            "is_complete": False,
+            "metadata": {"district": canon_district, "year": year, "crop": "potato"},
+            "warnings": ["No date column found"]
+        }
+
+    df['Date'] = pd.to_datetime(df[date_col], errors='coerce').dt.normalize()
+    df = df.dropna(subset=['Date'])
+
+    dist_col = None
+    for c in ['District', 'district', 'District_Name', 'district_name']:
+        if c in df.columns:
+            dist_col = c
+            break
+    if dist_col:
+        df_dist = df[df[dist_col].apply(normalize_district_name) == canon_district]
+        if not df_dist.empty:
+            df = df_dist
+
+    mask = (df['Date'] >= start_date) & (df['Date'] <= effective_cutoff)
+    df_sub = df.loc[mask].sort_values('Date').drop_duplicates(subset=['Date'], keep='last').copy()
+    observed_days = len(df_sub)
+
+    param_map = {}
+    for p in ['PRECTOTCORR', 'T2M', 'T2M_MIN', 'T2M_MAX', 'RH2M', 'ALLSKY_SFC_SW_DWN', 'WS2M']:
+        col = _find_column(df.columns.tolist(), p)
+        if col:
+            param_map[p] = col
+
+    for p, c in param_map.items():
+        df_sub[p] = pd.to_numeric(df_sub[c], errors='coerce').replace(-999.0, np.nan)
+
+    t2m = df_sub.get('T2M', pd.Series(dtype=float))
+    tmax = df_sub.get('T2M_MAX', pd.Series(dtype=float))
+    tmin = df_sub.get('T2M_MIN', pd.Series(dtype=float))
+    precip = df_sub.get('PRECTOTCORR', pd.Series(dtype=float))
+    rh = df_sub.get('RH2M', pd.Series(dtype=float))
+    solar = df_sub.get('ALLSKY_SFC_SW_DWN', pd.Series(dtype=float))
+    ws = df_sub.get('WS2M', pd.Series(dtype=float))
+
+    def _val(x):
+        if pd.isna(x) or np.isinf(x):
+            return np.nan
+        return round(float(x), 4)
+
+    features = {
+        'precip_cum': _val(precip.sum()),
+        'precip_mean': _val(precip.mean()),
+        'precip_days': int((precip >= 1.0).sum()) if not precip.empty else 0,
+        't2m_mean': _val(t2m.mean()),
+        't2m_min': _val(tmin.mean()),
+        't2m_max': _val(tmax.mean()),
+        't2m_range': _val((tmax - tmin).mean()),
+        'solar_mean': _val(solar.mean()),
+        'rh2m_mean': _val(rh.mean()),
+        'ws2m_mean': _val(ws.mean()),
+        'gdd_base5': _val(np.maximum(0, t2m - 5.0).sum()),
+        'cool_night_days_16': int((tmin <= 16.0).sum()) if not tmin.empty else 0,
+        'cool_night_days_14': int((tmin <= 14.0).sum()) if not tmin.empty else 0,
+        'late_blight_risk_days': int(((rh >= 80.0) & (t2m >= 10.0) & (t2m <= 22.0)).sum()) if not (rh.empty or t2m.empty) else 0,
+    }
+
+    missing_cols = [k for k, v in features.items() if pd.isna(v)]
+    is_complete = (len(missing_cols) == 0 and observed_days >= (expected_days * 0.7))
+
+    return {
+        "features": features,
+        "is_complete": is_complete,
+        "metadata": {
+            "crop": "potato",
+            "district": canon_district,
+            "year": year,
+            "season": "Rabi",
+            "cutoff_date": cutoff_date.strftime("%Y-%m-%d"),
+            "expected_days": expected_days,
+            "observed_days": observed_days,
+            "missing_features": missing_cols
+        },
+        "warnings": warnings
     }
