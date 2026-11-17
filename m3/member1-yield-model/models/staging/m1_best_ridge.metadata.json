@@ -1,0 +1,73 @@
+{
+  "model_name": "m1_best_ridge",
+  "artifact_filename": "m1_best_ridge.pkl",
+  "architecture": "Ridge regression (Direct yield target)",
+  "target": "Rice_Yield_kg_ha",
+  "target_formula": "Rice_Yield_kg_ha",
+  "prediction_formula": "predicted_yield",
+  "hyperparameters": {
+    "alpha": 1.0
+  },
+  "training_period": "2000-2016",
+  "training_rows": 970,
+  "test_period": "2017-2019",
+  "test_rows": 192,
+  "python_version": "3.13.3",
+  "sklearn_version": "1.7.2",
+  "dependencies": {
+    "python": "3.13.3",
+    "scikit-learn": "1.7.2",
+    "xgboost": "3.4.1",
+    "joblib": "1.5.2",
+    "pandas": "2.2.3",
+    "numpy": "2.2.6",
+    "scipy": "1.16.3"
+  },
+  "training_features": [
+    "Yield_lag1",
+    "Yield_lag2",
+    "Yield_hist_mean",
+    "Area_lag1",
+    "Area_lag2",
+    "Precip_lag1",
+    "T2M_lag1",
+    "RH2M_lag1",
+    "NDVI_lag1",
+    "District",
+    "Season"
+  ],
+  "numerical_features": [
+    "Yield_lag1",
+    "Yield_lag2",
+    "Yield_hist_mean",
+    "Area_lag1",
+    "Area_lag2",
+    "Precip_lag1",
+    "T2M_lag1",
+    "RH2M_lag1",
+    "NDVI_lag1"
+  ],
+  "categorical_features": [
+    "District",
+    "Season"
+  ],
+  "data_preprocessing": {
+    "numerical": "SimpleImputer(strategy='median') -> StandardScaler()",
+    "categorical": "SimpleImputer(strategy='constant', fill_value='missing') -> OneHotEncoder(handle_unknown='ignore', sparse_output=False)"
+  },
+  "training_script": "member1-yield-model/scripts/train_and_evaluate_improved.py",
+  "dataset_path": "data/processed/train.csv",
+  "dataset_sha256": "86707d589383973bb1a35e5c11328c0c196755c14c0e748f3754edca702252ff",
+  "artifact_sha256": "bfa899da7edea7f1f6564b8baa5e9a5f4bd54aa672a576107677960485dc78f5",
+  "evaluation_metrics": {
+    "Model": "Original Ridge (Exp1)",
+    "N": 192,
+    "MAE_kg": 288.0030466572402,
+    "MAE_t": 0.2880030466572402,
+    "RMSE_kg": 371.25745271774866,
+    "RMSE_t": 0.3712574527177487,
+    "R2": 0.5811821277634884,
+    "MAPE_pct": 10.666840982357606
+  },
+  "created_at": "2026-11-11T04:49:53.739526+00:00"
+}

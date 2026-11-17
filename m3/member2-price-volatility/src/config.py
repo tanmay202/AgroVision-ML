@@ -1,0 +1,683 @@
+"""
+AgroVision — Centralized Configuration
+
+Single source of truth for feature lists, file paths,
+column names, and constants.
+
+Multi-Commodity Support:
+    - Call set_commodity("onion") or use CLI --commodity onion
+    - All paths update automatically with commodity prefix
+    - Models and data are saved per-commodity
+"""
+
+import os
+from pathlib import Path
+
+
+# ============================================================
+# COMMODITY CONFIGURATION
+#
+# Default commodity. Override with set_commodity() or CLI args.
+# ============================================================
+
+_COMMODITY = os.environ.get("AGROVISION_COMMODITY", "tea")
+
+
+def get_commodity():
+    """Return the currently active commodity name."""
+    return _COMMODITY
+
+
+def set_commodity(name):
+    """
+    Switch the active commodity. All paths update automatically.
+
+    Parameters
+    ----------
+    name : str
+        Commodity name (e.g., "tea", "onion", "potato").
+        Must match the raw CSV filename: data/raw/{name}.csv
+    """
+    global _COMMODITY
+    _COMMODITY = name.strip().lower()
+
+
+# ============================================================
+# PROJECT PATHS
+# ============================================================
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
+RAW_DATA_DIR = PROJECT_ROOT / "data" / "raw"
+PROCESSED_DATA_DIR = PROJECT_ROOT / "data" / "processed"
+_DEFAULT_ARTIFACTS_DIR = PROJECT_ROOT / "artifacts"
+_CUSTOM_ARTIFACTS_DIR = Path(os.environ["AGROVISION_ARTIFACTS_DIR"]) if "AGROVISION_ARTIFACTS_DIR" in os.environ else None
+
+
+def get_artifacts_dir():
+    return _CUSTOM_ARTIFACTS_DIR or _DEFAULT_ARTIFACTS_DIR
+
+
+def set_artifacts_dir(path):
+    global _CUSTOM_ARTIFACTS_DIR
+    if path is None:
+        _CUSTOM_ARTIFACTS_DIR = None
+    else:
+        _CUSTOM_ARTIFACTS_DIR = Path(path)
+
+
+def reset_artifacts_dir():
+    global _CUSTOM_ARTIFACTS_DIR
+    _CUSTOM_ARTIFACTS_DIR = None
+
+
+def _commodity():
+    """Shortcut for current commodity name."""
+    return _COMMODITY
+
+
+def commodity_raw_dir(commodity=None):
+    """Return raw data subfolder for the selected commodity."""
+    comm = (commodity or _commodity()).strip().lower()
+    return RAW_DATA_DIR / comm
+
+
+def commodity_processed_dir(commodity=None):
+    """Return processed data subfolder for the selected commodity."""
+    comm = (commodity or _commodity()).strip().lower()
+    p = PROCESSED_DATA_DIR / comm
+    p.mkdir(parents=True, exist_ok=True)
+    return p
+
+
+def commodity_artifacts_dir(commodity=None):
+    """Return dedicated artifacts subfolder for the selected commodity."""
+    comm = (commodity or _commodity()).strip().lower()
+    p = get_artifacts_dir() / comm
+    p.mkdir(parents=True, exist_ok=True)
+    return p
+
+
+def raw_data_path():
+    comm = _commodity()
+    candidates = [
+        RAW_DATA_DIR / comm / f"{comm}.csv",
+        RAW_DATA_DIR / comm / f"{comm.capitalize()}.csv",
+        RAW_DATA_DIR / comm / f"{comm.upper()}.csv",
+        RAW_DATA_DIR / f"{comm}.csv",
+        RAW_DATA_DIR / f"{comm.capitalize()}.csv",
+        RAW_DATA_DIR / f"{comm.upper()}.csv",
+    ]
+    for c in candidates:
+        if c.exists():
+            return c
+    return RAW_DATA_DIR / comm / f"{comm}.csv"
+
+
+def cleaned_data_path():
+    comm = _commodity()
+    sub = PROCESSED_DATA_DIR / comm / f"{comm}_cleaned.csv"
+    if sub.exists():
+        return sub
+    flat = PROCESSED_DATA_DIR / f"{comm}_cleaned.csv"
+    if flat.exists():
+        return flat
+    sub.parent.mkdir(parents=True, exist_ok=True)
+    return sub
+
+
+def timeseries_path():
+    comm = _commodity()
+    sub = PROCESSED_DATA_DIR / comm / f"{comm}_timeseries.csv"
+    if sub.exists():
+        return sub
+    flat = PROCESSED_DATA_DIR / f"{comm}_timeseries.csv"
+    if flat.exists():
+        return flat
+    sub.parent.mkdir(parents=True, exist_ok=True)
+    return sub
+
+
+def lag_features_path():
+    comm = _commodity()
+    sub = PROCESSED_DATA_DIR / comm / f"{comm}_lag_features.csv"
+    if sub.exists():
+        return sub
+    flat = PROCESSED_DATA_DIR / f"{comm}_lag_features.csv"
+    if flat.exists():
+        return flat
+    sub.parent.mkdir(parents=True, exist_ok=True)
+    return sub
+
+
+def rolling_features_path():
+    comm = _commodity()
+    sub = PROCESSED_DATA_DIR / comm / f"{comm}_rolling_features.csv"
+    if sub.exists():
+        return sub
+    flat = PROCESSED_DATA_DIR / f"{comm}_rolling_features.csv"
+    if flat.exists():
+        return flat
+    sub.parent.mkdir(parents=True, exist_ok=True)
+    return sub
+
+
+def date_features_path():
+    comm = _commodity()
+    sub = PROCESSED_DATA_DIR / comm / f"{comm}_date_features.csv"
+    if sub.exists():
+        return sub
+    flat = PROCESSED_DATA_DIR / f"{comm}_date_features.csv"
+    if flat.exists():
+        return flat
+    sub.parent.mkdir(parents=True, exist_ok=True)
+    return sub
+
+
+def arrival_features_path():
+    comm = _commodity()
+    sub = PROCESSED_DATA_DIR / comm / f"{comm}_arrival_features.csv"
+    if sub.exists():
+        return sub
+    flat = PROCESSED_DATA_DIR / f"{comm}_arrival_features.csv"
+    if flat.exists():
+        return flat
+    sub.parent.mkdir(parents=True, exist_ok=True)
+    return sub
+
+
+def features_final_path():
+    comm = _commodity()
+    sub = PROCESSED_DATA_DIR / comm / f"{comm}_features_final.csv"
+    if sub.exists():
+        return sub
+    flat = PROCESSED_DATA_DIR / f"{comm}_features_final.csv"
+    if flat.exists():
+        return flat
+    sub.parent.mkdir(parents=True, exist_ok=True)
+    return sub
+
+
+def train_path():
+    comm = _commodity()
+    sub = PROCESSED_DATA_DIR / comm / f"{comm}_train.csv"
+    if sub.exists():
+        return sub
+    flat = PROCESSED_DATA_DIR / f"{comm}_train.csv"
+    if flat.exists():
+        return flat
+    sub.parent.mkdir(parents=True, exist_ok=True)
+    return sub
+
+
+def test_path():
+    comm = _commodity()
+    sub = PROCESSED_DATA_DIR / comm / f"{comm}_test.csv"
+    if sub.exists():
+        return sub
+    flat = PROCESSED_DATA_DIR / f"{comm}_test.csv"
+    if flat.exists():
+        return flat
+    sub.parent.mkdir(parents=True, exist_ok=True)
+    return sub
+
+
+def volatility_train_path():
+    comm = _commodity()
+    sub = PROCESSED_DATA_DIR / comm / f"{comm}_volatility_train.csv"
+    if sub.exists():
+        return sub
+    flat = PROCESSED_DATA_DIR / f"{comm}_volatility_train.csv"
+    if flat.exists():
+        return flat
+    sub.parent.mkdir(parents=True, exist_ok=True)
+    return sub
+
+
+def volatility_dataset_train_path():
+    comm = _commodity()
+    sub = PROCESSED_DATA_DIR / comm / f"{comm}_volatility_dataset_train.csv"
+    if sub.exists():
+        return sub
+    flat = PROCESSED_DATA_DIR / f"{comm}_volatility_dataset_train.csv"
+    if flat.exists():
+        return flat
+    sub.parent.mkdir(parents=True, exist_ok=True)
+    return sub
+
+
+def volatility_dataset_test_path():
+    comm = _commodity()
+    sub = PROCESSED_DATA_DIR / comm / f"{comm}_volatility_dataset_test.csv"
+    if sub.exists():
+        return sub
+    flat = PROCESSED_DATA_DIR / f"{comm}_volatility_dataset_test.csv"
+    if flat.exists():
+        return flat
+    sub.parent.mkdir(parents=True, exist_ok=True)
+    return sub
+
+
+def error_analysis_path():
+    comm = _commodity()
+    sub = PROCESSED_DATA_DIR / comm / f"{comm}_price_error_analysis.csv"
+    if sub.exists():
+        return sub
+    flat = PROCESSED_DATA_DIR / f"{comm}_price_error_analysis.csv"
+    if flat.exists():
+        return flat
+    sub.parent.mkdir(parents=True, exist_ok=True)
+    return sub
+
+
+# --- Artifact paths (commodity-specific models) ---
+
+def price_model_path():
+    comm = _commodity()
+    sub = get_artifacts_dir() / comm / f"{comm}_price_model.pkl"
+    if sub.exists():
+        return sub
+    flat = get_artifacts_dir() / f"{comm}_price_model.pkl"
+    if flat.exists():
+        return flat
+    sub.parent.mkdir(parents=True, exist_ok=True)
+    return sub
+
+
+def volatility_model_path():
+    comm = _commodity()
+    sub = get_artifacts_dir() / comm / f"{comm}_volatility_model.pkl"
+    if sub.exists():
+        return sub
+    flat = get_artifacts_dir() / f"{comm}_volatility_model.pkl"
+    if flat.exists():
+        return flat
+    sub.parent.mkdir(parents=True, exist_ok=True)
+    return sub
+
+
+def feature_config_path():
+    comm = _commodity()
+    sub = get_artifacts_dir() / comm / f"{comm}_feature_config.json"
+    if sub.exists():
+        return sub
+    flat = get_artifacts_dir() / f"{comm}_feature_config.json"
+    if flat.exists():
+        return flat
+    sub.parent.mkdir(parents=True, exist_ok=True)
+    return sub
+
+
+def volatility_config_path():
+    comm = _commodity()
+    sub = get_artifacts_dir() / comm / f"{comm}_volatility_config.json"
+    if sub.exists():
+        return sub
+    flat = get_artifacts_dir() / f"{comm}_volatility_config.json"
+    if flat.exists():
+        return flat
+    sub.parent.mkdir(parents=True, exist_ok=True)
+    return sub
+
+
+def group_mappings_path(commodity=None):
+    comm = (commodity or _commodity()).strip().lower()
+    candidates = [
+        get_artifacts_dir() / comm / f"{comm}_group_mappings.json",
+        get_artifacts_dir() / f"{comm}_group_mappings.json",
+    ]
+    for c in candidates:
+        if c.exists():
+            return c
+    sub = get_artifacts_dir() / comm / f"{comm}_group_mappings.json"
+    sub.parent.mkdir(parents=True, exist_ok=True)
+    return sub
+
+
+# ============================================================
+# BACKWARD-COMPATIBLE STATIC PATHS
+#
+# These are properties that return the path for the current
+# commodity. Existing code that reads TRAIN_PATH etc. will
+# still work, but now they resolve dynamically.
+# ============================================================
+
+class _DynamicPath:
+    """Descriptor that calls a path function each time it's accessed."""
+    def __init__(self, func):
+        self.func = func
+    def __fspath__(self):
+        return str(self.func())
+    def __str__(self):
+        return str(self.func())
+    def __repr__(self):
+        return repr(self.func())
+    def __getattr__(self, name):
+        return getattr(self.func(), name)
+    def __truediv__(self, other):
+        return self.func() / other
+    def __rtruediv__(self, other):
+        return other / self.func()
+    def __eq__(self, other):
+        return self.func() == other or str(self.func()) == str(other)
+    def __hash__(self):
+        return hash(self.func())
+
+
+# For simplicity and backward compat, expose as module-level constants
+# that are re-evaluated. Scripts that import at module level will get
+# the path for whatever commodity was set at import time.
+# For dynamic use, call the functions above.
+
+RAW_DATA_PATH = _DynamicPath(raw_data_path)
+CLEANED_DATA_PATH = _DynamicPath(cleaned_data_path)
+TIMESERIES_PATH = _DynamicPath(timeseries_path)
+LAG_FEATURES_PATH = _DynamicPath(lag_features_path)
+ROLLING_FEATURES_PATH = _DynamicPath(rolling_features_path)
+DATE_FEATURES_PATH = _DynamicPath(date_features_path)
+ARRIVAL_FEATURES_PATH = _DynamicPath(arrival_features_path)
+FEATURES_FINAL_PATH = _DynamicPath(features_final_path)
+TRAIN_PATH = _DynamicPath(train_path)
+TEST_PATH = _DynamicPath(test_path)
+VOLATILITY_TRAIN_PATH = _DynamicPath(volatility_train_path)
+VOLATILITY_DATASET_TRAIN_PATH = _DynamicPath(volatility_dataset_train_path)
+VOLATILITY_DATASET_TEST_PATH = _DynamicPath(volatility_dataset_test_path)
+ERROR_ANALYSIS_PATH = _DynamicPath(error_analysis_path)
+PRICE_MODEL_PATH = _DynamicPath(price_model_path)
+VOLATILITY_MODEL_PATH = _DynamicPath(volatility_model_path)
+FEATURE_CONFIG_PATH = _DynamicPath(feature_config_path)
+VOLATILITY_CONFIG_PATH = _DynamicPath(volatility_config_path)
+ARTIFACTS_DIR = _DynamicPath(get_artifacts_dir)
+
+
+# ============================================================
+# COLUMN NAMES
+# ============================================================
+
+DATE_COLUMN = "Reported Date"
+PRICE_COLUMN = "Modal Price (Rs./Quintal)"
+MIN_PRICE_COLUMN = "Min Price (Rs./Quintal)"
+MAX_PRICE_COLUMN = "Max Price (Rs./Quintal)"
+ARRIVAL_COLUMN = "Arrivals (Tonnes)"
+
+PRICE_TARGET = "future_modal_price"
+PRICE_CHANGE_TARGET = "future_price_pct_change"
+PRICE_LOG_RETURN_TARGET = "future_log_return"
+VOLATILITY_TARGET = "volatility"
+
+
+# ============================================================
+# GROUP COLUMNS (define one time series)
+# ============================================================
+
+GROUP_COLUMNS = ["Market Name", "Variety"]
+
+
+# ============================================================
+# NUMERIC COLUMNS (for data validation)
+# ============================================================
+
+NUMERIC_COLUMNS = [
+    ARRIVAL_COLUMN,
+    MIN_PRICE_COLUMN,
+    MAX_PRICE_COLUMN,
+    PRICE_COLUMN,
+]
+
+
+# ============================================================
+# PRICE COLUMNS (for anomaly checks)
+# ============================================================
+
+PRICE_COLUMNS = [
+    MIN_PRICE_COLUMN,
+    MAX_PRICE_COLUMN,
+    PRICE_COLUMN,
+]
+
+
+# ============================================================
+# FORECAST HORIZON
+#
+# Maximum number of days ahead we consider a valid target.
+# Rows where the next observation is further away are dropped
+# to keep the prediction horizon consistent.
+# ============================================================
+
+FORECAST_HORIZON_MAX_DAYS = 7
+
+
+PRICE_FEATURES = [
+    # Historical price lags (safe — from past observations)
+    "lag_1",
+    "lag_7",
+    "lag_14",
+    "lag_30",
+    # Rolling statistics (safe — computed from shifted past values)
+    "rolling_mean_7",
+    "rolling_mean_14",
+    "rolling_mean_30",
+    "rolling_std_7",
+    "rolling_std_14",
+    # Date features (safe — known at prediction time)
+    "year",
+    "day",
+    "month",
+    "day_of_week",
+    "week_of_year",
+    # Arrival features (lags only — safe)
+    "arrival_lag_1",
+    "arrival_lag_7",
+    "arrival_rolling_mean_7",
+    "arrival_rolling_mean_14",
+    # Percentage changes (safe — computed from previous row)
+    "price_pct_change",
+    "arrival_pct_change",
+]
+
+
+# ============================================================
+# VOLATILITY MODEL FEATURES
+#
+# IMPORTANT: price_pct_change is intentionally EXCLUDED.
+# Volatility is derived from price_pct_change, so including
+# it would cause direct target leakage.
+#
+# Same leakage fixes as PRICE_FEATURES apply here.
+# ============================================================
+
+VOLATILITY_FEATURES = [
+    # Historical price lags
+    "lag_1",
+    "lag_7",
+    "lag_14",
+    "lag_30",
+    # Rolling statistics
+    "rolling_mean_7",
+    "rolling_mean_14",
+    "rolling_mean_30",
+    "rolling_std_7",
+    "rolling_std_14",
+    # Date features
+    "year",
+    "day",
+    "month",
+    "day_of_week",
+    "week_of_year",
+    # Arrival features (lags only)
+    "arrival_lag_1",
+    "arrival_lag_7",
+    "arrival_rolling_mean_7",
+    "arrival_rolling_mean_14",
+    # Arrival percentage change
+    "arrival_pct_change",
+]
+
+
+# ============================================================
+# VOLATILITY LABEL ENCODING
+# ============================================================
+
+VOLATILITY_LABEL_MAP = {
+    "LOW": 0,
+    "MEDIUM": 1,
+    "HIGH": 2,
+}
+
+VOLATILITY_REVERSE_LABEL_MAP = {
+    0: "LOW",
+    1: "MEDIUM",
+    2: "HIGH",
+}
+
+VOLATILITY_CLASSES = ["LOW", "MEDIUM", "HIGH"]
+
+
+# ============================================================
+# HORIZON FORECASTING & SHADOW EVALUATION RELEASE CONTROLS
+# ============================================================
+
+_HORIZON_FORECASTING_ENABLED_OVERRIDE = None
+_HORIZON_14D_ENABLED_OVERRIDE = None
+_HORIZON_30D_ENABLED_OVERRIDE = None
+_SHADOW_EVALUATION_ENABLED_OVERRIDE = None
+_VOLATILITY_SHADOW_ENABLED_OVERRIDE = None
+
+
+def is_volatility_shadow_enabled() -> bool:
+    """
+    Operational switch for isolated background shadow monitoring of V3 14-day volatility classifier.
+
+    Disabled by default ('false').
+    Controlled by AGROVISION_ENABLE_VOLATILITY_SHADOW or AGROVISION_SHADOW_VOLATILITY_ONLY.
+    """
+    if _VOLATILITY_SHADOW_ENABLED_OVERRIDE is not None:
+        return _VOLATILITY_SHADOW_ENABLED_OVERRIDE
+    val = os.environ.get("AGROVISION_ENABLE_VOLATILITY_SHADOW", "").strip().lower()
+    if val:
+        return val in ("true", "1", "yes", "on")
+    val_only = os.environ.get("AGROVISION_SHADOW_VOLATILITY_ONLY", "false").strip().lower()
+    return val_only in ("true", "1", "yes", "on")
+
+
+def set_volatility_shadow_enabled(enabled: bool) -> None:
+    """Programmatically override volatility shadow monitoring switch."""
+    global _VOLATILITY_SHADOW_ENABLED_OVERRIDE
+    _VOLATILITY_SHADOW_ENABLED_OVERRIDE = bool(enabled)
+
+
+def get_volatility_v3_14d_model_path() -> Path:
+    """Return path to frozen V3 14-day volatility model artifact."""
+    p = get_artifacts_dir() / "v3" / "rice_volatility_v3_14d_model.pkl"
+    if p.exists():
+        return p
+    default_p = PROCESSED_DATA_DIR.parent / "artifacts" / "v3" / "rice_volatility_v3_14d_model.pkl"
+    if default_p.exists():
+        return default_p
+    return p
+
+
+def get_volatility_v3_14d_config_path() -> Path:
+    """Return path to frozen V3 14-day volatility configuration artifact."""
+    p = get_artifacts_dir() / "v3" / "rice_volatility_v3_14d_config.json"
+    if p.exists():
+        return p
+    default_p = PROCESSED_DATA_DIR.parent / "artifacts" / "v3" / "rice_volatility_v3_14d_config.json"
+    if default_p.exists():
+        return default_p
+    return p
+
+
+def is_horizon_forecasting_enabled() -> bool:
+    """
+    Master switch for user-facing 14d and 30d horizon forecasting API.
+
+    Deployment Policy:
+    Disabled by default ('false') in fresh installations to ensure strict opt-in semantics.
+    Operators must explicitly set AGROVISION_ENABLE_HORIZON_FORECASTING=true to expose
+    horizon forecasting to API clients.
+    """
+    if _HORIZON_FORECASTING_ENABLED_OVERRIDE is not None:
+        return _HORIZON_FORECASTING_ENABLED_OVERRIDE
+    val = os.environ.get("AGROVISION_ENABLE_HORIZON_FORECASTING", "false").strip().lower()
+    return val in ("true", "1", "yes", "on")
+
+
+def is_horizon_14d_enabled() -> bool:
+    """
+    Individual switch for 14-day horizon forecasting.
+    Requires master horizon switch to be active for public API routing.
+    Disabled by default in fresh installations ('false').
+    """
+    if _HORIZON_14D_ENABLED_OVERRIDE is not None:
+        return _HORIZON_14D_ENABLED_OVERRIDE
+    val = os.environ.get("AGROVISION_ENABLE_HORIZON_14D", "false").strip().lower()
+    return val in ("true", "1", "yes", "on")
+
+
+def is_horizon_30d_enabled() -> bool:
+    """
+    Individual switch for experimental 30-day horizon forecasting.
+    Requires master horizon switch to be active for public API routing.
+    Disabled by default in fresh installations ('false').
+    """
+    if _HORIZON_30D_ENABLED_OVERRIDE is not None:
+        return _HORIZON_30D_ENABLED_OVERRIDE
+    val = os.environ.get("AGROVISION_ENABLE_HORIZON_30D", "false").strip().lower()
+    return val in ("true", "1", "yes", "on")
+
+
+def is_shadow_evaluation_enabled() -> bool:
+    """
+    Operational switch for background shadow-mode forecast generation and delayed evaluation.
+
+    Can run independently of user-facing API availability.
+    Disabled by default in fresh installations ('false').
+    Operators must explicitly set AGROVISION_ENABLE_SHADOW_EVALUATION=true to activate.
+    """
+    if _SHADOW_EVALUATION_ENABLED_OVERRIDE is not None:
+        return _SHADOW_EVALUATION_ENABLED_OVERRIDE
+    val = os.environ.get("AGROVISION_ENABLE_SHADOW_EVALUATION", "false").strip().lower()
+    return val in ("true", "1", "yes", "on")
+
+
+def set_horizon_forecasting_enabled(enabled: bool) -> None:
+    """Programmatically override master horizon forecasting switch (for testing/runtime toggling)."""
+    global _HORIZON_FORECASTING_ENABLED_OVERRIDE
+    _HORIZON_FORECASTING_ENABLED_OVERRIDE = bool(enabled)
+
+
+def set_horizon_14d_enabled(enabled: bool) -> None:
+    """Programmatically override 14-day horizon switch."""
+    global _HORIZON_14D_ENABLED_OVERRIDE
+    _HORIZON_14D_ENABLED_OVERRIDE = bool(enabled)
+
+
+def set_horizon_30d_enabled(enabled: bool) -> None:
+    """Programmatically override 30-day horizon switch."""
+    global _HORIZON_30D_ENABLED_OVERRIDE
+    _HORIZON_30D_ENABLED_OVERRIDE = bool(enabled)
+
+
+def set_shadow_evaluation_enabled(enabled: bool) -> None:
+    """Programmatically override shadow evaluation switch."""
+    global _SHADOW_EVALUATION_ENABLED_OVERRIDE
+    _SHADOW_EVALUATION_ENABLED_OVERRIDE = bool(enabled)
+
+
+def reset_horizon_forecasting_switches() -> None:
+    """Reset programmatic overrides to defer to environment variables."""
+    global _HORIZON_FORECASTING_ENABLED_OVERRIDE, _HORIZON_14D_ENABLED_OVERRIDE, _HORIZON_30D_ENABLED_OVERRIDE, _SHADOW_EVALUATION_ENABLED_OVERRIDE, _VOLATILITY_SHADOW_ENABLED_OVERRIDE
+    _HORIZON_FORECASTING_ENABLED_OVERRIDE = None
+    _HORIZON_14D_ENABLED_OVERRIDE = None
+    _HORIZON_30D_ENABLED_OVERRIDE = None
+    _SHADOW_EVALUATION_ENABLED_OVERRIDE = None
+    _VOLATILITY_SHADOW_ENABLED_OVERRIDE = None
+
+
+def get_shadow_db_path() -> Path:
+    """Return configured SQLite database path for shadow evaluation records."""
+    env_path = os.environ.get("AGROVISION_SHADOW_DB_PATH")
+    if env_path:
+        return Path(env_path)
+    return PROCESSED_DATA_DIR / "shadow_evaluation.db"

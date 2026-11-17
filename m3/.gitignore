@@ -1,0 +1,17 @@
+# Environment
+.env
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Frontend
+frontend/node_modules/
+
+# Docker offline bundle (too large for git)
+agrovision_demo.tar
+*.tar
+
+# IDE
+.vscode/

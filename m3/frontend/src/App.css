@@ -1,0 +1,100 @@
+/* Weather Shock Simulator Panel */
+.shock-panel {
+  margin-top: 14px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: var(--paper);
+  border: 1.5px solid var(--line);
+  transition: border-color 0.2s, background 0.2s;
+}
+.shock-panel.simulated {
+  background: var(--red-bg);
+  border-color: rgba(178, 59, 53, 0.45);
+}
+.shock-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.shock-presets {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.preset-btn {
+  padding: 7px 8px;
+  border-radius: 10px;
+  font-size: 11.5px;
+  font-weight: 800;
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  color: var(--ink-soft);
+  text-align: center;
+}
+.preset-btn.active {
+  border-color: var(--green-700);
+  background: var(--green-tint);
+  color: var(--green-900);
+}
+.preset-btn.active-warn {
+  border-color: var(--marigold-deep);
+  background: var(--marigold-tint);
+  color: var(--marigold-deep);
+}
+.preset-btn.active-danger {
+  border-color: var(--red);
+  background: #fff;
+  color: var(--red);
+}
+.shock-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.shock-slider-row input[type="range"] {
+  flex: 1;
+  accent-color: var(--red);
+  cursor: pointer;
+}
+
+/* Alert Tone Support for Advice Card & Stamp Seal */
+.advice.tone-alert {
+  border-color: #E7B7B4;
+  background: linear-gradient(135deg, #FFFFFF, var(--red-bg));
+}
+.advice.tone-alert::before {
+  background: var(--red);
+}
+.seal.tone-alert {
+  color: var(--red);
+  background: var(--red-bg);
+}
+
+/* Risk Decomposition Bars */
+.risk-bars {
+  margin-top: 10px;
+  display: grid;
+  gap: 7px;
+}
+.risk-bar-item {
+  display: grid;
+  grid-template-columns: 128px 1fr 42px;
+  align-items: center;
+  gap: 8px;
+  font-size: 11.5px;
+  font-weight: 700;
+}
+.risk-track {
+  height: 7px;
+  border-radius: 999px;
+  background: var(--paper-deep);
+  overflow: hidden;
+}
+.risk-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.25s ease;
+}

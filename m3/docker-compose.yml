@@ -1,0 +1,42 @@
+services:
+  db:
+    image: timescale/timescaledb-ha:pg16
+    container_name: agrovision-db
+    environment:
+      POSTGRES_DB: agrovision
+      POSTGRES_USER: agrovision
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./docker-init:/docker-entrypoint-initdb.d:ro
+      - agrovision-db-data:/home/postgres/pgdata/data
+    ports:
+      - "5433:5432"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U agrovision -d agrovision"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  web:
+    image: agrovision-web:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: agrovision-web
+    environment:
+      PGHOST: db
+      PGPORT: "5432"
+      PGDATABASE: agrovision
+      PGUSER: agrovision
+      PGPASSWORD: postgres
+      DATABASE_URL: postgresql://agrovision:postgres@db:5432/agrovision
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+volumes:
+  agrovision-db-data:

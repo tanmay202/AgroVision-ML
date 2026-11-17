@@ -1,0 +1,92 @@
+{
+  "model_name": "m1_improved_delta_ridge",
+  "artifact_filename": "m1_improved_delta_ridge.pkl",
+  "architecture": "Ridge regression (Delta formulation)",
+  "target": "delta_yield_kg_ha",
+  "target_formula": "Rice_Yield_kg_ha - Yield_lag1",
+  "prediction_formula": "Yield_lag1 + predicted_delta",
+  "hyperparameters": {
+    "alpha": 300.0,
+    "random_state": 42
+  },
+  "training_period": "2000-2016",
+  "training_rows": 970,
+  "test_period": "2017-2019",
+  "test_rows": 192,
+  "python_version": "3.13.3",
+  "sklearn_version": "1.7.2",
+  "dependencies": {
+    "python": "3.13.3",
+    "scikit-learn": "1.7.2",
+    "xgboost": "3.4.1",
+    "joblib": "1.5.2",
+    "pandas": "2.2.3",
+    "numpy": "2.2.6",
+    "scipy": "1.16.3"
+  },
+  "training_features": [
+    "Yield_lag1",
+    "Yield_lag2",
+    "Area_lag1",
+    "Area_lag2",
+    "Precip_lag1",
+    "T2M_lag1",
+    "RH2M_lag1",
+    "NDVI_lag1",
+    "InSeason_Precip_Cum",
+    "InSeason_Precip_Mean",
+    "InSeason_Precip_Max",
+    "InSeason_T2M_Mean",
+    "InSeason_T2M_Min",
+    "InSeason_T2M_Max",
+    "InSeason_T2M_Range",
+    "InSeason_RH2M_Mean",
+    "InSeason_Solar_Mean",
+    "InSeason_Wind_Mean",
+    "District",
+    "Season"
+  ],
+  "numerical_features": [
+    "Yield_lag1",
+    "Yield_lag2",
+    "Area_lag1",
+    "Area_lag2",
+    "Precip_lag1",
+    "T2M_lag1",
+    "RH2M_lag1",
+    "NDVI_lag1",
+    "InSeason_Precip_Cum",
+    "InSeason_Precip_Mean",
+    "InSeason_Precip_Max",
+    "InSeason_T2M_Mean",
+    "InSeason_T2M_Min",
+    "InSeason_T2M_Max",
+    "InSeason_T2M_Range",
+    "InSeason_RH2M_Mean",
+    "InSeason_Solar_Mean",
+    "InSeason_Wind_Mean"
+  ],
+  "categorical_features": [
+    "District",
+    "Season"
+  ],
+  "data_preprocessing": {
+    "numerical": "SimpleImputer(strategy='median') -> StandardScaler()",
+    "categorical": "SimpleImputer(strategy='constant', fill_value='missing') -> OneHotEncoder(handle_unknown='ignore', sparse_output=False)"
+  },
+  "training_script": "member1-yield-model/scripts/train_and_evaluate_improved.py",
+  "dataset_path": "data/processed/rice_yield_inseason_features_wb.csv",
+  "dataset_sha256": "c2d0a5cb83e9d910bb5288b127359dd00a639f8cd51e8765436e89788e2213dc",
+  "artifact_sha256": "3099c2d6d113105f185111f6b1f02004229cc0e32318e9f35532841f7d4dcb56",
+  "evaluation_metrics": {
+    "Model": "Improved Delta Ridge",
+    "N": 192,
+    "MAE_kg": 246.36437500791146,
+    "MAE_t": 0.24636437500791147,
+    "RMSE_kg": 334.11290420014944,
+    "RMSE_t": 0.33411290420014944,
+    "R2": 0.6607957041223059,
+    "MAPE_pct": 9.484756171791082
+  },
+  "created_at": "2026-11-11T04:49:53.686613+00:00"
+}

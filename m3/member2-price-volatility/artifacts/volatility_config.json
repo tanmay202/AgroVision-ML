@@ -1,0 +1,10 @@
+{
+    "threshold_method": "training-data quantiles of non-zero absolute price percentage changes",
+    "low_medium_threshold_percent": 4.0,
+    "medium_high_threshold_percent": 9.0909,
+    "classes": {
+        "LOW": "0% to 4.0000%",
+        "MEDIUM": ">4.0000% to 9.0909%",
+        "HIGH": ">9.0909%"
+    }
+}

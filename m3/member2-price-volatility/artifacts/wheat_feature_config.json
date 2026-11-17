@@ -1,0 +1,185 @@
+{
+  "commodity": "wheat",
+  "price_model": {
+    "type": "XGBRegressor",
+    "target": "future_price_change",
+    "target_treatment": "unclipped",
+    "features": [
+      "lag_1",
+      "lag_7",
+      "lag_14",
+      "lag_30",
+      "rolling_mean_7",
+      "rolling_mean_14",
+      "rolling_mean_30",
+      "rolling_std_7",
+      "rolling_std_14",
+      "year",
+      "day",
+      "month",
+      "day_of_week",
+      "week_of_year",
+      "arrival_lag_1",
+      "arrival_lag_7",
+      "arrival_rolling_mean_7",
+      "arrival_rolling_mean_14",
+      "price_pct_change",
+      "arrival_pct_change"
+    ],
+    "reconstruction_column": "Modal Price (Rs./Quintal)",
+    "note": "Add predicted future_price_change to current modal price."
+  },
+  "volatility_model": {
+    "type": "XGBClassifier",
+    "target": "volatility",
+    "classes": [
+      "LOW",
+      "MEDIUM",
+      "HIGH"
+    ],
+    "features": [
+      "lag_1",
+      "lag_7",
+      "lag_14",
+      "lag_30",
+      "rolling_mean_7",
+      "rolling_mean_14",
+      "rolling_mean_30",
+      "rolling_std_7",
+      "rolling_std_14",
+      "year",
+      "day",
+      "month",
+      "day_of_week",
+      "week_of_year",
+      "arrival_lag_1",
+      "arrival_lag_7",
+      "arrival_rolling_mean_7",
+      "arrival_rolling_mean_14",
+      "arrival_pct_change"
+    ],
+    "class_balanced": true
+  },
+  "volatility_test_metrics": {
+    "accuracy": 0.6349441157133465,
+    "balanced_accuracy": 0.6036719274778218,
+    "macro_f1": 0.6100617780170662,
+    "mcc": 0.41509548278335917,
+    "per_class": {
+      "LOW": {
+        "precision": 0.6539728283244134,
+        "recall": 0.6622889305816135,
+        "f1": 0.6581046090108752
+      },
+      "MEDIUM": {
+        "precision": 0.5631174533479693,
+        "recall": 0.4691358024691358,
+        "f1": 0.5118483412322274
+      },
+      "HIGH": {
+        "precision": 0.6419460641399417,
+        "recall": 0.6795910493827161,
+        "f1": 0.6602323838080959
+      }
+    },
+    "confusion_matrix": [
+      [
+        3177,
+        318,
+        1302
+      ],
+      [
+        498,
+        1026,
+        663
+      ],
+      [
+        1183,
+        478,
+        3523
+      ]
+    ],
+    "pr_auc_medium": 0.5068914917743156,
+    "pr_auc_high": 0.6248938966418438,
+    "majority_baseline": {
+      "accuracy": 0.3942307692307692,
+      "balanced_accuracy": 0.3333333333333333,
+      "macro_f1": 0.18850574712643678,
+      "mcc": 0.0,
+      "per_class": {
+        "LOW": {
+          "precision": 0.3942307692307692,
+          "recall": 1.0,
+          "f1": 0.5655172413793104
+        },
+        "MEDIUM": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "HIGH": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      },
+      "confusion_matrix": [
+        [
+          4797,
+          0,
+          0
+        ],
+        [
+          2187,
+          0,
+          0
+        ],
+        [
+          5184,
+          0,
+          0
+        ]
+      ]
+    },
+    "stratified_baseline": {
+      "accuracy": 0.3323471400394477,
+      "balanced_accuracy": 0.3277121968091054,
+      "macro_f1": 0.31585371294117515,
+      "mcc": -0.004064062221155163,
+      "per_class": {
+        "LOW": {
+          "precision": 0.39154238248064943,
+          "recall": 0.4323535543047738,
+          "f1": 0.41093719041014465
+        },
+        "MEDIUM": {
+          "precision": 0.16928721174004194,
+          "recall": 0.29538180155464105,
+          "f1": 0.2152257204730968
+        },
+        "HIGH": {
+          "precision": 0.43338788870703765,
+          "recall": 0.25540123456790126,
+          "f1": 0.321398227940284
+        }
+      },
+      "confusion_matrix": [
+        [
+          2074,
+          1547,
+          1176
+        ],
+        [
+          986,
+          646,
+          555
+        ],
+        [
+          2237,
+          1623,
+          1324
+        ]
+      ]
+    }
+  }
+}

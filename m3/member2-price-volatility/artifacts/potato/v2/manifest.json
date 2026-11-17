@@ -1,0 +1,55 @@
+{
+  "commodity": "potato",
+  "version": "2.0.0",
+  "created_at": "2026-11-15T20:30:00Z",
+  "artifacts": {
+    "potato_feature_config.json": {
+      "size_bytes": 4621,
+      "sha256": "f5cf139d37ebc8988a2257da72bbc3422abdcc6fe0562b12ed2ae73a096d4b53"
+    },
+    "potato_price_14d_model.pkl": {
+      "size_bytes": 460590,
+      "sha256": "6088ac503bbfae7789c7166ca850c69c11113bf98aa9f572cefad7fd94114f17"
+    },
+    "potato_price_30d_model.pkl": {
+      "size_bytes": 460694,
+      "sha256": "de169b0211e03d036265ba4c73fe2df166532dd900ed5452ea339d13e25e992f"
+    },
+    "potato_price_model.pkl": {
+      "size_bytes": 584465,
+      "sha256": "f88323ac8aac1fac0278cbeca9463eec0d75e35fa4e5758fe74e15c75fe6e3a8"
+    },
+    "potato_price_model_v2.pkl": {
+      "size_bytes": 584465,
+      "sha256": "f88323ac8aac1fac0278cbeca9463eec0d75e35fa4e5758fe74e15c75fe6e3a8"
+    },
+    "potato_price_model_v2_config.json": {
+      "size_bytes": 4621,
+      "sha256": "f5cf139d37ebc8988a2257da72bbc3422abdcc6fe0562b12ed2ae73a096d4b53"
+    },
+    "potato_residual_distributions.json": {
+      "size_bytes": 1416,
+      "sha256": "5d8595ec7dd51932f71ce13681870afd55d78a519011bd7288990bd264c8d877"
+    },
+    "potato_v2_metrics.json": {
+      "size_bytes": 5958,
+      "sha256": "69dbbe597e26568206e62d89f7d9512c0fa872bd6fc87d1c769984028ffea11a"
+    },
+    "potato_volatility_config.json": {
+      "size_bytes": 444,
+      "sha256": "18fcf076a400adf5f44bb15303a4f056102900951754c18c3cdc61cd77642ddb"
+    },
+    "potato_volatility_model.pkl": {
+      "size_bytes": 2031230,
+      "sha256": "6aa4beae4eb4a6a7f33a2e9b11f44c95292cd576b7816a1d8d797c3c4c289b31"
+    },
+    "potato_volatility_model_v2.pkl": {
+      "size_bytes": 2031230,
+      "sha256": "6aa4beae4eb4a6a7f33a2e9b11f44c95292cd576b7816a1d8d797c3c4c289b31"
+    },
+    "potato_volatility_model_v2_config.json": {
+      "size_bytes": 444,
+      "sha256": "18fcf076a400adf5f44bb15303a4f056102900951754c18c3cdc61cd77642ddb"
+    }
+  }
+}

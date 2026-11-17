@@ -1,0 +1,84 @@
+{
+  "commodity": "rice",
+  "volatility_version": "v3_14d",
+  "horizon_days": 14,
+  "classes": [
+    "LOW",
+    "MEDIUM",
+    "HIGH"
+  ],
+  "features": [
+    "past_5_range",
+    "past_5_pct_range",
+    "past_10_range",
+    "past_10_pct_range",
+    "past_20_range",
+    "past_20_pct_range",
+    "past_7d_range",
+    "past_7d_pct_range",
+    "past_14d_pct_range",
+    "rolling_std_5",
+    "rolling_std_7",
+    "rolling_std_14",
+    "rolling_std_30",
+    "rolling_std_pct_5",
+    "rolling_std_pct_14",
+    "pct_change_1",
+    "pct_change_2",
+    "pct_change_5",
+    "abs_pct_change_1",
+    "abs_pct_change_5",
+    "ewma_abs_diff_5",
+    "ewma_abs_diff_14",
+    "ewma_pct_vol_5",
+    "ewma_pct_vol_14",
+    "vol_trend_5_10",
+    "vol_pct_trend_5_10",
+    "vol_std_ratio_5_14",
+    "nonzero_moves_5",
+    "nonzero_moves_10",
+    "streak_zero",
+    "max_daily_pct_jump_5",
+    "price_level",
+    "price_to_mean_7",
+    "month",
+    "day_of_week",
+    "week_of_year",
+    "arrival_lag_1",
+    "arrival_rolling_mean_7"
+  ],
+  "thresholds": {
+    "low_medium_threshold": 0.014286,
+    "medium_high_threshold": 2.666666,
+    "horizon_days": 14,
+    "method": "zero-aware training split (< 2023-01-27 pre-holdout)"
+  },
+  "training_metadata": {
+    "train_observations": 291728,
+    "purged_boundary_rows": 570,
+    "train_period": [
+      "2001-06-19",
+      "2023-01-17"
+    ],
+    "weight_strategy": "balanced",
+    "features_count": 38
+  },
+  "holdout_benchmark": {
+    "period": [
+      "2023-01-27",
+      "2024-01-27"
+    ],
+    "observations": 20341,
+    "ml_accuracy": 0.5956,
+    "ml_balanced_acc": 0.5751,
+    "ml_macro_f1": 0.5798,
+    "ml_high_recall": 0.5666,
+    "ml_high_precision": 0.5635,
+    "ml_high_f1": 0.5651,
+    "ml_brier_score": 0.5123,
+    "ml_macro_ece": 0.0411,
+    "calibrated_macro_ece": 0.0324,
+    "base_macro_f1": 0.5656,
+    "base_high_recall": 0.5569
+  }
+}

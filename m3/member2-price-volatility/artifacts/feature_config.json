@@ -1,0 +1,68 @@
+{
+    "price_model": {
+        "type": "XGBRegressor",
+        "target": "future_modal_price",
+        "features": [
+            "Arrivals (Tonnes)",
+            "Min Price (Rs./Quintal)",
+            "Max Price (Rs./Quintal)",
+            "Modal Price (Rs./Quintal)",
+            "lag_1",
+            "lag_7",
+            "lag_14",
+            "lag_30",
+            "rolling_mean_7",
+            "rolling_mean_14",
+            "rolling_mean_30",
+            "rolling_std_7",
+            "rolling_std_14",
+            "year",
+            "day",
+            "month",
+            "day_of_week",
+            "week_of_year",
+            "arrival_lag_1",
+            "arrival_lag_7",
+            "arrival_change",
+            "arrival_rolling_mean_7",
+            "arrival_rolling_mean_14",
+            "price_pct_change",
+            "arrival_pct_change"
+        ]
+    },
+    "volatility_model": {
+        "type": "XGBClassifier",
+        "target": "volatility",
+        "classes": [
+            "LOW",
+            "MEDIUM",
+            "HIGH"
+        ],
+        "features": [
+            "Arrivals (Tonnes)",
+            "Min Price (Rs./Quintal)",
+            "Max Price (Rs./Quintal)",
+            "Modal Price (Rs./Quintal)",
+            "lag_1",
+            "lag_7",
+            "lag_14",
+            "lag_30",
+            "rolling_mean_7",
+            "rolling_mean_14",
+            "rolling_mean_30",
+            "rolling_std_7",
+            "rolling_std_14",
+            "year",
+            "day",
+            "month",
+            "day_of_week",
+            "week_of_year",
+            "arrival_lag_1",
+            "arrival_lag_7",
+            "arrival_change",
+            "arrival_rolling_mean_7",
+            "arrival_rolling_mean_14",
+            "arrival_pct_change"
+        ]
+    }
+}

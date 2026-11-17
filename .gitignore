@@ -106,3 +106,13 @@ skills-lock.json
 *.db-journal
 *.db-wal
 *.db-shm
+
+# Docker offline bundle (excluded from git)
+agrovision_demo.tar
+*.tar
+
+# Environment & Dependencies
+.venv/
+__pycache__/
+*.pyc
+frontend/node_modules/
